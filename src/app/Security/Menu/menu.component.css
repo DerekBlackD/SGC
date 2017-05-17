@@ -1,0 +1,145 @@
+.menu-container{
+    background: #124671;
+	width: 300px;
+	position: absolute;
+	top: 0px;
+	left: -282px;
+	bottom: 0px;
+	z-index: 100;
+	display: block;
+    height:100%;
+}
+
+.menu-button-show{
+    display: block;
+	width: 35px;
+	height: 38px;
+	position: absolute;
+	top: 6px;
+	right: -17px;
+	background: url('../../../assets/ico-show-menu.png') 0px 0px no-repeat;
+	cursor: pointer;
+}
+
+.menu-nav{
+    background: #083860;
+	display: block;
+	margin: 8px 0px 0px 0px;
+	padding-top: 5px;
+	border-top: 1px solid #085f9e;
+}
+
+.menu-ul-nav-wrap{
+    padding: 4px 8px 0px 8px;
+	margin: 0px;
+	list-style-type: none;
+}
+
+.menu-ul-nav-wrap li.nav-first-level{
+    padding: 0px;
+	margin: 0px 0px 4px 0px;
+}
+
+.menu-ul-nav-wrap li.nav-first-level span.list-collapse{
+    display: block;
+	padding: 11px 38px 11px 16px;
+	color: #FFF;
+	background: #074974;
+	border-bottom: 2px solid #062c53;
+	border-radius: 4px;
+	position: relative;
+	cursor: pointer;
+}
+
+.menu-ul-nav-wrap li.nav-first-level span.list-collapse:hover{
+    background: #8bc34a;
+}
+
+.menu-ul-nav-wrap li.nav-first-level span.list-collapse:active{
+    background: #8bc34a;
+}
+
+.menu-ul-nav-wrap li.nav-first-level span.list-collapse i {
+    width: 12px;
+	height: 12px;
+	position: absolute;
+	top: 14px;
+	right: 20px;
+	background: url('../../../assets/sprite_solomon.png') -20px -317px no-repeat;
+	opacity: .7;
+}
+
+.menu-ul-nav-wrap li.nav-first-level span.list-collapse.active i {
+    width: 12px;
+	height: 12px;
+	position: absolute;
+	top: 14px;
+	right: 20px;
+	background: url('../../../assets/sprite_solomon.png') -20px -367px no-repeat;
+	opacity: inherit;
+}
+
+.menu-ul-nav-wrap li.nav-first-level ul.nav-collapse{
+    display: none;
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+
+.menu-ul-nav-wrap li.nav-first-level ul.nav-collapse li.nav-second-level a {
+    padding: 7px 10px 7px 32px;
+	display: block;
+	color: #7092b1;
+	position: relative;
+}
+
+.menu-ul-nav-wrap li.nav-first-level ul.nav-collapse li.nav-second-level a:after{
+    content: '';
+	width: 14px;
+	height: 14px;
+	position: absolute;
+	top: 9px;
+	left: 17px;
+	background: url('../../../assets/sprite_solomon.png') -24px -416px no-repeat;
+}
+
+.menu-ul-nav-wrap li.nav-first-level ul.nav-collapse li.nav-second-level a.activeSub:after {
+	background: url('../../../assets/sprite_solomon.png') -22px -567px no-repeat;
+}
+
+.menu-ul-nav-wrap li.nav-first-level ul.nav-collapse li.nav-second-level a:hover {
+	display: block;
+	color: white;
+}
+
+.menu-ul-nav-wrap li.nav-first-level ul.nav-collapse li.nav-second-level a.activeSub {
+	color: white;
+}
+
+.menu-ul-nav-wrap li.nav-first-level ul.nav-collapse li.nav-second-level ul.nav-collapse-sub {
+	display: none;
+	padding: 0px;
+	margin: 0px;
+	list-style-type: none;
+}
+
+.menu-ul-nav-wrap li.nav-first-level ul.nav-collapse li.nav-second-level ul.nav-collapse-sub li.nav-third-level a {
+	padding: 7px 10px 7px 32px;
+	display: block;
+	color: white;
+	position: relative;
+}
+
+.menu-ul-nav-wrap li.nav-first-level ul.nav-collapse li.nav-second-level ul.nav-collapse-sub li.nav-third-level a:after {
+	content: '';
+	width: 3px;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	background: transparent;
+}
+
+.menu-ul-nav-wrap li.nav-first-level ul.nav-collapse li.nav-second-level ul.nav-collapse-sub li.nav-third-level a:hover {
+	color: #eee;
+}
