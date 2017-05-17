@@ -1,5 +1,5 @@
-<div class="menu-container">
-    <a class="menu-button-show"></a>
+<div class="menu-container" [@openClose]="stateExpression">
+    <a class="menu-button-show" (click)="ShowHideMenu()"></a>
     <a class="logo" href="#">
         <div class="text-center">
             BRBRB
