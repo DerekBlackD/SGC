@@ -52,11 +52,12 @@
 }
 
 .menu-ul-nav-wrap li.nav-first-level span.list-collapse:hover{
-    background: #8bc34a;
+    /* background: #8bc34a; */
+	background: #337ab7;
 }
 
 .menu-ul-nav-wrap li.nav-first-level span.list-collapse:active{
-    background: #8bc34a;
+    background: #337ab7;
 }
 
 .menu-ul-nav-wrap li.nav-first-level span.list-collapse i {

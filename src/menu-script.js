@@ -7,7 +7,7 @@
 
         var $el = $(this),
         $elContent = $el.next('ul.nav-collapse');
-        console.log($elContent[0]);
+
         if ($elContent[0] != null){
             if (!$el.hasClass('active')) {
                 $content.slideUp();

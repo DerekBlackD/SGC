@@ -1,9 +1,10 @@
 <header>
-<banner-component></banner-component>
+<banner-component  [BannerControls]="notMenu"></banner-component>
 </header>
 
 <div class="row">
-  <menu-component></menu-component>
+  <menu-component *ngIf="notMenu"></menu-component>
 </div>
 
-<h2>Prueba</h2>
+<router-outlet>
+</router-outlet>

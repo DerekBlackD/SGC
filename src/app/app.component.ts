@@ -1,10 +1,24 @@
 import { Component } from '@angular/core';
+import { SharedService } from './Security/Shared.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [SharedService]
 })
 export class AppComponent {
-  title = 'app works!';
+  notMenu: boolean = false;
+
+  constructor(private _sharedService: SharedService) 
+  {
+     _sharedService.changeEmitted$.subscribe(
+        not => {
+            this.notMenu = not;
+        });
+      }
+
+  ShowMenu(response:boolean){
+    this.notMenu = response;
+  }
 }
