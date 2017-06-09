@@ -11,6 +11,9 @@ import { LoginComponent } from './Security/Login/login.component';
 import { SelectProfileComponent } from './Security/Profile/SelectProfile.component';
 import { AppRoutingModule } from './app-routing.module';
 
+//Services
+import { AuthenticationService } from './Services/authentication.service';
+
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -29,7 +32,9 @@ import { AppComponent } from './app.component';
     //SecurityModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    AuthenticationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
