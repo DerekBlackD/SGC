@@ -12,6 +12,10 @@ export class AppComponent {
 
   constructor(private _sharedService: SharedService) 
   {
+    if (localStorage.getItem('currentUser')) {
+      this.notMenu = true;
+    }
+            
      _sharedService.changeEmitted$.subscribe(
         not => {
             this.notMenu = not;

@@ -4,7 +4,6 @@ import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-//import { SecurityModule } from './Security/Security.module';
 import { BannerComponent } from './Security/Banner/banner.component';
 import { MenuComponent } from './Security/Menu/menu.component';
 import { LoginComponent } from './Security/Login/login.component';
@@ -12,7 +11,10 @@ import { SelectProfileComponent } from './Security/Profile/SelectProfile.compone
 import { AppRoutingModule } from './app-routing.module';
 
 //Services
+import { AuthGuard } from './Guards/auth.guard';
 import { AuthenticationService } from './Services/authentication.service';
+
+import { CollectionModule } from './Collection/collection.module';
 
 import { AppComponent } from './app.component';
 
@@ -29,10 +31,11 @@ import { AppComponent } from './app.component';
     FormsModule,
     HttpModule,
     BrowserAnimationsModule,
-    //SecurityModule,
+    CollectionModule,
     AppRoutingModule
   ],
   providers: [
+    AuthGuard,
     AuthenticationService
   ],
   bootstrap: [AppComponent]

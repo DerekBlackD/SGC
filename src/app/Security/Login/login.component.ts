@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit{
     ngOnInit() {
         // reset login status
         this._authenticationService.logout();
+        this._sharedService.emitChange(false);
     }
 
     Login():void{
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit{
             .subscribe(result => {
                 if (result === true) {
                     this._sharedService.emitChange(true);
-                    this.router.navigateByUrl("/ElegirPerfil");
+                    this.router.navigateByUrl("/Home");
                 } else {
                     console.log('Error');
                 }
