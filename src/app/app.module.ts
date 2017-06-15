@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 //Services
 import { AuthGuard } from './Guards/auth.guard';
 import { AuthenticationService } from './Services/authentication.service';
+import { SecurityService } from './Services/security.service';
 
 import { CollectionModule } from './Collection/collection.module';
 
@@ -36,7 +37,8 @@ import { AppComponent } from './app.component';
   ],
   providers: [
     AuthGuard,
-    AuthenticationService
+    AuthenticationService,
+    SecurityService
   ],
   bootstrap: [AppComponent]
 })

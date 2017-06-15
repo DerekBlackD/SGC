@@ -3,6 +3,7 @@ import { CommonModule }             from '@angular/common';
 import { FormsModule }              from '@angular/forms';
 
 import { HomeComponent }   from './Management/Home/home.component';
+import { GeneralManagementComponent } from './Process/GeneralManagement/general.component';
 
 import { CollectionRoutingModule }  from './collection-routing.module';
 
@@ -13,7 +14,8 @@ import { CollectionRoutingModule }  from './collection-routing.module';
     CollectionRoutingModule
   ],
   declarations: [
-    HomeComponent
+    HomeComponent,
+    GeneralManagementComponent
   ],
   providers: []
 })

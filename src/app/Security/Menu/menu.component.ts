@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import { Component, Input  } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SecurityService } from '../../Services/security.service';
+import { SharedService } from '../Shared.service';
 
 @Component({
     selector: 'menu-component',
@@ -11,20 +13,23 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
         state('collapsed, void', style({ left: -282})),
         state('expanded', style({left: 0})),
         transition(
-            'collapsed <=> expanded', [animate(0, style({})), animate(500)])
-      ])],
+            'collapsed <=> expanded', [animate(0, style({})), animate(300)])
+      ])]
 })
 export class MenuComponent{
     stateExpression: string;
     flag: boolean;
-    constructor() { 
+    @Input() options : any[] = [];
+
+    constructor(private _securityService: SecurityService,
+                private _sharedService: SharedService) { 
         this.collapse();
         this.flag = true;
     }
-    expand() { 
+    expand():void { 
         this.stateExpression = 'expanded'; 
     }
-    collapse() { 
+    collapse():void { 
         this.stateExpression = 'collapsed'; 
     }
     ShowHideMenu():void{

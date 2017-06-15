@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit{
             .subscribe(result => {
                 if (result === true) {
                     this._sharedService.emitChange(true);
-                    this.router.navigateByUrl("/Home");
+                    this.router.navigateByUrl("/Cobranza/Home");
                 } else {
                     console.log('Error');
                 }

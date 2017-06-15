@@ -1,7 +1,7 @@
 +function ($) {
     'use strict';
     $('body').on('click', 'li.nav-first-level > span', function () {
-        var $wrap = $('.nav-wrap'),
+        var $wrap = $('.menu-ul-nav-wrap'),
         $btn = $wrap.find('li.nav-first-level > span'),
         $content = $wrap.find('ul.nav-collapse');
 

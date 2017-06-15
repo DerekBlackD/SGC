@@ -7,9 +7,20 @@
     </a>
     <nav class="menu-nav">
         <ul class="menu-ul-nav-wrap">
-            <li class="nav-first-level">
-                <span class="list-collapse">Seguridad <i class="ico-collapse"></i></span>
-                <ul class="nav-collapse">
+            <li class="nav-first-level" *ngFor="let option of options">
+                <span class="list-collapse">{{option.Name}} <i class="ico-collapse"></i></span>
+                <ul class="nav-collapse" *ngIf="option.SubMenu.length > 0">
+                    <li class="nav-second-level" *ngFor="let smn of option.SubMenu">
+                        <a *ngIf="smn.Url == '#'">{{smn.Name}}</a>
+                        <a *ngIf="smn.Url != '#'" routerLink="{{smn.Url}}" (click)="ShowHideMenu()">{{smn.Name}}</a>
+                        <ul class="nav-collapse-sub" *ngIf="smn.SubMenuSon.length > 0">
+                            <li class="nav-third-level" *ngFor="let son of smn.SubMenuSon">
+                                <a routerLink="{{son.Url}}">{{son.Name}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!--<ul class="nav-collapse">
                     <li class="nav-second-level">
                         <a >Mantenimiento Usuario</a>
                         <ul class="nav-collapse-sub">
@@ -21,16 +32,7 @@
                     <li class="nav-second-level">
                         <a >Mantenimiento Perfil</a>
                     </li>
-                </ul>
-            </li>
-            <li class="nav-first-level">
-                <span class="list-collapse">Mantenimiento <i class="ico-collapse"></i></span>
-            </li>
-            <li class="nav-first-level">
-                <span class="list-collapse">Procesos <i class="ico-collapse"></i></span>
-            </li>
-            <li class="nav-first-level">
-                <span class="list-collapse">Reportes <i class="ico-collapse"></i></span>
+                </ul>-->
             </li>
         </ul>
     </nav>
