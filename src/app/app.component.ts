@@ -17,12 +17,15 @@ export class AppComponent {
   {
     if (localStorage.getItem('currentUser')) {
       this.notMenu = true;
+      this.loadMenu();
     }
             
     _sharedService.changeEmitted$.subscribe(
       not => {
         this.notMenu = not;
-        this.loadMenu();
+        if(this.notMenu){
+          this.loadMenu();
+        }
       });
   }
 
