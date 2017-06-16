@@ -1,0 +1,18 @@
+<h1>Códigos de Resultado {{title}}</h1>
+<br>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Descripción</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let code of codes">
+            <td>{{code.ResultCode}}</td>
+            <td>{{code.Description}}</td>
+        </tr>
+    </tbody>
+</table>

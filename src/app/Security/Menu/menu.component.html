@@ -15,7 +15,7 @@
                         <a *ngIf="smn.Url != '#'" routerLink="{{smn.Url}}" (click)="ShowHideMenu()">{{smn.Name}}</a>
                         <ul class="nav-collapse-sub" *ngIf="smn.SubMenuSon.length > 0">
                             <li class="nav-third-level" *ngFor="let son of smn.SubMenuSon">
-                                <a routerLink="{{son.Url}}">{{son.Name}}</a>
+                                <a routerLink="{{son.Url}}"  (click)="ShowHideMenu()">{{son.Name}}</a>
                             </li>
                         </ul>
                     </li>
