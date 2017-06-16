@@ -13,7 +13,8 @@ export class AppComponent {
   options: any[] = []
 
   constructor(private _sharedService: SharedService,
-              private _securityService: SecurityService) 
+              private _securityService: SecurityService
+              ) 
   {
     if (localStorage.getItem('currentUser')) {
       this.notMenu = true;
@@ -27,6 +28,8 @@ export class AppComponent {
           this.loadMenu();
         }
       });
+
+     
   }
 
   ShowMenu(response:boolean){
@@ -41,4 +44,7 @@ export class AppComponent {
             //this._changeDetector.detectChanges();
         })
     }
+
+
+  
 }

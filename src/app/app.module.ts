@@ -19,6 +19,8 @@ import { CollectionModule } from './Collection/collection.module';
 
 import { AppComponent } from './app.component';
 
+import { CollectionService } from './Services/collection.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +40,8 @@ import { AppComponent } from './app.component';
   providers: [
     AuthGuard,
     AuthenticationService,
-    SecurityService
+    SecurityService,
+    CollectionService
   ],
   bootstrap: [AppComponent]
 })
