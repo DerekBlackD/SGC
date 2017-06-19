@@ -1,0 +1,124 @@
+<div class="panel panel-info">
+    <div class="panel-heading nav navbar-inverse">
+        <div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <h3 class="panel-title"><span class="glyphicon glyphicon-earphone"></span> Teléfonos</h3>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+                <ul class="nav navbar-nav navbar-right">
+                    <li *ngIf="!formState"><a class="btn-without-ref" (click)="newCustomerPhone()"><span class="glyphicon glyphicon-plus"></span> Nuevo</a></li>
+                    <li *ngIf="formState"><a class="btn-without-ref" (click)="saveCustomerPhone()"><span class="glyphicon glyphicon-floppy-saved"></span> Guardar</a></li>
+                    <li *ngIf="formState"><a class="btn-without-ref" (click)="cancelCustomerPhone()"><span class="glyphicon glyphicon-floppy-remove"></span> Cancelar</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="mngt-scrolls" *ngIf="!formState">
+        <table class="table-mngt table table-hover table-body-size">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Teléfono</th>
+                    <th>Prio</th>
+                    <th>Proveedor</th>
+                    <th>Anexo</th>
+                    <th>Origen</th>
+                    <th>Observación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="success" *ngFor="let phone of customerPhones">
+                    <td><a class="btn-without-ref" (click)="editCustomerPhone(phone.ID)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                    <!--<td><button type="submit" (click)="editCustomerPhone(phone.ID)" ><span class="glyphicon glyphicon-pencil"></span></button></td>-->
+                    <td><a href="sip:{{phone.PhoneNumber}}">{{phone.PhoneNumber}}</a></td>
+                    <td>{{phone.Priority}}</td>
+                    <td>{{phone.ProviderName}}</td>
+                    <td>{{phone.Annexed}}</td>
+                    <td>{{phone.OriginName}}</td>
+                    <td>{{phone.Provider}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel-body mngt-scrolls" *ngIf="formState">
+        <span>{{ID}}</span>
+        <!--<form class="form-horizontal">
+            <div class="form-group form-group-sm">
+                <label class="col-sm-2 control-label">Proveedor</label>
+                <div class="col-sm-2">
+                    <select class="form-control" ng-model="editData.Provider">
+                        <option ng-repeat="pp in ProviderPhone" value="{{pp.Code}}">{{pp.Description}}</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">Teléfono</label>
+                <div class="col-sm-2">
+                    <input class="form-control" type="text" id="txtNumberPhone" ng-model="editData.PhoneNumber" />
+                </div>
+                <label class="col-sm-2 control-label">Fecha</label>
+                <div class="col-sm-2">
+                    <label class="control-label" id="inputFecha">{{editData.ProviderName}}</label>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-2 control-label">Origen</label>
+                <div class="col-sm-2">
+                    <select class="form-control" ng-model="editData.Origin">
+                        <option ng-repeat="op in OriginPhone" value="{{op.Code}}">{{op.Description}}</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">Estado</label>
+                <div class="col-sm-2">
+                    <select class="form-control">
+                        <option>Activo</option>
+                        <option>Inactivo</option>
+                    </select>
+                </div>
+            </div>
+        </form>-->
+    </div>
+<!--
+    <div class="panel-body mngt-scrolls" ng-show="FormType == 3">
+        <form class="form-horizontal">
+            <div class="form-group form-group-sm">
+                <label class="col-sm-2 control-label">Proveedor</label>
+                <div class="col-sm-2">
+                    <select class="form-control" ng-model="editData.Provider">
+                        <option ng-repeat="pp in ProviderPhone" value="{{pp.Code}}">{{pp.Description}}</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">Teléfono</label>
+                <div class="col-sm-2">
+                    <label class="control-label" id="inputTlfnDir">{{editData.PhoneNumber}}</label>
+                </div>
+                <label class="col-sm-2 control-label">Fecha</label>
+                <div class="col-sm-2">
+                    <label class="control-label" id="inputFecha">{{editData.ProviderName}}</label>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-2 control-label">Origen</label>
+                <div class="col-sm-2">
+                    <select class="form-control" ng-model="editData.Origin">
+                        <option ng-repeat="op in OriginPhone" value="{{op.Code}}">{{op.Description}}</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">Estado</label>
+                <div class="col-sm-2">
+                    <select class="form-control">
+                        <option>Activo</option>
+                        <option>Inactivo</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>-->
+</div>

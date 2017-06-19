@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit{
 
     ngOnInit() {
         // reset login status
-        this._authenticationService.logout();
         this._sharedService.emitChange(false);
+        this._authenticationService.logout();
     }
 
     Login():void{

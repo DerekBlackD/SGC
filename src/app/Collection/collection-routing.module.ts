@@ -5,6 +5,7 @@ import { HomeComponent }   from './Management/Home/home.component';
 import { GeneralManagementComponent } from './Process/GeneralManagement/general.component'
 import { ResultCodeManagementComponent } from './Management/ResultCode/resultcode.component'
 
+
 const collectionRoutes: Routes = [
   { path: 'Cobranza/Home', component: HomeComponent },
   { path: 'Cobranza/GestionGeneral', component: GeneralManagementComponent },

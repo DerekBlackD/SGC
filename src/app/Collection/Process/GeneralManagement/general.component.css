@@ -1,0 +1,48 @@
+/*
+Using default Bootstrap 3 classes we zero out the top and 
+bottom padding .panel-heading ususally needs 
+*/
+.panel-heading.nav.navbar-inverse{padding-top:0px;padding-bottom:0px;} 
+
+/*
+Reintroduce 20px for .panel-title when a navbar is within .panel-heading. 
+This can be put back to @line-height-computed; in your LESS file which
+is the default in type.less */
+.panel-heading.nav.navbar-inverse h3{margin-top:6px;} 
+.panel-heading.nav.navbar-inverse h4{margin-top:15px;} 
+
+
+.panel-heading .nav.navbar-nav.navbar-right h4{padding-bottom:0px;margin-bottom:0px;padding-top:0px;margin-top:0px;}
+
+.panel-heading .navbar-nav > li > a{
+    padding-top:6px;
+    padding-bottom:6px;
+}
+
+.panel-heading .panel-title{
+    font-size:14px;
+}
+
+.panel-heading .navbar-toggle{
+    padding: 5px 6px;
+    margin-top:4px;
+    margin-bottom:4px;
+}
+
+.table-mngt thead tr th{
+    padding:0 !important;
+}
+
+.table-mngt tbody tr td{
+    padding:0 !important;
+}
+
+.mngt-scrolls{
+    overflow-x: auto;
+    overflow-y:auto;
+    max-height:180px;
+}
+
+.table-body-size{
+    min-width:600px;
+}
