@@ -7,17 +7,15 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class CollectionService{
-    private urlBase: string;
     constructor(private http: Http,
                 private authenticationService: AuthenticationService){
-                    this.urlBase = 'http://localhost:9580/';
                 }
 
     getAllData(url: string): Observable<any[]>{
         let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.urlBase + url, options)
+        return this.http.get(this.authenticationService.urlBase + url, options)
         .map((response: Response) => {
             return response.json();
         })
@@ -34,5 +32,40 @@ export class CollectionService{
             
             return Observable.throw(errMsg);
         });
+    }
+
+    getAllDataByID(url: string, ID: string ): Observable<any[]>{
+        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+        let options = new RequestOptions({ headers: headers });
+        let api = `${this.authenticationService.urlBase}${url}/${this.authenticationService.businessID}/${ID}`;
+        
+        return this.http.get(api , options)
+        .map((response: Response) => {
+            return response.json();
+        })
+        .catch((error: Response | any) => {
+            let errMsg: string;
+            if(error instanceof Response){
+                const body = error.json() || '';
+                const err = body.error || JSON.stringify(body);
+                errMsg =`${error.status} - ${error.statusText || ''} ${err}`;
+            }else{
+                errMsg = error.message ? error.message : error.string();
+            }
+
+            return Observable.throw(errMsg);
+        })
+        .share();
+
+    }
+
+    postManagementData(url: string, data: any): Observable<any>{
+        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token, 'Content-Type': 'application/json'});
+        let options = new RequestOptions({ headers: headers });
+        let api = `${this.authenticationService.urlBase}${url}`
+        return this.http.post(api, JSON.stringify(data), options)
+        .map((response: Response) => {
+            return 0;
+        })
     }
 }
