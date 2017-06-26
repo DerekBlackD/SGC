@@ -1,15 +1,4 @@
-.principal{
-    max-height: 100%;
-    
-}
-.principal-container{
-    /*overflow-y: auto;
-    /*position: fixed;*/
-    
-    /*max-height: 590px;*/
-    /*top:90px;
-    position: absolute;
-    top: 70px;
-    bottom: 0;
-    left: 0;*/
+.principal-body{
+    height: 600px;
+    overflow-y: auto;
 }
