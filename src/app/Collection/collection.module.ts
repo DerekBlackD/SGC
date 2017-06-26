@@ -4,7 +4,8 @@ import { FormsModule }              from '@angular/forms';
 
 import { HomeComponent }   from './Management/Home/home.component';
 import { GeneralManagementComponent } from './Process/GeneralManagement/general.component';
-import { ResultCodeManagementComponent } from './Management/ResultCode/resultcode.component'
+import { ResultCodeManagementComponent } from './Management/ResultCode/resultcode.component';
+import { ResultCodeNewComponent } from './Management/ResultCode/new/newresultcode.component';
 
 import { CollectionRoutingModule }  from './collection-routing.module';
 
@@ -17,7 +18,8 @@ import { CollectionRoutingModule }  from './collection-routing.module';
   declarations: [
     HomeComponent,
     GeneralManagementComponent,
-    ResultCodeManagementComponent
+    ResultCodeManagementComponent,
+    ResultCodeNewComponent
   ],
   providers: []
 })

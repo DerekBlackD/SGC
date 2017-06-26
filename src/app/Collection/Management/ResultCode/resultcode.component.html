@@ -1,18 +1,46 @@
-<h1>Códigos de Resultado {{title}}</h1>
-<br>
 
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Código</th>
-            <th>Descripción</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let code of codes">
-            <td>{{code.ResultCode}}</td>
-            <td>{{code.Description}}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="container">
+    <h1>Códigos de Resultado {{title}}</h1>
+    <br>
+
+    <form class="form-inline">
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" (click)="NewResult()" >Nuevo</button>
+            <input type="text" class="form-control" placeholder="Dato">
+        </div>
+
+        <br>
+
+        <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Código</th>
+                <th>Descripción</th>
+                <th>Prioridad</th>
+                <th>SubPrioridad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let code of codes">
+                <td>{{code.ObjID}}</td>
+                <td>{{code.ResultCode}}</td>
+                <td>{{code.Description}}</td>
+                <td>{{code.Priority}}</td>
+                <td>{{code.SubPriority}}</td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+</div>
+
+
+
+    
+
+
+
+
+
+
