@@ -65,7 +65,7 @@ export class CollectionService{
         let api = `${this.authenticationService.urlBase}${url}`
         return this.http.post(api, JSON.stringify(data), options)
         .map((response: Response) => {
-            return 0;
+            return response.json();
         })
     }
 }

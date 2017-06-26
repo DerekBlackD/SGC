@@ -11,7 +11,7 @@ const collectionRoutes: Routes = [
   { path: 'Cobranza/Home', component: HomeComponent },
   { path: 'Cobranza/GestionGeneral', component: GeneralManagementComponent },
   { path: 'Cobranza/ResultadoGestion', component: ResultCodeManagementComponent },
-  { path: 'Cobranza/ResultadoGestion/Nuevo', component: ResultCodeNewComponent }
+  { path: 'NuevoRS', component: ResultCodeNewComponent}
 
 ];
 @NgModule({

@@ -6,7 +6,7 @@
 
     <form class="form-inline">
         <div class="form-group">
-            <button type="submit" class="btn btn-primary" (click)="NewResult()" >Nuevo</button>
+            <button type="button" class="btn btn-primary" (click)="NewResult()" >Nuevo</button>
             <input type="text" class="form-control" placeholder="Dato">
         </div>
 
@@ -16,6 +16,7 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Clase</th>
                 <th>Código</th>
                 <th>Descripción</th>
                 <th>Prioridad</th>
@@ -24,7 +25,8 @@
         </thead>
         <tbody>
             <tr *ngFor="let code of codes">
-                <td>{{code.ObjID}}</td>
+                <td>{{code.ResultID}}</td>
+                <td>{{code.Class}}</td>
                 <td>{{code.ResultCode}}</td>
                 <td>{{code.Description}}</td>
                 <td>{{code.Priority}}</td>

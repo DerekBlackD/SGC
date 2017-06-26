@@ -4,69 +4,75 @@
 
     <div class="form-horizontal">
         <div class="form-group">
-            <label for="idobj" class="col-sm-1 control-label">ID</label>
+            <label class="col-sm-1 control-label">ID</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="idobj" placeholder="" [(ngModel)]="model.idobj" #username="ngModel">
+                <input type="text" class="form-control" [(ngModel)]="result.idobj" #username="ngModel" >
             </div>
 
-            <label for="tipogestion" class="col-sm-1 control-label">Tip.Gestión</label>
+            <label class="col-sm-1 control-label">Tip.Gestión</label>
             <div class="col-sm-2">
-                <select id="tipogestion" class="form-control" [(ngModel)]="model.tipogestion" #username="ngModel" ></select>
+                <select class="form-control" [(ngModel)]="result.tipogestion" #username="ngModel" >
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let opc of lstTipGestion" value="{{opc.Code}}">{{opc.Value}}</option>
+                </select>
             </div>
         </div>
         <div class="form-group">
-            <label for="idresultado" class="col-sm-1 control-label">Código</label>
+            <label class="col-sm-1 control-label">Código</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" id="idresultado" placeholder="" [(ngModel)]="model.idresultado" #username="ngModel" >
+                <input type="text" class="form-control" [(ngModel)]="result.resultcode" #username="ngModel" >
             </div>
 
-            <label for="descripcion" class="col-sm-1 control-label">Descripción</label>
+            <label class="col-sm-1 control-label">Descripción</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" id="descripcion" placeholder="" [(ngModel)]="model.descripcion" #username="ngModel" >
+                <input type="text" class="form-control" [(ngModel)]="result.descripcion" #username="ngModel" >
             </div>
         </div>
 
         <div class="form-group">
-            <label for="idubica" class="col-sm-1 control-label">Ubicabilidad</label>
+            <label class="col-sm-1 control-label">Ubicabilidad</label>
             <div class="col-sm-2">
-                <select id="idubica" class="form-control" [(ngModel)]="model.idubica" #username="ngModel" ></select>
+                <select class="form-control" [(ngModel)]="result.idubica" #username="ngModel" >
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let opc of lstUbica" value="{{opc.Code}}">{{opc.Value}}</option>
+                </select>
             </div>
 
-            <label for="prioridad" class="col-sm-1 control-label">Prioridad</label>
+            <label class="col-sm-1 control-label">Prioridad</label>
             <div class="col-sm-1">
-                <input type="number" class="form-control" id="prioridad" placeholder="" [(ngModel)]="model.prioridad" #username="ngModel" >
+                <input type="number" class="form-control" placeholder="0" [(ngModel)]="result.prioridad" #username="ngModel" >
             </div>
 
-            <label for="subprioridad" class="col-sm-1 control-label">Sub.Prio.</label>
+            <label class="col-sm-1 control-label">Sub.Prio.</label>
             <div class="col-sm-1">
-                <input type="number" class="form-control" id="subprioridad" placeholder="" [(ngModel)]="model.subprioridad" #username="ngModel" >
+                <input type="number" class="form-control" placeholder="0" [(ngModel)]="result.subprioridad" #username="ngModel" >
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-2">
                 <div class="checkbox">
-                    <label><input type="checkbox" [(ngModel)]="model.comision" #username="ngModel" >Comisión</label>    
+                    <label><input type="checkbox" [(ngModel)]="result.comision" #username="ngModel" >Comisión</label>    
                 </div>
             </div>
 
             <div class="col-sm-2">
                 <div class="checkbox">
-                    <label><input type="checkbox" [(ngModel)]="model.situacion" #username="ngModel" >Situación</label>                
+                    <label><input type="checkbox" [(ngModel)]="result.situacion" #username="ngModel" >Situación</label>                
                 </div>
             </div>
 
             <div class="col-sm-2">
                 <div class="checkbox">
-                    <label><input type="checkbox" [(ngModel)]="model.alerta" #username="ngModel" >Alerta</label>                
+                    <label><input type="checkbox" [(ngModel)]="result.alerta" #username="ngModel" >Alerta</label>                
                 </div>
             </div>
         </div>
     
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                <button type="submit" class="btn btn-primary" (click)="SalirNew()" >Salir</button>
+                <button type="button" class="btn btn-primary" (click)="SaveResult()" >Guardar</button>
+                <button type="button" class="btn btn-primary" (click)="SalirNew()" >Salir</button>
             </div>
         </div>
 
