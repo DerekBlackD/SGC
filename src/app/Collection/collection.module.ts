@@ -6,8 +6,11 @@ import { HomeComponent }   from './Management/Home/home.component';
 import { GeneralManagementComponent } from './Process/GeneralManagement/general.component';
 import { ResultCodeManagementComponent } from './Management/ResultCode/resultcode.component';
 import { ResultCodeNewComponent } from './Management/ResultCode/new/newresultcode.component';
-import { GeneralCustomerDataComponent } from './Process/GeneralManagement/GeneralCustomerData/customerdata.component';
-import { GeneralCustomerPhoneComponent } from './Process/GeneralManagement/GeneralPhoneData/customerphone.component';
+import { GenCustomerBag } from './Process/GeneralManagement/GenCustomerBag/gencustbag.component';
+import { GenCustomerBagPhone } from './Process/GeneralManagement/GenCustomerBagPhone/genphone.component';
+import { GenCustomerBagAccount } from './Process/GeneralManagement/GenCustomerBagAccount/genaccount.component';
+import { GenManagementList } from './Process/GeneralManagement/GenManagementList/genmanagementlist.component';
+import { GenManagement } from './Process/GeneralManagement/GenManagement/genmanagement.component';
 
 //Services
 import { CollectionService } from '../Services/collection.service';
@@ -25,8 +28,11 @@ import { CollectionRoutingModule }  from './collection-routing.module';
     GeneralManagementComponent,
     ResultCodeManagementComponent,
     ResultCodeNewComponent,
-    GeneralCustomerDataComponent,
-    GeneralCustomerPhoneComponent
+    GenCustomerBag,
+    GenCustomerBagPhone,
+    GenCustomerBagAccount,
+    GenManagementList,
+    GenManagement
   ],
   providers: [CollectionService]
 })

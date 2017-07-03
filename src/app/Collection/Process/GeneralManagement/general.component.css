@@ -41,6 +41,7 @@ is the default in type.less */
     overflow-x: auto;
     overflow-y:auto;
     max-height:180px;
+    margin-bottom: 5px;
 }
 
 .table-body-size{

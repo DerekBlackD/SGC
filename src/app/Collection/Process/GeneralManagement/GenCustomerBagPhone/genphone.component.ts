@@ -4,11 +4,11 @@ import { CollectionService } from '../../../../Services/collection.service';
 import {Observable} from 'rxjs/Rx';
 
 @Component({
-    selector: 'general-customer-phone',
-    templateUrl: 'customerphone.component.html',
+    selector: 'gen-customerbag-phone',
+    templateUrl: 'genphone.component.html',
     styleUrls: ['../general.component.css']
 })
-export class GeneralCustomerPhoneComponent implements OnInit{
+export class GenCustomerBagPhone implements OnInit{
     formState: boolean = false;
     customerPhones: Phone[] = [];
     lstOrigin: any[] = [];
