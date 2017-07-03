@@ -5,13 +5,16 @@ import { HomeComponent }   from './Management/Home/home.component';
 import { GeneralManagementComponent } from './Process/GeneralManagement/general.component'
 import { ResultCodeManagementComponent } from './Management/ResultCode/resultcode.component'
 import { ResultCodeNewComponent } from './Management/ResultCode/new/newresultcode.component'
-
+import { ResultCodeDelCoponent } from './Management/ResultCode/delete/delresultcode.component'
+import { ImportComponent } from './Management/Import/import.component'
 
 const collectionRoutes: Routes = [
   { path: 'Cobranza/Home', component: HomeComponent },
   { path: 'Cobranza/GestionGeneral', component: GeneralManagementComponent },
   { path: 'Cobranza/ResultadoGestion', component: ResultCodeManagementComponent },
-  { path: 'NuevoRS', component: ResultCodeNewComponent}
+  { path: 'NuevoRS/:id', component: ResultCodeNewComponent},
+  { path: 'DeleteRS/:id', component: ResultCodeDelCoponent},
+  { path: 'Collection/GeneralImportation', component: ImportComponent}
 
 ];
 @NgModule({

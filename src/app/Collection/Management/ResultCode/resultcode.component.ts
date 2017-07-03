@@ -26,10 +26,18 @@ export class ResultCodeManagementComponent implements OnInit {
                 this.codes = result;
                 console.log(this.codes);
         })
-  }
+    }
 
-  NewResult():void{
-      this.router.navigate(['NuevoRS']);
-  }
+    NewResult():void{
+        this.router.navigate(['/NuevoRS', 0]);
+    }
+
+    EditResultCode(resultid:number): void{
+        this.router.navigate(['/NuevoRS', resultid]);
+    }
+
+    DelResultCode(resultid:number):void{
+        this.router.navigate(['/DeleteRS', resultid]);
+    }
     
 }

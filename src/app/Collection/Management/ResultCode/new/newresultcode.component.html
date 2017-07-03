@@ -11,9 +11,9 @@
 
             <label class="col-sm-1 control-label">Tip.Gestión</label>
             <div class="col-sm-2">
-                <select class="form-control" [(ngModel)]="result.tipogestion" #username="ngModel" >
+                <select class="form-control" [(ngModel)]="result.tipogestion" #tipogestion="ngModel">
                     <option value="">Seleccionar</option>
-                    <option *ngFor="let opc of lstTipGestion" value="{{opc.Code}}">{{opc.Value}}</option>
+                    <option *ngFor="let opc of lstTipGestion" value="{{opc.ID}}">{{opc.Value}}</option>
                 </select>
             </div>
         </div>
@@ -32,9 +32,9 @@
         <div class="form-group">
             <label class="col-sm-1 control-label">Ubicabilidad</label>
             <div class="col-sm-2">
-                <select class="form-control" [(ngModel)]="result.idubica" #username="ngModel" >
+                <select class="form-control" [(ngModel)]="result.idubica" >
                     <option value="">Seleccionar</option>
-                    <option *ngFor="let opc of lstUbica" value="{{opc.Code}}">{{opc.Value}}</option>
+                    <option *ngFor="let opc1 of lstUbica" value="{{opc1.ID}}">{{opc1.Value}}</option>
                 </select>
             </div>
 

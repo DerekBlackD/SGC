@@ -15,7 +15,6 @@
         <table class="table table-striped">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Clase</th>
                 <th>Código</th>
                 <th>Descripción</th>
@@ -25,12 +24,13 @@
         </thead>
         <tbody>
             <tr *ngFor="let code of codes">
-                <td>{{code.ResultID}}</td>
                 <td>{{code.Class}}</td>
                 <td>{{code.ResultCode}}</td>
                 <td>{{code.Description}}</td>
                 <td>{{code.Priority}}</td>
                 <td>{{code.SubPriority}}</td>
+                <td><a class="btn-without-ref" (click)="EditResultCode(code.ResultID)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td><a class="btn-without-ref" (click)="DelResultCode(code.ResultID)"><span class="glyphicon glyphicon-trash"></span></a></td>
             </tr>
         </tbody>
     </table>

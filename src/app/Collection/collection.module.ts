@@ -8,6 +8,8 @@ import { ResultCodeManagementComponent } from './Management/ResultCode/resultcod
 import { ResultCodeNewComponent } from './Management/ResultCode/new/newresultcode.component';
 import { GeneralCustomerDataComponent } from './Process/GeneralManagement/GeneralCustomerData/customerdata.component';
 import { GeneralCustomerPhoneComponent } from './Process/GeneralManagement/GeneralPhoneData/customerphone.component';
+import { ResultCodeDelCoponent } from './Management/ResultCode/delete/delresultcode.component';
+import { ImportComponent } from './Management/Import/import.component';
 
 //Services
 import { CollectionService } from '../Services/collection.service';
@@ -26,7 +28,9 @@ import { CollectionRoutingModule }  from './collection-routing.module';
     ResultCodeManagementComponent,
     ResultCodeNewComponent,
     GeneralCustomerDataComponent,
-    GeneralCustomerPhoneComponent
+    GeneralCustomerPhoneComponent,
+    ResultCodeDelCoponent,
+    ImportComponent
   ],
   providers: [CollectionService]
 })

@@ -1,6 +1,6 @@
 import { Component, OnInit  } from '@angular/core';
 import { CollectionService } from '../../../../Services/collection.service';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute,Params } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
 @Component({
@@ -11,18 +11,42 @@ export class ResultCodeNewComponent implements OnInit {
     result: any = {};
     lstTipGestion: any[] = [];
     lstUbica: any[] = [];
+    idresultcode:any;
 
+    indica: string;
+    resultID: number;
+    register: any = {};
 
     constructor (
         private router : Router,
+        private route: ActivatedRoute,
         private _CollectionService : CollectionService
     ){ 
-        this.result.tipogestion = '';
-        this.result.idubica = '';
+        this.loadData();
     }
 
     ngOnInit() {
-        this.loadData();
+        
+        this.route.params.subscribe(params => {
+            
+
+            this.resultID = params['id'].toString();
+            
+            if(this.resultID == 0){
+                this.indica='I';
+
+                this.result.tipogestion = '';
+                this.result.idubica = '';
+
+            }else{
+                this.indica='M';
+
+                this.loadResult(this.resultID);
+                
+            }
+
+        });
+
     }
 
     loadData():void{
@@ -33,6 +57,27 @@ export class ResultCodeNewComponent implements OnInit {
         ).subscribe(data =>{
             this.lstTipGestion = data[0];
             this.lstUbica = data[1];
+            
+        })
+    }
+
+    loadResult(resultid:number):void{
+        this._CollectionService.getAllData('api/Result/getResultRegister/1/' + resultid)
+            .subscribe(result =>{
+                this.register = result;
+
+                
+                this.result.idobj = this.register.ResultID;
+                this.result.tipogestion = this.register.ObjIDClass;
+                console.log(this.result.tipogestion);
+                this.result.resultcode = this.register.ResultCode;
+                this.result.descripcion = this.register.Description;
+                this.result.prioridad = this.register.Priority;
+                this.result.subprioridad = this.register.SubPriority;
+                this.result.idubica = this.register.ObjIDUbicability.toString();
+                this.result.comision = this.register.Commission;
+                this.result.situacion = this.register.Situation;
+                this.result.alerta = this.register.Alert;
         })
     }
 
@@ -41,9 +86,8 @@ export class ResultCodeNewComponent implements OnInit {
 
         let data: any = {};
 
-        data.Option = "I";
+        data.Option = this.indica;
         data.BusinessID = 1;
-        data.ObjID = this.result.idobj;
         data.ResultID = this.result.idobj;
         data.ObjIDClass = this.result.tipogestion;
         data.Class = "";
