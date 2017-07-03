@@ -11,6 +11,7 @@ export class SecurityService{
     constructor(private http: Http,
                 private authenticationService: AuthenticationService){
                     this.urlBase = 'http://localhost:9580/';
+                    //this.urlBase = 'http://54.233.102.195/SGC-BE/'
                 }
 
     getAllData(url: string): Observable<any[]>{
