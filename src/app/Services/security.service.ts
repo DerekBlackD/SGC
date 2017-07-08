@@ -10,15 +10,16 @@ export class SecurityService{
     private urlBase: string;
     constructor(private http: Http,
                 private authenticationService: AuthenticationService){
-                    this.urlBase = 'http://localhost:9580/';
-                    //this.urlBase = 'http://54.233.102.195/SGC-BE/'
                 }
 
     getAllData(url: string): Observable<any[]>{
-        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+        let headers = new Headers({ 
+            'Content-Type' : 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.token
+         });
         let options = new RequestOptions({ headers: headers });
 
-        return this.http.get(this.urlBase + url, options)
+        return this.http.get(this.authenticationService.urlBase + url, options)
         .map((response: Response) => {
             return response.json();
         })

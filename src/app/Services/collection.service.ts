@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Http, Headers, RequestOptions, Response, RequestMethod } from '@angular/http';
 import { AuthenticationService } from './authentication.service';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
@@ -34,12 +34,18 @@ export class CollectionService{
         });
     }
 
-    getAllDataByID(url: string, ID: string ): Observable<any[]>{
-        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers });
-        let api = `${this.authenticationService.urlBase}${url}/${this.authenticationService.businessID}/${ID}`;
+    getAllDataByID(url: string, data: any ): Observable<any>{
+        let headers = new Headers({ 
+            'Content-Type' : 'application/json',
+            'Authorization': 'Bearer ' + this.authenticationService.token 
+        });
+        let optionsRequest = new RequestOptions({  headers: headers });
+
+        let apiUrl = this.authenticationService.urlBase + url;
+
+        data.BusinessID = this.authenticationService.businessID;
         
-        return this.http.get(api , options)
+        return this.http.post(apiUrl, JSON.stringify(data), optionsRequest)
         .map((response: Response) => {
             return response.json();
         })
