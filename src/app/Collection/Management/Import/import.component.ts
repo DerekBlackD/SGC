@@ -19,7 +19,10 @@ export class ImportComponent implements OnInit{
 
 
     onChange(event) {
-        console.log(this._CollectionService.postFileUpload('api/Import/UploadJsonFile',event));
+        this._CollectionService.postFileUpload('api/Import/UploadJsonFile',event)
+        .subscribe(res =>{
+           console.log(res);
+        })
     }  
 
 

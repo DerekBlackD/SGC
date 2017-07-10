@@ -17,7 +17,7 @@ export class AuthenticationService {
         this.token = currentUser && currentUser.token;
         this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
         //this.urlBase = 'http://54.233.102.195/SGC-BE/';
-        this.urlBase = 'http://localhost:9580/';
+        this.urlBase = 'http://localhost:16122/';
         this.businessID = this.getPayLoad().BusinessID;
     }
 
