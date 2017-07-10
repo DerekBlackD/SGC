@@ -12,13 +12,13 @@
     <div class="col-md-6">
         <div class="btn-group btn-group-justified" role="group" aria-label="...">
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-primary" (click)="prevCustomer()"><span class="glyphicon glyphicon-chevron-left"></span> Anterior</button>
+                <button type="button" class="btn btn-primary" [disabled]="btnprevState" (click)="prevCustomer()"><span class="glyphicon glyphicon-chevron-left"></span> Anterior</button>
             </div>
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> Filtros</button>
             </div>
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-primary" (click)="nextCustomer()"><span class="glyphicon glyphicon-chevron-right"></span> Siguiente</button>
+                <button type="button" class="btn btn-primary" [disabled]="btnnextState" (click)="nextCustomer()"><span class="glyphicon glyphicon-chevron-right"></span> Siguiente</button>
             </div>
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-stats"></span> Resumen</button>
@@ -31,10 +31,10 @@
 </div>
 <div class="row">
     <div class="col-md-6">
-        <gen-customerbag></gen-customerbag>
+        <gen-customerbag [customerBagData]="customerBagData"></gen-customerbag>
     </div>
     <div class="col-md-6">
-        <gen-customerbag-phone></gen-customerbag-phone>
+        <gen-customerbag-phone [customerBagPhoneData]="customerBagPhoneData"></gen-customerbag-phone>
     </div>
 </div>
 <div class="row">

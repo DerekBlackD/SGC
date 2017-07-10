@@ -12,33 +12,33 @@
                     <tr>
                         <td class="col-sm-12">
                             <div class="col-sm-2"><label class="control-label">Cliente</label></div>
-                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4">{{customerBagData.Name}}</div>
                             <div class="col-sm-1"><label class="control-label">Doc</label></div>
-                            <div class="col-sm-2"></div>
+                            <div class="col-sm-2">{{customerBagData.DocNumber}}</div>
                             <div class="col-sm-1"><label class="control-label">Sueldo</label></div>
-                            <div class="col-sm-2 text-right">4500.00</div>
+                            <div class="col-sm-2 text-right">{{customerBagData.Salary}}</div>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-sm-12">
                             <div class="col-sm-2"><label class="control-label">RUC</label></div>
-                            <div class="col-sm-4">111020202012</div>
+                            <div class="col-sm-4">{{customerBagData.CompanyCode}}</div>
+                            <div class="col-sm-2"><label class="control-label">Razón Social</label></div>
+                            <div class="col-sm-4">{{customerBagData.CompanyName}}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-12">
+                            <div class="col-sm-2"><label class="control-label">Estado</label></div>
+                            <div class="col-sm-4">{{customerBagData.Situation}}</div>
+                            <div class="col-sm-2"><label class="control-label">Estado Call</label></div>
+                            <div class="col-sm-4">{{customerBagData.StatusCall}}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-12">
                             <div class="col-sm-2"><label class="control-label">Correo</label></div>
-                            <div class="col-sm-4">megapokemon@hotmail.com</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-sm-12">
-                            <div class="col-sm-2"><label class="control-label">Cargo</label></div>
-                            <div class="col-sm-4">Analista Programador</div>
-                            <div class="col-sm-2"><label class="control-label">Conyuge</label></div>
-                            <div class="col-sm-4">Ana Lisa Meltrozo Cardenas</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-sm-12">
-                            <div class="col-sm-2"><label class="control-label">Direc.</label></div>
-                            <div class="col-sm-8">Av. Los manzanos 433 Surco Viejo Ref</div>
+                            <div class="col-sm-8">{{customerBagData.Email}}</div>
                             <div class="col-sm-2 text-right"><a href="#" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span> Editar</a></div>
                         </td>
                     </tr>
@@ -50,34 +50,32 @@
                 <tbody>
                     <tr>
                         <td class="col-sm-12">
-                            <div class="col-sm-2"><label class="control-label">Otro1</label></div>
-                            <div class="col-sm-4">Apolinario Maximiliano Quibaja Monserrat</div>
-                            <div class="col-sm-1"><label class="control-label">otro</label></div>
-                            <div class="col-sm-2">4782829210</div>
-                            <div class="col-sm-1"><label class="control-label">Sueldo</label></div>
-                            <div class="col-sm-2 text-right">4500.00</div>
+                            <div class="col-sm-2"><label class="control-label">Centro Laboral</label></div>
+                            <div class="col-sm-4">{{customerBagData.WorkCenter}}</div>
+                            <div class="col-sm-2"><label class="control-label">Cargo</label></div>
+                            <div class="col-sm-4">{{customerBagData.WorkPosition}}</div>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-sm-12">
-                            <div class="col-sm-2"><label class="control-label">otro2</label></div>
-                            <div class="col-sm-4">111020202012</div>
-                            <div class="col-sm-2"><label class="control-label">otro4</label></div>
-                            <div class="col-sm-4">megapokemon@hotmail.com</div>
+                            <div class="col-sm-2"><label class="control-label">Profesión</label></div>
+                            <div class="col-sm-4">{{customerBagData.Profession}}</div>
+                            <div class="col-sm-2"><label class="control-label">Fecha Nac.</label></div>
+                            <div class="col-sm-4">{{customerBagData.BirthDateString}}</div>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-sm-12">
-                            <div class="col-sm-2"><label class="control-label">otro5</label></div>
-                            <div class="col-sm-4">Analista Programador</div>
-                            <div class="col-sm-2"><label class="control-label">otro6</label></div>
-                            <div class="col-sm-4">Ana Lisa Meltrozo Cardenas</div>
+                            <div class="col-sm-2"><label class="control-label">Sexo</label></div>
+                            <div class="col-sm-4">{{customerBagData.Sex}}</div>
+                            <div class="col-sm-2"><label class="control-label">Ranking</label></div>
+                            <div class="col-sm-4">{{customerBagData.Ranking}}</div>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-sm-12">
-                            <div class="col-sm-2"><label class="control-label">ref.</label></div>
-                            <div class="col-sm-10">Av. Los manzanos 433 Surco Viejo Ref</div>
+                            <div class="col-sm-2"><label class="control-label">Observación</label></div>
+                            <div class="col-sm-10">{{customerBagData.Observationv}}</div>
                         </td>
                     </tr>
                 </tbody>

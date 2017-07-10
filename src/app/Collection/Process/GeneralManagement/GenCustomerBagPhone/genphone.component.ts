@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Phone } from '../../../../Models/phone.model';
 import { CollectionService } from '../../../../Services/collection.service';
 import {Observable} from 'rxjs/Rx';
@@ -9,6 +9,7 @@ import {Observable} from 'rxjs/Rx';
     styleUrls: ['../general.component.css']
 })
 export class GenCustomerBagPhone implements OnInit{
+    @Input() customerBagPhoneData : any[] = [];
     formState: boolean = false;
     customerPhones: Phone[] = [];
     lstOrigin: any[] = [];
@@ -21,7 +22,7 @@ export class GenCustomerBagPhone implements OnInit{
     }
 
     ngOnInit() {
-        this.loadPhones();
+        //this.loadPhones();
         this.loadData();
     }
 

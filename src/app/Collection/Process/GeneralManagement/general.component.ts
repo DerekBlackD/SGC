@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CollectionService } from '../../../Services/collection.service';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
     selector: 'general-component',
@@ -7,7 +8,11 @@ import { CollectionService } from '../../../Services/collection.service';
     styleUrls: ['general.component.css']
 })
 export class GeneralManagementComponent{
-    customer: string = "";
+    @BlockUI() blockUI: NgBlockUI;
+    btnprevState: boolean;
+    btnnextState: boolean;
+    customerBagData: any = {};
+    customerBagPhoneData: any[] = [];
     index: number = 0;
     lstAssign: any[] = [];
     constructor(private _collectionService: CollectionService){
@@ -18,6 +23,7 @@ export class GeneralManagementComponent{
     }
 
     loadAssignment(): void{
+        this.blockUI.start("Cargando...");
         let data: any = {};
 
         data.AgentID = "1";
@@ -26,19 +32,59 @@ export class GeneralManagementComponent{
 
         this._collectionService.getAllDataByID('api/GetAssign', data)
             .subscribe(assign =>{
-            console.log(assign);
             this.lstAssign = assign.lstAssignmentByAgent;
-            this.customer = this.lstAssign[this.index].CustomerBagID;
+            if(assign.objCustomerBag != null){
+                this.customerBagData = assign.objCustomerBag;
+                if(this.customerBagData.Phones != null){
+                    this.customerBagPhoneData = this.customerBagData.Phones;
+                }
+            }
+            
+            this.valIndex();
+            this.blockUI.stop();
         })
+    }
+
+    loadCustomerBagData(customerBagID: number):void{
+        this.blockUI.start("Cargando...");
+        let request : any = {};
+        request.CustomerBagID = customerBagID;
+        this._collectionService.getAllDataByID('api/customerbag/getcustomerbagbyid', request)
+            .subscribe(data => {
+                this.customerBagData = data.objCustomerBag;
+                if(this.customerBagData.Phones != null){
+                    this.customerBagPhoneData = this.customerBagData.Phones;
+                }
+                this.blockUI.stop();
+            })
+    }
+
+    valIndex(): void{
+        if (this.index == 0){
+            this.btnprevState = true;
+        }else{
+            this.btnprevState = false;
+        }
+
+        let maxIndex: number = this.lstAssign.length;
+        if(this.index == maxIndex - 1){
+            this.btnnextState = true;
+        }else{
+            this.btnnextState = false;
+        }
     }
 
     nextCustomer(): void{
         this.index = this.index + 1;
-        this.customer = this.lstAssign[this.index].CustomerBagID;
+        let custBagID : number = this.lstAssign[this.index].CustomerBagID;
+        this.loadCustomerBagData(custBagID);
+        this.valIndex();
     }
 
     prevCustomer(): void{
         this.index = this.index - 1;
-        this.customer = this.lstAssign[this.index].CustomerBagID;
-    })
+        let custBagID : number = this.lstAssign[this.index].CustomerBagID;
+        this.loadCustomerBagData(custBagID);
+        this.valIndex();
+    }
 }

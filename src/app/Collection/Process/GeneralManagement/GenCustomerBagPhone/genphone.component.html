@@ -26,24 +26,27 @@
             <thead>
                 <tr>
                     <th></th>
+                    <th>ID</th>
                     <th>Teléfono</th>
                     <th>Prio</th>
                     <th>Proveedor</th>
                     <th>Anexo</th>
                     <th>Origen</th>
+                    <th>Clase</th>
                     <th>Observación</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="success" *ngFor="let phone of customerPhones">
+                <tr class="success" *ngFor="let phone of customerBagPhoneData">
                     <td><a class="btn-without-ref" (click)="editCustomerPhone(phone.ID)"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                    <!--<td><button type="submit" (click)="editCustomerPhone(phone.ID)" ><span class="glyphicon glyphicon-pencil"></span></button></td>-->
-                    <td><a href="sip:{{phone.PhoneNumber}}">{{phone.PhoneNumber}}</a></td>
+                    <td><a href="sip:{{phone.PhoneNumber}}">{{phone.Phone}}</a></td>
+                    <td>{{phone.ID}}</td>
                     <td>{{phone.Priority}}</td>
-                    <td>{{phone.ProviderName}}</td>
+                    <td>{{phone.ProviderDesc}}</td>
                     <td>{{phone.Annexed}}</td>
-                    <td>{{phone.OriginName}}</td>
-                    <td>{{phone.Provider}}</td>
+                    <td>{{phone.OriginDesc}}</td>
+                    <td>{{phone.ClassDesc}}</td>
+                    <td>{{phone.Observation}}</td>
                 </tr>
             </tbody>
         </table>
