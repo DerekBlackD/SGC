@@ -50,13 +50,17 @@ export class ResultCodeNewComponent implements OnInit {
     }
 
     loadData():void{
+        let dataResul: any;
+        dataResul.GroupID = "5";
+        let dataResul2: any;
+        dataResul2.GroupID = "6";
         Observable.forkJoin(
-            this._CollectionService.getAllDataByID('api/common/getallcodebygroupID', "5"),
-            this._CollectionService.getAllDataByID('api/common/getallcodebygroupID', "6"),
+            this._CollectionService.getAllDataByID('api/common/getallcodebygroupID', dataResul),
+            this._CollectionService.getAllDataByID('api/common/getallcodebygroupID', dataResul2),
 
         ).subscribe(data =>{
-            this.lstTipGestion = data[0];
-            this.lstUbica = data[1];
+            this.lstTipGestion = data[0].lstGeneralCode;
+            this.lstUbica = data[1].lstGeneralCode;
             
         })
     }

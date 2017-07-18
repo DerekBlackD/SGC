@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Phone } from '../../../../Models/phone.model';
 import { CollectionService } from '../../../../Services/collection.service';
 import {Observable} from 'rxjs/Rx';
@@ -9,6 +9,7 @@ import {Observable} from 'rxjs/Rx';
     styleUrls: ['../general.component.css']
 })
 export class GenCustomerBagPhone implements OnInit{
+    @Input() customerBagPhoneData : any[] = [];
     formState: boolean = false;
     customerPhones: Phone[] = [];
     lstOrigin: any[] = [];
@@ -21,7 +22,7 @@ export class GenCustomerBagPhone implements OnInit{
     }
 
     ngOnInit() {
-        this.loadPhones();
+        //this.loadPhones();
         this.loadData();
     }
 
@@ -33,14 +34,20 @@ export class GenCustomerBagPhone implements OnInit{
     }
 
     loadData():void{
+        let dataProv: any = {};
+        dataProv.GroupID = "1";
+        let dataOrigin: any = {};
+        dataOrigin.GroupID = "2";
+        let dataClass: any = {};
+        dataClass.GroupID = "3";
         Observable.forkJoin(
-            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', "1"),
-            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', "2"),
-            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', "3"),
+            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataProv),
+            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataOrigin),
+            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataClass),
         ).subscribe(data => {
-                this.lstProvider = data[0];
-                this.lstOrigin = data[1];
-                this.lstClass = data[2];
+                this.lstProvider = data[0].lstGeneralCode;
+                this.lstOrigin = data[1].lstGeneralCode;
+                this.lstClass = data[2].lstGeneralCode;
             }
         )
     }

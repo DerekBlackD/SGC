@@ -1,9 +1,11 @@
-<header>
-  <banner-component  [BannerControls]="notMenu"></banner-component>
-</header>
-<div class="row">
-  <menu-component *ngIf="notMenu" [options]="options"></menu-component>
-</div>
-<div class="container-fluid principal-body">
-    <router-outlet></router-outlet>
-</div>
+<block-ui>
+  <header>
+    <banner-component  [BannerControls]="notMenu"></banner-component>
+  </header>
+  <div class="row">
+    <menu-component *ngIf="notMenu" [options]="options"></menu-component>
+  </div>
+  <div class="container-fluid principal-body">
+      <router-outlet></router-outlet>
+  </div>
+</block-ui>

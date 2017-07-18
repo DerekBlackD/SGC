@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from '../Shared.service';
 import { AuthenticationService } from '../../Services/authentication.service';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
     selector: 'login-component',
@@ -9,6 +10,7 @@ import { AuthenticationService } from '../../Services/authentication.service';
     styleUrls: ['login.component.css']
 })
 export class LoginComponent implements OnInit{
+    @BlockUI() blockUI: NgBlockUI;
     model: any = {};
 
     constructor(private router: Router,
@@ -24,6 +26,7 @@ export class LoginComponent implements OnInit{
     }
 
     Login():void{
+        this.blockUI.start("Cargando...");
         this._authenticationService.login(this.model.username, this.model.password)
             .subscribe(result => {
                 if (result === true) {
@@ -32,6 +35,7 @@ export class LoginComponent implements OnInit{
                 } else {
                     console.log('Error');
                 }
+                this.blockUI.stop();
             });
     }
 }
