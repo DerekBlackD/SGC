@@ -37,10 +37,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="success" *ngFor="let phone of customerBagPhoneData">
+                <tr *ngFor="let phone of customerBagPhoneData" (click)="setClickedRow(phone.ID, phone.Phone)" [class.active]="phone.ID == selectObjPhone.phoneID">
                     <td><a class="btn-without-ref" (click)="editCustomerPhone(phone.ID)"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                    <td><a href="sip:{{phone.PhoneNumber}}">{{phone.Phone}}</a></td>
                     <td>{{phone.ID}}</td>
+                    <td><a href="sip:{{phone.Phone}}">{{phone.Phone}}</a></td>
                     <td>{{phone.Priority}}</td>
                     <td>{{phone.ProviderDesc}}</td>
                     <td>{{phone.Annexed}}</td>

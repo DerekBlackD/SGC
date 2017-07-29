@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
 import { Phone } from '../../../../Models/phone.model';
 import { CollectionService } from '../../../../Services/collection.service';
 import {Observable} from 'rxjs/Rx';
@@ -10,6 +10,7 @@ import {Observable} from 'rxjs/Rx';
 })
 export class GenCustomerBagPhone implements OnInit{
     @Input() customerBagPhoneData : any[] = [];
+    @Output() selectPhone = new EventEmitter;
     formState: boolean = false;
     customerPhones: Phone[] = [];
     lstOrigin: any[] = [];
@@ -17,6 +18,7 @@ export class GenCustomerBagPhone implements OnInit{
     lstProvider: any[] = [];
     custBagPhone: any = {};
     ID: number = 0;
+    selectObjPhone : any = {};
 
     constructor(private _collectionService: CollectionService){
     }
@@ -50,6 +52,12 @@ export class GenCustomerBagPhone implements OnInit{
                 this.lstClass = data[2].lstGeneralCode;
             }
         )
+    }
+
+    setClickedRow = function(phoneID: number, phoneNumber: string){
+        this.selectObjPhone.phoneID = phoneID;
+        this.selectObjPhone.phoneNumber = phoneNumber;
+        this.selectPhone.emit(this.selectObjPhone);
     }
 
     newCustomerPhone():void{
