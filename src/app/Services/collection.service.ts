@@ -102,11 +102,11 @@ export class CollectionService{
         }
     }
 
-    postProcess(url:string): void{
+    postProcess(url:string, data:any): void{
         let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token, 'Content-Type': 'application/json'});
         let options = new RequestOptions({ headers: headers });
         let api = `${this.authenticationService.urlBase}${url}`
-        this.http.post(api, options)
+        this.http.post(api,JSON.stringify(data), options)
         .subscribe(data => console.log(data))        
     }
 }
