@@ -13,8 +13,11 @@ export class GeneralManagementComponent{
     btnnextState: boolean;
     customerBagData: any = {};
     customerBagPhoneData: any[] = [];
+    customerBagManagementsData: any[] = [];
+    customerBagAccountData: any[] = [];
     index: number = 0;
     lstAssign: any[] = [];
+    selectPhone: any = {};
     constructor(private _collectionService: CollectionService){
     }
 
@@ -38,6 +41,13 @@ export class GeneralManagementComponent{
                 if(this.customerBagData.Phones != null){
                     this.customerBagPhoneData = this.customerBagData.Phones;
                 }
+                if(this.customerBagData.Managements != null){
+                    this.customerBagManagementsData = this.customerBagData.Managements;
+                }
+                if(this.customerBagData.Accounts != null){
+                    this.customerBagAccountData = this.customerBagData.Accounts;
+                    console.log(this.customerBagAccountData)
+                }
             }
             
             this.valIndex();
@@ -55,8 +65,18 @@ export class GeneralManagementComponent{
                 if(this.customerBagData.Phones != null){
                     this.customerBagPhoneData = this.customerBagData.Phones;
                 }
+                if(this.customerBagData.Managements != null){
+                    this.customerBagManagementsData = this.customerBagData.Managements;
+                }
+                if(this.customerBagData.Accounts != null){
+                    this.customerBagAccountData = this.customerBagData.Accounts;
+                }
                 this.blockUI.stop();
             })
+    }
+
+    handleSelectPhone(selectPhone: any):void{
+       this.selectPhone = selectPhone;
     }
 
     valIndex(): void{

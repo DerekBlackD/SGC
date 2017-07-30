@@ -47,3 +47,9 @@ is the default in type.less */
 .table-body-size{
     min-width:600px;
 }
+
+.table tr.active td {
+  /*background-color:#123456 !important;*/
+  background-color: red !important;
+  color: white;
+}

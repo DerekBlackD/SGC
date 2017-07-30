@@ -34,19 +34,19 @@
         <gen-customerbag [customerBagData]="customerBagData"></gen-customerbag>
     </div>
     <div class="col-md-6">
-        <gen-customerbag-phone [customerBagPhoneData]="customerBagPhoneData"></gen-customerbag-phone>
+        <gen-customerbag-phone [customerBagPhoneData]="customerBagPhoneData" (selectPhone)="handleSelectPhone($event)"></gen-customerbag-phone>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
-        <gen-customerbag-account></gen-customerbag-account>
+        <gen-customerbag-account [CustBagAccountData]="customerBagAccountData"></gen-customerbag-account>
     </div>
 </div>
 <div class="row">
     <div class="col-md-6">
-        <gen-management-list></gen-management-list>
+        <gen-management-list [CustBagManagementsData]="customerBagManagementsData"></gen-management-list>
     </div>
     <div class="col-md-6">
-        <gen-management></gen-management>
+        <gen-management [selectPhone]="selectPhone"></gen-management>
     </div>
 </div>
