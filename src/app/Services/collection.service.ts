@@ -75,12 +75,11 @@ export class CollectionService{
         })
     }
 
-    postFileUpload(url:string, file:any):string{
+    postFileUpload(url:string, file:any): Observable<any>{
         let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token, 'Content-Type': 'application/json'});
         let options = new RequestOptions({ headers: headers });
         let api = `${this.authenticationService.urlBase}${url}`;
 
-        //let fileList: FileList = event.target.files;
         let fileList: FileList = file.target.files;
         if (fileList.length > 0) {  
             let file: File = fileList[0];  
@@ -89,36 +88,25 @@ export class CollectionService{
             let headers = new Headers()  
             let options = new RequestOptions({ headers: headers });  
             let apiUrl1 = api;
-            this.http.post(apiUrl1, formData, options)  
-            .map(res => res.json())  
-            .catch(error => Observable.throw(error))  
-            .subscribe(  
-                data => console.log(data)                
-            )  
+            return this.http.post(apiUrl1, formData, options)
+            .map((response:Response) => {
+                return response.json();
+            })
+            //.map(res => res.json())  
+            //.catch(error => Observable.throw(error))  
+            //.subscribe(  
+                //data => console.log(data)
+            //)  
+        }else{
+            return null;
         }
-
-        return api;
     }
 
-    postProcess(url:string): void{
-        console.log('entro');
-
+    postProcess(url:string, data:any): void{
         let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token, 'Content-Type': 'application/json'});
         let options = new RequestOptions({ headers: headers });
         let api = `${this.authenticationService.urlBase}${url}`
-        this.http.post(api, options)
-        //.toPromise()
-        .subscribe(data => console.log(data))
-
-        //.subscribe( books => this.books = books, error => this.errorMessage = <any>error); 
-/*
-        .map(response => response.json())
-        .subscribe(
-            data => console.log('Success uploading the opinion ', data),
-            error => console.error(`Error: ${error}`)
-        )
-  */      
-        console.log('salio');
-        
+        this.http.post(api,JSON.stringify(data), options)
+        .subscribe(data => console.log(data))        
     }
 }

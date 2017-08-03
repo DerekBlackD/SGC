@@ -1,17 +1,53 @@
-<form class="container"> 
+<form class="container" (ngSubmit)="SaveTemp()" ngNativeValidate> 
     <h1>Importación General</h1>
     
     <div class="form-horizontal">
         <div class="form-group">
+            <label class="col-sm-1 control-label">Año</label>
+            <div class="col-sm-2">
+                <input type="number" [(ngModel)]="import.anio" min="1900" max="3000" class="form-control" #anio="ngModel" name="anio" required />
+            </div>
+            <label class="col-sm-1 control-label">Mes</label>
+            <div class="col-sm-2">
+                <select [(ngModel)]="import.mes" class="form-control" #mes="ngModel" name="mes" required >
+                    <option value="1">Enero</option>
+                    <option value="2">Febrero</option>
+                    <option value="3">Marzo</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Mayo</option>
+                    <option value="6">Junio</option>
+                    <option value="7">Julio</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-sm-1 control-label">Archivo</label>
             <div class="col-sm-4">
-                <input type="file" id="btnUpload" value="Upload" (change)="onChange($event)" accept=".xls, .xlsx" />
+                <input type="file" [(ngModel)]="import.fileimport" name="fileimport" (change)="onChange($event)" accept=".xls, .xlsx" #fileimport="ngModel" required="required" />
             </div>        
         </div>
+        <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-2">
+                <div class="checkbox">
+                    <label><input type="checkbox" [(ngModel)]="import.state" #state="ngModel" name="state" >Inactivar</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-2">
+                <a href="../../../../../Download/Importacion.xlsx" download="Importacion.xlsx">Formato de Carga</a>
+            </div>
+        </div>
+
 
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
-                <button type="button" class="btn btn-primary" (click)="SaveTemp()" >Guardar</button>
+                <button type="submit" id="btnimport" class="btn btn-primary">Importar</button>
             </div>
         </div>
         
