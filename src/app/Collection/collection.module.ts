@@ -13,6 +13,8 @@ import { GenCustomerBagPhone } from './Process/GeneralManagement/GenCustomerBagP
 import { GenCustomerBagAccount } from './Process/GeneralManagement/GenCustomerBagAccount/genaccount.component';
 import { GenManagementList } from './Process/GeneralManagement/GenManagementList/genmanagementlist.component';
 import { GenManagement } from './Process/GeneralManagement/GenManagement/genmanagement.component';
+import { MantenimientoUsuarioComponent } from './Seguridad/MantenimientoUsuario.component';
+import { ConsultaUsuarioComponent  } from './Seguridad/ConsultaUsuario.component';
 
 //Services
 import { CollectionService } from '../Services/collection.service';
@@ -36,7 +38,9 @@ import { CollectionRoutingModule }  from './collection-routing.module';
     GenCustomerBagPhone,
     GenCustomerBagAccount,
     GenManagementList,
-    GenManagement
+    GenManagement,
+    MantenimientoUsuarioComponent,
+    ConsultaUsuarioComponent
   ],
   providers: [CollectionService]
 })

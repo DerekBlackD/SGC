@@ -1,0 +1,92 @@
+<div _ngcontent-c0="" class="container-fluid principal-body">
+  <div class="container">
+  <form action="" class="form-horizontal">
+
+      <div class="form-group">
+        <label for="id" class="control-label col-md-2">Id</label>
+        <div class="col-md-10">
+          <input #id class="form-control" id="id" type="text" placeholder="Id:" value="{{idUsuario}}" disabled>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="usuario" class="control-label col-md-2">Usuario:</label>
+        <div class="col-md-10">
+          <input #usuario class="form-control" id="usuario" type="text" placeholder="Usuario:" value="{{ls_nombreUsuario}}">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="control-label col-md-2">Password:</label>
+        <div class="col-md-10">
+          <input #password class="form-control" id="password" type="password" placeholder="Password:" value="{{ls_password}}">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="nombrecompleto" class="control-label col-md-2">Nombre Completo:</label>
+        <div class="col-md-10">
+          <input #nombrecompleto class="form-control" id="nombrecompleto" type="text" placeholder="Nombre Completo:" value="{{ls_fullname}}">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="control-label col-md-2">Email:</label>
+        <div class="col-md-10">
+          <input #email class="form-control" id="email" type="email" placeholder="Email:" value="{{ls_email}}">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="ultimasesion" class="control-label col-md-2">Última Sesión:</label>
+        <div class="col-md-10">
+          <input #ultimasesion class="form-control" id="ultimasesion" type="datetime-local" placeholder="Última Sesión:" value="{{ls_ultimasesion}}" disabled>
+        </div>
+      </div>
+
+    <button _ngcontent-c4="" class="btn btn-primary" type="button" (click)="grabar(id.value,usuario.value,password.value,nombrecompleto.value,email.value,ultimasesion.value)"><span _ngcontent-c4="" class="glyphicon glyphicon-cog"></span> Grabar</button>
+    <button _ngcontent-c4="" class="btn btn-primary" type="button" (click)="atras()"><span _ngcontent-c4="" class="glyphicon glyphicon-cog"></span> Atras</button>
+
+      <!--<div class="form-group">
+        <label for="usuarioreg" class="control-label col-md-2">Creado por:</label>
+        <div class="col-md-10">
+          <input class="form-control" id="usuarioreg" type="text" placeholder="Creado por:" >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fecharegistro" class="control-label col-md-2">Fecha Registro:</label>
+        <div class="col-md-10">
+          <input class="form-control" id="fecharegistro" type="datetime-local" placeholder="Fecha registro:" >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="usuariomod" class="control-label col-md-2">Modificado por:</label>
+        <div class="col-md-10">
+          <input class="form-control" id="usuariomod" type="text" placeholder="Modificado por:" >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fechamod" class="control-label col-md-2">Fecha Modificación:</label>
+        <div class="col-md-10">
+          <input class="form-control" id="fechamod" type="datetime-local" placeholder="Fecha Modificación:">
+        </div>
+      </div>
+
+    <div class="form-group">
+      <label for="estado" class="control-label col-md-2">Estado:</label>
+      <div class="col-md-10">
+        <select class="form-control" name="" id="estado">
+          <option value="1" >Activo</option>
+          <option value="0" >Inactivo</option>
+        </select>
+      </div>
+    </div>-->
+
+
+  </form>
+    <label>{{ls_mensaje}}</label>
+</div>
+</div>
