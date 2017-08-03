@@ -10,16 +10,20 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 })
 export class GenManagement{
      @Input() selectPhone: any = {};
+     @Input() customerData: any = {};
      @BlockUI() blockUI: NgBlockUI;
+     selectResult: any = {}
      oManagement: any = {};
      oResultCodes: any[] = [];
      lstMngtType: any;
      lstContact: any;
      lstCondition: any;
+     lstTypeComp: any;
+     lstCurrency: any;
      startDate: string;
+     showPayComp: boolean = false;
 
      constructor(private _collectionService: CollectionService){
-         //this.selectPhone.phoneID;
          this.oManagement.ResultID = "";
          this.oManagement.AgentTypeID = "";
          this.oManagement.MngtCondition = "";
@@ -37,22 +41,47 @@ export class GenManagement{
     }
 
     loadData():void{
-        let dataMngtType: any = {};
-        dataMngtType.GroupID = "5";
-        let dataContact: any = {};
-        dataContact.GroupID = "4";
-        let dataCondition: any = {};
-        dataCondition.GroupID = "10";
+        let dataMngtType: any = {}; dataMngtType.GroupID = "5";
+        let dataContact: any = {}; dataContact.GroupID = "4";
+        let dataCondition: any = {}; dataCondition.GroupID = "10";
+        let dataTypeComp: any = {}; dataTypeComp.GroupID = "11";
+        let dataCurrency: any = {}; dataCurrency.GroupID = "12";
         Observable.forkJoin(
             this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataMngtType),
             this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataContact),
             this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataCondition),
+            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataTypeComp),
+            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataCurrency)
         ).subscribe(data => {
                 this.lstMngtType = data[0].lstGeneralCode;
                 this.lstContact = data[1].lstGeneralCode;
                 this.lstCondition = data[2].lstGeneralCode;
+                this.lstTypeComp = data[3].lstGeneralCode;
+                this.lstCurrency = data[4].lstGeneralCode;
             }
         )
+    }
+
+    loadManagements():void{
+        let request: any = {};
+        request.CustomerBagID = this.customerData.CustomerBagID
+        this._collectionService.getAllDataByID("api/customerbag/getcustbagmanagements", this.oManagement)
+            .subscribe(result => {
+                console.log(result);
+                console.log('guardado correctament');
+                this.blockUI.stop();
+            })
+    }
+
+    changeResult(val: number): void{
+        this.selectResult = this.oResultCodes.find(x => x.ResultID == val);
+        if (val == 1){
+            this.showPayComp = true;
+            this.oManagement.ApplyPayComp = 1;
+        }else{
+            this.showPayComp = false;
+            this.oManagement.ApplyPayComp = 0;
+        }
     }
 
     getDateTime(): string{
@@ -71,19 +100,18 @@ export class GenManagement{
     saveManagement(): void{
         this.blockUI.start("Cargando...");
 
-        this.oManagement.CustomerBagID = 1;
-        this.oManagement.ManagementID = 0;
-        this.oManagement.CustomerID = 1;
-        this.oManagement.BagID = 1;
+        this.oManagement.CustomerBagID = this.customerData.CustomerBagID;
+        this.oManagement.CustomerID = this.customerData.CustomerID;
+        this.oManagement.AgentID = 0;
+        this.oManagement.BagID = this.customerData.BagID;
         this.oManagement.MngtDateString = this.getDateTime();
         this.oManagement.AgentTypist = 1;
         this.oManagement.AddressID = 0;
         this.oManagement.PhoneID = this.selectPhone.phoneID;
-        this.oManagement.PayCompID = 0;
         this.oManagement.MngtReason = "";
         this.oManagement.MngtNormalize = "";
-        this.oManagement.Priority = "1";
-        this.oManagement.SubPriority = "1";
+        this.oManagement.Priority = this.selectResult.Priority;
+        this.oManagement.SubPriority = this.selectResult.SubPriority;
         this.oManagement.StartDateString = this.startDate;
         this.oManagement.EndDateString = this.getDateTime();
         this.oManagement.User = "jpena";

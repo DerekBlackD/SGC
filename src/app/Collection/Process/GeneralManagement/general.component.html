@@ -34,7 +34,7 @@
         <gen-customerbag [customerBagData]="customerBagData"></gen-customerbag>
     </div>
     <div class="col-md-6">
-        <gen-customerbag-phone [customerBagPhoneData]="customerBagPhoneData" (selectPhone)="handleSelectPhone($event)"></gen-customerbag-phone>
+        <gen-customerbag-phone [customerBagPhoneData]="customerBagPhoneData" [customerData]="customerData" (selectPhone)="handleSelectPhone($event)"></gen-customerbag-phone>
     </div>
 </div>
 <div class="row">
@@ -47,6 +47,6 @@
         <gen-management-list [CustBagManagementsData]="customerBagManagementsData"></gen-management-list>
     </div>
     <div class="col-md-6">
-        <gen-management [selectPhone]="selectPhone"></gen-management>
+        <gen-management [selectPhone]="selectPhone" [customerData]="customerData"></gen-management>
     </div>
 </div>

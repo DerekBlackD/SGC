@@ -46,7 +46,7 @@
                 </div>
                 <label class="col-sm-2 control-label">Resultado</label>
                 <div class="col-sm-2">
-                    <select class="form-control" name="ResultID" [(ngModel)]="oManagement.ResultID">
+                    <select class="form-control" name="ResultID" [(ngModel)]="oManagement.ResultID" (ngModelChange)="changeResult($event)">
                         <option value="">Seleccionar</option>
                         <option *ngFor="let res of oResultCodes" value="{{res.ResultID}}">{{res.Description}}</option>
                     </select>
@@ -65,20 +65,30 @@
                     <textarea id="inputDetail" class="form-control" rows="3" placeholder="Detalle de la gestión" name="Observation" [(ngModel)]="oManagement.Observation"></textarea>
                 </div>
             </div>
-            <div class="form-group form-group-sm">
-                <label class="col-sm-2 control-label" for="ddlCompType">Tipo Comp</label>
-                <div class="col-sm-2">
-                    <select class="form-control" id="ddlCompType">
+            <div *ngIf="showPayComp" class="form-group form-group-sm">
+                <label class="col-sm-2 control-label" for="TypeComp">Tipo Comp</label>
+                <div class="col-sm-4">
+                    <select class="form-control" id="TypeComp" name="TypeComp" [(ngModel)]="oManagement.TypeComp">
                         <option value="">Seleccionar</option>
+                        <option *ngFor="let typ of lstTypeComp" value="{{typ.ID}}">{{typ.Value}}</option>
                     </select>
                 </div>
-                <label class="col-sm-1 control-label" for="txtCompDate">Fecha</label>
-                <div class="col-sm-3">
-                    <input type="date" class="form-control" name="CompDate" id="txtCompDate" />
+                <label class="col-sm-2 control-label" for="DateComp">Fecha</label>
+                <div class="col-sm-4">
+                    <input type="date" class="form-control" name="DateComp" id="DateComp" [(ngModel)]="oManagement.DateComp" />
                 </div>
-                <label class="col-sm-2 control-label" for="Monto">Monto</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" name="Mount" id="txtMount" />
+            </div>
+            <div *ngIf="showPayComp" class="form-group form-group-sm">
+                <label class="col-sm-2 control-label" for="ddlCurrency">Moneda</label>
+                <div class="col-sm-4">
+                    <select class="form-control" id="ddlCurrency" name="Currency" [(ngModel)]="oManagement.Currency">
+                        <option value="">Seleccionar</option>
+                        <option *ngFor="let cur of lstCurrency" value="{{cur.ID}}">{{cur.Value}}</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label" for="Amount">Monto</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="Amount" id="Amount" [(ngModel)]="oManagement.Amount" />
                 </div>
             </div>
         </form>

@@ -57,7 +57,7 @@
             <div class="form-group form-group-sm">
                 <label class="col-sm-2 control-label">Teléfono</label>
                 <div class="col-sm-2">
-                    <input class="form-control" type="text" name="number" [(ngModel)]="custBagPhone.number" />
+                    <input class="form-control" type="text" name="number" [(ngModel)]="custBagPhone.number" autofocus />
                 </div>
                 <label class="col-sm-2 control-label">Anexo</label>
                 <div class="col-sm-2">
@@ -66,6 +66,7 @@
                 <label class="col-sm-2 control-label">Clase</label>
                 <div class="col-sm-2">
                     <select class="form-control" name="classes" [(ngModel)]="custBagPhone.classes">
+                        <option value="">Seleccionar</option>
                         <option *ngFor="let cla of lstClass" value="{{cla.Code}}">{{cla.Value}}</option>
                     </select>
                 </div>
@@ -74,12 +75,14 @@
                 <label class="col-sm-2 control-label">Proveedor</label>
                 <div class="col-sm-2">
                     <select class="form-control" name="provider" [(ngModel)]="custBagPhone.provider">
+                        <option value="">Seleccionar</option>
                         <option *ngFor="let opt of lstProvider" value="{{opt.Code}}">{{opt.Value}}</option>
                     </select>
                 </div>
                 <label class="col-sm-2 control-label">Origen</label>
                 <div class="col-sm-2">
                     <select class="form-control" name="origin" [(ngModel)]="custBagPhone.origin">
+                        <option value="">Seleccionar</option>
                         <option *ngFor="let opt2 of lstOrigin" value="{{opt2.Code}}">{{opt2.Value}}</option>
                     </select>
                 </div>
@@ -92,7 +95,7 @@
                 <label class="col-sm-2 control-label">Dirección</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="AddressID" [(ngModel)]="custBagPhone.AddressID">
-                        <option value="">seleccionar</option>
+                        <option value="0">Seleccionar</option>
                         <option value="1">Av. Teresa Gonzales fannin 100</option>
                         <option value="2">Av. Loma Hermosa 115</option>
                     </select>
@@ -106,40 +109,4 @@
             </div>
         </form>
     </div>
-<!--
-    <div class="panel-body mngt-scrolls" ng-show="FormType == 3">
-        <form class="form-horizontal">
-            <div class="form-group form-group-sm">
-                <label class="col-sm-2 control-label">Proveedor</label>
-                <div class="col-sm-2">
-                    <select class="form-control" ng-model="editData.Provider">
-                        <option ng-repeat="pp in ProviderPhone" value="{{pp.Code}}">{{pp.Description}}</option>
-                    </select>
-                </div>
-                <label class="col-sm-2 control-label">Teléfono</label>
-                <div class="col-sm-2">
-                    <label class="control-label" id="inputTlfnDir">{{editData.PhoneNumber}}</label>
-                </div>
-                <label class="col-sm-2 control-label">Fecha</label>
-                <div class="col-sm-2">
-                    <label class="control-label" id="inputFecha">{{editData.ProviderName}}</label>
-                </div>
-            </div>
-            <div class="form-group form-group-sm">
-                <label class="col-sm-2 control-label">Origen</label>
-                <div class="col-sm-2">
-                    <select class="form-control" ng-model="editData.Origin">
-                        <option ng-repeat="op in OriginPhone" value="{{op.Code}}">{{op.Description}}</option>
-                    </select>
-                </div>
-                <label class="col-sm-2 control-label">Estado</label>
-                <div class="col-sm-2">
-                    <select class="form-control">
-                        <option>Activo</option>
-                        <option>Inactivo</option>
-                    </select>
-                </div>
-            </div>
-        </form>
-    </div>-->
 </div>

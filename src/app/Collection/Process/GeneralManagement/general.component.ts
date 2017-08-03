@@ -9,15 +9,16 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 })
 export class GeneralManagementComponent{
     @BlockUI() blockUI: NgBlockUI;
-    btnprevState: boolean;
-    btnnextState: boolean;
     customerBagData: any = {};
     customerBagPhoneData: any[] = [];
     customerBagManagementsData: any[] = [];
     customerBagAccountData: any[] = [];
-    index: number = 0;
     lstAssign: any[] = [];
     selectPhone: any = {};
+    customerData: any = {};
+    btnprevState: boolean;
+    btnnextState: boolean;
+    indexAssign: number = 0;
     constructor(private _collectionService: CollectionService){
     }
 
@@ -36,29 +37,39 @@ export class GeneralManagementComponent{
         this._collectionService.getAllDataByID('api/GetAssign', data)
             .subscribe(assign =>{
             this.lstAssign = assign.lstAssignmentByAgent;
-            if(assign.objCustomerBag != null){
-                this.customerBagData = assign.objCustomerBag;
-                if(this.customerBagData.Phones != null){
-                    this.customerBagPhoneData = this.customerBagData.Phones;
-                }
-                if(this.customerBagData.Managements != null){
-                    this.customerBagManagementsData = this.customerBagData.Managements;
-                }
-                if(this.customerBagData.Accounts != null){
-                    this.customerBagAccountData = this.customerBagData.Accounts;
-                    console.log(this.customerBagAccountData)
+            if(this.lstAssign.length > 0){
+                this.customerData.CustomerBagID = this.lstAssign[0].CustomerBagID;
+                this.customerData.CustomerID = this.lstAssign[0].CustomerID;
+                this.customerData.BagID = this.lstAssign[0].BagID;
+                if(assign.objCustomerBag != null){
+                    this.customerBagData = assign.objCustomerBag;
+                    if(this.customerBagData.Phones != null){
+                        this.customerBagPhoneData = this.customerBagData.Phones;
+                    }
+                    if(this.customerBagData.Managements != null){
+                        this.customerBagManagementsData = this.customerBagData.Managements;
+                    }
+                    if(this.customerBagData.Accounts != null){
+                        this.customerBagAccountData = this.customerBagData.Accounts;
+                    }
                 }
             }
+            
             
             this.valIndex();
             this.blockUI.stop();
         })
     }
 
-    loadCustomerBagData(customerBagID: number):void{
+    loadCustomerBagData(customerBag: any):void{
         this.blockUI.start("Cargando...");
         let request : any = {};
-        request.CustomerBagID = customerBagID;
+        request.CustomerBagID = customerBag.CustomerBagID;
+        request.CustomerID = customerBag.CustomerID;
+        request.BagID = customerBag.BagID;
+        this.customerData.CustomerBagID = customerBag.CustomerBagID;
+        this.customerData.CustomerID = customerBag.CustomerID;
+        this.customerData.BagID = customerBag.BagID;
         this._collectionService.getAllDataByID('api/customerbag/getcustomerbagbyid', request)
             .subscribe(data => {
                 this.customerBagData = data.objCustomerBag;
@@ -80,14 +91,14 @@ export class GeneralManagementComponent{
     }
 
     valIndex(): void{
-        if (this.index == 0){
+        if (this.indexAssign == 0){
             this.btnprevState = true;
         }else{
             this.btnprevState = false;
         }
 
         let maxIndex: number = this.lstAssign.length;
-        if(this.index == maxIndex - 1){
+        if(this.indexAssign == maxIndex - 1){
             this.btnnextState = true;
         }else{
             this.btnnextState = false;
@@ -95,16 +106,16 @@ export class GeneralManagementComponent{
     }
 
     nextCustomer(): void{
-        this.index = this.index + 1;
-        let custBagID : number = this.lstAssign[this.index].CustomerBagID;
-        this.loadCustomerBagData(custBagID);
+        this.indexAssign = this.indexAssign + 1;
+        let CustBag : any = this.lstAssign[this.indexAssign];
+        this.loadCustomerBagData(CustBag);
         this.valIndex();
     }
 
     prevCustomer(): void{
-        this.index = this.index - 1;
-        let custBagID : number = this.lstAssign[this.index].CustomerBagID;
-        this.loadCustomerBagData(custBagID);
+        this.indexAssign = this.indexAssign - 1;
+        let CustBag : any = this.lstAssign[this.indexAssign];
+        this.loadCustomerBagData(CustBag);
         this.valIndex();
     }
 }

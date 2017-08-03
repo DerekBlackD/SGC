@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
-import { Phone } from '../../../../Models/phone.model';
 import { CollectionService } from '../../../../Services/collection.service';
-import {Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
     selector: 'gen-customerbag-phone',
@@ -10,9 +10,10 @@ import {Observable} from 'rxjs/Rx';
 })
 export class GenCustomerBagPhone implements OnInit{
     @Input() customerBagPhoneData : any[] = [];
+    @Input() customerData: any = {};
     @Output() selectPhone = new EventEmitter;
+    @BlockUI() blockUI: NgBlockUI;
     formState: boolean = false;
-    customerPhones: Phone[] = [];
     lstOrigin: any[] = [];
     lstClass: any[] = [];
     lstProvider: any[] = [];
@@ -21,18 +22,35 @@ export class GenCustomerBagPhone implements OnInit{
     selectObjPhone : any = {};
 
     constructor(private _collectionService: CollectionService){
+        this.cleanData();
     }
+    
 
     ngOnInit() {
         //this.loadPhones();
         this.loadData();
     }
 
+    cleanData():void{
+        this.custBagPhone.classes = '';
+        this.custBagPhone.provider = '';
+        this.custBagPhone.origin = '';
+        this.custBagPhone.number = '';
+        this.custBagPhone.annexed = '';
+        this.custBagPhone.codeProvince = '';
+        this.custBagPhone.AddressID = '0';
+        this.custBagPhone.observation = '';
+    }
+
     loadPhones():void{
-        this._collectionService.getAllData('api/CustomerPhone')
-            .subscribe(phones =>{
-            this.customerPhones = phones;
-        })
+        this.blockUI.start("Cargando...");
+        let request: any = {};
+        request.CustomerBagID = this.customerData.CustomerBagID;
+        this._collectionService.getAllDataByID('api/customerbag/getcustomerbagphone', request)
+            .subscribe(data => {
+                this.customerBagPhoneData = data.lstCustomerBagPhone;
+                this.blockUI.stop();
+            })
     }
 
     loadData():void{
@@ -61,6 +79,7 @@ export class GenCustomerBagPhone implements OnInit{
     }
 
     newCustomerPhone():void{
+        this.cleanData();
         this.formState = true;
     }
 
@@ -70,13 +89,11 @@ export class GenCustomerBagPhone implements OnInit{
     }
 
     saveCustomerPhone(): void{
-        this.formState = false;
+        this.blockUI.start("Cargando...");
         let data: any = {};
 
-        data.Option = "I";
-        data.BusinnesID = "1";
-        data.CustomerBagID = "1";
-        data.ID = "1";
+        data.CustomerBagID = this.customerData.CustomerBagID;
+        data.ID = 0;
         data.Phone = this.custBagPhone.number;
         data.Annexed = this.custBagPhone.annexed;
         data.Origin = this.custBagPhone.origin;
@@ -94,18 +111,13 @@ export class GenCustomerBagPhone implements OnInit{
         data.ProvinceCode = this.custBagPhone.codeProvince;
         data.User = "jpena";
 
-        this._collectionService.postManagementData('api/customerbag/PostCustomerBag', data)
+        this._collectionService.getAllDataByID('api/customerbag/postcustomerbagphone', data)
             .subscribe(res =>{
             console.log(res);
+            this.formState = false;
+            this.blockUI.stop();
+            this.loadPhones();
         })
-        // console.log(this.custBagPhone.number);
-        // console.log(this.custBagPhone.annexed);
-        // console.log(this.custBagPhone.classes);
-        // console.log(this.custBagPhone.provider);
-        // console.log(this.custBagPhone.origin);
-        // console.log(this.custBagPhone.codeProvince);
-        // console.log(this.custBagPhone.AddressID);
-        // console.log(this.custBagPhone.observation);
     }
 
     cancelCustomerPhone(): void{
