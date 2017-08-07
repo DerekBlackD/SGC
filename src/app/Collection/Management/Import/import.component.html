@@ -26,6 +26,24 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-sm-1 control-label">Cliente</label>
+            <div class="col-sm-3">
+                <select [(ngModel)]="import.clienteid" class="form-control" #clienteid="ngModel" name="clienteid" (change)="onBagID($event)" required >
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let opc1 of Customer" value="{{opc1.ID}}">{{opc1.CustomerName}}</option>
+                </select>
+            </div>
+
+            <label class="col-sm-1 control-label">Cartera</label>
+            <div class="col-sm-3">
+                <select [(ngModel)]="import.carteraid" class="form-control" #carteraid="ngModel" name="carteraid" required >
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let opc2 of Bag" value="{{opc2.BagID}}">{{opc2.BagName}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="col-sm-1 control-label">Archivo</label>
             <div class="col-sm-4">
                 <input type="file" [(ngModel)]="import.fileimport" name="fileimport" (change)="onChange($event)" accept=".xls, .xlsx" #fileimport="ngModel" required="required" />
