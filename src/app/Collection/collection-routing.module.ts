@@ -7,6 +7,8 @@ import { ResultCodeManagementComponent } from './Management/ResultCode/resultcod
 import { ResultCodeNewComponent } from './Management/ResultCode/new/newresultcode.component'
 import { ResultCodeDelCoponent } from './Management/ResultCode/delete/delresultcode.component'
 import { ImportComponent } from './Management/Import/import.component'
+import { MantenimientoUsuarioComponent } from './Seguridad/MantenimientoUsuario.component';
+import { ConsultaUsuarioComponent } from './Seguridad/ConsultaUsuario.component';
 
 const collectionRoutes: Routes = [
   { path: 'Cobranza/Home', component: HomeComponent },
@@ -14,7 +16,9 @@ const collectionRoutes: Routes = [
   { path: 'Cobranza/ResultadoGestion', component: ResultCodeManagementComponent },
   { path: 'NuevoRS/:id', component: ResultCodeNewComponent},
   { path: 'DeleteRS/:id', component: ResultCodeDelCoponent},
-  { path: 'Collection/GeneralImportation', component: ImportComponent}
+  { path: 'Collection/GeneralImportation', component: ImportComponent},
+  { path: 'Seguridad/MantenimientoUsuario', component: MantenimientoUsuarioComponent },
+  { path: 'Seguridad/ConsultaUsuario/:id', component: ConsultaUsuarioComponent }
 
 ];
 @NgModule({
