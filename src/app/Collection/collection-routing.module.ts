@@ -1,7 +1,7 @@
-import { NgModule }             from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent }   from './Management/Home/home.component';
+import { HomeComponent } from './Management/Home/home.component';
 import { GeneralManagementComponent } from './Process/GeneralManagement/general.component'
 import { ResultCodeManagementComponent } from './Management/ResultCode/resultcode.component'
 import { ResultCodeNewComponent } from './Management/ResultCode/new/newresultcode.component'
