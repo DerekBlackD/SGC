@@ -14,7 +14,9 @@ import { GenCustomerBagAccount } from './Process/GeneralManagement/GenCustomerBa
 import { GenManagementList } from './Process/GeneralManagement/GenManagementList/genmanagementlist.component';
 import { GenManagement } from './Process/GeneralManagement/GenManagement/genmanagement.component';
 import { MantenimientoUsuarioComponent } from './Seguridad/MantenimientoUsuario.component';
+import { MantenimientoPerfilComponent } from './Seguridad/MantenimientoPerfil.component';
 import { ConsultaUsuarioComponent  } from './Seguridad/ConsultaUsuario.component';
+import { ConsultaPerfilComponent  } from './Seguridad/ConsultaPerfil.component';
 
 //Services
 import { CollectionService } from '../Services/collection.service';
@@ -40,7 +42,9 @@ import { CollectionRoutingModule }  from './collection-routing.module';
     GenManagementList,
     GenManagement,
     MantenimientoUsuarioComponent,
-    ConsultaUsuarioComponent
+    MantenimientoPerfilComponent,
+    ConsultaUsuarioComponent,
+    ConsultaPerfilComponent
   ],
   providers: [CollectionService]
 })

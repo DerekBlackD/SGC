@@ -8,7 +8,9 @@ import { ResultCodeNewComponent } from './Management/ResultCode/new/newresultcod
 import { ResultCodeDelCoponent } from './Management/ResultCode/delete/delresultcode.component'
 import { ImportComponent } from './Management/Import/import.component'
 import { MantenimientoUsuarioComponent } from './Seguridad/MantenimientoUsuario.component';
+import { MantenimientoPerfilComponent } from './Seguridad/MantenimientoPerfil.component';
 import { ConsultaUsuarioComponent } from './Seguridad/ConsultaUsuario.component';
+import { ConsultaPerfilComponent } from './Seguridad/ConsultaPerfil.component';
 
 const collectionRoutes: Routes = [
   { path: 'Cobranza/Home', component: HomeComponent },
@@ -18,7 +20,9 @@ const collectionRoutes: Routes = [
   { path: 'DeleteRS/:id', component: ResultCodeDelCoponent},
   { path: 'Collection/GeneralImportation', component: ImportComponent},
   { path: 'Seguridad/MantenimientoUsuario', component: MantenimientoUsuarioComponent },
-  { path: 'Seguridad/ConsultaUsuario/:id', component: ConsultaUsuarioComponent }
+  { path: 'Seguridad/MantenimientoPerfil', component: MantenimientoPerfilComponent },
+  { path: 'Seguridad/ConsultaUsuario/:id', component: ConsultaUsuarioComponent },
+  { path: 'Seguridad/ConsultaPerfil/:id', component: ConsultaPerfilComponent }
 
 ];
 @NgModule({
