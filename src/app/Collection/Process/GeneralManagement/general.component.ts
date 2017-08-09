@@ -12,6 +12,7 @@ export class GeneralManagementComponent{
     customerBagData: any = {};
     customerBagPhoneData: any[] = [];
     customerBagManagementsData: any[] = [];
+    customerBagManagementsDataBack: any[] = [];
     customerBagAccountData: any[] = [];
     lstAssign: any[] = [];
     selectPhone: any = {};
@@ -19,14 +20,20 @@ export class GeneralManagementComponent{
     btnprevState: boolean;
     btnnextState: boolean;
     indexAssign: number = 0;
+    Val: string;
     constructor(private _collectionService: CollectionService){
+        this.Val = 'Documento';
+    }
+
+    selectOption(val: string): void {
+        this.Val = val;
     }
 
     ngOnInit() {
         this.loadAssignment();
     }
 
-    loadAssignment(): void{
+    loadAssignment(): void {
         this.blockUI.start("Cargando...");
         let data: any = {};
 
@@ -35,35 +42,34 @@ export class GeneralManagementComponent{
         data.Month = "7";
 
         this._collectionService.getAllDataByID('api/GetAssign', data)
-            .subscribe(assign =>{
+            .subscribe(assign => {
             this.lstAssign = assign.lstAssignmentByAgent;
-            if(this.lstAssign.length > 0){
+            if (this.lstAssign.length > 0) {
                 this.customerData.CustomerBagID = this.lstAssign[0].CustomerBagID;
                 this.customerData.CustomerID = this.lstAssign[0].CustomerID;
                 this.customerData.BagID = this.lstAssign[0].BagID;
-                if(assign.objCustomerBag != null){
+                if (assign.objCustomerBag != null) {
                     this.customerBagData = assign.objCustomerBag;
-                    if(this.customerBagData.Phones != null){
+                    if (this.customerBagData.Phones != null) {
                         this.customerBagPhoneData = this.customerBagData.Phones;
                     }
-                    if(this.customerBagData.Managements != null){
+                    if (this.customerBagData.Managements != null) {
                         this.customerBagManagementsData = this.customerBagData.Managements;
+                        this.customerBagManagementsDataBack = this.customerBagManagementsData;
                     }
-                    if(this.customerBagData.Accounts != null){
+                    if (this.customerBagData.Accounts != null) {
                         this.customerBagAccountData = this.customerBagData.Accounts;
                     }
                 }
             }
-            
-            
             this.valIndex();
             this.blockUI.stop();
         })
     }
 
-    loadCustomerBagData(customerBag: any):void{
-        this.blockUI.start("Cargando...");
-        let request : any = {};
+    loadCustomerBagData(customerBag: any): void {
+        this.blockUI.start('Cargando...');
+        const request: any = {};
         request.CustomerBagID = customerBag.CustomerBagID;
         request.CustomerID = customerBag.CustomerID;
         request.BagID = customerBag.BagID;
@@ -78,6 +84,7 @@ export class GeneralManagementComponent{
                 }
                 if(this.customerBagData.Managements != null){
                     this.customerBagManagementsData = this.customerBagData.Managements;
+                    this.customerBagManagementsDataBack = this.customerBagManagementsData;
                 }
                 if(this.customerBagData.Accounts != null){
                     this.customerBagAccountData = this.customerBagData.Accounts;
@@ -86,11 +93,18 @@ export class GeneralManagementComponent{
             })
     }
 
-    handleSelectPhone(selectPhone: any):void{
+    handleSelectPhone(selectPhone: any): void {
        this.selectPhone = selectPhone;
+       const id = this.selectPhone.phoneID;
+       this.customerBagManagementsDataBack = this.customerBagManagementsData.filter(x => x.PhoneID == id);
     }
 
-    valIndex(): void{
+    handleLoadManagement(loadManagement: any[]): void {
+        this.customerBagManagementsData = loadManagement;
+        this.customerBagManagementsDataBack = loadManagement;
+    }
+
+    valIndex(): void {
         if (this.indexAssign == 0){
             this.btnprevState = true;
         }else{

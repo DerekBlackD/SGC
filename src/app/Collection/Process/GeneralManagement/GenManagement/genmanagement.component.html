@@ -73,9 +73,9 @@
                         <option *ngFor="let typ of lstTypeComp" value="{{typ.ID}}">{{typ.Value}}</option>
                     </select>
                 </div>
-                <label class="col-sm-2 control-label" for="DateComp">Fecha</label>
+                <label class="col-sm-2 control-label">Fecha</label>
                 <div class="col-sm-4">
-                    <input type="date" class="form-control" name="DateComp" id="DateComp" [(ngModel)]="oManagement.DateComp" />
+                    <input type="date" class="form-control" name="DateComp" id="DateComp" [(ngModel)]="oManagement.DateCompString" />
                 </div>
             </div>
             <div *ngIf="showPayComp" class="form-group form-group-sm">
@@ -88,7 +88,7 @@
                 </div>
                 <label class="col-sm-2 control-label" for="Amount">Monto</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="Amount" id="Amount" [(ngModel)]="oManagement.Amount" />
+                    <input type="text" class="form-control text-right" name="Amount" id="Amount" [(ngModel)]="oManagement.Amount" />
                 </div>
             </div>
         </form>

@@ -9,7 +9,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
     styleUrls: ['../general.component.css']
 })
 export class GenCustomerBagPhone implements OnInit{
-    @Input() customerBagPhoneData : any[] = [];
+    @Input() customerBagPhoneData: any[] = [];
     @Input() customerData: any = {};
     @Output() selectPhone = new EventEmitter;
     @BlockUI() blockUI: NgBlockUI;
@@ -19,19 +19,17 @@ export class GenCustomerBagPhone implements OnInit{
     lstProvider: any[] = [];
     custBagPhone: any = {};
     ID: number = 0;
-    selectObjPhone : any = {};
+    selectObjPhone: any = {};
 
-    constructor(private _collectionService: CollectionService){
+    constructor(private _collectionService: CollectionService) {
         this.cleanData();
     }
-    
 
     ngOnInit() {
-        //this.loadPhones();
         this.loadData();
     }
 
-    cleanData():void{
+    cleanData(): void {
         this.custBagPhone.classes = '';
         this.custBagPhone.provider = '';
         this.custBagPhone.origin = '';
@@ -42,9 +40,9 @@ export class GenCustomerBagPhone implements OnInit{
         this.custBagPhone.observation = '';
     }
 
-    loadPhones():void{
-        this.blockUI.start("Cargando...");
-        let request: any = {};
+    loadPhones(): void {
+        this.blockUI.start('Cargando...');
+        const request: any = {};
         request.CustomerBagID = this.customerData.CustomerBagID;
         this._collectionService.getAllDataByID('api/customerbag/getcustomerbagphone', request)
             .subscribe(data => {
@@ -53,13 +51,13 @@ export class GenCustomerBagPhone implements OnInit{
             })
     }
 
-    loadData():void{
-        let dataProv: any = {};
-        dataProv.GroupID = "1";
-        let dataOrigin: any = {};
-        dataOrigin.GroupID = "2";
-        let dataClass: any = {};
-        dataClass.GroupID = "3";
+    loadData(): void {
+        const dataProv: any = {};
+        dataProv.GroupID = '1';
+        const dataOrigin: any = {};
+        dataOrigin.GroupID = '2';
+        const dataClass: any = {};
+        dataClass.GroupID = '3';
         Observable.forkJoin(
             this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataProv),
             this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataOrigin),
@@ -78,19 +76,19 @@ export class GenCustomerBagPhone implements OnInit{
         this.selectPhone.emit(this.selectObjPhone);
     }
 
-    newCustomerPhone():void{
+    newCustomerPhone(): void {
         this.cleanData();
         this.formState = true;
     }
 
-    editCustomerPhone(ID: number):void{
+    editCustomerPhone(ID: number): void {
         this.ID = ID;
         this.formState = true;
     }
 
-    saveCustomerPhone(): void{
-        this.blockUI.start("Cargando...");
-        let data: any = {};
+    saveCustomerPhone(): void {
+        this.blockUI.start('Cargando...');
+        const data: any = {};
 
         data.CustomerBagID = this.customerData.CustomerBagID;
         data.ID = 0;
@@ -109,10 +107,10 @@ export class GenCustomerBagPhone implements OnInit{
         data.SubPriority = 99;
         data.Observation = this.custBagPhone.observation;
         data.ProvinceCode = this.custBagPhone.codeProvince;
-        data.User = "jpena";
+        data.User = 'jpena';
 
         this._collectionService.getAllDataByID('api/customerbag/postcustomerbagphone', data)
-            .subscribe(res =>{
+            .subscribe(res => {
             console.log(res);
             this.formState = false;
             this.blockUI.stop();
@@ -120,7 +118,7 @@ export class GenCustomerBagPhone implements OnInit{
         })
     }
 
-    cancelCustomerPhone(): void{
+    cancelCustomerPhone(): void {
         this.formState = false;
     }
 }

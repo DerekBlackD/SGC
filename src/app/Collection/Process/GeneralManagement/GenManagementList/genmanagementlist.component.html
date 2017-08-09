@@ -39,7 +39,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let mngt of CustBagManagementsData" (click)="setClickedRow(mngt.ManagementID, mngt.Observation)" [class.active]="mngt.ManagementID == selectRow">
+                <tr *ngFor="let mngt of lstBackupManagementsData" (click)="setClickedRow(mngt.ManagementID, mngt.Observation)" [class.active]="mngt.ManagementID == selectRow">
                     <td>{{mngt.ManagementID}}</td>
                     <td>{{mngt.BagID}}</td>
                     <td>{{mngt.MngtDate}}</td>

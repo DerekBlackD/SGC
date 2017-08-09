@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CollectionService } from '../../../../Services/collection.service';
 import { Observable } from 'rxjs/Rx';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { IMyDpOptions } from 'mydatepicker';
 
 @Component({
     selector: 'gen-management',
@@ -11,9 +12,11 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 export class GenManagement{
      @Input() selectPhone: any = {};
      @Input() customerData: any = {};
+     @Output() loadmanagements = new EventEmitter;
      @BlockUI() blockUI: NgBlockUI;
-     selectResult: any = {}
+     selectResult: any = {};
      oManagement: any = {};
+     CustBagManagementsData: any[] = [];
      oResultCodes: any[] = [];
      lstMngtType: any;
      lstContact: any;
@@ -24,16 +27,20 @@ export class GenManagement{
      showPayComp: boolean = false;
 
      constructor(private _collectionService: CollectionService){
-         this.oManagement.ResultID = "";
-         this.oManagement.AgentTypeID = "";
-         this.oManagement.MngtCondition = "";
-         this.oManagement.ContactID = "";
+         this.oManagement.ResultID = '';
+         this.oManagement.AgentTypeID = ''
+         this.oManagement.MngtCondition = '';
+         this.oManagement.ContactID = '';
+         this.oManagement.TypeComp = '';
+         this.oManagement.DateCompString = this.getDate();
+         this.oManagement.Currency = '';
+         this.oManagement.Amount = '0.00';
          this.startDate = this.getDateTime();
          this.loadResult();
          this.loadData();
      }
 
-     loadResult():void{
+     loadResult(): void {
         this._collectionService.getAllData('api/Result/getResult/1')
             .subscribe(result =>{
                 this.oResultCodes = result;
@@ -62,14 +69,13 @@ export class GenManagement{
         )
     }
 
-    loadManagements():void{
-        let request: any = {};
+    loadManagements(): void {
+        const request: any = {};
         request.CustomerBagID = this.customerData.CustomerBagID
-        this._collectionService.getAllDataByID("api/customerbag/getcustbagmanagements", this.oManagement)
+        this._collectionService.getAllDataByID('api/customerbag/getcustbagmanagements', this.oManagement)
             .subscribe(result => {
-                console.log(result);
-                console.log('guardado correctament');
-                this.blockUI.stop();
+                this.CustBagManagementsData = result.lstCustomerBagManagements;
+                this.loadmanagements.emit(this.CustBagManagementsData);
             })
     }
 
@@ -97,8 +103,19 @@ export class GenManagement{
         return date;
     }
 
+    getDate(): string {
+        const today = new Date();
+        const m = today.getMonth() + 1;
+        const month = (m < 10) ? '0' + m : m;
+        const year = today.getFullYear();
+        const d = today.getDate();
+        const day = (d < 10) ? '0' + d : d;
+        const date = `${year}-${month}-${day}`;
+        return date;
+    }
+
     saveManagement(): void{
-        this.blockUI.start("Cargando...");
+        this.blockUI.start('Cargando...');
 
         this.oManagement.CustomerBagID = this.customerData.CustomerBagID;
         this.oManagement.CustomerID = this.customerData.CustomerID;
@@ -108,18 +125,17 @@ export class GenManagement{
         this.oManagement.AgentTypist = 1;
         this.oManagement.AddressID = 0;
         this.oManagement.PhoneID = this.selectPhone.phoneID;
-        this.oManagement.MngtReason = "";
-        this.oManagement.MngtNormalize = "";
+        this.oManagement.MngtReason = '';
+        this.oManagement.MngtNormalize = '';
         this.oManagement.Priority = this.selectResult.Priority;
         this.oManagement.SubPriority = this.selectResult.SubPriority;
         this.oManagement.StartDateString = this.startDate;
         this.oManagement.EndDateString = this.getDateTime();
-        this.oManagement.User = "jpena";
+        this.oManagement.User = 'jpena';
 
-        this._collectionService.getAllDataByID("api/customerbag/postcustbagmanagement", this.oManagement)
+        this._collectionService.getAllDataByID('api/customerbag/postcustbagmanagement', this.oManagement)
             .subscribe(result => {
-                console.log(result);
-                console.log('guardado correctament');
+                this.loadManagements();
                 this.blockUI.stop();
             })
     }
