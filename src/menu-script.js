@@ -44,4 +44,13 @@
         }
         
     });
+
+    $(document).on('contextmenu', '#tPhone tbody tr', function (e) {
+        e.preventDefault();
+
+        var strTelefono = $.trim($(this).find('td:eq(2)').text());
+        //var strCodProv = $.trim($(this).find('td').get(25).innerHTML);
+
+        window.location = 'sip:' + strTelefono;
+    });
 }(jQuery);

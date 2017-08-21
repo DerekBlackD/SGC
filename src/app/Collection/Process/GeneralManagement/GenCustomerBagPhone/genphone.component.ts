@@ -13,12 +13,15 @@ export class GenCustomerBagPhone implements OnInit{
     @Input() customerData: any = {};
     @Output() selectPhone = new EventEmitter;
     @BlockUI() blockUI: NgBlockUI;
-    formState: boolean = false;
+    formState = false;
+    submitted = false;
+    errorService = false;
+    messageServiceError: string;
     lstOrigin: any[] = [];
     lstClass: any[] = [];
     lstProvider: any[] = [];
     custBagPhone: any = {};
-    ID: number = 0;
+    ID = 0;
     selectObjPhone: any = {};
 
     constructor(private _collectionService: CollectionService) {
@@ -79,6 +82,7 @@ export class GenCustomerBagPhone implements OnInit{
     newCustomerPhone(): void {
         this.cleanData();
         this.formState = true;
+        this.submitted = false;
     }
 
     editCustomerPhone(ID: number): void {
@@ -86,39 +90,45 @@ export class GenCustomerBagPhone implements OnInit{
         this.formState = true;
     }
 
-    saveCustomerPhone(): void {
-        this.blockUI.start('Cargando...');
-        const data: any = {};
+    saveCustomerPhone(isValid: boolean): void {
+        this.submitted = true;
+        if (isValid) {
+            this.blockUI.start('Cargando...');
+            const data: any = {};
 
-        data.CustomerBagID = this.customerData.CustomerBagID;
-        data.ID = 0;
-        data.Phone = this.custBagPhone.number;
-        data.Annexed = this.custBagPhone.annexed;
-        data.Origin = this.custBagPhone.origin;
-        data.Class = this.custBagPhone.classes;
-        data.Provider = this.custBagPhone.provider;
-        data.Condition = 0;
-        data.AddressID = this.custBagPhone.AddressID;
-        data.Situation = 1;
-        data.DateMngt = null;
-        data.Ubiquity = 1;
-        data.Result = 1;
-        data.Priority = 99;
-        data.SubPriority = 99;
-        data.Observation = this.custBagPhone.observation;
-        data.ProvinceCode = this.custBagPhone.codeProvince;
-        data.User = 'jpena';
+            data.CustomerBagID = this.customerData.CustomerBagID;
+            data.ID = 0;
+            data.Phone = this.custBagPhone.number;
+            data.Annexed = this.custBagPhone.annexed;
+            data.Origin = this.custBagPhone.origin;
+            data.Class = this.custBagPhone.classes;
+            data.Provider = this.custBagPhone.provider;
+            data.Condition = 0;
+            data.AddressID = this.custBagPhone.AddressID;
+            data.Situation = 1;
+            data.DateMngt = null;
+            data.Ubiquity = 1;
+            data.Result = 1;
+            data.Priority = 99;
+            data.SubPriority = 99;
+            data.Observation = this.custBagPhone.observation;
+            data.ProvinceCode = this.custBagPhone.codeProvince;
+            data.User = 'jpena';
 
-        this._collectionService.getAllDataByID('api/customerbag/postcustomerbagphone', data)
-            .subscribe(res => {
-            console.log(res);
-            this.formState = false;
-            this.blockUI.stop();
-            this.loadPhones();
-        })
+            this._collectionService.getAllDataByID('api/customerbag/postcustomerbagphone', data)
+                .subscribe(res => {
+                this.formState = false;
+                this.submitted = false;
+                this.blockUI.stop();
+                this.loadPhones();
+            }, err => {
+                this.messageServiceError = err;
+            });
+        }
     }
 
     cancelCustomerPhone(): void {
         this.formState = false;
+        this.submitted = false;
     }
 }

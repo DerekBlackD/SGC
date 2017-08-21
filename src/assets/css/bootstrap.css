@@ -3193,7 +3193,7 @@ textarea.input-lg, select[multiple].input-lg {
 .input-sm + .form-control-feedback, .input-group-sm + .form-control-feedback, .form-group-sm .form-control + .form-control-feedback {
     width: 30px;
     height: 30px;
-    line-height: 30px;
+    line-height: 20px;
 }
 
 .has-success .help-block, .has-success .control-label, .has-success .radio, .has-success .checkbox, .has-success .radio-inline, .has-success .checkbox-inline, .has-success.radio label, .has-success.checkbox label, .has-success.radio-inline label, .has-success.checkbox-inline label {

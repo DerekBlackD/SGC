@@ -43,7 +43,7 @@ export class CollectionService{
 
         let apiUrl = this.authenticationService.urlBase + url;
 
-        data.BusinessID = this.authenticationService.businessID;
+        data.BusinessID = this.authenticationService.getPayLoad().BusinessID; //this.authenticationService.businessID;
         
         return this.http.post(apiUrl, JSON.stringify(data), optionsRequest)
         .map((response: Response) => {

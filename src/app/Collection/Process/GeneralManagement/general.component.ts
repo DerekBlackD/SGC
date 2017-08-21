@@ -79,14 +79,14 @@ export class GeneralManagementComponent{
         this._collectionService.getAllDataByID('api/customerbag/getcustomerbagbyid', request)
             .subscribe(data => {
                 this.customerBagData = data.objCustomerBag;
-                if(this.customerBagData.Phones != null){
+                if (this.customerBagData.Phones != null) {
                     this.customerBagPhoneData = this.customerBagData.Phones;
                 }
-                if(this.customerBagData.Managements != null){
+                if (this.customerBagData.Managements != null) {
                     this.customerBagManagementsData = this.customerBagData.Managements;
                     this.customerBagManagementsDataBack = this.customerBagManagementsData;
                 }
-                if(this.customerBagData.Accounts != null){
+                if (this.customerBagData.Accounts != null) {
                     this.customerBagAccountData = this.customerBagData.Accounts;
                 }
                 this.blockUI.stop();
@@ -105,30 +105,30 @@ export class GeneralManagementComponent{
     }
 
     valIndex(): void {
-        if (this.indexAssign == 0){
+        if (this.indexAssign === 0) {
             this.btnprevState = true;
-        }else{
+        } else {
             this.btnprevState = false;
         }
 
-        let maxIndex: number = this.lstAssign.length;
-        if(this.indexAssign == maxIndex - 1){
+        const maxIndex: number = this.lstAssign.length;
+        if (this.indexAssign === maxIndex - 1) {
             this.btnnextState = true;
-        }else{
+        } else {
             this.btnnextState = false;
         }
     }
 
-    nextCustomer(): void{
+    nextCustomer(): void {
         this.indexAssign = this.indexAssign + 1;
-        let CustBag : any = this.lstAssign[this.indexAssign];
+        const CustBag: any = this.lstAssign[this.indexAssign];
         this.loadCustomerBagData(CustBag);
         this.valIndex();
     }
 
-    prevCustomer(): void{
+    prevCustomer(): void {
         this.indexAssign = this.indexAssign - 1;
-        let CustBag : any = this.lstAssign[this.indexAssign];
+        const CustBag : any = this.lstAssign[this.indexAssign];
         this.loadCustomerBagData(CustBag);
         this.valIndex();
     }
