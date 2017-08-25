@@ -12,6 +12,9 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 export class LoginComponent implements OnInit{
     @BlockUI() blockUI: NgBlockUI;
     model: any = {};
+    submitted = false;
+    errorService = false;
+    messageLoginError: string;
 
     constructor(private router: Router,
                 private _sharedService: SharedService,
@@ -25,17 +28,24 @@ export class LoginComponent implements OnInit{
         this._authenticationService.logout();
     }
 
-    Login():void{
-        this.blockUI.start("Cargando...");
-        this._authenticationService.login(this.model.username, this.model.password)
+    Login(isValid: boolean): void {
+        this.submitted = true;
+        if (isValid) {
+            this.blockUI.start('Cargando...');
+            this._authenticationService.login(this.model.username, this.model.password)
             .subscribe(result => {
-                if (result === true) {
+                if (result === '0') {
                     this._sharedService.emitChange(true);
-                    this.router.navigateByUrl("/Cobranza/Home");
+                    this.router.navigateByUrl('/Cobranza/Home');
                 } else {
-                    console.log('Error');
+                    console.log(result);
                 }
                 this.blockUI.stop();
+            }, err => {
+                this.errorService = true;
+                this.messageLoginError = err;
+                this.blockUI.stop();
             });
+        }
     }
 }

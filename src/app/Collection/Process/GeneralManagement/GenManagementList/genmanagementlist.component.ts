@@ -20,20 +20,20 @@ export class GenManagementList {
     filterList(nfilter: number): void{
         this.intActiveFilter = nfilter;
 
-        if(nfilter == 1){
+        if (nfilter === 1) {
             this.lstBackupManagementsData = this.CustBagManagementsData;
         }
-        if(nfilter == 2){
-            this.lstBackupManagementsData = this.CustBagManagementsData.filter(x => x.AgentTypeID == 1);
+        if (nfilter === 2) {
+            this.lstBackupManagementsData = this.CustBagManagementsData.filter(x => x.MngtClass === 1);
         }
-        if(nfilter == 3){
-            this.lstBackupManagementsData = this.CustBagManagementsData.filter(x => x.AgentTypeID == 2);
+        if (nfilter === 3) {
+            this.lstBackupManagementsData = this.CustBagManagementsData.filter(x => x.MngtClass === 2);
         }
-        if(nfilter == 4){
-            this.lstBackupManagementsData = this.CustBagManagementsData.filter(x => x.ResultID == 1);
+        if (nfilter === 4) {
+            this.lstBackupManagementsData = this.CustBagManagementsData.filter(x => x.ResultID === 1);
         }
-        if(nfilter == 5){
-            this.lstBackupManagementsData = this.CustBagManagementsData.filter(x => x.ContactID == 1);
+        if (nfilter === 5) {
+            this.lstBackupManagementsData = this.CustBagManagementsData.filter(x => x.ContactID === 1);
         }
     }
 

@@ -41,24 +41,18 @@
             <tbody>
                 <tr *ngFor="let mngt of lstBackupManagementsData" (click)="setClickedRow(mngt.ManagementID, mngt.Observation)" [class.active]="mngt.ManagementID == selectRow">
                     <td>{{mngt.ManagementID}}</td>
-                    <td>{{mngt.BagID}}</td>
-                    <td>{{mngt.MngtDate}}</td>
+                    <td>{{mngt.BagDesc}}</td>
+                    <td>{{mngt.MngtDateString}}</td>
                     <td>{{mngt.PhoneID}}</td>
-                    <td>{{mngt.ResultID}}</td>
-                    <td>{{mngt.AgentID}}</td>
-                    <td>01/01/2001</td>
-                    <td>0</td>
-                    <td>{{mngt.AgentTypeID}}</td>
-                    <td>{{mngt.AgentTypist}}</td>
+                    <td>{{mngt.ResultCode}}</td>
+                    <td>{{mngt.AgentDesc}}</td>
+                    <td>{{mngt.DateCompString}}</td>
+                    <td>{{mngt.Amount}}</td>
+                    <td>{{mngt.MngtClassDesc}}</td>
+                    <td>{{mngt.AgentTypistDesc}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="form-horizontal">
-        <div class="form-group form-group-sm">
-            <div class="col-sm-12">
-                <textarea class="form-control" rows="3">{{selectObservation}}</textarea>
-            </div>
-        </div>
-    </div>
+    <p class="bg-info"><b>Notas: </b>{{selectObservation}}</p>
 </div>

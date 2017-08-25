@@ -8,10 +8,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                <h3 class="panel-title"><span class="glyphicon glyphicon-earphone"></span> {{selectPhone.phoneNumber}}</h3>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a><span>{{todayDate}}</span></a></li>
                     <li><a class="btn-without-ref" (click)="saveManagement()"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</a></li>
                 </ul>
             </div>
@@ -21,41 +23,34 @@
         <form class="form-horizontal">
             <div class="form-group form-group-sm">
                 <label class="col-sm-2 control-label">Tipo Gest</label>
-                <div class="col-sm-2">
-                    <select class="form-control" name="AgentTypeID" [(ngModel)]="oManagement.AgentTypeID">
+                <div class="col-sm-4">
+                    <select class="form-control" name="MngtType" [(ngModel)]="oManagement.MngtType">
                         <option value="">Seleccionar</option>
                         <option *ngFor="let type of lstMngtType" value="{{type.ID}}">{{type.Value}}</option>
                     </select>
                 </div>
-                <label class="col-sm-2 control-label">Teléfono</label>
-                <div class="col-sm-2">
-                    <label class="control-label" id="inputTlfnDir">{{selectPhone.phoneNumber}}</label>
-                </div>
-                <label class="col-sm-2 control-label">Fecha</label>
-                <div class="col-sm-2">
-                    <label class="control-label" id="inputFecha"></label>
-                </div>
-            </div>
-            <div class="form-group form-group-sm">
-                <label class="col-sm-2 control-label">Contacto</label>
-                <div class="col-sm-2">
-                    <select class="form-control" name="ContactID" [(ngModel)]="oManagement.ContactID">
-                        <option value="">Seleccionar</option>
-                        <option *ngFor="let cont of lstContact" value="{{cont.ID}}">{{cont.Value}}</option>
-                    </select>
-                </div>
                 <label class="col-sm-2 control-label">Resultado</label>
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                     <select class="form-control" name="ResultID" [(ngModel)]="oManagement.ResultID" (ngModelChange)="changeResult($event)">
                         <option value="">Seleccionar</option>
                         <option *ngFor="let res of oResultCodes" value="{{res.ResultID}}">{{res.Description}}</option>
                     </select>
                 </div>
-                <label class="col-sm-2 control-label">Condición</label>
-                <div class="col-sm-2">
-                    <select class="form-control" name="MngtCondition" [(ngModel)]="oManagement.MngtCondition">
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-2 control-label">Contacto</label>
+                <div class="col-sm-4">
+                    <select class="form-control" name="ContactID" [(ngModel)]="oManagement.ContactID">
                         <option value="">Seleccionar</option>
-                        <option *ngFor="let cond of lstCondition" value="{{cond.ID}}">{{cond.Value}}</option>
+                        <option *ngFor="let cont of lstContact" value="{{cont.ID}}">{{cont.Value}}</option>
+                    </select>
+                </div>
+                
+                <label class="col-sm-2 control-label">Lugar</label>
+                <div class="col-sm-4">
+                    <select class="form-control" name="LocationContact" [(ngModel)]="oManagement.LocationContact">
+                        <option value="">Seleccionar</option>
+                        <option *ngFor="let loc of lstLocation" value="{{loc.ID}}">{{loc.Value}}</option>
                     </select>
                 </div>
             </div>

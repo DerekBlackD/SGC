@@ -24,7 +24,7 @@ import { CollectionModule } from './Collection/collection.module';
 import { AppComponent } from './app.component';
 
 import { CollectionService } from './Services/collection.service';
-
+import { UtilitesService } from './Services/utilities.service';
 
 
 @NgModule({
@@ -51,7 +51,8 @@ import { CollectionService } from './Services/collection.service';
     AuthGuard,
     AuthenticationService,
     SecurityService,
-    CollectionService
+    CollectionService,
+    UtilitesService
   ],
   bootstrap: [AppComponent]
 })

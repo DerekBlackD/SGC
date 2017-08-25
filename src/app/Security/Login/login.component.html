@@ -1,33 +1,46 @@
 <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-        
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Iniciar sesión</h3>
-            </div>
-            <div class="panel-body">
-                <form name="formLogin" role="form">
-                    <div class="form-group">
-                        <label for="lblUser">Usuario</label>
-                        <input type="text" class="form-control" id="lblUser" placeholder="Usuario" name="username" [(ngModel)]="model.username" #username="ngModel" >
+    <div class="container">
+        <div class="row">
+                <div class="col-md-6">
+                    <img src="..\..\..\assets\hpc-logo.png" alt="" class="img-responsive img-rounded">
+                </div>
+                <div class="col-md-6">
+                    
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Iniciar sesión</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form name="formLogin" #formLogin="ngForm" role="form" novalidate>
+                                <div class="form-group">
+                                    <label for="lblUser">Usuario</label>
+                                    <div [ngClass]="{'has-error has-feedback' : submitted && username.invalid}">
+                                        <input type="text" class="form-control" id="lblUser" placeholder="Usuario" name="username" [(ngModel)]="model.username" #username="ngModel" required />
+                                        <span *ngIf="submitted && username.invalid" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group" [ngClass]="{'has-error has-feedback' : submitted && password.invalid}">
+                                    <label for="lblPassword">Contraseña</label>
+                                    <input type="password" class="form-control" id="lblPassword" placeholder="Password" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+                                    <span *ngIf="submitted && password.invalid" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                                </div>
+                                <!-- <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Recordar sesión
+                                    </label>
+                                </div> -->
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary" (click)="Login(formLogin.valid)"><i class="fa fa-lock" aria-hidden="true"></i> Ingresar </button>
+                                </div>
+                                <br />
+                                <div class="alert alert-danger" role="alert" *ngIf="errorService">
+                                    <b>Error: </b> {{messageLoginError}}
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="lblPassword">Contraseña</label>
-                        <input type="password" class="form-control" id="lblPassword" placeholder="Password" name="password" [(ngModel)]="model.password" #password="ngModel">
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"> Recordar sesión
-                        </label>
-                    </div>
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-primary" (click)="Login()"><i class="fa fa-lock" aria-hidden="true"></i> Ingresar </button>
-                    </div>
-
-                </form>
-            </div>
+                </div>
         </div>
     </div>
-    <div class="col-md-3"></div>
+    
 </div>
