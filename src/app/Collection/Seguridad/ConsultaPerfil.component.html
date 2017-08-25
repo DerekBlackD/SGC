@@ -47,21 +47,22 @@
                                 <tr>
                                     <th></th>
                                     <th>Id</th>
-                                    <th>Perfil</th>
-                                    <th>Descripción</th>
+                                    <th>Opcion</th>
                                     <th>Estado</th>
                                 </tr>
                             </thead>
-                            <!--<tbody>
-                                <tr *ngFor="let perfil of perfiles" >
+                            <tbody>
+                                <tr *ngFor="let opciones of opcionesmaestro; let i = index" [ngClass]="{'menu': opciones.Url == '#' && opciones.Id_SubMenu == 0,'submenu' : opciones.Url == '#' && opciones.Id_SubMenu != 0}">
+                                    <!--ng-style="{ 'width' : (myObject.value == 'ok') ? '100%' : '0%' }"-->
                                     <td><span class="glyphicon glyphicon-log-out"></span></td>
-                                    <td ><button  class="btn btn-primary" (click)="consulta(1 , perfil.ID)">{{perfil.ID}}</button ></td>
-                                    <td>{{perfil.Nombre}}</td>
-                                    <td>{{perfil.Description}}</td>
+                                    <td >{{opciones.Id_Opcion}}</td>
+                                    <td>{{opciones.NombreOpcion}}</td>
+                                    <td><input *ngIf="opciones.Url!='#'" type="checkbox"  [ngModel]= "opciones.FlgActivo" data-md-icheck (change)="changeoption(i)" value="true"/></td>
                                 </tr>
-                            </tbody>-->
+                            </tbody>
                             
                         </table>
+                        
                     </div>
 
                 </div>
@@ -69,3 +70,16 @@
         </div>
     </div>
 </div>
+
+<style>
+    .menu{
+        /*background-color: blue !important;*/
+        background: linear-gradient(#2E5590, #516E9A);
+        color: white;
+    }
+    .submenu{
+        /*background-color: #93979C !important;*/
+        background: linear-gradient(#93979C, #AEB0B3);
+        color: white;
+    }
+</style>

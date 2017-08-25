@@ -24,6 +24,13 @@
       </div>
 
       <div class="form-group">
+        <label for="passwordconfirm" class="control-label col-md-2">Confirmar Password:</label>
+        <div class="col-md-10">
+          <input #passwordconfirm class="form-control" id="passwordconfirm" type="password" placeholder="Password:" value="{{ls_password}}">
+        </div>
+      </div>
+
+      <div class="form-group">
         <label for="nombrecompleto" class="control-label col-md-2">Nombre Completo:</label>
         <div class="col-md-10">
           <input #nombrecompleto class="form-control" id="nombrecompleto" type="text" placeholder="Nombre Completo:" value="{{ls_fullname}}">
@@ -44,9 +51,67 @@
         </div>
       </div>
 
-    <button _ngcontent-c4="" class="btn btn-primary" type="button" (click)="grabar(id.value,usuario.value,password.value,nombrecompleto.value,email.value,ultimasesion.value)"><span _ngcontent-c4="" class="glyphicon glyphicon-cog"></span> Grabar</button>
+    <button _ngcontent-c4="" class="btn btn-primary" type="button" (click)="grabar(id.value,usuario.value,password.value,passwordconfirm.value,nombrecompleto.value,email.value,ultimasesion.value)"><span _ngcontent-c4="" class="glyphicon glyphicon-cog"></span> Grabar</button>
     <button _ngcontent-c4="" class="btn btn-primary" type="button" (click)="atras()"><span _ngcontent-c4="" class="glyphicon glyphicon-cog"></span> Atras</button>
 
+
+    <div class="row">
+            <div class="panel panel-info">
+                <div class="panel-heading nav navbar-inverse">
+                    <div>
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <h3 class="panel-title">Perfiles</h3>
+                        </div>
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li *ngIf="!formState"><a class="btn-without-ref" (click)="listarPerfiles()" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> Nuevo</a></li>
+                                <li *ngIf="formState"><a class="btn-without-ref" (click)="saveCustomerPhone()"><span class="glyphicon glyphicon-floppy-saved"></span> Guardar</a></li>
+                                <li *ngIf="formState"><a class="btn-without-ref" (click)="cancelCustomerPhone()"><span class="glyphicon glyphicon-floppy-remove"></span> Cancelar</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="mngt-scrolls">
+                        <div class="mngt-scrolls">
+                            <table class="table-mngt table table-hover table-body-size">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>IdPerfil</th>
+                                        <th>Perfil</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let perfil of perfiles; let i = index" >
+                                      <td><span class="glyphicon glyphicon-log-out"></span></td>
+                                      <td >{{perfil.ID}}</td>
+                                      <td>{{perfil.Nombre}}</td>
+                                      <td><button class="btn btn-primary" (click)="eliminarPerfil(i)">Eliminar</button></td>
+                                  </tr>
+                              </tbody>
+                                <!--<tbody>
+                                    <tr *ngFor="let perfil of perfiles" >
+                                        <td><span class="glyphicon glyphicon-log-out"></span></td>
+                                        <td ><button  class="btn btn-primary" (click)="consulta(1 , perfil.ID)">{{perfil.ID}}</button ></td>
+                                        <td>{{perfil.Nombre}}</td>
+                                        <td>{{perfil.Description}}</td>
+                                    </tr>
+                                </tbody>-->
+                                
+                            </table>
+                        </div>
+                    </div>
+            </div>
+    </div>
       <!--<div class="form-group">
         <label for="usuarioreg" class="control-label col-md-2">Creado por:</label>
         <div class="col-md-10">
@@ -89,4 +154,45 @@
   </form>
     <label>{{ls_mensaje}}</label>
 </div>
+</div>
+
+
+<!-- Modal -->
+<div #modalperfil class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Seleccione Perfil</h4>
+      </div>
+      <div class="modal-body">
+              <div class="mngt-scrolls">
+                        <div class="mngt-scrolls">
+                            <table class="table-mngt table table-hover table-body-size">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>IdPerfil</th>
+                                        <th>Perfil</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let perfilmaestro of perfilesmaestro" >
+                                      <td><span class="glyphicon glyphicon-log-out"></span></td>
+                                      <td >{{perfilmaestro.ID}}</td>
+                                      <td>{{perfilmaestro.Nombre}}</td>
+                                      <td><button class="btn btn-primary" (click)="agregarPerfil(perfilmaestro.ID,perfilmaestro.Nombre)">Agregar</button></td>
+                                  </tr>
+                              </tbody>                                
+                            </table>
+                        </div>
+                    </div>
+      </div>
+      <div class="modal-footer">
+          {{ls_validacionPerfil}}
+        <button #closeBtn type="button" id="btn_cerrarmodal" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </div>
