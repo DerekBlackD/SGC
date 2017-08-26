@@ -1,5 +1,11 @@
 <div _ngcontent-c0="" class="container-fluid principal-body">
   <div class="container">
+      <div class="row">
+            <div class="col-md-10" style="text-align:left !important"> <h4><p class="text-center">Mantenimiento Perfil</p></h4></div>
+            <button _ngcontent-c4="" class="btn btn-primary" type="button" (click)="grabar(id.value,nombre.value,descripcion.value)"><span _ngcontent-c4="" class="glyphicon glyphicon-cog"></span> Grabar</button>
+            <button _ngcontent-c4="" class="btn btn-primary" type="button" (click)="atras()"><span _ngcontent-c4="" class="glyphicon glyphicon-cog"></span> Atras</button>
+        </div>
+        <br>
         <form action="" class="form-horizontal">
             <div class="form-group">
                 <label for="id" class="control-label col-md-2">Id</label>
@@ -22,9 +28,7 @@
                 </div>
             </div>
 
-            <button _ngcontent-c4="" class="btn btn-primary" type="button" (click)="grabar(id.value,nombre.value,descripcion.value)"><span _ngcontent-c4="" class="glyphicon glyphicon-cog"></span> Grabar</button>
-            <button _ngcontent-c4="" class="btn btn-primary" type="button" (click)="atras()"><span _ngcontent-c4="" class="glyphicon glyphicon-cog"></span> Atras</button>
-
+            
         </form>
 
         <label>{{ls_mensaje}}</label>

@@ -6,7 +6,7 @@
             <div _ngcontent-c4="" aria-label="..." class="btn-group" role="group">
                 <button _ngcontent-c4="" class="btn btn-primary" type="button" (click)="nuevo()"><span _ngcontent-c4="" class="glyphicon glyphicon-plus-sign"></span> Nuevo</button>
             </div>
-            <div _ngcontent-c4="" class="btn-group" role="group">
+            <div _ngcontent-c4="" class="btn-group" role="group" style="display:none">
                 <button _ngcontent-c4="" class="btn btn-primary" type="button"><span _ngcontent-c4="" class="glyphicon glyphicon-cog"></span> Filtros</button>
             </div>
         </div>
@@ -31,18 +31,20 @@
                                 <th>Id</th>
                                 <th>Usuario</th>
                                 <th>Nombre</th>
-                                <th>Email</th>
+                                <!--<th>Email</th>-->
                                 <th>Fecha Registro</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let usuario of usuarios" >
                                 <td><span class="glyphicon glyphicon-log-out"></span></td>
                                 <td>{{usuario.ID}}</td>
-                                <td ><button  class="btn btn-primary" (click)="consulta(1 , usuario.ID)">{{usuario.UserName}}</button ></td>
+                                <td >{{usuario.UserName}}</td>
                                 <td>{{usuario.FullName}}</td>
-                                <td>{{usuario.Email}}</td>
-                                <td>{{usuario.DateReg}}</td>
+                                <!--<td>{{usuario.Email}}</td>-->
+                                <td>{{usuario.DateReg.substr(0,10)}}</td>
+                                <td><a class="btn-without-ref" (click)="consulta(1 , usuario.ID)"><span class="glyphicon glyphicon-pencil"></span></a></td>
                             </tr>
                         </tbody>
                     </table>

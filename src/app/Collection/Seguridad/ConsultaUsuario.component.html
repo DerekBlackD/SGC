@@ -1,5 +1,12 @@
 <div _ngcontent-c0="" class="container-fluid principal-body">
+  
   <div class="container">
+  <div class="row">
+        <div class="col-md-10" style="text-align:left !important"> <h4><p class="text-center">Mantenimiento Usuario</p></h4></div>
+        <button _ngcontent-c4="" class="btn btn-primary" type="button" (click)="grabar(id.value,usuario.value,password.value,passwordconfirm.value,nombrecompleto.value,email.value,ultimasesion.value)"><span _ngcontent-c4="" class="glyphicon glyphicon-cog"></span> Grabar</button>
+        <button _ngcontent-c4="" class="btn btn-primary" type="button" (click)="atras()"><span _ngcontent-c4="" class="glyphicon glyphicon-cog"></span> Atras</button>
+  </div>
+  <br>
   <form action="" class="form-horizontal">
 
       <div class="form-group">
@@ -44,18 +51,13 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" style="display: none">
         <label for="ultimasesion" class="control-label col-md-2">Última Sesión:</label>
         <div class="col-md-10">
           <input #ultimasesion class="form-control" id="ultimasesion" type="datetime-local" placeholder="Última Sesión:" value="{{ls_ultimasesion}}" disabled>
         </div>
       </div>
-
-    <button _ngcontent-c4="" class="btn btn-primary" type="button" (click)="grabar(id.value,usuario.value,password.value,passwordconfirm.value,nombrecompleto.value,email.value,ultimasesion.value)"><span _ngcontent-c4="" class="glyphicon glyphicon-cog"></span> Grabar</button>
-    <button _ngcontent-c4="" class="btn btn-primary" type="button" (click)="atras()"><span _ngcontent-c4="" class="glyphicon glyphicon-cog"></span> Atras</button>
-
-
-    <div class="row">
+    <br>
             <div class="panel panel-info">
                 <div class="panel-heading nav navbar-inverse">
                     <div>
@@ -69,7 +71,7 @@
                             <h3 class="panel-title">Perfiles</h3>
                         </div>
 
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3" >
                             <ul class="nav navbar-nav navbar-right">
                                 <li *ngIf="!formState"><a class="btn-without-ref" (click)="listarPerfiles()" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> Nuevo</a></li>
                                 <li *ngIf="formState"><a class="btn-without-ref" (click)="saveCustomerPhone()"><span class="glyphicon glyphicon-floppy-saved"></span> Guardar</a></li>
@@ -95,7 +97,8 @@
                                       <td><span class="glyphicon glyphicon-log-out"></span></td>
                                       <td >{{perfil.ID}}</td>
                                       <td>{{perfil.Nombre}}</td>
-                                      <td><button class="btn btn-primary" (click)="eliminarPerfil(i)">Eliminar</button></td>
+                                      <!--<td style="text-align:center"><button class="btn btn-primary" (click)="eliminarPerfil(i)">Eliminar</button></td>-->
+                                      <td><a class="btn-without-ref" (click)="eliminarPerfil(i)"><span class="glyphicon glyphicon-trash"></span></a></td>
                                   </tr>
                               </tbody>
                                 <!--<tbody>
@@ -111,7 +114,6 @@
                         </div>
                     </div>
             </div>
-    </div>
       <!--<div class="form-group">
         <label for="usuarioreg" class="control-label col-md-2">Creado por:</label>
         <div class="col-md-10">
@@ -156,6 +158,7 @@
 </div>
 </div>
 
+  
 
 <!-- Modal -->
 <div #modalperfil class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -182,7 +185,8 @@
                                       <td><span class="glyphicon glyphicon-log-out"></span></td>
                                       <td >{{perfilmaestro.ID}}</td>
                                       <td>{{perfilmaestro.Nombre}}</td>
-                                      <td><button class="btn btn-primary" (click)="agregarPerfil(perfilmaestro.ID,perfilmaestro.Nombre)">Agregar</button></td>
+                                      <!--<td style="text-align:center"><button class="btn btn-primary" (click)="agregarPerfil(perfilmaestro.ID,perfilmaestro.Nombre)">Agregar</button></td>-->
+                                      <td><a class="btn-without-ref" (click)="agregarPerfil(perfilmaestro.ID,perfilmaestro.Nombre)"><span class="glyphicon glyphicon-plus-sign"></span></a></td>
                                   </tr>
                               </tbody>                                
                             </table>

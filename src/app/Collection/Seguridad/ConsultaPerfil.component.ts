@@ -6,7 +6,8 @@ import { CollectionService } from '../../Services/collection.service';
 
 @Component({
   selector: 'ConsultaPerfil',
-  templateUrl: 'ConsultaPerfil.component.html'
+  templateUrl: 'ConsultaPerfil.component.html',
+  styleUrls: ['mantenimiento.css']
 })
 export class ConsultaPerfilComponent implements OnInit{
     public perfiles: any[] = [];
