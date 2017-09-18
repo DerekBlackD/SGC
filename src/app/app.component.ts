@@ -37,7 +37,7 @@ export class AppComponent {
   }
 
   loadMenu(): void{
-        this._securityService.getAllData('api/Menu')
+        this._securityService.getAllData('api/Menu?BusinessID=1&UserID=1')
         .subscribe(menu => {
             this.options = menu;
             console.log(this.options);
