@@ -76,7 +76,7 @@ export class ImportComponent implements OnInit{
         request.CustomerID = _CustomerID;
 
 
-        this._CollectionService.getAllDataByID('api/customer/GetCustomerByID',request)
+        this._CollectionService.getData('api/customer/GetCustomerByID',request)
             .subscribe(result =>{
                 this.Customer = result.lstBECustomer;
                 console.log(this.Customer);
@@ -89,7 +89,7 @@ export class ImportComponent implements OnInit{
         request.BusinessID = 1;
         request.CustomerID = _CustomerID;
         request.BagID = _BagID;
-        this._CollectionService.getAllDataByID('api/Bag/GetBag',request)
+        this._CollectionService.getData('api/Bag/GetBag',request)
             .subscribe(result =>{
                 this.Bag1 = result.lstBEBag;
                 console.log(this.Bag1);

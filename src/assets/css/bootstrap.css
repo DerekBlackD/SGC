@@ -4298,7 +4298,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
         .nav > li > a {
             position: relative;
             display: block;
-            padding: 10px 15px;
+            padding: 5px 15px; /* Mod1 - Junior Peña */
         }
 
             .nav > li > a:hover, .nav > li > a:focus {
@@ -4507,7 +4507,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 
 .navbar {
     position: relative;
-    min-height: 50px;
+    min-height: 35px; /* Mod2 - Junior Peña */
     margin-bottom: 5px; /* Mod1 - Junior Peña */
     border: 1px solid transparent;
 }
@@ -4625,7 +4625,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
     padding: 0px; /* Mod1 - Junior Peña*/
     font-size: 18px;
     line-height: 20px;
-    height: 50px;
+    height: 25px; /* Mod2 - Junior Peña*/
 }
 
     .navbar-brand:hover, .navbar-brand:focus {
@@ -4722,8 +4722,8 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
         }
 
             .navbar-nav > li > a {
-                padding-top: 15px;
-                padding-bottom: 15px;
+                padding-top: 5px; /* Mod1 - Junior Peña */
+                padding-bottom: 5px; /* Mod2 - Junior Peña */
             }
 }
 

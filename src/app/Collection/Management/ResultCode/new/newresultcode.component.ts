@@ -55,8 +55,8 @@ export class ResultCodeNewComponent implements OnInit {
         let dataResul2: any;
         dataResul2.GroupID = "6";
         Observable.forkJoin(
-            this._CollectionService.getAllDataByID('api/common/getallcodebygroupID', dataResul),
-            this._CollectionService.getAllDataByID('api/common/getallcodebygroupID', dataResul2),
+            this._CollectionService.getData('api/common/getallcodebygroupID', dataResul),
+            this._CollectionService.getData('api/common/getallcodebygroupID', dataResul2),
 
         ).subscribe(data =>{
             this.lstTipGestion = data[0].lstGeneralCode;

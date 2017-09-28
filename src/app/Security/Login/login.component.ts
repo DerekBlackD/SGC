@@ -2,10 +2,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from '../Shared.service';
 import { AuthenticationService } from '../../Services/authentication.service';
+import { CollectionService } from '../../Services/collection.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
-    selector: 'login-component',
+    selector: 'app-login-component',
     templateUrl: 'login.component.html',
     styleUrls: ['login.component.css']
 })
@@ -18,9 +19,8 @@ export class LoginComponent implements OnInit{
 
     constructor(private router: Router,
                 private _sharedService: SharedService,
-                private _authenticationService: AuthenticationService){
-
-    }
+                private _authenticationService: AuthenticationService,
+                private _collectionService: CollectionService) {}
 
     ngOnInit() {
         // reset login status
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit{
             this._authenticationService.login(this.model.username, this.model.password)
             .subscribe(result => {
                 if (result === '0') {
-                    this._sharedService.emitChange(true);
+                    this.getUserData();
                     this.router.navigateByUrl('/Cobranza/Home');
                 } else {
                     console.log(result);
@@ -47,5 +47,15 @@ export class LoginComponent implements OnInit{
                 this.blockUI.stop();
             });
         }
+    }
+
+    getUserData(): void {
+        const request: any = {};
+        request.ID = this._authenticationService.getPayLoad().ID;
+        this._collectionService.getData('api/sgc/user/getuser/get', request)
+        .subscribe(response => {
+            sessionStorage.setItem('userData', JSON.stringify(response.objUser));
+            this._sharedService.emitChange(true);
+        });
     }
 }

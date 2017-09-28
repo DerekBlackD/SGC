@@ -14,7 +14,7 @@ import { LoginComponent } from './Security/Login/login.component';
 import { SelectProfileComponent } from './Security/Profile/SelectProfile.component';
 import { AppRoutingModule } from './app-routing.module';
 
-//Services
+// Services
 import { AuthGuard } from './Guards/auth.guard';
 import { AuthenticationService } from './Services/authentication.service';
 import { SecurityService } from './Services/security.service';
@@ -52,7 +52,8 @@ import { UtilitesService } from './Services/utilities.service';
     AuthenticationService,
     SecurityService,
     CollectionService,
-    UtilitesService
+    UtilitesService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })

@@ -65,11 +65,11 @@ export class GenManagement{
         const dataTypeComp: any = {}; dataTypeComp.GroupID = '11';
         const dataCurrency: any = {}; dataCurrency.GroupID = '12';
         Observable.forkJoin(
-            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataMngtType),
-            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataContact),
-            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataLocation),
-            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataTypeComp),
-            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataCurrency)
+            this._collectionService.getData('api/common/getallcodebygroupID', dataMngtType),
+            this._collectionService.getData('api/common/getallcodebygroupID', dataContact),
+            this._collectionService.getData('api/common/getallcodebygroupID', dataLocation),
+            this._collectionService.getData('api/common/getallcodebygroupID', dataTypeComp),
+            this._collectionService.getData('api/common/getallcodebygroupID', dataCurrency)
         ).subscribe(data => {
                 this.lstMngtType = data[0].lstGeneralCode;
                 this.lstContact = data[1].lstGeneralCode;
@@ -83,7 +83,7 @@ export class GenManagement{
     loadManagements(): void {
         const request: any = {};
         request.CustomerBagID = this.customerData.CustomerBagID
-        this._collectionService.getAllDataByID('api/customerbag/getcustbagmanagements', this.oManagement)
+        this._collectionService.getData('api/customerbag/getcustbagmanagements', this.oManagement)
             .subscribe(result => {
                 this.CustBagManagementsData = result.lstCustomerBagManagements;
                 this.loadmanagements.emit(this.CustBagManagementsData);
@@ -111,7 +111,7 @@ export class GenManagement{
         this.oManagement.BagID = this.customerData.BagID;
         this.oManagement.MngtDateString = this._util.getDateTime();
         this.oManagement.MngtClass = '1';
-        this.oManagement.AgentTypist = 1;
+        this.oManagement.AgentTypist = 0;
         this.oManagement.AddressID = 0;
         this.oManagement.PhoneID = this.selectPhone.phoneID;
         this.oManagement.MngtReason = '';
@@ -122,7 +122,7 @@ export class GenManagement{
         this.oManagement.EndDateString = this._util.getDateTime();
         this.oManagement.User = 'jpena';
 
-        this._collectionService.getAllDataByID('api/customerbag/postcustbagmanagement', this.oManagement)
+        this._collectionService.getData('api/customerbag/postcustbagmanagement', this.oManagement)
             .subscribe(result => {
                 this.loadManagements();
                 this.resetVariables();

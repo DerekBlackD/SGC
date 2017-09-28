@@ -26,14 +26,13 @@ export class AuthenticationService {
         return this.http.post(this.urlBase + 'oauth/token', this.data, { headers: this.headers})
         .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                console.log(response);
                 const token = response.json() && response.json().access_token;
                 if (token) {
                     // set token property
                     this.token = token;
 
                     // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+                    sessionStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
 
                     // return true to indicate successful login
                     return '0';
@@ -58,11 +57,12 @@ export class AuthenticationService {
     logout(): void {
         // clear token remove user from local storage to log user out
         this.token = null;
-        localStorage.removeItem('currentUser');
+        sessionStorage.removeItem('currentUser');
+        sessionStorage.removeItem('userData');
     }
 
     getPayLoad(): any {
-        const token = localStorage.getItem('currentUser')
+        const token = sessionStorage.getItem('currentUser')
 
         if (token) {
             if (token && token.split('.').length === 3) {

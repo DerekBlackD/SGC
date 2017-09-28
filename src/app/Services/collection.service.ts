@@ -34,7 +34,7 @@ export class CollectionService{
         });
     }
 
-    getAllDataByID(url: string, data: any ): Observable<any>{
+    getData(url: string, data: any ): Observable<any>{
         let headers = new Headers({ 
             'Content-Type' : 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.token 

@@ -1,13 +1,9 @@
 <div class="row">
     <div class="col-md-2">
-        <h4>
-            <p class="text-center">
-                Gestión General {{customer}}
-            </p>
-        </h4>
+        <h5><p class="text-center">Gestión General</p></h5>
     </div>
     <div class="col-md-4">
-        <div class="input-group">
+        <div class="input-group input-group-sm">
             <div class="input-group-btn">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Val}} <span class="caret"></span></button>
                 <ul class="dropdown-menu">
@@ -21,19 +17,19 @@
     </div>
     <div class="col-md-6">
         <div class="btn-group btn-group-justified" role="group" aria-label="...">
-            <div class="btn-group" role="group">
+            <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-primary" [disabled]="btnprevState" (click)="prevCustomer()"><span class="glyphicon glyphicon-chevron-left"></span> Anterior</button>
             </div>
-            <div class="btn-group" role="group">
+            <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-cog"></span> Filtros</button>
             </div>
-            <div class="btn-group" role="group">
+            <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-primary" [disabled]="btnnextState" (click)="nextCustomer()"><span class="glyphicon glyphicon-chevron-right"></span> Siguiente</button>
             </div>
-            <div class="btn-group" role="group">
+            <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-stats"></span> Resumen</button>
             </div>
-            <div class="btn-group" role="group">
+            <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-phone-alt"></span> Progresivo</button>
             </div>
         </div>
@@ -48,15 +44,11 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-8">
         <gen-customerbag-account [CustBagAccountData]="customerBagAccountData"></gen-customerbag-account>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
         <gen-management-list [selectPhone]="selectPhone" [CustBagManagementsData]="customerBagManagementsData" [lstBackupManagementsData]="customerBagManagementsDataBack"></gen-management-list>
     </div>
-    <div class="col-md-6">
+    <div class="mngt-row-left col-md-4">
         <gen-management [selectPhone]="selectPhone" [customerData]="customerData" (loadmanagements)="handleLoadManagement($event)"></gen-management>
     </div>
 </div>

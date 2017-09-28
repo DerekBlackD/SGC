@@ -47,7 +47,7 @@ export class GenCustomerBagPhone implements OnInit{
         this.blockUI.start('Cargando...');
         const request: any = {};
         request.CustomerBagID = this.customerData.CustomerBagID;
-        this._collectionService.getAllDataByID('api/customerbag/getcustomerbagphone', request)
+        this._collectionService.getData('api/customerbag/getcustomerbagphone', request)
             .subscribe(data => {
                 this.customerBagPhoneData = data.lstCustomerBagPhone;
                 this.blockUI.stop();
@@ -62,9 +62,9 @@ export class GenCustomerBagPhone implements OnInit{
         const dataClass: any = {};
         dataClass.GroupID = '3';
         Observable.forkJoin(
-            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataProv),
-            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataOrigin),
-            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataClass),
+            this._collectionService.getData('api/common/getallcodebygroupID', dataProv),
+            this._collectionService.getData('api/common/getallcodebygroupID', dataOrigin),
+            this._collectionService.getData('api/common/getallcodebygroupID', dataClass),
         ).subscribe(data => {
                 this.lstProvider = data[0].lstGeneralCode;
                 this.lstOrigin = data[1].lstGeneralCode;
@@ -115,7 +115,7 @@ export class GenCustomerBagPhone implements OnInit{
             data.ProvinceCode = this.custBagPhone.codeProvince;
             data.User = 'jpena';
 
-            this._collectionService.getAllDataByID('api/customerbag/postcustomerbagphone', data)
+            this._collectionService.getData('api/customerbag/postcustomerbagphone', data)
                 .subscribe(res => {
                 this.formState = false;
                 this.submitted = false;

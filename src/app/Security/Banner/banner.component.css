@@ -104,3 +104,7 @@
 .banner-navbar-color .btn-link[disabled]:hover, fieldset[disabled] .banner-navbar-color .btn-link:hover, .banner-navbar-color .btn-link[disabled]:focus, fieldset[disabled] .banner-navbar-color .btn-link:focus {
     color: #cccccc;
 }
+
+.img-circle {
+    border-radius: 50%;
+}

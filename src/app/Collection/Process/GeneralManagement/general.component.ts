@@ -19,7 +19,7 @@ export class GeneralManagementComponent{
     customerData: any = {};
     btnprevState: boolean;
     btnnextState: boolean;
-    indexAssign: number = 0;
+    indexAssign = 0;
     Val: string;
     constructor(private _collectionService: CollectionService){
         this.Val = 'Documento';
@@ -41,7 +41,7 @@ export class GeneralManagementComponent{
         data.Year = "2017";
         data.Month = "7";
 
-        this._collectionService.getAllDataByID('api/GetAssign', data)
+        this._collectionService.getData('api/GetAssign', data)
             .subscribe(assign => {
             this.lstAssign = assign.lstAssignmentByAgent;
             if (this.lstAssign.length > 0) {
@@ -76,7 +76,7 @@ export class GeneralManagementComponent{
         this.customerData.CustomerBagID = customerBag.CustomerBagID;
         this.customerData.CustomerID = customerBag.CustomerID;
         this.customerData.BagID = customerBag.BagID;
-        this._collectionService.getAllDataByID('api/customerbag/getcustomerbagbyid', request)
+        this._collectionService.getData('api/customerbag/getcustomerbagbyid', request)
             .subscribe(data => {
                 this.customerBagData = data.objCustomerBag;
                 if (this.customerBagData.Phones != null) {

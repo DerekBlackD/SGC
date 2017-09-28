@@ -44,11 +44,24 @@ is the default in type.less */
     margin-bottom: 5px;
 }
 
+.table-fixed-header > tbody > tr, .table-fixed-header > thead > tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.table-fixed-header-th {
+    display:block;
+    position: sticky;
+    top:0px;
+}
+  
+
 .table-body-size{
     min-width:600px;
 }
 
-.table tr.active td {
+.table tr.active td, th {
   /*background-color:#123456 !important;*/
   /* background-color: red !important; */
   color: white;
@@ -62,4 +75,8 @@ is the default in type.less */
   -webkit-filter: none;
   filter: none;
   border-bottom: 1px solid #178acc;
+}
+
+.mngt-row-left{
+    padding-left: 1px !important;
 }
