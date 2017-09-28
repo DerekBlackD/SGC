@@ -4,7 +4,8 @@ import { Router,Params } from '@angular/router';
 
 @Component({
     selector: 'MantenimientoUsuario',
-    templateUrl: 'MantenimientoUsuario.component.html'
+    templateUrl: 'MantenimientoUsuario.component.html',
+    styleUrls: ['mantenimiento.css']
 })
 export class MantenimientoUsuarioComponent{
   public usuarios: any[] = [];

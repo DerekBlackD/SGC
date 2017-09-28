@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SharedService } from './Security/Shared.service';
 import { SecurityService } from './Services/security.service';
+import { AuthenticationService } from './Services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,10 @@ export class AppComponent {
   options: any[] = [];
 
   constructor(private _sharedService: SharedService,
-              private _securityService: SecurityService) {
+              private _securityService: SecurityService,
+              private authenticationService: AuthenticationService
+              ) 
+  {
     if (localStorage.getItem('currentUser')) {
       this.notMenu = true;
       this.loadMenu();
@@ -28,10 +32,21 @@ export class AppComponent {
     });
   }
 
+  // loadMenu(): void {
+  //   this._securityService.getAllData('api/Menu')
+  //   .subscribe(menu => {
+  //       this.options = menu;
+  //   })
+  // }
+
   loadMenu(): void {
-    this._securityService.getAllData('api/Menu')
-    .subscribe(menu => {
-        this.options = menu;
-    })
-  }
+        // this._securityService.getAllData('api/Menu?BusinessID='+this.authenticationService.getPayLoad().BusinessID+'&UserID=2')
+        this._securityService.getAllData('api/Menu?BusinessID=1&UserID=1')
+        .subscribe(menu => {
+            this.options = menu;
+            console.log(this.options);
+            // this._changeDetector.detectChanges();
+        })
+    }
+
 }

@@ -6,7 +6,8 @@ import { CollectionService } from '../../Services/collection.service';
 
 @Component({
   selector: 'ConsultaPerfil',
-  templateUrl: 'ConsultaPerfil.component.html'
+  templateUrl: 'ConsultaPerfil.component.html',
+  styleUrls: ['mantenimiento.css']
 })
 export class ConsultaPerfilComponent implements OnInit{
     public perfiles: any[] = [];
@@ -16,6 +17,8 @@ export class ConsultaPerfilComponent implements OnInit{
   li_Estado:number = 1;
   ls_mensaje : string = "";
   LS_OPERACION :string = "I";
+
+  public opcionesmaestro: any[] = [];//[{"Id_Modulo":1,"nivel":1,"Id_Opcion":100,"Id_SubMenu":0,"Id_SubMenuItem":0,"FlgActivo":1,"Url":"#","BusinessID":1,"Descripcion":"","NombreOpcion":"Cobranza"},{"Id_Modulo":1,"nivel":2,"Id_Opcion":110,"Id_SubMenu":1,"Id_SubMenuItem":0,"FlgActivo":1,"Url":"/Cobranza/GestionGeneral","BusinessID":1,"Descripcion":"","NombreOpcion":"Getión Telefónica"},{"Id_Modulo":1,"nivel":2,"Id_Opcion":120,"Id_SubMenu":2,"Id_SubMenuItem":0,"FlgActivo":1,"Url":"ColAddressMngt","BusinessID":1,"Descripcion":"","NombreOpcion":"Gestión de Campo"}];
 
   ngOnInit(){
     this.route.params.subscribe(params => {
@@ -34,6 +37,7 @@ export class ConsultaPerfilComponent implements OnInit{
     if(this.idPerfil > 0){
       this.loadRegistros();
     }
+    this.loadOpciones();
   }
 
 
@@ -53,6 +57,16 @@ export class ConsultaPerfilComponent implements OnInit{
 
   }
 
+  loadOpciones(): void{
+
+    this._securityService.getAllData('api/Menu/PerfilOpcion?BusinessID=1&ID='+this.idPerfil.toString()+'')
+      .subscribe(lista => {
+        this.opcionesmaestro = lista;
+        console.log(this.opcionesmaestro);
+      })
+
+  }
+
   atras(): void{
     this.router.navigateByUrl('/Seguridad/MantenimientoPerfil');
   }
@@ -61,6 +75,8 @@ export class ConsultaPerfilComponent implements OnInit{
 
     this.ls_mensaje = "... esperando respuesta";
     let data2: any = {};
+    let options: any = [];
+    
 
     data2.Operacion = this.LS_OPERACION;
     data2.BusinessID = 1;
@@ -69,6 +85,19 @@ export class ConsultaPerfilComponent implements OnInit{
     data2.Description = descripcion;
     data2.Estado = this.li_Estado;
 
+    for (var ele in this.opcionesmaestro) {
+    //1era iteración: ele === 1
+    //2da iteración: ele === 2
+    //demas iteraciones: metodos y propiedades del array.
+      if (this.opcionesmaestro[ele].FlgActivo == 1 && this.opcionesmaestro[ele].Url != "#"){
+        let opc: any = {};
+        opc.OptionID = this.opcionesmaestro[ele].Id_Opcion;
+        options.push(opc);
+      }
+    }
+
+    data2.Option = options;
+
     this._CollectionService.postManagementData('api/Menu/Perfil', data2)
       .subscribe(res =>{
         console.log('ID: ' + res[0] + ' MSG: ' + res[1]);
@@ -76,5 +105,14 @@ export class ConsultaPerfilComponent implements OnInit{
         this.ls_mensaje = res[1];
         this.LS_OPERACION = 'M';
       })
+  }
+
+  changeoption(index:number):void{
+    if (this.opcionesmaestro[index].FlgActivo == 1){
+        this.opcionesmaestro[index].FlgActivo = 0;
+    }else{
+        this.opcionesmaestro[index].FlgActivo = 1;
+    }
+    
   }
 }

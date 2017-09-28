@@ -4,7 +4,8 @@ import { Router,Params } from '@angular/router';
 
 @Component({
     selector: 'MantenimientoPerfil',
-    templateUrl: 'MantenimientoPerfil.component.html'
+    templateUrl: 'MantenimientoPerfil.component.html',
+  styleUrls: ['mantenimiento.css']
 })
 export class MantenimientoPerfilComponent{
   public perfiles: any[] = [];

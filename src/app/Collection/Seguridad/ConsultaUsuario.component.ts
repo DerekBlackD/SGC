@@ -6,10 +6,13 @@ import { CollectionService } from '../../Services/collection.service';
 
 @Component({
   selector: 'ConsultaUsuario',
-  templateUrl: 'ConsultaUsuario.component.html'
+  templateUrl: 'ConsultaUsuario.component.html',
+  styleUrls: ['mantenimiento.css']
 })
 export class ConsultaUsuarioComponent implements OnInit{
   public usuarios2: any[] = [];
+  public perfiles: any[] = [];//[{"ID":0,"Nombre":""}];
+  public perfilesmaestro: any[] = [];//[{"ID":0,"Nombre":""}];
   idUsuario:number;
   ls_nombreUsuario:string = "";
   ls_password:string = "";
@@ -18,6 +21,8 @@ export class ConsultaUsuarioComponent implements OnInit{
   ls_ultimasesion:string = "";
   ls_mensaje : string = "";
   LS_OPERACION :string = "I";
+
+  ls_validacionPerfil : string="";
 
   ngOnInit(){
     this.route.params.subscribe(params => {
@@ -53,6 +58,7 @@ export class ConsultaUsuarioComponent implements OnInit{
         this.ls_fullname      = this.usuarios2[0].FullName;
         this.ls_email         = this.usuarios2[0].Email;
         this.ls_ultimasesion  = this.usuarios2[0].DateLastSession;
+        this.perfiles         = this.usuarios2[0].Profiles;
         this.LS_OPERACION = 'M';
       })
 
@@ -62,7 +68,12 @@ export class ConsultaUsuarioComponent implements OnInit{
     this.router.navigateByUrl('/Seguridad/MantenimientoUsuario');
   }
 
-  grabar(id:string,usuario:string,password:string,nombrecompleto:string,email:string,ultimasesion:string): void{
+  grabar(id:string,usuario:string,password:string,passwordconfirm:string,nombrecompleto:string,email:string,ultimasesion:string): void{
+
+    if(password != passwordconfirm){
+      this.ls_mensaje = "¡Confirme el password correctamente!.";
+      return
+    }
 
     this.ls_mensaje = "... esperando respuesta";
     let data2: any = {};
@@ -75,6 +86,7 @@ export class ConsultaUsuarioComponent implements OnInit{
     data2.FullName = nombrecompleto;
     data2.Email = email;
     data2.DateLastSession = ultimasesion;
+    data2.Profiles = this.perfiles;
 
     this._CollectionService.postManagementData('api/User', data2)
       .subscribe(res =>{
@@ -83,6 +95,45 @@ export class ConsultaUsuarioComponent implements OnInit{
         this.idUsuario = res[0];
         this.ls_mensaje = res[1];
         this.LS_OPERACION = 'M';
+      })
+  }
+
+  eliminarPerfil(a_index:number){
+    this.perfiles.splice(a_index,1);
+
+  }
+
+  agregarPerfil(id:number,nombrePerfil:string){
+
+    for (var ele in this.perfiles) {
+    //1era iteración: ele === 1
+    //2da iteración: ele === 2
+    //demas iteraciones: metodos y propiedades del array.
+      if (this.perfiles[ele].ID == id){
+        this.ls_validacionPerfil = "Perfil ya se ha ingresado";
+        return
+      }
+    }
+
+    let obj_perfil: any = {};
+    obj_perfil.BusinessID = 1;
+    obj_perfil.ID = id;
+    obj_perfil.Nombre = nombrePerfil;
+    this.perfiles.push(obj_perfil);
+
+    document.getElementById("btn_cerrarmodal").click();
+    //var jQuery:any;
+    //jQuery("#myModal").modal("hide");
+    //jQuery("#modalperfil").modal("hide");
+    //@ViewChild('closeBtn').nativeElement.
+  }
+
+  listarPerfiles(){
+    this._securityService.getAllData('api/Menu/Perfil?BusinessID=1&ID=0&FlgOpciones=0')
+      .subscribe(lista => {
+        this.perfilesmaestro = lista;
+        console.log(this.perfilesmaestro);
+        //this._changeDetector.detectChanges();
       })
   }
 

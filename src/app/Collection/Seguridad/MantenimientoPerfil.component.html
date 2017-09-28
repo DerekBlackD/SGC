@@ -33,9 +33,10 @@
                         <tbody>
                             <tr *ngFor="let perfil of perfiles" >
                                 <td><span class="glyphicon glyphicon-log-out"></span></td>
-                                <td ><button  class="btn btn-primary" (click)="consulta(1 , perfil.ID)">{{perfil.ID}}</button ></td>
+                                <td >{{perfil.ID}}</td>
                                 <td>{{perfil.Nombre}}</td>
                                 <td>{{perfil.Description}}</td>
+                                <td><a class="btn-without-ref" (click)="consulta(1 , perfil.ID)"><span class="glyphicon glyphicon-pencil"></span></a></td>
                             </tr>
                         </tbody>
                         
