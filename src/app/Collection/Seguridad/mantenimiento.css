@@ -2,7 +2,7 @@
 Using default Bootstrap 3 classes we zero out the top and 
 bottom padding .panel-heading ususally needs 
 */
-.panel-heading.nav.navbar-inverse{padding-top:0px;padding-bottom:0px;} 
+.panel-heading.nav.navbar-inverse{padding-top:0px;padding-bottom:0px;}
 
 /*
 Reintroduce 20px for .panel-title when a navbar is within .panel-heading. 
@@ -12,13 +12,13 @@ is the default in type.less */
 .panel-heading.nav.navbar-inverse h4{margin-top:15px;} 
 
 
-.panel-heading .nav.navbar-nav.navbar-right h4{padding-bottom:0px;margin-bottom:0px;padding-top:0px;margin-top:0px;}
+/*.panel-heading .nav.navbar-nav.navbar-right h4{padding-bottom:0px;margin-bottom:0px;padding-top:0px;margin-top:0px;}*/
 
 .panel-heading .navbar-nav > li > a{
     padding-top:6px;
     padding-bottom:6px;
 }
-
+/*
 .panel-heading .panel-title{
     font-size:14px;
 }
@@ -44,26 +44,11 @@ is the default in type.less */
     margin-bottom: 5px;
 }
 
-.table-fixed-header > tbody > tr, .table-fixed-header > thead > tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-}
-
-.table-fixed-header-th {
-    display:block;
-    position: sticky;
-    top:0px;
-}
-  
-
 .table-body-size{
     min-width:600px;
 }
 
-.table tr.active td, th {
-  /*background-color:#123456 !important;*/
-  /* background-color: red !important; */
+.table tr.active td {
   color: white;
 
   background-image: -webkit-linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);
@@ -75,8 +60,13 @@ is the default in type.less */
   -webkit-filter: none;
   filter: none;
   border-bottom: 1px solid #178acc;
+}*/
+
+.mngt-scrolls[_ngcontent-c8] {
+	max-height: 100% !important;
 }
 
-.mngt-row-left{
-    padding-left: 1px !important;
+
+.principal-body[_ngcontent-c0]{
+	height: 100% !important;
 }

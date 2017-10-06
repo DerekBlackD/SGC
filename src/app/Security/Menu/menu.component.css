@@ -153,3 +153,7 @@
 .menu-ul-nav-wrap li.nav-first-level ul.nav-collapse li.nav-second-level ul.nav-collapse-sub li.nav-third-level a:hover {
 	color: #eee;
 }
+
+.img-circle {
+    border-radius: 50%;
+}

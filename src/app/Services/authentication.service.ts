@@ -9,78 +9,74 @@ export class AuthenticationService {
     public urlBase: string;
     public token: string;
     public businessID: string;
-    headers:Headers = new Headers;
+    headers: Headers = new Headers;
     public data: string;
     constructor(private http: Http) {
         // set token if saved in local storage
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
         this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        //this.urlBase = 'http://54.233.102.195/SGC-BE/';
+        // this.urlBase = 'http://54.233.102.195/SGC-BE/';
         this.urlBase = 'http://localhost:9580/';
         this.businessID = this.getPayLoad().BusinessID;
     }
 
-    login(username: string, password: string): Observable<boolean> {
-        this.data = "username=" + username + "&password=" + password + "&grant_type=password";
+    login(username: string, password: string): Observable<string> {
+        this.data = 'username=' + username + '&password=' + password + '&grant_type=password';
         return this.http.post(this.urlBase + 'oauth/token', this.data, { headers: this.headers})
         .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                console.log(response);
-                let token = response.json() && response.json().access_token;
+                const token = response.json() && response.json().access_token;
                 if (token) {
                     // set token property
                     this.token = token;
 
                     // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+                    sessionStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
 
                     // return true to indicate successful login
-                    return true;
+                    return '0';
                 } else {
                     // return false to indicate failed login
-                    return false;
+                    return '1';
                 }
             })
             .catch((error: Response | any) => {
-                let errMsg:string;
-                if(error instanceof Response){
+                let errMsg: string;
+                if (error instanceof Response) {
                     const body = error.json() || '';
                     const err = body.error || JSON.stringify(body);
-                    //errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
                     errMsg = body.error_description;
-                }
-                else{
+                } else {
                     errMsg = error.message ? error.message : error.toString();
                 }
-                
                 return Observable.throw(errMsg);
             });
     }
+    
 
     logout(): void {
         // clear token remove user from local storage to log user out
         this.token = null;
-        localStorage.removeItem('currentUser');
+        sessionStorage.removeItem('currentUser');
+        sessionStorage.removeItem('userData');
     }
 
-    getPayLoad(): any{
-        let token = localStorage.getItem('currentUser')
+    getPayLoad(): any {
+        const token = sessionStorage.getItem('currentUser')
 
-        if (token){
+        if (token) {
             if (token && token.split('.').length === 3) {
                 try {
-                    var base64Url = token.split('.')[1];
-                    var base64 = base64Url.replace('-', '+').replace('_', '/');
+                    const base64Url = token.split('.')[1];
+                    const base64 = base64Url.replace('-', '+').replace('_', '/');
                     return JSON.parse(this.decodeBase64(base64));
-                }
-                catch (e) {
+                } catch (e) {
                 }
             }
-        }else{
+        } else {
             return JSON.parse('{"BusinessID": "0"}');
         }
-        
     }
 
     decodeBase64(str: string){

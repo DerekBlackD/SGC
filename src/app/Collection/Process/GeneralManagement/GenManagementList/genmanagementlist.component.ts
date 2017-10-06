@@ -5,9 +5,10 @@ import { Component, Input } from '@angular/core';
     templateUrl : 'genmanagementlist.component.html',
     styleUrls: ['../general.component.css']
 })
-export class GenManagementList{
+export class GenManagementList {
     @Input() CustBagManagementsData: any[] = [];
-    lstBackupManagementsData: any[] = [];
+    @Input() selectPhone: any = {};
+    @Input() lstBackupManagementsData: any[] = [];
     intActiveFilter: number;
     selectRow: number;
     selectObservation: string;
@@ -19,26 +20,20 @@ export class GenManagementList{
     filterList(nfilter: number): void{
         this.intActiveFilter = nfilter;
 
-        if(this.lstBackupManagementsData.length == 0){
+        if (nfilter === 1) {
             this.lstBackupManagementsData = this.CustBagManagementsData;
-        }else{
-            this.CustBagManagementsData = this.lstBackupManagementsData;
         }
-
-        if(nfilter == 1){
-            this.CustBagManagementsData = this.lstBackupManagementsData;
+        if (nfilter === 2) {
+            this.lstBackupManagementsData = this.CustBagManagementsData.filter(x => x.MngtClass === 1);
         }
-        if(nfilter == 2){
-            this.CustBagManagementsData = this.CustBagManagementsData.filter(x => x.AgentTypeID == 1);
+        if (nfilter === 3) {
+            this.lstBackupManagementsData = this.CustBagManagementsData.filter(x => x.MngtClass === 2);
         }
-        if(nfilter == 3){
-            this.CustBagManagementsData = this.CustBagManagementsData.filter(x => x.AgentTypeID == 2);
+        if (nfilter === 4) {
+            this.lstBackupManagementsData = this.CustBagManagementsData.filter(x => x.ResultID === 1);
         }
-        if(nfilter == 4){
-            this.CustBagManagementsData = this.CustBagManagementsData.filter(x => x.ResultID == 1);
-        }
-        if(nfilter == 5){
-            this.CustBagManagementsData = this.CustBagManagementsData.filter(x => x.ContactID == 1);
+        if (nfilter === 5) {
+            this.lstBackupManagementsData = this.CustBagManagementsData.filter(x => x.ContactID === 1);
         }
     }
 

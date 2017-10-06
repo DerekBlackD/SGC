@@ -1,0 +1,89 @@
+<div _ngcontent-c0="" class="container-fluid principal-body">
+  <div class="container">
+      <div class="row">
+            <div class="col-md-10" style="text-align:left !important"> <h4><p class="text-center">Mantenimiento Perfil</p></h4></div>
+            <button _ngcontent-c4="" class="btn btn-primary" type="button" (click)="grabar(id.value,nombre.value,descripcion.value)"><span _ngcontent-c4="" class="glyphicon glyphicon-cog"></span> Grabar</button>
+            <button _ngcontent-c4="" class="btn btn-primary" type="button" (click)="atras()"><span _ngcontent-c4="" class="glyphicon glyphicon-cog"></span> Atras</button>
+        </div>
+        <br>
+        <form action="" class="form-horizontal">
+            <div class="form-group">
+                <label for="id" class="control-label col-md-2">Id</label>
+                <div class="col-md-10">
+                <input #id class="form-control" id="id" type="text" placeholder="Id:" value="{{idPerfil}}" disabled>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre" class="control-label col-md-2">Perfil:</label>
+                <div class="col-md-10">
+                <input #nombre class="form-control" id="nombre" type="text" placeholder="Perfil:" value="{{ls_nombre}}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion" class="control-label col-md-2">Descripción:</label>
+                <div class="col-md-10">
+                <input #descripcion class="form-control" id="descripcion" type="text" placeholder="Descripción:" value="{{ls_descripcion}}">
+                </div>
+            </div>
+
+            
+        </form>
+
+        <label>{{ls_mensaje}}</label>
+
+        <div class="row">
+            <div _ngcontent-c8 class="panel panel-info">
+                <div class="panel-heading nav navbar-inverse">
+                    <div class="navbar-header">
+                        <h3 class="panel-title">
+                            <span _ngcontent-c5="" class="glyphicon glyphicon-user"></span>
+                            Opciones
+                        </h3>
+                    </div>
+                </div>
+                <div _ngcontent-c8 class="mngt-scrolls">
+
+                    <div class="mngt-scrolls">
+                        <table class="table-mngt table table-hover table-body-size">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Id</th>
+                                    <th>Opcion</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let opciones of opcionesmaestro; let i = index" [ngClass]="{'menu': opciones.Url == '#' && opciones.Id_SubMenu == 0,'submenu' : opciones.Url == '#' && opciones.Id_SubMenu != 0}">
+                                    <!--ng-style="{ 'width' : (myObject.value == 'ok') ? '100%' : '0%' }"-->
+                                    <td><span class="glyphicon glyphicon-log-out"></span></td>
+                                    <td >{{opciones.Id_Opcion}}</td>
+                                    <td>{{opciones.NombreOpcion}}</td>
+                                    <td><input *ngIf="opciones.Url!='#'" type="checkbox"  [ngModel]= "opciones.FlgActivo" data-md-icheck (change)="changeoption(i)" value="true"/></td>
+                                </tr>
+                            </tbody>
+                            
+                        </table>
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .menu{
+        /*background-color: blue !important;*/
+        background: linear-gradient(#2E5590, #516E9A);
+        color: white;
+    }
+    .submenu{
+        /*background-color: #93979C !important;*/
+        background: linear-gradient(#93979C, #AEB0B3);
+        color: white;
+    }
+</style>

@@ -9,29 +9,30 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
     styleUrls: ['../general.component.css']
 })
 export class GenCustomerBagPhone implements OnInit{
-    @Input() customerBagPhoneData : any[] = [];
+    @Input() customerBagPhoneData: any[] = [];
     @Input() customerData: any = {};
     @Output() selectPhone = new EventEmitter;
     @BlockUI() blockUI: NgBlockUI;
-    formState: boolean = false;
+    formState = false;
+    submitted = false;
+    errorService = false;
+    messageServiceError: string;
     lstOrigin: any[] = [];
     lstClass: any[] = [];
     lstProvider: any[] = [];
     custBagPhone: any = {};
-    ID: number = 0;
-    selectObjPhone : any = {};
+    ID = 0;
+    selectObjPhone: any = {};
 
-    constructor(private _collectionService: CollectionService){
+    constructor(private _collectionService: CollectionService) {
         this.cleanData();
     }
-    
 
     ngOnInit() {
-        //this.loadPhones();
         this.loadData();
     }
 
-    cleanData():void{
+    cleanData(): void {
         this.custBagPhone.classes = '';
         this.custBagPhone.provider = '';
         this.custBagPhone.origin = '';
@@ -42,28 +43,28 @@ export class GenCustomerBagPhone implements OnInit{
         this.custBagPhone.observation = '';
     }
 
-    loadPhones():void{
-        this.blockUI.start("Cargando...");
-        let request: any = {};
+    loadPhones(): void {
+        this.blockUI.start('Cargando...');
+        const request: any = {};
         request.CustomerBagID = this.customerData.CustomerBagID;
-        this._collectionService.getAllDataByID('api/customerbag/getcustomerbagphone', request)
+        this._collectionService.getData('api/customerbag/getcustomerbagphone', request)
             .subscribe(data => {
                 this.customerBagPhoneData = data.lstCustomerBagPhone;
                 this.blockUI.stop();
             })
     }
 
-    loadData():void{
-        let dataProv: any = {};
-        dataProv.GroupID = "1";
-        let dataOrigin: any = {};
-        dataOrigin.GroupID = "2";
-        let dataClass: any = {};
-        dataClass.GroupID = "3";
+    loadData(): void {
+        const dataProv: any = {};
+        dataProv.GroupID = '1';
+        const dataOrigin: any = {};
+        dataOrigin.GroupID = '2';
+        const dataClass: any = {};
+        dataClass.GroupID = '3';
         Observable.forkJoin(
-            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataProv),
-            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataOrigin),
-            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataClass),
+            this._collectionService.getData('api/common/getallcodebygroupID', dataProv),
+            this._collectionService.getData('api/common/getallcodebygroupID', dataOrigin),
+            this._collectionService.getData('api/common/getallcodebygroupID', dataClass),
         ).subscribe(data => {
                 this.lstProvider = data[0].lstGeneralCode;
                 this.lstOrigin = data[1].lstGeneralCode;
@@ -78,49 +79,56 @@ export class GenCustomerBagPhone implements OnInit{
         this.selectPhone.emit(this.selectObjPhone);
     }
 
-    newCustomerPhone():void{
+    newCustomerPhone(): void {
         this.cleanData();
         this.formState = true;
+        this.submitted = false;
     }
 
-    editCustomerPhone(ID: number):void{
+    editCustomerPhone(ID: number): void {
         this.ID = ID;
         this.formState = true;
     }
 
-    saveCustomerPhone(): void{
-        this.blockUI.start("Cargando...");
-        let data: any = {};
+    saveCustomerPhone(isValid: boolean): void {
+        this.submitted = true;
+        if (isValid) {
+            this.blockUI.start('Cargando...');
+            const data: any = {};
 
-        data.CustomerBagID = this.customerData.CustomerBagID;
-        data.ID = 0;
-        data.Phone = this.custBagPhone.number;
-        data.Annexed = this.custBagPhone.annexed;
-        data.Origin = this.custBagPhone.origin;
-        data.Class = this.custBagPhone.classes;
-        data.Provider = this.custBagPhone.provider;
-        data.Condition = 0;
-        data.AddressID = this.custBagPhone.AddressID;
-        data.Situation = 1;
-        data.DateMngt = null;
-        data.Ubiquity = 1;
-        data.Result = 1;
-        data.Priority = 99;
-        data.SubPriority = 99;
-        data.Observation = this.custBagPhone.observation;
-        data.ProvinceCode = this.custBagPhone.codeProvince;
-        data.User = "jpena";
+            data.CustomerBagID = this.customerData.CustomerBagID;
+            data.ID = 0;
+            data.Phone = this.custBagPhone.number;
+            data.Annexed = this.custBagPhone.annexed;
+            data.Origin = this.custBagPhone.origin;
+            data.Class = this.custBagPhone.classes;
+            data.Provider = this.custBagPhone.provider;
+            data.Condition = 0;
+            data.AddressID = this.custBagPhone.AddressID;
+            data.Situation = 1;
+            data.DateMngt = null;
+            data.Ubiquity = 1;
+            data.Result = 1;
+            data.Priority = 99;
+            data.SubPriority = 99;
+            data.Observation = this.custBagPhone.observation;
+            data.ProvinceCode = this.custBagPhone.codeProvince;
+            data.User = 'jpena';
 
-        this._collectionService.getAllDataByID('api/customerbag/postcustomerbagphone', data)
-            .subscribe(res =>{
-            console.log(res);
-            this.formState = false;
-            this.blockUI.stop();
-            this.loadPhones();
-        })
+            this._collectionService.getData('api/customerbag/postcustomerbagphone', data)
+                .subscribe(res => {
+                this.formState = false;
+                this.submitted = false;
+                this.blockUI.stop();
+                this.loadPhones();
+            }, err => {
+                this.messageServiceError = err;
+            });
+        }
     }
 
-    cancelCustomerPhone(): void{
+    cancelCustomerPhone(): void {
         this.formState = false;
+        this.submitted = false;
     }
 }

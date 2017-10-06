@@ -34,7 +34,7 @@ export class CollectionService{
         });
     }
 
-    getAllDataByID(url: string, data: any ): Observable<any>{
+    getData(url: string, data: any ): Observable<any>{
         let headers = new Headers({ 
             'Content-Type' : 'application/json',
             'Authorization': 'Bearer ' + this.authenticationService.token 
@@ -43,7 +43,7 @@ export class CollectionService{
 
         let apiUrl = this.authenticationService.urlBase + url;
 
-        data.BusinessID = this.authenticationService.businessID;
+        data.BusinessID = this.authenticationService.getPayLoad().BusinessID; //this.authenticationService.businessID;
         
         return this.http.post(apiUrl, JSON.stringify(data), optionsRequest)
         .map((response: Response) => {
