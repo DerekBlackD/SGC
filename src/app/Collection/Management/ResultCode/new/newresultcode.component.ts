@@ -20,7 +20,7 @@ export class ResultCodeNewComponent implements OnInit {
     constructor (
         private router : Router,
         private route: ActivatedRoute,
-        private _CollectionService : CollectionService
+        private _collectionService : CollectionService
     ){ 
         this.loadData();
     }
@@ -28,8 +28,6 @@ export class ResultCodeNewComponent implements OnInit {
     ngOnInit() {
         
         this.route.params.subscribe(params => {
-            
-
             this.resultID = params['id'].toString();
             
             if(this.resultID == 0){
@@ -50,13 +48,13 @@ export class ResultCodeNewComponent implements OnInit {
     }
 
     loadData():void{
-        let dataResul: any;
-        dataResul.GroupID = "5";
-        let dataResul2: any;
+        const dataResul: any={};
+        dataResul.GroupID = "14";
+        const dataResul2: any={};
         dataResul2.GroupID = "6";
         Observable.forkJoin(
-            this._CollectionService.getData('api/common/getallcodebygroupID', dataResul),
-            this._CollectionService.getData('api/common/getallcodebygroupID', dataResul2),
+            this._collectionService.getData('api/common/getallcodebygroupID', dataResul),
+            this._collectionService.getData('api/common/getallcodebygroupID', dataResul2),
 
         ).subscribe(data =>{
             this.lstTipGestion = data[0].lstGeneralCode;
@@ -66,11 +64,10 @@ export class ResultCodeNewComponent implements OnInit {
     }
 
     loadResult(resultid:number):void{
-        this._CollectionService.getAllData('api/Result/getResultRegister/1/' + resultid)
+        this._collectionService.getAllData('api/Result/getResultRegister/1/' + resultid)
             .subscribe(result =>{
-                this.register = result;
 
-                
+                this.register = result;
                 this.result.idobj = this.register.ResultID;
                 this.result.tipogestion = this.register.ObjIDClass;
                 console.log(this.result.tipogestion);
@@ -91,8 +88,7 @@ export class ResultCodeNewComponent implements OnInit {
         let data: any = {};
 
         data.Option = this.indica;
-        data.BusinessID = 1;
-        data.ResultID = this.result.idobj;
+        data.ResultID = this.resultID;
         data.ObjIDClass = this.result.tipogestion;
         data.Class = "";
         data.ResultCode = this.result.resultcode;
@@ -108,7 +104,7 @@ export class ResultCodeNewComponent implements OnInit {
         data.State = 1;
         data.User = "scuya";
 
-        this._CollectionService.postManagementData('api/Result/PostResultCode', data)
+        this._collectionService.getData('api/Result/PostResultCode', data)
             .subscribe(res =>{
                 this.router.navigateByUrl("Cobranza/ResultadoGestion");
                 console.log('ID: ' + res[0] + ' MSG: ' + res[1]);

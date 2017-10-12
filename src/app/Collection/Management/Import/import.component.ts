@@ -24,7 +24,8 @@ export class ImportComponent implements OnInit{
     constructor(private http: Http,
         private _CollectionService : CollectionService ) {  
 
-        this.import.clienteid ="";
+        this.import.clienteid = "";
+        this.import.TipCambio = 0;
     }
 
     ngOnInit(){
@@ -41,7 +42,7 @@ export class ImportComponent implements OnInit{
         this._CollectionService.postFileUpload('api/Import/UploadJsonFile',event)
         .subscribe(res =>{
             this.filename = res.toString();
-            console.log( this.filename);
+            console.log(this.filename);
             this.blockUI.stop();
         })
     }  
@@ -55,9 +56,11 @@ export class ImportComponent implements OnInit{
         data.Year = this.import.anio;
         data.Month = this.import.mes;
         data.CustomerID = this.import.clienteid;
-        data.BagID = this.import.carteraid;
+        data.BagID = this.import.carteraid;        
         data.FileName = this.filename;
         data.State = this.import.state;
+        data.StatePay = this.import.statePagos;
+        data.ExchangeRate = this.import.TipCambio;
         data.User = "scuya";
 
         console.log(data);
@@ -102,15 +105,5 @@ export class ImportComponent implements OnInit{
 
         this.Bag = this.Bag1.filter(x => x.CustomerID == this.Cod);
     }
-    
-
-   
-   
-
-   
-
-    
-
-    
-}    
+}
 
