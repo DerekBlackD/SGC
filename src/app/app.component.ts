@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SharedService } from './Security/Shared.service';
 import { SecurityService } from './Services/security.service';
+import { Router } from '@angular/router';
 import { AuthenticationService } from './Services/authentication.service';
 
 @Component({
@@ -15,13 +16,15 @@ export class AppComponent {
 
   constructor(private _sharedService: SharedService,
               private _securityService: SecurityService,
-              private authenticationService: AuthenticationService
-              ) 
-  {
-    if (localStorage.getItem('currentUser')) {
-      this.notMenu = true;
-      this.loadMenu();
-    }
+              private _authenticationService: AuthenticationService,
+              private _router: Router) {
+    // if (localStorage.getItem('currentUser')) {
+    //   this.notMenu = true;
+    //   this.loadMenu();
+    // }
+
+    this._authenticationService.logout();
+    this._router.navigateByUrl('/');
 
     this._sharedService.changeEmitted$.subscribe(
     response => {

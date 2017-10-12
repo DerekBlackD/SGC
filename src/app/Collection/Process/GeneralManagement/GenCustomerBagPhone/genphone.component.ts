@@ -12,6 +12,7 @@ export class GenCustomerBagPhone implements OnInit{
     @Input() customerBagPhoneData: any[] = [];
     @Input() customerData: any = {};
     @Output() selectPhone = new EventEmitter;
+    @Output() changeManagement = new EventEmitter;
     @BlockUI() blockUI: NgBlockUI;
     formState = false;
     submitted = false;
@@ -26,6 +27,8 @@ export class GenCustomerBagPhone implements OnInit{
 
     constructor(private _collectionService: CollectionService) {
         this.cleanData();
+        this.selectObjPhone.phoneID = 0;
+        this.selectObjPhone.phoneNumber = '';
     }
 
     ngOnInit() {
@@ -41,6 +44,13 @@ export class GenCustomerBagPhone implements OnInit{
         this.custBagPhone.codeProvince = '';
         this.custBagPhone.AddressID = '0';
         this.custBagPhone.observation = '';
+    }
+
+    showAddress(): void {
+        this.selectObjPhone.phoneID = 0;
+        this.selectObjPhone.phoneNumber = '';
+        this.selectPhone.emit(this.selectObjPhone);
+        this.changeManagement.emit(false);
     }
 
     loadPhones(): void {

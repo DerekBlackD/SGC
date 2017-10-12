@@ -15,14 +15,20 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a>
-                            <strong><small><span>Total Capital: S/. 150.00</span><br>
-                            <span>Total Capital: $50.00</span></small></strong>
+                            <strong><small><span>Total Deuda: S/. {{accountTotal.totalCapital |  number:'1.2-2'}}</span><br>
+                            <span>Total Deuda: $ 0.00</span></small></strong>
                         </a>
                     </li>
                     <li>
                         <a>
-                            <strong><small><span>Total Deuda: S/. 150.00</span><br>
-                            <span>Total Deuda: $50.00</span></small></strong>
+                            <strong><small><span>Total Campaña 1: S/. {{accountTotal.totalCampaign1 |  number:'1.2-2'}}</span><br>
+                            <span>Total Campaña 1: $ 0.00</span></small></strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <strong><small><span>Total Campaña 2: S/. {{accountTotal.totalCampaign2 |  number:'1.2-2'}}</span><br>
+                            <span>Total Campaña 2: $ 0.00</span></small></strong>
                         </a>
                     </li>
                 </ul>
@@ -30,32 +36,36 @@
         </div>
 
     </div>
-    <div class="mngt-scrolls">
-        <table class="table-mngt table table-hover table-body-size">
-            <thead>
+    <div class="mngt-scrolls table-responsive">
+        <table class="table-fixed-header table-mngt table table-hover table-body-size">
+            <thead class="table-fixed-header-th">
                 <tr>
-                    <th></th>
-                    <th>ID</th>
-                    <th>Empresa</th>
-                    <th>Cartera</th>
-                    <th>Cuenta</th>
-                    <th>Capital</th>
-                    <th>Vencido</th>
-                    <th>Total</th>
-                    <th>Tipo</th>
+                    <th width="30px"></th>
+                    <th width="50px">ID</th>
+                    <th width="150px">Cuenta</th>
+                    <th width="200px">SubCuenta</th>
+                    <th width="150px">Capital</th>
+                    <th width="150px">Deuda Total</th>
+                    <th width="150px">Campaña 1</th>
+                    <th width="150px">Campaña 2</th>
+                    <th width="100px">Dias Mora</th>
+                    <th width="200px">Producto</th>
+                    <th width="200px">Sub Producto</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let acc of CustBagAccountData">
-                    <td><span class="glyphicon glyphicon-log-out"></span></td>
-                    <td>{{acc.ID}}</td>
-                    <td>{{acc.CustomerID}}</td>
-                    <td>{{acc.BagID}}</td>
-                    <td>{{acc.AccountNumber}}</td>
-                    <td>{{acc.Capital}}</td>
-                    <td>{{acc.ExpiryDebt}}</td>
-                    <td>{{acc.TotalDebt}}</td>
-                    <td>{{acc.Optional1}}</td>
+                    <td width="30px"><span class="glyphicon glyphicon-log-out"></span></td>
+                    <td width="50px">{{acc.ID}}</td>
+                    <td width="150px">{{acc.AccountNumber}}</td>
+                    <td width="200px">{{acc.SubBagID}}</td>
+                    <td width="150px" class="text-right">{{acc.Capital |  number:'1.2-2'}}</td>
+                    <td width="150px" class="text-right">{{acc.TotalDebt |  number:'1.2-2'}}</td>
+                    <td width="150px" class="text-right">{{acc.Amount1 |  number:'1.2-2'}}</td>
+                    <td width="150px" class="text-right">{{acc.Amount2 |  number:'1.2-2'}}</td>
+                    <td width="100px" class="text-right">{{acc.DelayDayNum}}</td>
+                    <td width="200px">{{acc.Product}}</td>
+                    <td width="200px">{{acc.FinalProduct}}</td>
                 </tr>
             </tbody>
         </table>

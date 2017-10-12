@@ -26,30 +26,44 @@
         <table class="table-fixed-header table-mngt table table-hover table-body-size">
             <thead class="table-fixed-header-th">
                 <tr>
-                    <th width="100px">ID</th>
+                    <th width="50px">ID</th>
                     <th style="width: 100px">Cartera</th>
                     <th style="width: 100px">Fecha</th>
-                    <th style="width: 100px">Número</th>
-                    <th style="width: 100px">Resultado</th>
+                    <th style="width: 150px">Número</th>
+                    <th style="width: 100px">Dir ID</th>
                     <th style="width: 100px">Agente</th>
+                    <!-- <th style="width: 100px">Rest</th> -->
+                    <th style="width: 250px">Resultado de Gestión</th>
                     <th style="width: 100px">Fch. Comp</th>
+                    <th style="width: 100px">Moneda</th>
                     <th style="width: 100px">Monto</th>
-                    <th style="width: 100px">Tipo Gest</th>
+                    <th style="width: 200px">Tipo Gest</th>
+                    <th style="width: 100px">Clase Gest</th>
+                    <th style="width: 200px">Contacto</th>
+                    <th style="width: 200px">Lugar</th>
                     <th style="width: 100px">Digitador</th>
+                    <th style="width: 350px">Dirección</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let mngt of lstBackupManagementsData" (click)="setClickedRow(mngt.ManagementID, mngt.Observation)" [class.active]="mngt.ManagementID == selectRow">
-                    <td width="100px">{{mngt.ManagementID}}</td>
+                    <td width="50px">{{mngt.ManagementID}}</td>
                     <td style="width: 100px">{{mngt.BagDesc}}</td>
                     <td style="width: 100px">{{mngt.MngtDateString}}</td>
-                    <td style="width: 100px">{{mngt.PhoneID}}</td>
-                    <td style="width: 100px">{{mngt.ResultCode}}</td>
+                    <td style="width: 150px">{{mngt.PhoneDesc}}</td>
+                    <td style="width: 100px">{{mngt.AddressID}}</td>
                     <td style="width: 100px">{{mngt.AgentDesc}}</td>
+                    <!-- <td style="width: 100px">{{mngt.ResultCode}}</td> -->
+                    <td style="width: 250px">{{mngt.ResultDesc}}</td>
                     <td style="width: 100px">{{mngt.DateCompString}}</td>
+                    <td style="width: 100px">{{mngt.CurrencyDesc}}</td>
                     <td style="width: 100px">{{mngt.Amount}}</td>
+                    <td style="width: 200px">{{mngt.MngtTypeDesc}}</td>
                     <td style="width: 100px">{{mngt.MngtClassDesc}}</td>
+                    <td style="width: 200px">{{mngt.ContactDesc}}</td>
+                    <td style="width: 200px">{{mngt.LocationContact}}</td>
                     <td style="width: 100px">{{mngt.AgentTypistDesc}}</td>
+                    <td style="width: 350px">{{mngt.AddressDesc}}</td>
                 </tr>
             </tbody>
         </table>

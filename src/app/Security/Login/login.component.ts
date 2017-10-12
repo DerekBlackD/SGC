@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit{
             this._authenticationService.login(this.model.username, this.model.password)
             .subscribe(result => {
                 if (result === '0') {
+                    this.getAgentData();
                     this.getUserData();
                     this.router.navigateByUrl('/Cobranza/Home');
                 } else {
@@ -57,5 +58,16 @@ export class LoginComponent implements OnInit{
             sessionStorage.setItem('userData', JSON.stringify(response.objUser));
             this._sharedService.emitChange(true);
         });
+    }
+
+    getAgentData(): void {
+        const request: any = {};
+        request.AgentID = this._authenticationService.getPayLoad().AgentID;
+        this._collectionService.getData('api/sgc/agent/getagentdata/get', request)
+        .subscribe(response => {
+            if (response.ListAgents != null || response.ListAgents.length > 0) {
+                sessionStorage.setItem('agentData', JSON.stringify(response.ListAgents[0]))
+            }
+        })
     }
 }

@@ -53,13 +53,13 @@ export class AuthenticationService {
                 return Observable.throw(errMsg);
             });
     }
-    
 
     logout(): void {
         // clear token remove user from local storage to log user out
         this.token = null;
         sessionStorage.removeItem('currentUser');
         sessionStorage.removeItem('userData');
+        sessionStorage.removeItem('agentData');
     }
 
     getPayLoad(): any {

@@ -7,39 +7,59 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
     templateUrl: 'general.component.html',
     styleUrls: ['general.component.css']
 })
-export class GeneralManagementComponent{
+export class GeneralManagementComponent {
     @BlockUI() blockUI: NgBlockUI;
     customerBagData: any = {};
     customerBagPhoneData: any[] = [];
+    customerBagAddressData: any[] = [];
     customerBagManagementsData: any[] = [];
     customerBagManagementsDataBack: any[] = [];
     customerBagAccountData: any[] = [];
-    lstAssign: any[] = [];
-    selectPhone: any = {};
+    lstAssign: any[] = []; // Array of customer bags
+    selectPhone: any = {}; // Phone selected
+    selectAddress: any = {}; // Address selected
     customerData: any = {};
-    btnprevState: boolean;
-    btnnextState: boolean;
-    indexAssign = 0;
-    Val: string;
-    constructor(private _collectionService: CollectionService){
+    accountTotal: any = {}; // Summary of account
+    showPhoneOrAddress = true; // Show phones or addresses
+    btnprevState: boolean; // Style class of previus assignment button
+    btnnextState: boolean; // Style class of next assignment button
+    indexAssign = 0; // Index of arrays of customer bags
+    Val: string; // Search type
+    // Agent info
+    mngtAgentID: number;
+    agentData: any = {};
+    constructor(private _collectionService: CollectionService) {
         this.Val = 'Documento';
+        this.mngtAgentID = this._collectionService.getAgentID();
+        if (this.mngtAgentID !== 0) {
+            this.agentData = this._collectionService.getAgentData();
+            if (this.agentData.Type === 1) {
+                this.showPhoneOrAddress = true;
+            } else {
+                this.showPhoneOrAddress = false;
+            }
+            this.loadAssignment();
+        } else {
+            alert('No tiene asociado ningún código de gestor.');
+        }
+
     }
 
     selectOption(val: string): void {
         this.Val = val;
     }
 
-    ngOnInit() {
-        this.loadAssignment();
+    onEnter(value: string) {
+        this.searchCustomerBagByDocument(value);
     }
 
     loadAssignment(): void {
-        this.blockUI.start("Cargando...");
-        let data: any = {};
+        this.blockUI.start('Cargando...');
+        const data: any = {};
 
-        data.AgentID = "1";
-        data.Year = "2017";
-        data.Month = "7";
+        data.AgentID = this.mngtAgentID;
+        data.Year = '2017';
+        data.Month = '8';
 
         this._collectionService.getData('api/GetAssign', data)
             .subscribe(assign => {
@@ -53,12 +73,16 @@ export class GeneralManagementComponent{
                     if (this.customerBagData.Phones != null) {
                         this.customerBagPhoneData = this.customerBagData.Phones;
                     }
+                    if (this.customerBagData.Addresses != null) {
+                        this.customerBagAddressData = this.customerBagData.Addresses;
+                    }
                     if (this.customerBagData.Managements != null) {
                         this.customerBagManagementsData = this.customerBagData.Managements;
                         this.customerBagManagementsDataBack = this.customerBagManagementsData;
                     }
                     if (this.customerBagData.Accounts != null) {
                         this.customerBagAccountData = this.customerBagData.Accounts;
+                        this.AddAmounts(this.customerBagAccountData);
                     }
                 }
             }
@@ -82,21 +106,65 @@ export class GeneralManagementComponent{
                 if (this.customerBagData.Phones != null) {
                     this.customerBagPhoneData = this.customerBagData.Phones;
                 }
+                if (this.customerBagData.Addresses != null) {
+                    this.customerBagAddressData = this.customerBagData.Addresses;
+                }
                 if (this.customerBagData.Managements != null) {
                     this.customerBagManagementsData = this.customerBagData.Managements;
                     this.customerBagManagementsDataBack = this.customerBagManagementsData;
                 }
                 if (this.customerBagData.Accounts != null) {
                     this.customerBagAccountData = this.customerBagData.Accounts;
+                    this.AddAmounts(this.customerBagAccountData);
                 }
                 this.blockUI.stop();
             })
+    }
+
+    searchCustomerBagByDocument(text: string): void {
+        const request: any = {};
+        request.SearchText = text;
+
+        this._collectionService.getData('api/sgc/customerbag/getsearchbydocument/get', request)
+            .subscribe(data => {
+              if (data.objCustomerBag != null) {
+                const customerBag: any = {};
+                customerBag.CustomerBagID = data.objCustomerBag.CustomerBagID;
+                customerBag.CustomerID = data.objCustomerBag.CustomerID;
+                customerBag.BagID = data.objCustomerBag.BagID;
+                this.loadCustomerBagData(customerBag);
+              }
+            })
+    }
+
+    AddAmounts(customerBagAccountData: any[]): void {
+        let totalCapital = 0;
+        let totalCampaign1 = 0;
+        let totalCampaign2 = 0;
+        for (const item of customerBagAccountData) {
+            totalCapital = totalCapital + item.TotalDebt;
+            totalCampaign1 = totalCampaign1 + item.Amount1;
+            totalCampaign2 = totalCampaign2 + item.Amount2;
+        }
+        this.accountTotal.totalCapital = totalCapital;
+        this.accountTotal.totalCampaign1 = totalCampaign1;
+        this.accountTotal.totalCampaign2 = totalCampaign2;
     }
 
     handleSelectPhone(selectPhone: any): void {
        this.selectPhone = selectPhone;
        const id = this.selectPhone.phoneID;
        this.customerBagManagementsDataBack = this.customerBagManagementsData.filter(x => x.PhoneID == id);
+    }
+
+    handleSelectAddress(selectAddress: any): void {
+        this.selectAddress = selectAddress;
+        const id = this.selectAddress.AddressID;
+        this.customerBagManagementsDataBack = this.customerBagManagementsData.filter(x => x.AddressID == id);
+    }
+
+    handleChangeManagement(addressOrPhone: boolean): void {
+        this.showPhoneOrAddress = addressOrPhone;
     }
 
     handleLoadManagement(loadManagement: any[]): void {
@@ -128,7 +196,7 @@ export class GeneralManagementComponent{
 
     prevCustomer(): void {
         this.indexAssign = this.indexAssign - 1;
-        const CustBag : any = this.lstAssign[this.indexAssign];
+        const CustBag: any = this.lstAssign[this.indexAssign];
         this.loadCustomerBagData(CustBag);
         this.valIndex();
     }

@@ -15,6 +15,7 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
                 <ul class="nav navbar-nav navbar-right">
+                    <li *ngIf="!formState"><a class="btn-without-ref" (click)="showAddress()"><span class="glyphicon glyphicon-map-marker"></span> Direcciones</a></li>
                     <li *ngIf="!formState"><a class="btn-without-ref" (click)="newCustomerPhone()"><span class="glyphicon glyphicon-plus"></span> Nuevo</a></li>
                     <li *ngIf="formState"><a class="btn-without-ref" (click)="saveCustomerPhone(formPhone.valid)"><span class="glyphicon glyphicon-floppy-saved"></span> Guardar</a></li>
                     <li *ngIf="formState"><a class="btn-without-ref" (click)="cancelCustomerPhone()"><span class="glyphicon glyphicon-floppy-remove"></span> Cancelar</a></li>

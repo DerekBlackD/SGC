@@ -12,7 +12,7 @@
                     <li><a class="btn-without-ref" (click)="selectOption('Teléfono')">Teléfono</a></li>
                 </ul> 
             </div><!-- /btn-group -->
-            <input type="text" class="form-control" aria-label="..." placeholder="Buscar clientes" />
+            <input type="text" #searchText (keyup.enter)="onEnter(searchText.value)" class="form-control" aria-label="..." placeholder="Buscar clientes" />
         </div><!-- /input-group -->
     </div>
     <div class="col-md-6">
@@ -40,16 +40,17 @@
         <gen-customerbag [customerBagData]="customerBagData"></gen-customerbag>
     </div>
     <div class="col-md-6">
-        <gen-customerbag-phone [customerBagPhoneData]="customerBagPhoneData" [customerData]="customerData" (selectPhone)="handleSelectPhone($event)"></gen-customerbag-phone>
+        <gen-customerbag-phone *ngIf="showPhoneOrAddress" [customerBagPhoneData]="customerBagPhoneData" [customerData]="customerData" (selectPhone)="handleSelectPhone($event)" (changeManagement)="handleChangeManagement($event)"></gen-customerbag-phone>
+        <gen-customerbag-address *ngIf="!showPhoneOrAddress" [customerBagAddressData]="customerBagAddressData" [customerData]="customerData" (selectAddress)="handleSelectAddress($event)" (changeManagement)="handleChangeManagement($event)"></gen-customerbag-address>
     </div>
 </div>
 <div class="row">
     <div class="col-md-8">
-        <gen-customerbag-account [CustBagAccountData]="customerBagAccountData"></gen-customerbag-account>
+        <gen-customerbag-account [CustBagAccountData]="customerBagAccountData" [accountTotal]="accountTotal"></gen-customerbag-account>
         <gen-management-list [selectPhone]="selectPhone" [CustBagManagementsData]="customerBagManagementsData" [lstBackupManagementsData]="customerBagManagementsDataBack"></gen-management-list>
     </div>
     <div class="mngt-row-left col-md-4">
-        <gen-management [selectPhone]="selectPhone" [customerData]="customerData" (loadmanagements)="handleLoadManagement($event)"></gen-management>
+        <gen-management [selectAddress]="selectAddress" [selectPhone]="selectPhone" [customerData]="customerData" (loadmanagements)="handleLoadManagement($event)"></gen-management>
     </div>
 </div>
 

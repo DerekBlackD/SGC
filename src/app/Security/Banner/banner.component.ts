@@ -10,7 +10,7 @@ import { AuthenticationService } from '../../Services/authentication.service';
 })
 export class BannerComponent{
     @Input() BannerControls = true;
-    userData : any = {};
+    userData: any = {};
 
     constructor(private _sharedService: SharedService,
                 private _authService: AuthenticationService,

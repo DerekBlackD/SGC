@@ -1,0 +1,83 @@
+<form class="form-horizontal" name="formAddress" #formAddress="ngForm" role="form" novalidate>
+
+    <div class="panel panel-info">
+        <div class="panel-heading nav navbar-inverse">
+            <div>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-dir">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-map-marker"></span> Direcciones</h3>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-dir">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li *ngIf="!formState"><a class="btn-without-ref" (click)="showPhones()"><span class="glyphicon glyphicon-earphone"></span> Teléfonos</a></li>
+                        <li *ngIf="!formState"><a class="btn-without-ref" (click)="newCustomerAddress()"><span class="glyphicon glyphicon-plus"></span> Nuevo</a></li>
+                        <li *ngIf="formState"><a class="btn-without-ref" (click)="saveCustomerAddress(formAddress.valid)"><span class="glyphicon glyphicon-floppy-saved"></span> Guardar</a></li>
+                        <li *ngIf="formState"><a class="btn-without-ref" (click)="cancelCustomerAddress()"><span class="glyphicon glyphicon-floppy-remove"></span> Cancelar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="mngt-scrolls table-responsive" *ngIf="!formState">
+                <table id="tAddress" class="table-fixed-header table-mngt table table-hover table-body-size">
+                    <thead class="table-fixed-header-th">
+                        <tr>
+                            <th width="30px"></th>
+                            <th width="50px">ID</th>
+                            <th width="350px">Dirección</th>
+                            <th width="200px">Ciudad</th>
+                            <th width="200px">Distrito</th>
+                            <th width="200px">Provincia</th>
+                            <th width="200px">Departamento</th>
+                            <th width="250px">Referencia</th>
+                            <th width="200px">Origen</th>
+                            <th width="250px">Urbanization</th>
+                            <th width="100px">Sector</th>
+                            <th width="100px">Cuadrante</th>
+                            <th width="100px">Cuadrante X</th>
+                            <th width="100px">Cuadrante Y</th>
+                            <th width="100px">Ubigeo</th>
+                            <th width="100px">Situación</th>
+                            <th width="250px">Observación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let addr of customerBagAddressData" (click)="setClickedRow(addr.ID, addr.Address)" [class.active]="addr.ID == selectObjAddress.AddressID">
+                            <td width="30px"><a class="btn-without-ref" (click)="editCustomerAddress(addr.ID)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                            <td width="50px">{{addr.ID}}</td>
+                            <td width="350px">{{addr.Address}}</td>
+                            <td width="200px">{{addr.City}}</td>
+                            <td width="200px">{{addr.District}}</td>
+                            <td width="200px">{{addr.Province}}</td>
+                            <td width="200px">{{addr.Department}}</td>
+                            <td width="250px">{{addr.Reference}}</td>
+                            <td width="200px">{{addr.OriginDesc}}</td>
+                            <td width="250px">{{addr.Urbanization}}</td>
+                            <td width="100px">{{addr.Sector}}</td>
+                            <td width="100px">{{addr.Quadrant}}</td>
+                            <td width="100px">{{addr.QuadrantX}}</td>
+                            <td width="100px">{{addr.QuadrantY}}</td>
+                            <td width="100px">{{addr.Ubigeo}}</td>
+                            <td width="100px">{{addr.SituationDesc}}</td>
+                            <td width="250px">{{addr.Observation}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+
+        <div class="panel-body mngt-scrolls" *ngIf="formState">
+            <div class="form-group form-group-sm">
+                <label class="col-sm-2 control-label">Dirección</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" name="address" autofocus />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -6,56 +6,75 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
-export class CollectionService{
-    constructor(private http: Http,
-                private authenticationService: AuthenticationService){
-                }
+export class CollectionService {
+    public userData: any = {};
+    public agentData: any = {};
 
-    getAllData(url: string): Observable<any[]>{
-        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
-        let options = new RequestOptions({ headers: headers });
+    constructor(private http: Http,
+                private authenticationService: AuthenticationService) { }
+
+    getAgentID(): number {
+        const agentID: number = this.authenticationService.getPayLoad().AgentID;
+        return agentID;
+    }
+
+    getUserData(): any {
+        this.userData = JSON.parse(sessionStorage.getItem('userData'));
+        return this.userData;
+    }
+
+    getAgentData(): any {
+        if (sessionStorage.getItem('agentData')) {
+            this.agentData = JSON.parse(sessionStorage.getItem('agentData'));
+        }
+        return this.agentData;
+    }
+
+    getAllData(url: string): Observable<any[]> {
+        const headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+        const options = new RequestOptions({ headers: headers });
 
         return this.http.get(this.authenticationService.urlBase + url, options)
         .map((response: Response) => {
             return response.json();
         })
         .catch((error: Response | any) => {
-            let errMsg:string;
-            if(error instanceof Response){
+            let errMsg: string;
+            if (error instanceof Response) {
                 const body = error.json() || '';
                 const err = body.error || JSON.stringify(body);
                 errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-            }
-            else{
+            } else {
                 errMsg = error.message ? error.message : error.toString();
             }
-            
+
             return Observable.throw(errMsg);
         });
     }
 
-    getData(url: string, data: any ): Observable<any>{
-        let headers = new Headers({ 
+    getData(url: string, data: any ): Observable<any> {
+        const headers = new Headers ({
             'Content-Type' : 'application/json',
-            'Authorization': 'Bearer ' + this.authenticationService.token 
+            'Authorization': 'Bearer ' + this.authenticationService.token
         });
-        let optionsRequest = new RequestOptions({  headers: headers });
 
-        let apiUrl = this.authenticationService.urlBase + url;
+        const optionsRequest = new RequestOptions({  headers: headers });
 
-        data.BusinessID = this.authenticationService.getPayLoad().BusinessID; //this.authenticationService.businessID;
-        
+        const apiUrl = this.authenticationService.urlBase + url;
+
+        data.BusinessID = this.authenticationService.getPayLoad().BusinessID; // this.authenticationService.businessID;
+
         return this.http.post(apiUrl, JSON.stringify(data), optionsRequest)
         .map((response: Response) => {
             return response.json();
         })
         .catch((error: Response | any) => {
             let errMsg: string;
-            if(error instanceof Response){
+            if (error instanceof Response) {
                 const body = error.json() || '';
                 const err = body.error || JSON.stringify(body);
-                errMsg =`${error.status} - ${error.statusText || ''} ${err}`;
-            }else{
+                errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+            } else {
                 errMsg = error.message ? error.message : error.string();
             }
 
@@ -105,6 +124,7 @@ export class CollectionService{
     postProcess(url:string, data:any): void{
         let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token, 'Content-Type': 'application/json'});
         let options = new RequestOptions({ headers: headers });
+        data.BusinessID = this.authenticationService.getPayLoad().BusinessID;
         let api = `${this.authenticationService.urlBase}${url}`
         this.http.post(api,JSON.stringify(data), options)
         .subscribe(data => console.log(data))        

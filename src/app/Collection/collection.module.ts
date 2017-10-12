@@ -10,6 +10,7 @@ import { ResultCodeDelCoponent } from './Management/ResultCode/delete/delresultc
 import { ImportComponent } from './Management/Import/import.component';
 import { GenCustomerBag } from './Process/GeneralManagement/GenCustomerBag/gencustbag.component';
 import { EditGenCustomerBag } from './Process/GeneralManagement/GenCustomerBag/editcustbag.component';
+import { GenCustomerBagAddress } from './Process/GeneralManagement/GenCustomerBagAddress/genaddress.component';
 import { GenCustomerBagPhone } from './Process/GeneralManagement/GenCustomerBagPhone/genphone.component';
 import { GenCustomerBagAccount } from './Process/GeneralManagement/GenCustomerBagAccount/genaccount.component';
 import { GenManagementList } from './Process/GeneralManagement/GenManagementList/genmanagementlist.component';
@@ -22,7 +23,7 @@ import { ConsultaPerfilComponent  } from './Seguridad/ConsultaPerfil.component';
 //Services
 import { CollectionService } from '../Services/collection.service';
 
-import { CollectionRoutingModule }  from './collection-routing.module';
+import { CollectionRoutingModule } from './collection-routing.module';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { CollectionRoutingModule }  from './collection-routing.module';
     ImportComponent,
     GenCustomerBag,
     EditGenCustomerBag,
+    GenCustomerBagAddress,
     GenCustomerBagPhone,
     GenCustomerBagAccount,
     GenManagementList,

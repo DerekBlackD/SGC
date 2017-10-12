@@ -52,11 +52,11 @@ export class ImportComponent implements OnInit{
         console.log('Pedido solicitado');
 
         let data: any={};
-        data.BusinessID = 1;
         data.Year = this.import.anio;
         data.Month = this.import.mes;
         data.CustomerID = this.import.clienteid;
-        data.BagID = this.import.carteraid;        data.FileName = this.filename;
+        data.BagID = this.import.carteraid;
+        data.FileName = this.filename;
         data.State = this.import.state;
         data.User = "scuya";
 

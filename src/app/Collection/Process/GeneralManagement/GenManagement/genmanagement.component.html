@@ -1,3 +1,5 @@
+<form class="form-horizontal" name="formMngt" #formMngt="ngForm" role="form" novalidate>
+
 <div class="panel panel-info">
     <div class="panel-heading nav navbar-inverse">
         <div>
@@ -8,30 +10,30 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <h3 class="panel-title"><span class="glyphicon glyphicon-earphone"></span> {{selectPhone.phoneNumber}}</h3>
+                <h3 class="panel-title"> {{selectPhone.phoneNumber}}{{selectAddress.Address}}</h3>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a><span>{{todayDate}}</span></a></li>
-                    <li><a class="btn-without-ref" (click)="saveManagement()"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</a></li>
+                    <li *ngIf="showInputDate"><a><span>{{todayDate}}</span></a></li>
+                    <li *ngIf="!showInputDate"><a><input type="date" class="form-control mngt-input-date" name="CampMngtDate" [(ngModel)]="CampMngtDate" /></a></li>
+                    <li><a class="btn-without-ref" (click)="saveManagement(formMngt.valid)"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</a></li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="panel-body">
-        <form class="form-horizontal">
             <div class="form-group form-group-sm">
                 <label class="col-sm-2 control-label">Tipo Gest</label>
-                <div class="col-sm-4">
-                    <select class="form-control" name="MngtType" [(ngModel)]="oManagement.MngtType">
+                <div class="col-sm-4" [ngClass]="{'has-error has-feedback' : submitted && MngtType.invalid}">
+                    <select class="form-control" name="MngtType" #MngtType="ngModel" [(ngModel)]="oManagement.MngtType" required>
                         <option value="">Seleccionar</option>
                         <option *ngFor="let type of lstMngtType" value="{{type.ID}}">{{type.Value}}</option>
                     </select>
                 </div>
                 <label class="col-sm-2 control-label">Resultado</label>
-                <div class="col-sm-4">
-                    <select class="form-control" name="ResultID" [(ngModel)]="oManagement.ResultID" (ngModelChange)="changeResult($event)">
+                <div class="col-sm-4" [ngClass]="{'has-error has-feedback' : submitted && ResultID.invalid}">
+                    <select class="form-control" name="ResultID" #ResultID="ngModel" [(ngModel)]="oManagement.ResultID" (ngModelChange)="changeResult($event)" required>
                         <option value="">Seleccionar</option>
                         <option *ngFor="let res of oResultCodes" value="{{res.ResultID}}">{{res.Description}}</option>
                     </select>
@@ -39,16 +41,16 @@
             </div>
             <div class="form-group form-group-sm">
                 <label class="col-sm-2 control-label">Contacto</label>
-                <div class="col-sm-4">
-                    <select class="form-control" name="ContactID" [(ngModel)]="oManagement.ContactID">
+                <div class="col-sm-4" [ngClass]="{'has-error has-feedback' : submitted && ContactID.invalid}">
+                    <select class="form-control" name="ContactID" #ContactID="ngModel" [(ngModel)]="oManagement.ContactID" required>
                         <option value="">Seleccionar</option>
                         <option *ngFor="let cont of lstContact" value="{{cont.ID}}">{{cont.Value}}</option>
                     </select>
                 </div>
                 
                 <label class="col-sm-2 control-label">Lugar</label>
-                <div class="col-sm-4">
-                    <select class="form-control" name="LocationContact" [(ngModel)]="oManagement.LocationContact">
+                <div class="col-sm-4" [ngClass]="{'has-error has-feedback' : submitted && LocationContact.invalid}">
+                    <select class="form-control" name="LocationContact" #LocationContact="ngModel" [(ngModel)]="oManagement.LocationContact" required>
                         <option value="">Seleccionar</option>
                         <option *ngFor="let loc of lstLocation" value="{{loc.ID}}">{{loc.Value}}</option>
                     </select>
@@ -56,8 +58,9 @@
             </div>
             <div class="form-group form-group-sm">
                 <label class="col-sm-2 control-label" for="inputDetail">Detalle</label>
-                <div class="col-sm-10">
-                    <textarea id="inputDetail" class="form-control" rows="3" placeholder="Detalle de la gestión" name="Observation" [(ngModel)]="oManagement.Observation"></textarea>
+                <div class="col-sm-10" [ngClass]="{'has-error has-feedback' : submitted && Observation.invalid}">
+                    <textarea id="inputDetail" class="form-control" rows="3" placeholder="Detalle de la gestión" name="Observation" #Observation="ngModel" [(ngModel)]="oManagement.Observation" required></textarea>
+                    <span *ngIf="submitted && Observation.invalid" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                 </div>
             </div>
             <div *ngIf="showPayComp" class="form-group form-group-sm">
@@ -86,6 +89,7 @@
                     <input type="text" class="form-control text-right" name="Amount" id="Amount" [(ngModel)]="oManagement.Amount" />
                 </div>
             </div>
-        </form>
     </div>
 </div>
+
+</form>
