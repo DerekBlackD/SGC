@@ -5,8 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule, APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BlockUIModule } from 'ng-block-ui';
-import { MyDatePickerModule } from 'mydatepicker';
-import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
 
 import { BannerComponent } from './Security/Banner/banner.component';
 import { MenuComponent } from './Security/Menu/menu.component';
@@ -43,8 +41,6 @@ import { UtilitesService } from './Services/utilities.service';
     CollectionModule,
     AppRoutingModule,
     CommonModule,
-    MyDatePickerModule,
-    NgxMyDatePickerModule,
     BlockUIModule
   ],
   providers: [

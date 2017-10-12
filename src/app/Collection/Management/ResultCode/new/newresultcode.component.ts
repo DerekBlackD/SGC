@@ -48,18 +48,13 @@ export class ResultCodeNewComponent implements OnInit {
     }
 
     loadData():void{
-        let dataResul: any={};
-        dataResul.GroupID = "5";
-        let dataResul2: any={};
+        const dataResul: any={};
+        dataResul.GroupID = "14";
+        const dataResul2: any={};
         dataResul2.GroupID = "6";
         Observable.forkJoin(
-<<<<<<< HEAD
-            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataResul),
-            this._collectionService.getAllDataByID('api/common/getallcodebygroupID', dataResul2),
-=======
-            this._CollectionService.getData('api/common/getallcodebygroupID', dataResul),
-            this._CollectionService.getData('api/common/getallcodebygroupID', dataResul2),
->>>>>>> f719da7d11d2297e0076cafbaeb7aae9e114363f
+            this._collectionService.getData('api/common/getallcodebygroupID', dataResul),
+            this._collectionService.getData('api/common/getallcodebygroupID', dataResul2),
 
         ).subscribe(data =>{
             this.lstTipGestion = data[0].lstGeneralCode;
@@ -73,7 +68,6 @@ export class ResultCodeNewComponent implements OnInit {
             .subscribe(result =>{
 
                 this.register = result;
-                console.log(result);
                 this.result.idobj = this.register.ResultID;
                 this.result.tipogestion = this.register.ObjIDClass;
                 console.log(this.result.tipogestion);
@@ -94,8 +88,7 @@ export class ResultCodeNewComponent implements OnInit {
         let data: any = {};
 
         data.Option = this.indica;
-        data.BusinessID = 1;
-        data.ResultID = this.result.idobj;
+        data.ResultID = this.resultID;
         data.ObjIDClass = this.result.tipogestion;
         data.Class = "";
         data.ResultCode = this.result.resultcode;
@@ -111,7 +104,7 @@ export class ResultCodeNewComponent implements OnInit {
         data.State = 1;
         data.User = "scuya";
 
-        this._collectionService.postManagementData('api/Result/PostResultCode', data)
+        this._collectionService.getData('api/Result/PostResultCode', data)
             .subscribe(res =>{
                 this.router.navigateByUrl("Cobranza/ResultadoGestion");
                 console.log('ID: ' + res[0] + ' MSG: ' + res[1]);

@@ -44,6 +44,13 @@
         </div>
 
         <div class="form-group">
+            <label class="col-sm-1 control-label">T/C</label>
+            <div class="col-sm-2">
+                <input type="number" step="any" [(ngModel)]="import.TipCambio" class="form-control" #tipcambio="ngModel" name="TipCambio" >
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="col-sm-1 control-label">Archivo</label>
             <div class="col-sm-4">
                 <input type="file" [(ngModel)]="import.fileimport" name="fileimport" (change)="onChange($event)" accept=".xls, .xlsx" #fileimport="ngModel" required="required" />
@@ -53,6 +60,11 @@
             <div class="col-sm-offset-1 col-sm-2">
                 <div class="checkbox">
                     <label><input type="checkbox" [(ngModel)]="import.state" #state="ngModel" name="state" >Inactivar</label>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="checkbox">
+                    <label><input type="checkbox" [(ngModel)]="import.statePagos" #statePagos="ngModel" name="statePagos" >Limpiar Pagos</label>
                 </div>
             </div>
         </div>

@@ -106,6 +106,7 @@ export class CollectionService{
         let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token, 'Content-Type': 'application/json'});
         let options = new RequestOptions({ headers: headers });
         let api = `${this.authenticationService.urlBase}${url}`
+        data.BusinessID = this.authenticationService.getPayLoad().BusinessID;
         this.http.post(api,JSON.stringify(data), options)
         .subscribe(data => console.log(data))        
     }

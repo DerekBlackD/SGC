@@ -3,7 +3,6 @@ import { CollectionService } from '../../../../Services/collection.service';
 import { UtilitesService } from '../../../../Services/utilities.service';
 import { Observable } from 'rxjs/Rx';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { IMyDpOptions } from 'mydatepicker';
 
 @Component({
     selector: 'gen-management',
