@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response, RequestMethod } from '@angular/http';
 import { AuthenticationService } from './authentication.service';
 import { Observable } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -10,8 +11,15 @@ export class CollectionService {
     public userData: any = {};
     public agentData: any = {};
 
+    private restartComponent = new Subject<any>();
+    changeEmitted$ = this.restartComponent.asObservable();
+
     constructor(private http: Http,
                 private authenticationService: AuthenticationService) { }
+
+    restartData(change: any) {
+        this.restartComponent.next(change);
+    }
 
     getAgentID(): number {
         const agentID: number = this.authenticationService.getPayLoad().AgentID;
@@ -85,49 +93,49 @@ export class CollectionService {
     }
 
     postManagementData(url: string, data: any): Observable<any>{
-        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token, 'Content-Type': 'application/json'});
-        let options = new RequestOptions({ headers: headers });
-        let api = `${this.authenticationService.urlBase}${url}`
+        const headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token, 'Content-Type': 'application/json'});
+        const options = new RequestOptions({ headers: headers });
+        const api = `${this.authenticationService.urlBase}${url}`
         return this.http.post(api, JSON.stringify(data), options)
         .map((response: Response) => {
             return response.json();
         })
     }
 
-    postFileUpload(url:string, file:any): Observable<any>{
+    postFileUpload(url: string, file: any): Observable<any>{
         let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token, 'Content-Type': 'application/json'});
         let options = new RequestOptions({ headers: headers });
-        let api = `${this.authenticationService.urlBase}${url}`;
+        const api = `${this.authenticationService.urlBase}${url}`;
 
-        let fileList: FileList = file.target.files;
-        if (fileList.length > 0) {  
-            let file: File = fileList[0];  
-            let formData: FormData = new FormData();  
-            formData.append('uploadFile', file, file.name);  
-            let headers = new Headers()  
-            let options = new RequestOptions({ headers: headers });  
-            let apiUrl1 = api;
+        const fileList: FileList = file.target.files;
+        if (fileList.length > 0) {
+            const file: File = fileList[0];
+            const formData: FormData = new FormData();
+            formData.append('uploadFile', file, file.name);
+            headers = new Headers();
+            options = new RequestOptions({ headers: headers });
+            const apiUrl1 = api;
             return this.http.post(apiUrl1, formData, options)
-            .map((response:Response) => {
+            .map((response: Response) => {
                 return response.json();
             })
-            //.map(res => res.json())  
-            //.catch(error => Observable.throw(error))  
-            //.subscribe(  
-                //data => console.log(data)
-            //)  
-        }else{
+            // .map(res => res.json())
+            // .catch(error => Observable.throw(error))
+            // .subscribe(
+                // data => console.log(data)
+            // )
+        }else {
             return null;
         }
     }
 
-    postProcess(url:string, data:any): void{
-        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token, 'Content-Type': 'application/json'});
-        let options = new RequestOptions({ headers: headers });
+    postProcess(url: string, data: any): void {
+        const headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token, 'Content-Type': 'application/json'});
+        const options = new RequestOptions({ headers: headers });
         data.BusinessID = this.authenticationService.getPayLoad().BusinessID;
-        let api = `${this.authenticationService.urlBase}${url}`
+        const api = `${this.authenticationService.urlBase}${url}`
         data.BusinessID = this.authenticationService.getPayLoad().BusinessID;
-        this.http.post(api,JSON.stringify(data), options)
-        .subscribe(data => console.log(data))        
+        this.http.post(api, JSON.stringify(data), options)
+        .subscribe(data => console.log(data))
     }
 }

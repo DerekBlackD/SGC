@@ -45,6 +45,21 @@ export class GeneralManagementComponent {
 
     }
 
+    resetVariables(): void {
+        this.customerBagPhoneData = [];
+        this.customerBagAddressData = [];
+        this.customerBagManagementsData = [];
+        this.customerBagManagementsDataBack = [];
+        this.customerBagAccountData = [];
+        this.selectPhone.phoneID = 0;
+        this.selectPhone.phoneNumber = '';
+        this.selectAddress.AddressID = 0;
+        this.selectAddress.Address = '';
+        this.customerData.CustomerBagID = 0;
+        this.customerData.CustomerID = 0;
+        this.customerData.BagID = 0;
+    }
+
     selectOption(val: string): void {
         this.Val = val;
     }
@@ -55,6 +70,7 @@ export class GeneralManagementComponent {
 
     loadAssignment(): void {
         this.blockUI.start('Cargando...');
+        this.resetVariables();
         const data: any = {};
 
         data.AgentID = this.mngtAgentID;
@@ -93,7 +109,9 @@ export class GeneralManagementComponent {
 
     loadCustomerBagData(customerBag: any): void {
         this.blockUI.start('Cargando...');
+        this.resetVariables();
         const request: any = {};
+        this._collectionService.restartData(true);
         request.CustomerBagID = customerBag.CustomerBagID;
         request.CustomerID = customerBag.CustomerID;
         request.BagID = customerBag.BagID;

@@ -41,7 +41,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let phone of customerBagPhoneData" (click)="setClickedRow(phone.ID, phone.Phone)" [class.active]="phone.ID == selectObjPhone.phoneID">
-                    <td><a class="btn-without-ref" (click)="editCustomerPhone(phone.ID)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                    <td><a class="btn-without-ref" (click)="editCustomerPhone(phone)"><span class="glyphicon glyphicon-pencil"></span></a></td>
                     <td>{{phone.ID}}</td>
                     <td>{{phone.Phone}}</td>
                     <td>{{phone.Priority}}</td>
@@ -56,117 +56,73 @@
     </div>
 
     <div class="panel-body mngt-scrolls" *ngIf="formState">
-        <!-- <form class="form-horizontal" name="formPhone" #formPhone="ngForm" role="form" novalidate>
-            <div class="form-group form-group-sm">
-                <label class="col-sm-2 control-label">Teléfono</label>
-                <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : submitted && number.invalid}">
-                    <input class="form-control" type="text" name="number" [(ngModel)]="custBagPhone.number" autofocus required />
-                    <span *ngIf="submitted && number.invalid" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-                </div>
-                <label class="col-sm-2 control-label">Anexo</label>
-                <div class="col-sm-2">
-                    <input class="form-control" type="text" name="annexed" [(ngModel)]="custBagPhone.annexed"/>
-                </div>
-                <label class="col-sm-2 control-label">Clase</label>
-                <div class="col-sm-2">
-                    <select class="form-control" name="classes" [(ngModel)]="custBagPhone.classes">
-                        <option value="">Seleccionar</option>
-                        <option *ngFor="let cla of lstClass" value="{{cla.Code}}">{{cla.Value}}</option>
-                    </select>
-                </div>
+        <div *ngIf="!editOrNewPhone" class="form-group form-group-sm">
+            <label class="col-sm-2 control-label">ID</label>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" name="ID" [(ngModel)]="custBagPhone.ID" disabled />
             </div>
-            <div class="form-group form-group-sm">
-                <label class="col-sm-2 control-label">Proveedor</label>
-                <div class="col-sm-2">
-                    <select class="form-control" name="provider" [(ngModel)]="custBagPhone.provider">
-                        <option value="">Seleccionar</option>
-                        <option *ngFor="let opt of lstProvider" value="{{opt.Code}}">{{opt.Value}}</option>
-                    </select>
-                </div>
-                <label class="col-sm-2 control-label">Origen</label>
-                <div class="col-sm-2">
-                    <select class="form-control" name="origin" [(ngModel)]="custBagPhone.origin">
-                        <option value="">Seleccionar</option>
-                        <option *ngFor="let opt2 of lstOrigin" value="{{opt2.Code}}">{{opt2.Value}}</option>
-                    </select>
-                </div>
-                <label class="col-sm-2 control-label">Código Prov.</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" name="codeProvince" [(ngModel)]="custBagPhone.codeProvince" />
-                </div>
+            <label class="col-sm-2 control-label">Situación</label>
+            <div class="col-sm-4">
+                <select class="form-control" name="Situation" [(ngModel)]="custBagPhone.Situation" >
+                    <option *ngFor="let sit of lstSituation" value="{{sit.ID}}">{{sit.Value}}</option>
+                </select>
             </div>
-            <div class="form-group form-group-sm">
-                <label class="col-sm-2 control-label">Dirección</label>
-                <div class="col-sm-10">
-                    <select class="form-control" name="AddressID" [(ngModel)]="custBagPhone.AddressID">
-                        <option value="0">Seleccionar</option>
-                        <option value="1">Av. Teresa Gonzales fannin 100</option>
-                        <option value="2">Av. Loma Hermosa 115</option>
-                    </select>
-                </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label">Teléfono</label>
+            <div class="col-sm-4" [ngClass]="{'has-error has-feedback' : submitted && number.invalid}">
+                <input class="form-control" type="text" name="number" #number="ngModel" [(ngModel)]="custBagPhone.Phone" [disabled]="!editOrNewPhone" autofocus required maxlength="10" />
+                <span *ngIf="submitted && number.invalid" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
             </div>
-            <div class="form-group form-group-sm">
-                <label class="col-sm-2 control-label">Observación</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" rows="3" name="observation" [(ngModel)]="custBagPhone.observation"></textarea>
-                </div>
+            <label class="col-sm-2 control-label">Anexo</label>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" name="annexed" [(ngModel)]="custBagPhone.Annexed" maxlength="6" />
             </div>
-        </form> -->
-        
-            <div class="form-group form-group-sm">
-                <label class="col-sm-2 control-label">Teléfono</label>
-                <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : submitted && number.invalid}">
-                    <input class="form-control" type="text" name="number" #number="ngModel" [(ngModel)]="custBagPhone.number" autofocus required />
-                    <span *ngIf="submitted && number.invalid" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-                </div>
-                <label class="col-sm-2 control-label">Anexo</label>
-                <div class="col-sm-2">
-                    <input class="form-control" type="text" name="annexed" [(ngModel)]="custBagPhone.annexed"/>
-                </div>
-                <label class="col-sm-2 control-label">Clase</label>
-                <div class="col-sm-2">
-                    <select class="form-control" name="classes" [(ngModel)]="custBagPhone.classes">
-                        <option value="">Seleccionar</option>
-                        <option *ngFor="let cla of lstClass" value="{{cla.Code}}">{{cla.Value}}</option>
-                    </select>
-                </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label">Clase</label>
+            <div class="col-sm-4">
+                <select class="form-control" name="classes" [(ngModel)]="custBagPhone.Class">
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let cla of lstClass" value="{{cla.ID}}">{{cla.Value}}</option>
+                </select>
             </div>
-            <div class="form-group form-group-sm">
-                <label class="col-sm-2 control-label">Proveedor</label>
-                <div class="col-sm-2">
-                    <select class="form-control" name="provider" [(ngModel)]="custBagPhone.provider">
-                        <option value="">Seleccionar</option>
-                        <option *ngFor="let opt of lstProvider" value="{{opt.Code}}">{{opt.Value}}</option>
-                    </select>
-                </div>
-                <label class="col-sm-2 control-label">Origen</label>
-                <div class="col-sm-2">
-                    <select class="form-control" name="origin" [(ngModel)]="custBagPhone.origin">
-                        <option value="">Seleccionar</option>
-                        <option *ngFor="let opt2 of lstOrigin" value="{{opt2.Code}}">{{opt2.Value}}</option>
-                    </select>
-                </div>
-                <label class="col-sm-2 control-label">Código Prov.</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" name="codeProvince" [(ngModel)]="custBagPhone.codeProvince" />
-                </div>
+            <label class="col-sm-2 control-label">Proveedor</label>
+            <div class="col-sm-4">
+                <select class="form-control" name="provider" [(ngModel)]="custBagPhone.Provider">
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let opt of lstProvider" value="{{opt.ID}}">{{opt.Value}}</option>
+                </select>
             </div>
-            <div class="form-group form-group-sm">
-                <label class="col-sm-2 control-label">Dirección</label>
-                <div class="col-sm-10">
-                    <select class="form-control" name="AddressID" [(ngModel)]="custBagPhone.AddressID">
-                        <option value="0">Seleccionar</option>
-                        <option value="1">Av. Teresa Gonzales fannin 100</option>
-                        <option value="2">Av. Loma Hermosa 115</option>
-                    </select>
-                </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label">Origen</label>
+            <div class="col-sm-4">
+                <select class="form-control" name="origin" [(ngModel)]="custBagPhone.Origin">
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let opt2 of lstOrigin" value="{{opt2.ID}}">{{opt2.Value}}</option>
+                </select>
             </div>
-            <div class="form-group form-group-sm">
-                <label class="col-sm-2 control-label">Observación</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" rows="3" name="observation" [(ngModel)]="custBagPhone.observation"></textarea>
-                </div>
+            <label class="col-sm-2 control-label">Código Prov.</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="codeProvince" [(ngModel)]="custBagPhone.ProvinceCode" />
             </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label">Dirección</label>
+            <div class="col-sm-10">
+                <select class="form-control" name="AddressID" [(ngModel)]="custBagPhone.AddressID">
+                    <option value="0">Seleccionar</option>
+                    <option *ngFor="let addr of customerBagAddressData" value="{{addr.ID}}">{{addr.Address}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label">Observación</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="3" name="observation" [(ngModel)]="custBagPhone.Observation"></textarea>
+            </div>
+        </div>
     </div>
 </div>
 

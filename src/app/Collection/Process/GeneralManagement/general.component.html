@@ -40,7 +40,7 @@
         <gen-customerbag [customerBagData]="customerBagData"></gen-customerbag>
     </div>
     <div class="col-md-6">
-        <gen-customerbag-phone *ngIf="showPhoneOrAddress" [customerBagPhoneData]="customerBagPhoneData" [customerData]="customerData" (selectPhone)="handleSelectPhone($event)" (changeManagement)="handleChangeManagement($event)"></gen-customerbag-phone>
+        <gen-customerbag-phone *ngIf="showPhoneOrAddress" [customerBagPhoneData]="customerBagPhoneData" [customerBagAddressData]="customerBagAddressData" [customerData]="customerData" (selectPhone)="handleSelectPhone($event)" (changeManagement)="handleChangeManagement($event)"></gen-customerbag-phone>
         <gen-customerbag-address *ngIf="!showPhoneOrAddress" [customerBagAddressData]="customerBagAddressData" [customerData]="customerData" (selectAddress)="handleSelectAddress($event)" (changeManagement)="handleChangeManagement($event)"></gen-customerbag-address>
     </div>
 </div>

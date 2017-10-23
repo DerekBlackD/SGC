@@ -33,7 +33,7 @@ export class GenManagement {
      todayDate: string; // Today date in string format
      submitted = false; // Flag for submit form validation
      showInputDate = true; // Flag for show or hide input date
-     // User/Agent Info
+     // Global Data
      mngtAgentID: number;
      userData: any = {};
      agentData: any = {};
@@ -57,6 +57,13 @@ export class GenManagement {
         this.resetVariables();
         this.loadResult();
         this.loadData();
+
+        this._collectionService.changeEmitted$.subscribe(
+        response => {
+            if (response) {
+                this.resetVariables();
+            }
+        });
      }
 
      resetVariables(): void {
@@ -149,7 +156,6 @@ export class GenManagement {
     saveManagement(isValid: boolean): void {
         this.submitted = true;
         if (isValid) {
-            console.log(this.CampMngtDate);
             let classMngt: string;
             if (this.mngtAgentID === 0 || this.mngtAgentID == null) {
                 alert('No puede gestionar. No tiene asociado ningún código de gestor.');

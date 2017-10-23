@@ -49,7 +49,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let addr of customerBagAddressData" (click)="setClickedRow(addr.ID, addr.Address)" [class.active]="addr.ID == selectObjAddress.AddressID">
-                            <td width="30px"><a class="btn-without-ref" (click)="editCustomerAddress(addr.ID)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                            <td width="30px"><a class="btn-without-ref" (click)="editCustomerAddress(addr)"><span class="glyphicon glyphicon-pencil"></span></a></td>
                             <td width="50px">{{addr.ID}}</td>
                             <td width="350px">{{addr.Address}}</td>
                             <td width="200px">{{addr.City}}</td>
@@ -72,10 +72,106 @@
         </div>
 
         <div class="panel-body mngt-scrolls" *ngIf="formState">
+            <div *ngIf="!editOrNewAddress" class="form-group form-group-sm">
+                <label class="col-sm-2 control-label">ID</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="ID" [(ngModel)]="oAddress.ID" disabled />
+                </div>
+                <label class="col-sm-2 control-label">Situación</label>
+                <div class="col-sm-4">
+                    <select class="form-control" name="Situation" [(ngModel)]="oAddress.Situation" >
+                        <option *ngFor="let sit of lstSituation" value="{{sit.ID}}">{{sit.Value}}</option>
+                    </select>
+                </div>
+            </div>
             <div class="form-group form-group-sm">
                 <label class="col-sm-2 control-label">Dirección</label>
+                <div class="col-sm-10" [ngClass]="{'has-error has-feedback' : submitted && Address.invalid}">
+                    <input class="form-control" type="text" name="Address" #Address="ngModel" [(ngModel)]="oAddress.Address" autofocus required />
+                    <span *ngIf="submitted && Address.invalid" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-2 control-label">Referencia</label>
+                <div class="col-sm-10" [ngClass]="{'has-error has-feedback' : submitted && Reference.invalid}">
+                    <input class="form-control" type="text" name="Reference" #Reference="ngModel" [(ngModel)]="oAddress.Reference" required />
+                    <span *ngIf="submitted && Reference.invalid" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-2 control-label">Urbanización</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="Urbanization" [(ngModel)]="oAddress.Urbanization" />
+                </div>
+                <label class="col-sm-2 control-label">Ciudad</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="City" [(ngModel)]="oAddress.City" />
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-2 control-label">Origen</label>
+                <div class="col-sm-4">
+                    <select class="form-control" name="Origin" [(ngModel)]="oAddress.Origin" >
+                        <option value="0">Seleccionar</option>
+                        <option *ngFor="let ori of lstOrigin" value="{{ori.ID}}">{{ori.Value}}</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">Sector</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="Sector" [(ngModel)]="oAddress.Sector" />
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-2 control-label">Cuadrante X</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="QuadrantX" [(ngModel)]="oAddress.QuadrantX" />
+                </div>
+                <label class="col-sm-2 control-label">Cuadrante Y</label>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" name="QuadrantY" [(ngModel)]="oAddress.QuadrantY" />
+                </div>
+            </div>
+            <div *ngIf="showUbigeo" class="form-group form-group-sm">
+                <label class="col-sm-2 control-label">Departamento</label>
+                <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : submitted && Department.invalid}">
+                    <select class="form-control" name="Department" #Department="ngModel" [(ngModel)]="selectDepartment" (ngModelChange)="changeDepartment($event)" required >
+                        <option value="">Seleccionar</option>
+                        <option *ngFor="let dep of lstDepartment" value="{{dep.Code}}">{{dep.Value}}</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">Provincia</label>
+                <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : submitted && Province.invalid}">
+                    <select class="form-control" name="Province" #Province="ngModel" [(ngModel)]="selectProvince" (ngModelChange)="changeProvince($event)" required>
+                        <option value="">Seleccionar</option>
+                        <option *ngFor="let prov of lstSelectProvince" value="{{prov.Code}}">{{prov.Value}}</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label">Distrito</label>
+                <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : submitted && Ubigeo.invalid}">
+                    <select class="form-control" name="Ubigeo" #Ubigeo="ngModel" [(ngModel)]="oAddress.Ubigeo" required>
+                        <option value="">Seleccionar</option>
+                        <option *ngFor="let dis of lstSelectDistrict" value="{{dis.Code}}">{{dis.Value}}</option>
+                    </select>
+                </div>
+            </div>
+            <div *ngIf="!showUbigeo" class="form-group form-group-sm">
+                <label class="col-sm-2 control-label">Departamento</label>
+                <div class="col-sm-2">
+                    <input class="form-control" type="text" name="Department" [(ngModel)]="oAddress.Department" disabled />
+                </div>
+                <label class="col-sm-2 control-label">Provincia</label>
+                <div class="col-sm-2">
+                    <input class="form-control" type="text" name="Province" [(ngModel)]="oAddress.Province" disabled />
+                </div>
+                <label class="col-sm-2 control-label">Distrito</label>
+                <div class="col-sm-2">
+                        <input class="form-control" type="text" name="District" [(ngModel)]="oAddress.District" disabled />
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-2 control-label">Notas</label>
                 <div class="col-sm-10">
-                    <input class="form-control" type="text" name="address" autofocus />
+                    <textarea rows="3" class="form-control" name="Observation" [(ngModel)]="oAddress.Observation" ></textarea>
                 </div>
             </div>
         </div>
