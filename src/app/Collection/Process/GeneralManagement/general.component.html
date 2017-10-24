@@ -3,17 +3,23 @@
         <h5><p class="text-center">Gestión General</p></h5>
     </div>
     <div class="col-md-4">
-        <div class="input-group input-group-sm">
-            <div class="input-group-btn">
+        <div class="col-md-12 input-group input-group-sm">
+            <!-- <div class="input-group-btn">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Val}} <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                     <li><a class="btn-without-ref" (click)="selectOption('Documento')">Documento</a></li>
                     <li><a class="btn-without-ref" (click)="selectOption('Nombre')">Nombre</a></li>
                     <li><a class="btn-without-ref" (click)="selectOption('Teléfono')">Teléfono</a></li>
                 </ul> 
-            </div><!-- /btn-group -->
-            <input type="text" #searchText (keyup.enter)="onEnter(searchText.value)" class="form-control" aria-label="..." placeholder="Buscar clientes" />
-        </div><!-- /input-group -->
+            </div>
+            <input type="text" #searchText (keyup.enter)="onEnter(searchText.value)" class="form-control" aria-label="..." placeholder="Buscar clientes" /> -->
+            <select class="form-control mngt-search-select" title="Tipo de búsqueda">
+                <option value="1"> Documento de Identidad</option>
+                <option value="2"> Nombre</option>
+                <option value="3"> Teléfono</option>
+            </select> 
+            <input type="text" #searchText (keyup.enter)="onEnter(searchText.value)" class="form-control mngt-search-input" aria-label="..." placeholder="Buscar clientes"/>
+        </div>
     </div>
     <div class="col-md-6">
         <div class="btn-group btn-group-justified" role="group" aria-label="...">
@@ -54,8 +60,8 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!-- Modal - Edit customer bag data -->
+<div class="modal fade" id="editCustomerBagDataModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -71,4 +77,23 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- Modal - Show searching results -->
+<div class="modal fade" id="resultSearchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Resultados de la búsqueda</h4>
+        </div>
+        <div class="modal-body">
+            <gen-customerbag-search></gen-customerbag-search>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary">Guardar</button>
+        </div>
+        </div>
+    </div>
 </div>

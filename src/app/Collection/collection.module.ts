@@ -13,6 +13,7 @@ import { EditGenCustomerBag } from './Process/GeneralManagement/GenCustomerBag/e
 import { GenCustomerBagAddress } from './Process/GeneralManagement/GenCustomerBagAddress/genaddress.component';
 import { GenCustomerBagPhone } from './Process/GeneralManagement/GenCustomerBagPhone/genphone.component';
 import { GenCustomerBagAccount } from './Process/GeneralManagement/GenCustomerBagAccount/genaccount.component';
+import { GenCustomerBagSearch } from './Process/GeneralManagement/GenCustomerBagSearch/gensearch.component';
 import { GenManagementList } from './Process/GeneralManagement/GenManagementList/genmanagementlist.component';
 import { GenManagement } from './Process/GeneralManagement/GenManagement/genmanagement.component';
 import { MantenimientoUsuarioComponent } from './Seguridad/MantenimientoUsuario.component';
@@ -20,7 +21,7 @@ import { MantenimientoPerfilComponent } from './Seguridad/MantenimientoPerfil.co
 import { ConsultaUsuarioComponent  } from './Seguridad/ConsultaUsuario.component';
 import { ConsultaPerfilComponent  } from './Seguridad/ConsultaPerfil.component';
 
-//Services
+// Services
 import { CollectionService } from '../Services/collection.service';
 
 import { CollectionRoutingModule } from './collection-routing.module';
@@ -43,6 +44,7 @@ import { CollectionRoutingModule } from './collection-routing.module';
     GenCustomerBagAddress,
     GenCustomerBagPhone,
     GenCustomerBagAccount,
+    GenCustomerBagSearch,
     GenManagementList,
     GenManagement,
     MantenimientoUsuarioComponent,

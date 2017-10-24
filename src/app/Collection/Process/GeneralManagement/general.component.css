@@ -86,3 +86,11 @@ is the default in type.less */
     height: 18px !important;
     width: 160px !important;
 }
+
+.mngt-search-select {
+    width: 40% !important;
+}
+
+.mngt-search-input {
+    width: 60% !important;
+}

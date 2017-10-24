@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CollectionService } from '../../../Services/collection.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import 'bootstrap/dist/js/bootstrap.js';
+import $ from 'jquery';
 
 @Component({
     selector: 'general-component',
@@ -24,12 +26,10 @@ export class GeneralManagementComponent {
     btnprevState: boolean; // Style class of previus assignment button
     btnnextState: boolean; // Style class of next assignment button
     indexAssign = 0; // Index of arrays of customer bags
-    Val: string; // Search type
     // Agent info
     mngtAgentID: number;
     agentData: any = {};
     constructor(private _collectionService: CollectionService) {
-        this.Val = 'Documento';
         this.mngtAgentID = this._collectionService.getAgentID();
         if (this.mngtAgentID !== 0) {
             this.agentData = this._collectionService.getAgentData();
@@ -60,12 +60,12 @@ export class GeneralManagementComponent {
         this.customerData.BagID = 0;
     }
 
-    selectOption(val: string): void {
-        this.Val = val;
-    }
-
     onEnter(value: string) {
+        console.log(value);
         this.searchCustomerBagByDocument(value);
+        // $('#resultSearchModal').show();
+        // $('#resultSearchModal').modal('show')
+        // $('#resultSearchModal').modal('show');
     }
 
     loadAssignment(): void {
@@ -145,12 +145,18 @@ export class GeneralManagementComponent {
 
         this._collectionService.getData('api/sgc/customerbag/getsearchbydocument/get', request)
             .subscribe(data => {
-              if (data.objCustomerBag != null) {
-                const customerBag: any = {};
-                customerBag.CustomerBagID = data.objCustomerBag.CustomerBagID;
-                customerBag.CustomerID = data.objCustomerBag.CustomerID;
-                customerBag.BagID = data.objCustomerBag.BagID;
-                this.loadCustomerBagData(customerBag);
+              if (data.lstCustomerBag != null) {
+                  if (data.lstCustomerBag.length > 0) {
+                      if (data.lstCustomerBag.length === 1) {
+                        const customerBag: any = {};
+                        customerBag.CustomerBagID = data.lstCustomerBag[0].CustomerBagID;
+                        customerBag.CustomerID = data.lstCustomerBag[0].CustomerID;
+                        customerBag.BagID = data.lstCustomerBag[0].BagID;
+                        this.loadCustomerBagData(customerBag);
+                      } else {
+                          // show popup and send list
+                      }
+                  }
               }
             })
     }
