@@ -1360,7 +1360,7 @@ html {
 
 body {
     /*font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; Mod1 - Junior Peña*/
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.42857143;
     color: #555555;
     background-color: #ffffff;
@@ -6275,7 +6275,7 @@ button.close {
 
 .modal {
     display: none;
-    overflow: hidden;
+    overflow: auto;
     position: fixed;
     top: 0;
     right: 0;
@@ -6312,6 +6312,7 @@ button.close {
     position: relative;
     width: auto;
     margin: 10px;
+    z-index: 1060 !important;
 }
 
 .modal-content {

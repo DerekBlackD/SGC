@@ -1,1 +1,36 @@
-<h2>hola mundo</h2>
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" (click)="close()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Resultados de la búsqueda</h4>
+    </div>
+    <div class="modal-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Teléfono</th>
+                    <th>Entidad</th>
+                    <th>Cartera</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of dataList" (click)="setClickedRow(data)" [class.active]="data.CustomerBagID == returnData.CustomerBagID">
+                    <td>{{data.CustomerBagID}}</td>
+                    <td>{{data.Name}}</td>
+                    <td>{{data.Phone}}</td>
+                    <td>{{data.CustomerDesc}}</td>
+                    <td>{{data.BagDesc}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="close()">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="confirm()">Seleccionar</button>
+    </div>
+    </div>
+</div>
+
+<div class="modal-backdrop fade in" (click)="close()"></div>

@@ -52,6 +52,9 @@ import { CollectionRoutingModule } from './collection-routing.module';
     ConsultaUsuarioComponent,
     ConsultaPerfilComponent
   ],
+  entryComponents: [
+    GenCustomerBagSearch
+  ],
   providers: [CollectionService]
 })
 export class CollectionModule {}

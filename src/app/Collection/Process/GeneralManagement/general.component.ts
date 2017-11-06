@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CollectionService } from '../../../Services/collection.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import 'bootstrap/dist/js/bootstrap.js';
-import $ from 'jquery';
+import { DialogService } from 'ng2-bootstrap-modal';
+import { GenCustomerBagSearch } from './GenCustomerBagSearch/gensearch.component';
 
 @Component({
     selector: 'general-component',
@@ -22,14 +22,20 @@ export class GeneralManagementComponent {
     selectAddress: any = {}; // Address selected
     customerData: any = {};
     accountTotal: any = {}; // Summary of account
+    // form variables
     showPhoneOrAddress = true; // Show phones or addresses
     btnprevState: boolean; // Style class of previus assignment button
     btnnextState: boolean; // Style class of next assignment button
+    btnFilter: boolean; // Style class of filter button
     indexAssign = 0; // Index of arrays of customer bags
+    searchType: string;
     // Agent info
     mngtAgentID: number;
     agentData: any = {};
-    constructor(private _collectionService: CollectionService) {
+
+    constructor(private _collectionService: CollectionService,
+                private dialogService: DialogService) {
+        this.searchType = '1';
         this.mngtAgentID = this._collectionService.getAgentID();
         if (this.mngtAgentID !== 0) {
             this.agentData = this._collectionService.getAgentData();
@@ -43,6 +49,16 @@ export class GeneralManagementComponent {
             alert('No tiene asociado ningún código de gestor.');
         }
 
+        this._collectionService.selectEmiited$.subscribe(
+            response => {
+                if (response) {
+                    const customerBag: any = {};
+                    customerBag.CustomerBagID = response.CustomerBagID;
+                    customerBag.CustomerID = response.CustomerID;
+                    customerBag.BagID = response.BagID;
+                    this.loadCustomerBagData(customerBag);
+                }
+            });
     }
 
     resetVariables(): void {
@@ -61,11 +77,54 @@ export class GeneralManagementComponent {
     }
 
     onEnter(value: string) {
-        console.log(value);
-        this.searchCustomerBagByDocument(value);
-        // $('#resultSearchModal').show();
-        // $('#resultSearchModal').modal('show')
-        // $('#resultSearchModal').modal('show');
+        let url = '';
+        if (this.searchType === '1') {
+            url = 'api/sgc/customerbag/getsearchbydocument/get';
+        }
+        if (this.searchType === '2') {
+            url = 'api/sgc/customerbag/getsearchbyname/get';
+        }
+        if (this.searchType === '3') {
+            url = 'api/sgc/customerbag/getsearchbyphone/get';
+        }
+
+        this.searchCustomerBag(value, url);
+    }
+
+    searchCustomerBag(text: string, url: string): void {
+        const request: any = {};
+        request.SearchText = text;
+
+        this._collectionService.getData(url, request)
+            .subscribe(data => {
+              if (data.lstCustomerBag != null) {
+                  if (data.lstCustomerBag.length > 0) {
+                      if (data.lstCustomerBag.length === 1) {
+                        const customerBag: any = {};
+                        customerBag.CustomerBagID = data.lstCustomerBag[0].CustomerBagID;
+                        customerBag.CustomerID = data.lstCustomerBag[0].CustomerID;
+                        customerBag.BagID = data.lstCustomerBag[0].BagID;
+                        this.loadCustomerBagData(customerBag);
+                      } else {
+                        // show popup and send list
+                        this.showModal(data.lstCustomerBag);
+                      }
+                  } else {
+                      alert('No se encontraron registros.');
+                  }
+              }
+            })
+    }
+
+    showModal(list: any[]) {
+        const disposable = this.dialogService.addDialog(GenCustomerBagSearch, {
+            dataList: list})
+            .subscribe((isConfirmed) => {
+                // We get dialog result
+                if (isConfirmed) {
+                    console.log('objeto seleccionado');
+                }
+            });
     }
 
     loadAssignment(): void {
@@ -75,10 +134,11 @@ export class GeneralManagementComponent {
 
         data.AgentID = this.mngtAgentID;
         data.Year = '2017';
-        data.Month = '8';
+        data.Month = '11';
 
         this._collectionService.getData('api/GetAssign', data)
             .subscribe(assign => {
+            console.log(assign);
             this.lstAssign = assign.lstAssignmentByAgent;
             if (this.lstAssign.length > 0) {
                 this.customerData.CustomerBagID = this.lstAssign[0].CustomerBagID;
@@ -101,8 +161,13 @@ export class GeneralManagementComponent {
                         this.AddAmounts(this.customerBagAccountData);
                     }
                 }
+
+                this.valIndex();
+            } else {
+                this.btnnextState = true;
+                this.btnprevState = true;
+                this.btnFilter = true;
             }
-            this.valIndex();
             this.blockUI.stop();
         })
     }
@@ -136,28 +201,6 @@ export class GeneralManagementComponent {
                     this.AddAmounts(this.customerBagAccountData);
                 }
                 this.blockUI.stop();
-            })
-    }
-
-    searchCustomerBagByDocument(text: string): void {
-        const request: any = {};
-        request.SearchText = text;
-
-        this._collectionService.getData('api/sgc/customerbag/getsearchbydocument/get', request)
-            .subscribe(data => {
-              if (data.lstCustomerBag != null) {
-                  if (data.lstCustomerBag.length > 0) {
-                      if (data.lstCustomerBag.length === 1) {
-                        const customerBag: any = {};
-                        customerBag.CustomerBagID = data.lstCustomerBag[0].CustomerBagID;
-                        customerBag.CustomerID = data.lstCustomerBag[0].CustomerID;
-                        customerBag.BagID = data.lstCustomerBag[0].BagID;
-                        this.loadCustomerBagData(customerBag);
-                      } else {
-                          // show popup and send list
-                      }
-                  }
-              }
             })
     }
 

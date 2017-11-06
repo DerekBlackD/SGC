@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { CommonModule, APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BlockUIModule } from 'ng-block-ui';
 
@@ -41,7 +42,8 @@ import { UtilitesService } from './Services/utilities.service';
     CollectionModule,
     AppRoutingModule,
     CommonModule,
-    BlockUIModule
+    BlockUIModule,
+    BootstrapModalModule
   ],
   providers: [
     AuthGuard,

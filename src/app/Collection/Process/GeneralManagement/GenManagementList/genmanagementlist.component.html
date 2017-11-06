@@ -26,8 +26,6 @@
         <table class="table-fixed-header table-mngt table table-hover table-body-size">
             <thead class="table-fixed-header-th">
                 <tr>
-                    <th width="50px">ID</th>
-                    <th style="width: 100px">Cartera</th>
                     <th style="width: 100px">Fecha</th>
                     <th style="width: 150px">Número</th>
                     <th style="width: 100px">Dir ID</th>
@@ -43,12 +41,12 @@
                     <th style="width: 200px">Lugar</th>
                     <th style="width: 100px">Digitador</th>
                     <th style="width: 350px">Dirección</th>
+                    <th style="width: 100px">Cartera</th>
+                    <th width="50px">ID</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let mngt of lstBackupManagementsData" (click)="setClickedRow(mngt.ManagementID, mngt.Observation)" [class.active]="mngt.ManagementID == selectRow">
-                    <td width="50px">{{mngt.ManagementID}}</td>
-                    <td style="width: 100px">{{mngt.BagDesc}}</td>
                     <td style="width: 100px">{{mngt.MngtDateString}}</td>
                     <td style="width: 150px">{{mngt.PhoneDesc}}</td>
                     <td style="width: 100px">{{mngt.AddressID}}</td>
@@ -64,6 +62,8 @@
                     <td style="width: 200px">{{mngt.LocationContact}}</td>
                     <td style="width: 100px">{{mngt.AgentTypistDesc}}</td>
                     <td style="width: 350px">{{mngt.AddressDesc}}</td>
+                    <td style="width: 100px">{{mngt.BagDesc}}</td>
+                    <td width="50px">{{mngt.ManagementID}}</td>
                 </tr>
             </tbody>
         </table>

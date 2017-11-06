@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CollectionService } from '../../../../Services/collection.service';
 
 @Component({
     selector: 'gen-management-list',
@@ -13,8 +14,15 @@ export class GenManagementList {
     selectRow: number;
     selectObservation: string;
 
-    constructor(){
+    constructor(private _collectionService: CollectionService) {
         this.intActiveFilter = 1;
+
+        this._collectionService.changeEmitted$.subscribe(
+            response => {
+                if (response) {
+                    this.selectObservation = '';
+                }
+            });
     }
 
     filterList(nfilter: number): void{

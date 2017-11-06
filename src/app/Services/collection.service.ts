@@ -14,11 +14,18 @@ export class CollectionService {
     private restartComponent = new Subject<any>();
     changeEmitted$ = this.restartComponent.asObservable();
 
+    private selectCustomerBag = new Subject<any>();
+    selectEmiited$ = this.selectCustomerBag.asObservable();
+
     constructor(private http: Http,
                 private authenticationService: AuthenticationService) { }
 
     restartData(change: any) {
         this.restartComponent.next(change);
+    }
+
+    selectData(select: any) {
+        this.selectCustomerBag.next(select);
     }
 
     getAgentID(): number {
