@@ -11,6 +11,7 @@ import { MantenimientoUsuarioComponent } from './Seguridad/MantenimientoUsuario.
 import { MantenimientoPerfilComponent } from './Seguridad/MantenimientoPerfil.component';
 import { ConsultaUsuarioComponent } from './Seguridad/ConsultaUsuario.component';
 import { ConsultaPerfilComponent } from './Seguridad/ConsultaPerfil.component';
+import { ManagementGeneralComponent } from './Management/Report/Management/ManagementGeneral.component';
 
 const collectionRoutes: Routes = [
   { path: 'Cobranza/Home', component: HomeComponent },
@@ -22,7 +23,8 @@ const collectionRoutes: Routes = [
   { path: 'Seguridad/MantenimientoUsuario', component: MantenimientoUsuarioComponent },
   { path: 'Seguridad/MantenimientoPerfil', component: MantenimientoPerfilComponent },
   { path: 'Seguridad/ConsultaUsuario/:id', component: ConsultaUsuarioComponent },
-  { path: 'Seguridad/ConsultaPerfil/:id', component: ConsultaPerfilComponent }
+  { path: 'Seguridad/ConsultaPerfil/:id', component: ConsultaPerfilComponent },
+  { path: 'Collection/ManagementGeneral', component:ManagementGeneralComponent }
 
 ];
 @NgModule({

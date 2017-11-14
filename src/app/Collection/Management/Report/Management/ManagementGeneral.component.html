@@ -1,0 +1,49 @@
+<form name="frmReportManagement" #frmReportManagement="ngForm" method="post" role="form" ngNativeValidate>
+    <div class="row">
+        <h1>Reporte de Gestiones</h1>
+    </div>
+    <div class="row">
+        <label class="col-md-1 control-label">Cliente</label>
+        <div class="col-md-2">
+            <select [(ngModel)]="Management.clienteid" class="form-control" #clienteid="ngModel" name="clienteid" (change)="onBagID($event)" >
+                <option value="0">Seleccionar</option>
+                <option *ngFor="let opc1 of Customer" value="{{opc1.ID}}">{{opc1.CustomerName}}</option>
+            </select>
+        </div>
+        <label class="col-md-1 control-label">Cartera</label>
+        <div class="col-md-2">
+            <select [(ngModel)]="Management.carteraid" class="form-control" #carteraid="ngModel" name="carteraid" >
+                <option value="0">Seleccionar</option>
+                <option *ngFor="let opc2 of Bag" value="{{opc2.BagID}}">{{opc2.BagName}}</option>
+            </select>
+        </div>
+        <label class="col-md-1 control-label">Tipo</label>
+        <div class="col-md-2">
+            <select [(ngModel)]="Management.classid" class="form-control" #classid="ngModel" name="classid" required >
+                <option value="">Seleccionar</option>
+                <option *ngFor="let opcgen1 of lstTipGestion" value="{{opcgen1.ID}}">{{opcgen1.Value}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-md-1 control-label">Inicio</label>
+        <div class="col-md-2">
+            <input type="date" [(ngModel)]="Management.datebegin" #datebegin="ngModel" class="form-control" name="datebegin" #datebegin="ngModel" min="2000-01-01"  required >
+        </div>
+        <label class="col-md-1 control-label">Fin</label>
+        <div class="col-md-2">
+            <input type="date" [(ngModel)]="Management.dateend" #dateend="ngModel" class="form-control" name="dateend" #dateend="ngModel"  min="2000-01-01" required >
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <button type="submit" id="Export" class="btn btn-primary" (click)="FGenerateReport(frmReportManagement.valid)" >Generar Reporte</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <input type="text" class="form-control" [(ngModel)]="Management.sResponse" #sResponse="ngModel" name="sResponse" readonly>
+        </div>
+    </div>
+</form>
+
