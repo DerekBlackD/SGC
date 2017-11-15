@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { CommonModule, APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BlockUIModule } from 'ng-block-ui';
+import { ToastyModule } from 'ng2-toasty';
 
 import { BannerComponent } from './Security/Banner/banner.component';
 import { MenuComponent } from './Security/Menu/menu.component';
@@ -43,7 +44,8 @@ import { UtilitesService } from './Services/utilities.service';
     AppRoutingModule,
     CommonModule,
     BlockUIModule,
-    BootstrapModalModule
+    BootstrapModalModule,
+    ToastyModule.forRoot()
   ],
   providers: [
     AuthGuard,
