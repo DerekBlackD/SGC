@@ -18,7 +18,7 @@ export class AuthenticationService {
         this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
         // this.urlBase = 'http://54.233.102.195/SGC-BE/';
         // this.urlBase = 'http://209.45.54.65/SGC-BE/';
-        this.urlBase = 'http://localhost:9580/';
+        // this.urlBase = 'http://localhost:9580/';
         this.businessID = this.getPayLoad().BusinessID;
     }
 

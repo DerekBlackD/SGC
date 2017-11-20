@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit{
                 if (result === '0') {
                     this.getAgentData();
                     this.getUserData();
-                    this.router.navigateByUrl('/Cobranza/Home');
+                    this.getGeneralCode();
                 } else {
                     console.log(result);
                 }
@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit{
         .subscribe(response => {
             sessionStorage.setItem('userData', JSON.stringify(response.objUser));
             this._sharedService.emitChange(true);
+            this.router.navigateByUrl('/Cobranza/Home');
         });
     }
 
@@ -68,6 +69,14 @@ export class LoginComponent implements OnInit{
             if (response.ListAgents != null || response.ListAgents.length > 0) {
                 sessionStorage.setItem('agentData', JSON.stringify(response.ListAgents[0]))
             }
+        })
+    }
+
+    getGeneralCode(): void {
+        const request: any = {};
+        this._collectionService.getData('api/sgc/common/getallgeneralcodedata/get', request)
+        .subscribe(response => {
+            sessionStorage.setItem('generalData', JSON.stringify(response.lstGeneralCode));
         })
     }
 }

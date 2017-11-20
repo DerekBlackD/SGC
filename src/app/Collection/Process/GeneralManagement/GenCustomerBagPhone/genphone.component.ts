@@ -78,26 +78,10 @@ export class GenCustomerBagPhone {
     }
 
     loadData(): void {
-        const dataProv: any = {};
-        dataProv.GroupID = '1';
-        const dataOrigin: any = {};
-        dataOrigin.GroupID = '2';
-        const dataClass: any = {};
-        dataClass.GroupID = '3';
-        const dataSituation: any = {};
-        dataSituation.GroupID = '15';
-        Observable.forkJoin(
-            this._collectionService.getData('api/common/getallcodebygroupID', dataProv),
-            this._collectionService.getData('api/common/getallcodebygroupID', dataOrigin),
-            this._collectionService.getData('api/common/getallcodebygroupID', dataClass),
-            this._collectionService.getData('api/common/getallcodebygroupID', dataSituation)
-        ).subscribe(data => {
-                this.lstProvider = data[0].lstGeneralCode;
-                this.lstOrigin = data[1].lstGeneralCode;
-                this.lstClass = data[2].lstGeneralCode;
-                this.lstSituation = data[3].lstGeneralCode;
-            }
-        )
+        this.lstProvider = this._collectionService.getGeneralCode(1);
+        this.lstOrigin = this._collectionService.getGeneralCode(2);
+        this.lstClass = this._collectionService.getGeneralCode(3);
+        this.lstSituation = this._collectionService.getGeneralCode(15);
     }
 
     setClickedRow = function(phoneID: number, phoneNumber: string){

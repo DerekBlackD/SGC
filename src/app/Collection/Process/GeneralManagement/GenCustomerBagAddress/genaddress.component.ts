@@ -69,30 +69,11 @@ export class GenCustomerBagAddress {
     }
 
     loadData(): void {
-        const dataDepartment: any = {};
-        dataDepartment.GroupID = '17';
-        const dataProvince: any = {};
-        dataProvince.GroupID = '18';
-        const dataDistric: any = {};
-        dataDistric.GroupID = '19';
-        const dataOrigin: any = {};
-        dataOrigin.GroupID = '2';
-        const dataSituation: any = {};
-        dataSituation.GroupID = '15';
-        Observable.forkJoin(
-            this._collectionService.getData('api/common/getallcodebygroupID', dataDepartment),
-            this._collectionService.getData('api/common/getallcodebygroupID', dataProvince),
-            this._collectionService.getData('api/common/getallcodebygroupID', dataDistric),
-            this._collectionService.getData('api/common/getallcodebygroupID', dataOrigin),
-            this._collectionService.getData('api/common/getallcodebygroupID', dataSituation)
-        ).subscribe(data => {
-                this.lstDepartment = data[0].lstGeneralCode;
-                this.lstProvince = data[1].lstGeneralCode;
-                this.lstDistrict = data[2].lstGeneralCode;
-                this.lstOrigin = data[3].lstGeneralCode;
-                this.lstSituation = data[4].lstGeneralCode;
-            }
-        )
+        this.lstDepartment = this._collectionService.getGeneralCode(17);
+        this.lstProvince = this._collectionService.getGeneralCode(18);
+        this.lstDistrict = this._collectionService.getGeneralCode(19);
+        this.lstOrigin = this._collectionService.getGeneralCode(2);
+        this.lstSituation = this._collectionService.getGeneralCode(15);
     }
 
     loadAddress(): void {

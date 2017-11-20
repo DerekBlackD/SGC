@@ -64,17 +64,6 @@ export class GeneralManagementComponent {
                     this.loadCustomerBagData(customerBag);
                 }
             });
-
-            // let timer = Observable.timer(60000, 60000);
-            // timer.subscribe(t => {
-            //     const today = new Date();
-            //     const m = today.getMonth() + 1;
-            //     const hour = today.getHours();
-            //     const minute = today.getMinutes();
-            //     const date = `${hour}:${minute}`;
-            //     console.log(date);
-            //     this.addToast();
-            // });
     }
 
     addToast() {

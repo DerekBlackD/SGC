@@ -110,25 +110,11 @@ export class GenManagement {
     }
 
     loadData(): void {
-        const dataMngtType: any = {}; dataMngtType.GroupID = '5';
-        const dataContact: any = {}; dataContact.GroupID = '4';
-        const dataLocation: any = {}; dataLocation.GroupID = '13';
-        const dataTypeComp: any = {}; dataTypeComp.GroupID = '11';
-        const dataCurrency: any = {}; dataCurrency.GroupID = '12';
-        Observable.forkJoin(
-            this._collectionService.getData('api/common/getallcodebygroupID', dataMngtType),
-            this._collectionService.getData('api/common/getallcodebygroupID', dataContact),
-            this._collectionService.getData('api/common/getallcodebygroupID', dataLocation),
-            this._collectionService.getData('api/common/getallcodebygroupID', dataTypeComp),
-            this._collectionService.getData('api/common/getallcodebygroupID', dataCurrency)
-        ).subscribe(data => {
-                this.lstMngtType = data[0].lstGeneralCode;
-                this.lstContact = data[1].lstGeneralCode;
-                this.lstLocation = data[2].lstGeneralCode;
-                this.lstTypeComp = data[3].lstGeneralCode;
-                this.lstCurrency = data[4].lstGeneralCode;
-            }
-        )
+        this.lstMngtType = this._collectionService.getGeneralCode(5);
+        this.lstContact = this._collectionService.getGeneralCode(4);
+        this.lstLocation = this._collectionService.getGeneralCode(13);
+        this.lstTypeComp = this._collectionService.getGeneralCode(11);
+        this.lstCurrency = this._collectionService.getGeneralCode(12);
     }
 
     loadManagements(): void {

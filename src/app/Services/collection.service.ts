@@ -45,6 +45,14 @@ export class CollectionService {
         return this.agentData;
     }
 
+    getGeneralCode(groupID: number): any[] {
+        let generalCodeList: any[];
+        let selectGeneralCodeList: any[];
+        generalCodeList = JSON.parse(sessionStorage.getItem('generalData'));
+        selectGeneralCodeList = generalCodeList.filter(x => x.GroupID === groupID);
+        return selectGeneralCodeList;
+    }
+
     getAllData(url: string): Observable<any[]> {
         const headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
         const options = new RequestOptions({ headers: headers });
