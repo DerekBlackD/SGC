@@ -18,6 +18,8 @@ export class ResultCodeNewComponent implements OnInit {
     register: any = {};
 
     dataResult:any={};
+    userData:any={};
+    management:any={};
 
     constructor (
         private router : Router,
@@ -46,18 +48,9 @@ export class ResultCodeNewComponent implements OnInit {
     }
 
     loadData():void{
-        // const dataResul: any={};
-        // dataResul.GroupID = "14";
-        // const dataResul2: any={};
-        // dataResul2.GroupID = "6";
-        // Observable.forkJoin(
-        //     this._collectionService.getData('api/common/getallcodebygroupID', dataResul),
-        //     this._collectionService.getData('api/common/getallcodebygroupID', dataResul2)
-        // ).subscribe(data =>{
-        //     this.lstTipGestion = data[0].lstGeneralCode;
-        //     this.lstUbica = data[1].lstGeneralCode;
-            
-        // })
+        this.lstTipGestion = this._collectionService.getGeneralCode(14);
+        this.lstUbica = this._collectionService.getGeneralCode(6);
+        this.userData = this._collectionService.getUserData();
     }
 
     getResultCode(resultid:number):void{
@@ -80,37 +73,39 @@ export class ResultCodeNewComponent implements OnInit {
                 this.result.comision = this.register.Commission;
                 this.result.situacion = this.register.Situation;
                 this.result.alerta = this.register.Alert;
+                this.result.SituationQuantity = this.register.intSituationQuantity;
+                this.result.Payment = this.register.blnPayment;
         })
     }
 
 
-    // SaveResult(): void{
+     SaveResult(): void{
 
-    //     let data: any = {};
+         let data: any = {};
+         data.Option = this.indica;
+         data.ResultID = this.resultID;
+         data.ObjIDClass = this.result.tipogestion;
+         data.ResultCode = this.result.resultcode;
+         data.Description = this.result.descripcion;
+         data.Priority = this.result.prioridad;
+         data.SubPriority = this.result.subprioridad;
+         data.ObjIDUbicability = this.result.idubica;
+         data.Commission = this.result.comision;
+         data.Situation = this.result.situacion;
+         data.intSituationQuantity = this.result.SituationQuantity;
+         data.Alert = this.result.alerta;
+         data.blnPayment = this.result.Payment;
+         data.State = 1;
+         data.User = this.userData.UserName;
 
-    //     data.Option = this.indica;
-    //     data.ResultID = this.resultID;
-    //     data.ObjIDClass = this.result.tipogestion;
-    //     data.Class = "";
-    //     data.ResultCode = this.result.resultcode;
-    //     data.Description = this.result.descripcion;
-    //     data.Priority = this.result.prioridad;
-    //     data.SubPriority = this.result.subprioridad;
-    //     data.ResponseMessage = "";
-    //     data.ResponseCode = "";
-    //     data.ObjIDUbicability = this.result.idubica;
-    //     data.Commission = this.result.comision;
-    //     data.Situation = this.result.situacion;
-    //     data.Alert = this.result.alerta;
-    //     data.State = 1;
-    //     data.User = "scuya";
+         this.management.objResult = data;
 
-    //     this._collectionService.getData('api/Result/PostResultCode', data)
-    //         .subscribe(res =>{
-    //             this.router.navigateByUrl("Cobranza/ResultadoGestion");
-    //             console.log('ID: ' + res[0] + ' MSG: ' + res[1]);
-    //     })
-    // }
+        this._collectionService.getData('api/Result/PostResultCode', this.management)
+            .subscribe(res =>{
+                this.router.navigateByUrl("Cobranza/ResultadoGestion");
+                console.log(res);
+        })
+    }
 
     SalirNew():void{
         this.router.navigateByUrl("Cobranza/ResultadoGestion");

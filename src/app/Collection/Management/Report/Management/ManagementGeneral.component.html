@@ -6,14 +6,14 @@
         <label class="col-md-1 control-label">Cliente</label>
         <div class="col-md-2">
             <select [(ngModel)]="Management.clienteid" class="form-control" #clienteid="ngModel" name="clienteid" (change)="onBagID($event)" >
-                <option value="0">Seleccionar</option>
+                <option value="0">Todo</option>
                 <option *ngFor="let opc1 of Customer" value="{{opc1.ID}}">{{opc1.CustomerName}}</option>
             </select>
         </div>
         <label class="col-md-1 control-label">Cartera</label>
         <div class="col-md-2">
             <select [(ngModel)]="Management.carteraid" class="form-control" #carteraid="ngModel" name="carteraid" >
-                <option value="0">Seleccionar</option>
+                <option value="0">Todo</option>
                 <option *ngFor="let opc2 of Bag" value="{{opc2.BagID}}">{{opc2.BagName}}</option>
             </select>
         </div>
