@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CollectionService } from '../../../Services/collection.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { DialogService } from 'ng2-bootstrap-modal';
+import { Observable } from 'rxjs/Rx';
 import { GenCustomerBagSearch } from './GenCustomerBagSearch/gensearch.component';
+
+import { ToastyModule, ToastyService, ToastyConfig, ToastOptions, ToastData } from 'ng2-toasty';
 
 @Component({
     selector: 'general-component',
@@ -34,7 +37,9 @@ export class GeneralManagementComponent {
     agentData: any = {};
 
     constructor(private _collectionService: CollectionService,
-                private dialogService: DialogService) {
+                private dialogService: DialogService,
+                private toastyService: ToastyService,
+                private toastyConfig: ToastyConfig) {
         this.searchType = '1';
         this.mngtAgentID = this._collectionService.getAgentID();
         if (this.mngtAgentID !== 0) {
@@ -59,6 +64,31 @@ export class GeneralManagementComponent {
                     this.loadCustomerBagData(customerBag);
                 }
             });
+    }
+
+    addToast() {
+        // Just add default Toast with title only
+        // this.toastyService.default('Hi there');
+        // Or create the instance of ToastOptions
+        const toastOptions: ToastOptions = {
+            title: 'prueba',
+            msg: 'Este mensaje de prueba',
+            showClose: true,
+            timeout: 5000,
+            theme: 'bootstrap',
+            onAdd: (toast: ToastData) => {
+                // console.log('Toast ' + toast.id + ' has been added!');
+            },
+            onRemove: function(toast: ToastData) {
+                // console.log('Toast ' + toast.id + ' has been removed!');
+            }
+        };
+        // Add see all possible types in one shot
+        this.toastyService.info(toastOptions);
+        // this.toastyService.success(toastOptions);
+        // this.toastyService.wait(toastOptions);
+        // this.toastyService.error(toastOptions);
+        // this.toastyService.warning(toastOptions);
     }
 
     resetVariables(): void {

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { ToastyModule } from 'ng2-toasty';
+
 import { HomeComponent } from './Management/Home/home.component';
 import { GeneralManagementComponent } from './Process/GeneralManagement/general.component';
 import { ResultCodeManagementComponent } from './Management/ResultCode/resultcode.component';
@@ -32,7 +34,8 @@ import { CollectionRoutingModule } from './collection-routing.module';
   imports: [
     CommonModule,
     FormsModule,
-    CollectionRoutingModule
+    CollectionRoutingModule,
+    ToastyModule.forRoot()
   ],
   declarations: [
     HomeComponent,
