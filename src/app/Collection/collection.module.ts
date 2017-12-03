@@ -21,6 +21,7 @@ import { MantenimientoPerfilComponent } from './Seguridad/MantenimientoPerfil.co
 import { ConsultaUsuarioComponent  } from './Seguridad/ConsultaUsuario.component';
 import { ConsultaPerfilComponent  } from './Seguridad/ConsultaPerfil.component';
 import { ManagementGeneralComponent } from './Management/Report/Management/ManagementGeneral.component';
+import { AccountComponent } from './Management/Format/Account/Account.component';
 
 // Services
 import { CollectionService } from '../Services/collection.service';
@@ -52,7 +53,8 @@ import { CollectionRoutingModule } from './collection-routing.module';
     MantenimientoPerfilComponent,
     ConsultaUsuarioComponent,
     ConsultaPerfilComponent,
-    ManagementGeneralComponent
+    ManagementGeneralComponent,
+    AccountComponent
   ],
   entryComponents: [
     GenCustomerBagSearch

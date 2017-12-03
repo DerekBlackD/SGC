@@ -8,7 +8,6 @@ import { Observable } from 'rxjs/Rx';
     templateUrl: 'resultcode.component.html'
 })
 export class ResultCodeManagementComponent implements OnInit {
-    
     codes : any[] = [];
 
     constructor (
@@ -20,16 +19,19 @@ export class ResultCodeManagementComponent implements OnInit {
         this.loadResult();
     }
 
-    loadResult():void{
-        this._CollectionService.getAllData('api/Result/getResult/1')
+    loadResult():void{        
+        let data : any={};
+        data.Option = 'AllData';
+
+        this._CollectionService.getData('api/Result/getResult',data)
             .subscribe(result =>{
-                this.codes = result;
-                console.log(this.codes);
+                this.codes = result.lstResult;
+                console.log("code:" + result.strResponseCode + " msg:" + result.strResponseMsg);
         })
     }
 
     NewResult():void{
-        this.router.navigate(['/NuevoRS', 0]);
+        //Vthis.router.navigate(['/NuevoRS', 0]);
     }
 
     EditResultCode(resultid:number): void{
@@ -37,7 +39,7 @@ export class ResultCodeManagementComponent implements OnInit {
     }
 
     DelResultCode(resultid:number):void{
-        this.router.navigate(['/DeleteRS', resultid]);
+        //this.router.navigate(['/DeleteRS', resultid]);
     }
     
 }

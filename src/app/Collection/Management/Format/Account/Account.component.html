@@ -1,0 +1,51 @@
+<form name="frmAccount" #frmAccount="ngForm" method="post" role="form" ngNativeValidate>
+    <div class="row">
+        <h1>Formato de Cuentas</h1>
+    </div>
+    <div class="row">
+        <label class="col-md-1 control-label">Cliente</label>
+        <div class="col-md-2">
+            <select [(ngModel)]="Account.clienteid" class="form-control" #clienteid="ngModel" name="clienteid" (change)="onBagID($event)" >
+                <option value="0">Seleccionar</option>
+                <option *ngFor="let opc1 of Customer" value="{{opc1.ID}}">{{opc1.CustomerName}}</option>
+            </select>
+        </div>
+        <label class="col-md-1 control-label">Cartera</label>
+        <div class="col-md-2">
+            <select [(ngModel)]="Account.carteraid" class="form-control" #carteraid="ngModel" name="carteraid" >
+                <option value="0">Seleccionar</option>
+                <option *ngFor="let opc2 of Bag" value="{{opc2.BagID}}">{{opc2.BagName}}</option>
+            </select>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mngt-scrolls table-responsive">
+                <table id="tAccount" class="table-mngt table table-hover table-body-size">
+                    <thead>
+                        <tr>
+                            <th>Descripción</th>
+                            <th>Tipo</th>
+                            <th>Tamaño</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of lstAccount">
+                            <td>{{item.Description}}</td>
+                            <td>{{item.Type}}</td>
+                            <td>{{item.Length}}</td>
+                            <td>
+                                <a class="btn-without-ref" (click)="FSelectField(item.Description)"><span class="glyphicon glyphicon-plus"></span></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+</form>
