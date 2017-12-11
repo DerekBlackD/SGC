@@ -238,14 +238,27 @@ export class GeneralManagementComponent {
         let totalCapital = 0;
         let totalCampaign1 = 0;
         let totalCampaign2 = 0;
+        let totalCapitalDol = 0;
+        let totalCampaign1Dol = 0;
+        let totalCampaign2Dol = 0;
         for (const item of customerBagAccountData) {
-            totalCapital = totalCapital + item.TotalDebt;
-            totalCampaign1 = totalCampaign1 + item.Amount1;
-            totalCampaign2 = totalCampaign2 + item.Amount2;
+            if (item.Money === 1) {
+                totalCapital = totalCapital + item.TotalDebt;
+                totalCampaign1 = totalCampaign1 + item.Amount1;
+                totalCampaign2 = totalCampaign2 + item.Amount2;
+            }
+            if (item.Money === 2) {
+                totalCapitalDol = totalCapital + item.TotalDebt;
+                totalCampaign1Dol = totalCampaign1 + item.Amount1;
+                totalCampaign2Dol = totalCampaign2 + item.Amount2;
+            }
         }
         this.accountTotal.totalCapital = totalCapital;
         this.accountTotal.totalCampaign1 = totalCampaign1;
         this.accountTotal.totalCampaign2 = totalCampaign2;
+        this.accountTotal.totalCapitalDol = totalCapitalDol;
+        this.accountTotal.totalCampaign1Dol = totalCampaign1Dol;
+        this.accountTotal.totalCampaign2Dol = totalCampaign2Dol;
     }
 
     handleSelectPhone(selectPhone: any): void {

@@ -96,8 +96,12 @@ export class GenManagement {
      }
 
      loadResult(): void {
-        this._collectionService.getAllData('api/Result/getResult/1')
-            .subscribe(result => {
+        const data: any = {};
+        data.Option = 'AllData';
+
+        this._collectionService.getData('api/Result/getResult', data)
+            .subscribe(response => {
+                let result = response.lstResult;
                 if (this.agentData.Type === 1) {
                     result = result.filter(x => x.Class === 'CALL')
                 }

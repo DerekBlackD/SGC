@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { ToastyModule } from 'ng2-toasty';
+import { MyDatePickerModule } from 'mydatepicker';
+import { CalendarModule } from 'primeng/primeng';
 
 import { HomeComponent } from './Management/Home/home.component';
 import { GeneralManagementComponent } from './Process/GeneralManagement/general.component';
@@ -35,7 +37,9 @@ import { CollectionRoutingModule } from './collection-routing.module';
     CommonModule,
     FormsModule,
     CollectionRoutingModule,
-    ToastyModule.forRoot()
+    ToastyModule.forRoot(),
+    MyDatePickerModule,
+    CalendarModule
   ],
   declarations: [
     HomeComponent,
