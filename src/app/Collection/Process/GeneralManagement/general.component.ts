@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CollectionService } from '../../../Services/collection.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { DialogService } from 'ng2-bootstrap-modal';
+import { CalendarModule, DialogModule } from 'primeng/primeng';
 import { Observable } from 'rxjs/Rx';
 import { GenCustomerBagSearch } from './GenCustomerBagSearch/gensearch.component';
 
@@ -157,6 +158,14 @@ export class GeneralManagementComponent {
             });
     }
 
+    showCreateAlert(): void {
+        if (this.customerData.CustomerBagID !== 0) {
+            this._collectionService.showModal('alert');
+        } else {
+            alert('Debe de seleccionar un cliente');
+        }
+    }
+
     loadAssignment(): void {
         this.blockUI.start('Cargando...');
         this.resetVariables();
@@ -215,6 +224,8 @@ export class GeneralManagementComponent {
         this.customerData.BagID = customerBag.BagID;
         this._collectionService.getData('api/customerbag/getcustomerbagbyid', request)
             .subscribe(data => {
+                this.customerData.DocNumber = data.objCustomerBag.DocNumber;
+                this.customerData.Name = data.objCustomerBag.Name;
                 this.customerBagData = data.objCustomerBag;
                 if (this.customerBagData.Phones != null) {
                     this.customerBagPhoneData = this.customerBagData.Phones;

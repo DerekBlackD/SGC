@@ -8,7 +8,7 @@ import { CommonModule, APP_BASE_HREF, LocationStrategy, HashLocationStrategy } f
 import { BlockUIModule } from 'ng-block-ui';
 import { ToastyModule } from 'ng2-toasty';
 import { MyDatePickerModule } from 'mydatepicker';
-import { CalendarModule } from 'primeng/primeng';
+import { CalendarModule, DialogModule } from 'primeng/primeng';
 
 import { BannerComponent } from './Security/Banner/banner.component';
 import { MenuComponent } from './Security/Menu/menu.component';
@@ -46,10 +46,11 @@ import { UtilitesService } from './Services/utilities.service';
     AppRoutingModule,
     CommonModule,
     BlockUIModule,
-    BootstrapModalModule,
     ToastyModule.forRoot(),
     MyDatePickerModule,
-    CalendarModule
+    CalendarModule,
+    DialogModule,
+    BootstrapModalModule
   ],
   providers: [
     AuthGuard,
