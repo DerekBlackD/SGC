@@ -36,7 +36,6 @@ export class ResultCodeNewComponent implements OnInit {
                 
         this.route.params.subscribe(params => {
             this.resultID = params['id'].toString();
-            console.log(this.resultID);
             if(this.resultID == 0){
                 this.indica='I';
                 this.result.tipogestion = '';

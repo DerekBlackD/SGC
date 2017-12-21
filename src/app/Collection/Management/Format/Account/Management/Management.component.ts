@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { CollectionService } from '../../../../../Services/collection.service';
+import { ActivatedRoute } from '@angular/router/src/router_state';
 
 @Component({
     selector: 'Management-component',
@@ -22,18 +23,32 @@ export class ManagementComoponent implements OnInit{
 
     intCod: number;
     gintPosition: number;
+    gintIDFormatAccount: number;
 
     gstrIndica: string = '';
+    gstrIndicaGen: string = '';
 
     gblnColumnSum: boolean = false;
     gblnValidate: boolean = false;
 
     constructor (
-        private _CollectionService : CollectionService
+        private _CollectionService : CollectionService,
+        private _Route: ActivatedRoute
     ){}
 
     ngOnInit(){
         this.FLoad();
+
+        this._Route.params.subscribe(response=>{
+            this.gintIDFormatAccount = response['id'];
+            if(this.gintIDFormatAccount != 0){
+                this.gstrIndicaGen = 'M';
+
+            }else{
+                this.gstrIndicaGen = 'I';
+                
+            }
+        });
     }
 
     FLoad():void{
