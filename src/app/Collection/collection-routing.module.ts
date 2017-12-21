@@ -13,6 +13,7 @@ import { ConsultaUsuarioComponent } from './Seguridad/ConsultaUsuario.component'
 import { ConsultaPerfilComponent } from './Seguridad/ConsultaPerfil.component';
 import { ManagementGeneralComponent } from './Management/Report/Management/ManagementGeneral.component';
 import { AccountComponent } from './Management/Format/Account/Account.component';
+import { ManagementComoponent } from './Management/Format/Account/Management/Management.component';
 
 const collectionRoutes: Routes = [
   { path: 'Cobranza/Home', component: HomeComponent },
@@ -26,7 +27,8 @@ const collectionRoutes: Routes = [
   { path: 'Seguridad/ConsultaUsuario/:id', component: ConsultaUsuarioComponent },
   { path: 'Seguridad/ConsultaPerfil/:id', component: ConsultaPerfilComponent },
   { path: 'Collection/ManagementGeneral', component:ManagementGeneralComponent },
-  { path: 'Collection/FormatAccount', component:AccountComponent }
+  { path: 'Collection/FormatAccount', component:AccountComponent },
+  { path: 'ManagementAccountFormat/:id', component: ManagementComoponent }
 
 ];
 @NgModule({

@@ -1,0 +1,61 @@
+<form class="form-horizontal" name="formContact" #formContact="ngForm" role="form" novalidate >
+
+    <div class="panel panel-info">
+        <div class="panel-heading nav navbar-inverse">
+            <div>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Contactos</h3>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li *ngIf="!blnFrmManagement"><a class="btn-without-ref" (click)="FNewContact()"><span class="glyphicon glyphicon-plus"></span> Nuevo</a></li>
+                        <li *ngIf="blnFrmManagement"><a class="btn-without-ref" (click)="FSaveContact(formContact.valid)"><span class="glyphicon glyphicon-floppy-saved"></span> Guardar</a></li>
+                        <li *ngIf="blnFrmManagement"><a class="btn-without-ref" (click)="FUndoContact()"><span class="glyphicon glyphicon-log-out"></span> Deshacer</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mngt-scrolls table-responsive" *ngIf="!blnFrmManagement">
+        <table class="table-mngt table table-hover table-body-size">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let contact of lstResultCodeContact">
+                    <td>{{contact.ContactID}}</td>
+                    <td>{{contact.ContactName}}</td>
+                    <td><a class="btn-without-ref" (click)="FDeleteContact(contact.ResultCodeContactID)"><span class="glyphicon glyphicon-trash"></span></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <label style="color:red;">{{lblContactlstResponse}}</label>
+    </div>
+
+    <div class="panel-body mngt-scrolls" *ngIf="blnFrmManagement">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label">Contacto</label>
+            <div class="col-sm-6" [ngClass]="{'has-error has-feedback' : blnValContactID }">
+                <select class="form-control" name="ddlContactID" [(ngModel)]="contact.ddlContactID" (change)="FChangeContact()" required >
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let cod of lstContact" value="{{cod.ID}}">{{cod.Value}}</option>
+                </select>
+            </div>
+            <label class="col-sm-6 control-label" style="color:red;">{{lblContactResponse}}</label>
+        </div>
+    </div>
+
+    
+</form>

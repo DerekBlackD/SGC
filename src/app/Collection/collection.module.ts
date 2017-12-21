@@ -24,6 +24,9 @@ import { ConsultaUsuarioComponent  } from './Seguridad/ConsultaUsuario.component
 import { ConsultaPerfilComponent  } from './Seguridad/ConsultaPerfil.component';
 import { ManagementGeneralComponent } from './Management/Report/Management/ManagementGeneral.component';
 import { AccountComponent } from './Management/Format/Account/Account.component';
+import { ContactComponent } from './Management/ResultCode/Contact/Contact.component';
+import { RelationComponent } from './Management/ResultCode/Relation/Relation.component';
+import { ManagementComoponent } from './Management/Format/Account/Management/Management.component';
 
 // Services
 import { CollectionService } from '../Services/collection.service';
@@ -57,7 +60,10 @@ import { CollectionRoutingModule } from './collection-routing.module';
     ConsultaUsuarioComponent,
     ConsultaPerfilComponent,
     ManagementGeneralComponent,
-    AccountComponent
+    AccountComponent,
+    ContactComponent,
+    RelationComponent,
+    ManagementComoponent
   ],
   entryComponents: [
     GenCustomerBagSearch

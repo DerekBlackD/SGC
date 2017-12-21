@@ -75,11 +75,10 @@ export class ImportComponent implements OnInit{
 
         let request: any= {};
         request.Option = _Option;
-        request.BusinessID = 1;
         request.CustomerID = _CustomerID;
 
 
-        this._CollectionService.getData('api/customer/GetCustomerByID',request)
+        this._CollectionService.getData('api/sgc/customer/getcustomerbygroup/get',request)
             .subscribe(result =>{
                 this.Customer = result.lstBECustomer;
                 console.log(this.Customer);
@@ -89,10 +88,9 @@ export class ImportComponent implements OnInit{
     GetBag(_Option:string,_CustomerID:number,_BagID:number):void{
         let request:any={};
         request.Option = _Option;
-        request.BusinessID = 1;
         request.CustomerID = _CustomerID;
         request.BagID = _BagID;
-        this._CollectionService.getData('api/Bag/GetBag',request)
+        this._CollectionService.getData('api/sgc/bag/getbagbygroup/get',request)
             .subscribe(result =>{
                 this.Bag1 = result.lstBEBag;
                 console.log(this.Bag1);

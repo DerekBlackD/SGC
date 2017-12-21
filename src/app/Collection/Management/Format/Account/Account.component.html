@@ -1,51 +1,54 @@
-<form name="frmAccount" #frmAccount="ngForm" method="post" role="form" ngNativeValidate>
-    <div class="row">
-        <h1>Formato de Cuentas</h1>
+<div class="row">
+    <div class="col-sm-12">
+        <h5><p class="text-center">{{gstrTitulo}}</p></h5>
     </div>
-    <div class="row">
-        <label class="col-md-1 control-label">Cliente</label>
-        <div class="col-md-2">
-            <select [(ngModel)]="Account.clienteid" class="form-control" #clienteid="ngModel" name="clienteid" (change)="onBagID($event)" >
-                <option value="0">Seleccionar</option>
-                <option *ngFor="let opc1 of Customer" value="{{opc1.ID}}">{{opc1.CustomerName}}</option>
-            </select>
-        </div>
-        <label class="col-md-1 control-label">Cartera</label>
-        <div class="col-md-2">
-            <select [(ngModel)]="Account.carteraid" class="form-control" #carteraid="ngModel" name="carteraid" >
-                <option value="0">Seleccionar</option>
-                <option *ngFor="let opc2 of Bag" value="{{opc2.BagID}}">{{opc2.BagName}}</option>
-            </select>
+</div>
+<div class="row">    
+    <div class="col-sm-4">
+        <div class="col-md-12 input-group input-group-sm">
+            <input type="text" class="form-control mngt-search-select" value="Tipo de Búsqueda" readonly >
+            <input type="text" name="txtDato" (keyup.enter)="FBusqueda()" class="form-control mngt-search-input" aria-label="..." placeholder="Buscar formato" [(ngModel)]="gBusqueda.txtDato" />
         </div>
     </div>
-    <br>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="mngt-scrolls table-responsive">
-                <table id="tAccount" class="table-mngt table table-hover table-body-size">
-                    <thead>
-                        <tr>
-                            <th>Descripción</th>
-                            <th>Tipo</th>
-                            <th>Tamaño</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of lstAccount">
-                            <td>{{item.Description}}</td>
-                            <td>{{item.Type}}</td>
-                            <td>{{item.Length}}</td>
-                            <td>
-                                <a class="btn-without-ref" (click)="FSelectField(item.Description)"><span class="glyphicon glyphicon-plus"></span></a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="col-md-6">
+    <div class="col-md-6">
+        <button type="button" class="btn btn-primary" (click)="FNew()" >Nuevo</button>
+    </div>
+</div>
+<br>
 
+<div class="row">
+   <div class="col-sm-10">
+        <div class="mngt-scrolls table-responsive">
+            <table class="table-mngt table table-hover table-body-size">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Descripción</th>
+                        <th>Cliente</th>
+                        <th>Cartera</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let item of glstAccountFormat'>
+                        <td>{{item.ID}}</td>
+                        <td>{{item.Observation}}</td>
+                        <td>{{item.CustomerName}}</td>
+                        <td>{{item.BagName}}</td>
+                        <td>
+                            <a class="btn-without-ref" (click)="FView(item.ID)"><span class="glyphicon glyphicon-eye-open"></span></a>
+                        </td>
+                        <td>
+                            <a class="btn-without-ref" (click)="FEdit(item.ID)"><span class="glyphicon glyphicon-pencil"></span></a>
+                        </td>
+                        <td>
+                            <a class="btn-without-ref" (click)="FDelete(item.ID)"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    </div>
-</form>
+   </div>
+</div>

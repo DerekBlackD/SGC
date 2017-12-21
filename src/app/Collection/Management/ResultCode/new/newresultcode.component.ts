@@ -20,6 +20,9 @@ export class ResultCodeNewComponent implements OnInit {
     dataResult:any={};
     userData:any={};
     management:any={};
+    StateContact = false;
+    lstResultCodeContact:any[]=[];
+    lstResultCodeRelation:any[]=[];
 
     constructor (
         private router : Router,
@@ -38,11 +41,12 @@ export class ResultCodeNewComponent implements OnInit {
                 this.indica='I';
                 this.result.tipogestion = '';
                 this.result.idubica = '';
+                this.StateContact=false;
 
             }else{
                 this.indica='M';
-                this.getResultCode(this.resultID);
-                
+                this.getResultCode(this.resultID);                
+                this.StateContact = true;
             }
         });
     }
@@ -60,10 +64,13 @@ export class ResultCodeNewComponent implements OnInit {
 
         this._collectionService.getData('api/Result/GetResultCodeRegister', data)
              .subscribe(result =>{
+
+                console.log(result);
                  
                 this.register = result.objResult;
-                console.log(this.register);
-                //this.result.idobj = this.register.ResultID;
+                this.lstResultCodeContact = result.lstBEResultCodeContact;
+                this.lstResultCodeRelation = result.lstBEResultCodeRelation;
+                
                 this.result.tipogestion = this.register.ObjIDClass;
                 this.result.resultcode = this.register.ResultCode;
                 this.result.descripcion = this.register.Description;
@@ -75,6 +82,7 @@ export class ResultCodeNewComponent implements OnInit {
                 this.result.alerta = this.register.Alert;
                 this.result.SituationQuantity = this.register.intSituationQuantity;
                 this.result.Payment = this.register.blnPayment;
+                
         })
     }
 

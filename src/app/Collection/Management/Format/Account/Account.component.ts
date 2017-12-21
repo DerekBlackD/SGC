@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { CollectionService } from '../../../../Services/collection.service';
-import { UtilitesService } from '../../../../Services/utilities.service';
+import { Route } from '@angular/router/src/config';
 
 @Component({
     selector: 'Account-component',
@@ -12,15 +12,14 @@ import { UtilitesService } from '../../../../Services/utilities.service';
 })
 
 export class AccountComponent implements OnInit{
-    Account: any={};
-    Customer: any[] = [];
-    Bag: any [] = [];
-    Bag1: any [] = [];
-    lstAccount: any[]=[];
-    intCod: number;
+    gstrTitulo: string='Formato de Cuenta';
 
-    constructor(private _CollectionService : CollectionService,
-        private _util: UtilitesService
+    gBusqueda: any={};
+    glstAccountFormat: any[]=[];
+
+    constructor(
+        private _CollectionService : CollectionService,
+        private _Router : Router
     ){
         
     }
@@ -30,60 +29,38 @@ export class AccountComponent implements OnInit{
     }
 
     FLoad():void{
-        this.Account.clienteid="0";
-        this.Account.carteraid="0";
-
-        this.FGetCustomer("AllDataByGroup",0);
-        this.FGetBag("AllDataCustomer",0,0);
-        this.FAccount('AllDataAccount',0);
+        this.gBusqueda.ddlTipo = '1';
+        this.FGetAccountFormatListGeneral('');
     }
 
-    FSelectField(_description:string):void{
-        console.log('tabla: ' + _description);
+    FBusqueda():void{
+        this.FGetAccountFormatListGeneral(this.gBusqueda.txtDato);
+    }   
+    
+    FNew():void{
+        this._Router.navigate(['/ManagementAccountFormat', 0]);
     }
 
-    FAccount(_Option:string,_FormatID:number):void{
-        let request:any={};
-        request.Option = _Option;
-        request.CustomerID = this.Account.clienteid;
-        request.BagID = this.Account.carteraid;
-        request.FormatID = _FormatID;
+    FGetAccountFormatListGeneral(strDato:string):void{
+        const data:any={};
+        data.Option = strDato;
 
-        this._CollectionService.getData('api/FormatAccount/GetFormatAccount',request)
-        .subscribe(result=>{
-            this.lstAccount = result.lstBEFormatAccount;
-            console.log('Respuesta del sistema: cod {'+ result.strResponseCode +'} msg {'+result.strResponseMsg+'}');
-        })
-
-    }
-
-    onBagID(event:Event):void{
-        this.Account.carteraid="0";
-        this.intCod = Number((event.target as HTMLSelectElement).value);
-
-        this.Bag = this.Bag1.filter(x => x.CustomerID == this.intCod);
-    }
-
-    FGetCustomer(_Option:string,_CustomerID:number):void{        
-        let request: any= {};
-        request.Option = _Option;
-        request.CustomerID = _CustomerID;
-
-        this._CollectionService.getData('api/customer/GetCustomerByID',request)
-            .subscribe(result =>{
-                this.Customer = result.lstBECustomer;
+        this._CollectionService.getData('api/AccountFormat/GetAccountFormatListGeneral',data)
+        .subscribe(response=>{
+            this.glstAccountFormat = response.lstBEFormatAccount;
+            console.log('Respuesta: code='+ response.strResponseCode + 'msg=' + response.strResponseMsg);
         })
     }
 
-    FGetBag(_Option:string,_CustomerID:number,_BagID:number):void{
-        let request:any={};
-        request.Option = _Option;
-        request.CustomerID = _CustomerID;
-        request.BagID = _BagID;
+    FEdit(intID:number):void{
+        this._Router.navigate(['/ManagementAccountFormat', intID]);
+    }
 
-        this._CollectionService.getData('api/Bag/GetBag',request)
-            .subscribe(result =>{
-                this.Bag1 = result.lstBEBag;
-        })
+    FDelete(intID:number):void{
+
+    }
+
+    FView(intID:number):void{
+
     }
 }

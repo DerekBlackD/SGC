@@ -31,7 +31,7 @@ export class ResultCodeManagementComponent implements OnInit {
     }
 
     NewResult():void{
-        //Vthis.router.navigate(['/NuevoRS', 0]);
+        this.router.navigate(['/NuevoRS', 0]);
     }
 
     EditResultCode(resultid:number): void{
@@ -39,7 +39,7 @@ export class ResultCodeManagementComponent implements OnInit {
     }
 
     DelResultCode(resultid:number):void{
-        //this.router.navigate(['/DeleteRS', resultid]);
+        this.router.navigate(['/DeleteRS', resultid]);
     }
     
 }

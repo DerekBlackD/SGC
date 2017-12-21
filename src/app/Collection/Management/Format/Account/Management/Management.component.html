@@ -1,0 +1,147 @@
+<form class="form-horizontal" name="frmManagement" #frmManagement="ngForm" role="form" novalidate>
+    <div class="row">
+        <div class="col-sm-12">
+            <h5><p class="text-center">Mantenimiento</p></h5>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-1 control-label">Cliente</label>
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }">
+                <select [(ngModel)]="Account.clienteid" class="form-control" #clienteid="ngModel" name="clienteid" (change)="onBagID($event)" required >
+                    <option value="0">Seleccionar</option>
+                    <option *ngFor="let opc1 of Customer" value="{{opc1.ID}}">{{opc1.CustomerName}}</option>
+                </select>
+            </div>
+            <label class="col-sm-1 control-label">Cartera</label>
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }">
+                <select [(ngModel)]="Account.carteraid" class="form-control" #carteraid="ngModel" name="carteraid" required >
+                    <option value="0">Seleccionar</option>
+                    <option *ngFor="let opc2 of Bag" value="{{opc2.BagID}}">{{opc2.BagName}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group form-group-sm">
+            <label class="col-sm-1 control-label">Descripción</label>
+            <div class="col-sm-6">
+                <input type="text" name="txtObservation" class="form-control" #txtObservation="ngModel" [(ngModel)]="Account.txtObservation" maxlength="50" >
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mngt-scrolls table-responsive">
+                <table id="tAccount" class="table-mngt table table-hover table-body-size">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Descripción</th>
+                            <th>Tipo</th>
+                            <th>Tamaño</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of lstAccount">
+                            <td>
+                                <a class="btn-without-ref" (click)="FSelectField(item.ColumnName,item.ColumnType,item.ColumnLength)"><span class="glyphicon glyphicon-plus"></span></a>
+                            </td>
+                            <td>{{item.ColumnName}}</td>
+                            <td>{{item.ColumnType}}</td>
+                            <td>{{item.ColumnLength}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group form-group-sm">
+                <label class="col-sm-1 control-label">Campo</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="txtColumnName" #txtColumnName="ngModel" [(ngModel)]="AccountDet.txtColumnName" readonly >
+                </div>
+                <label class="col-sm-1 control-label">Tipo</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" name="txtColumnType" #txtColumnType="ngModel" [(ngModel)]="AccountDet.txtColumnType" readonly >
+                </div>
+                <label class="col-sm-1 control-label">Tamaño</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" name="txtColumnLenght" #txtColumnLenght="ngModel" [(ngModel)]="AccountDet.txtColumnLenght" readonly  >
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <label class="col-sm-1 control-label">Descripción</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" name="txtColumnDescription" #txtColumnDescription="ngModel" [(ngModel)]="AccountDet.txtColumnDescription" maxlength="50" >
+                </div>
+                <label class="col-sm-1 control-label">Sumatoria</label>
+                <div class="col-sm-1">
+                    <input type="checkbox" class="form-control" name="chkColumnSum" #chkColumnSum="ngModel" [(ngModel)]="AccountDet.chkColumnSum" [disabled]="gblnColumnSum" >
+                </div>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-primary" (click)="FAdd()" >Agregar</button>
+                    <button type="button" class="btn btn-primary" (click)="FSave(frmManagement.valid)" >Guardar</button>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading nav navbar-inverse">
+                    <div>
+                        <div class="navbar-header">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-wrench"></span> Formato Cuentas</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table-mngt table table-hover table-body-size">
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Tipo</th>
+                        <th>Tamaño</th>
+                        <th>Descripción</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of lstAccountSelect">
+                        <td>{{item.ColumnName}}</td>
+                        <td>{{item.ColumnType}}</td>
+                        <td>{{item.ColumnLength}}</td>
+                        <td>{{item.ColumnDescription}}</td>
+                        <td>
+                            <a class="btn-without-ref" (click)="FUp(item.ColumnPosition)"><span class="glyphicon glyphicon-arrow-up"></span></a>
+                        </td>
+                        <td>
+                            <a class="btn-without-ref" (click)="FDown(item.ColumnPosition)"><span class="glyphicon glyphicon-arrow-down"></span></a>
+                        </td>
+                        <td>
+                            <a class="btn-without-ref" (click)="FEdit(item.ColumnPosition)"><span class="glyphicon glyphicon-pencil"></span></a>
+                        </td>
+                        <td>
+                            <a class="btn-without-ref" (click)="FDelete(item.ColumnPosition)"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</form>

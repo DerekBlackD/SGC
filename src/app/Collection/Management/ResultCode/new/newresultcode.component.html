@@ -85,4 +85,13 @@
         
     </div>
 
+    <div class="row">
+        <div class="col-md-5">
+            <Contact-component *ngIf="StateContact" [register]="register" [lstResultCodeContact]="lstResultCodeContact" ></Contact-component>
+        </div>
+
+        <div class="col-md-6">
+            <Relation-component *ngIf="StateContact" [register]="register" [lstResultCodeRelation]="lstResultCodeRelation" ></Relation-component>
+        </div>
+    </div>
 </div>
