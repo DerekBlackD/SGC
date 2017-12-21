@@ -17,7 +17,8 @@ export class GenCustomerBagSearch extends DialogComponent<ConfirmModel, boolean>
 
     constructor(dialogService: DialogService,
                 private _collectionService: CollectionService) {
-        super(dialogService);
+                    super(dialogService);
+                    console.log('abre modal');
     }
 
     setClickedRow = function(selectData: any){

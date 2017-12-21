@@ -15,13 +15,16 @@
     <div class="col-md-6">
         <div class="btn-group btn-group-justified" role="group" aria-label="...">
             <div class="btn-group btn-group-sm" role="group">
-                <button type="button" class="btn btn-primary" [disabled]="btnprevState" (click)="prevCustomer()"><span class="glyphicon glyphicon-chevron-left"></span> Anterior</button>
+                <button type="button" class="btn btn-primary" [disabled]="btnprevState" (click)="prevCustomer()"><span class="glyphicon glyphicon-chevron-left"></span></button>
             </div>
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-primary" [disabled]="btnFilter"><span class="glyphicon glyphicon-cog"></span> Filtros</button>
             </div>
             <div class="btn-group btn-group-sm" role="group">
-                <button type="button" class="btn btn-primary" [disabled]="btnnextState" (click)="nextCustomer()"><span class="glyphicon glyphicon-chevron-right"></span> Siguiente</button>
+                <button type="button" class="btn btn-primary" [disabled]="btnnextState" (click)="nextCustomer()"><span class="glyphicon glyphicon-chevron-right"></span></button>
+            </div>
+            <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-primary" (click)="showCreateAlert()"><span class="glyphicon glyphicon-comment"></span> Alerta</button>
             </div>
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-primary" (click)="addToast()"><span class="glyphicon glyphicon-stats"></span> Resumen</button>
@@ -70,3 +73,4 @@
   </div>
 </div>
 <ng2-toasty></ng2-toasty>
+<gen-alert [customerData]="customerData"></gen-alert>

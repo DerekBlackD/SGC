@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { ToastyModule } from 'ng2-toasty';
+import { MyDatePickerModule } from 'mydatepicker';
+import { CalendarModule, DialogModule } from 'primeng/primeng';
 
 import { HomeComponent } from './Management/Home/home.component';
 import { GeneralManagementComponent } from './Process/GeneralManagement/general.component';
@@ -10,6 +12,7 @@ import { ResultCodeManagementComponent } from './Management/ResultCode/resultcod
 import { ResultCodeNewComponent } from './Management/ResultCode/new/newresultcode.component';
 import { ResultCodeDelCoponent } from './Management/ResultCode/delete/delresultcode.component';
 import { ImportComponent } from './Management/Import/import.component';
+import { GenAlert } from './Process/GeneralManagement/GenAlert/genalert.component';
 import { GenCustomerBag } from './Process/GeneralManagement/GenCustomerBag/gencustbag.component';
 import { EditGenCustomerBag } from './Process/GeneralManagement/GenCustomerBag/editcustbag.component';
 import { GenCustomerBagAddress } from './Process/GeneralManagement/GenCustomerBagAddress/genaddress.component';
@@ -38,7 +41,10 @@ import { CollectionRoutingModule } from './collection-routing.module';
     CommonModule,
     FormsModule,
     CollectionRoutingModule,
-    ToastyModule.forRoot()
+    ToastyModule.forRoot(),
+    MyDatePickerModule,
+    CalendarModule,
+    DialogModule
   ],
   declarations: [
     HomeComponent,
@@ -47,6 +53,7 @@ import { CollectionRoutingModule } from './collection-routing.module';
     ResultCodeNewComponent,
     ResultCodeDelCoponent,
     ImportComponent,
+    GenAlert,
     GenCustomerBag,
     EditGenCustomerBag,
     GenCustomerBagAddress,

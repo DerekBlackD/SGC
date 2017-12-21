@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CollectionService } from '../../../Services/collection.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { DialogService } from 'ng2-bootstrap-modal';
+import { CalendarModule, DialogModule } from 'primeng/primeng';
 import { Observable } from 'rxjs/Rx';
 import { GenCustomerBagSearch } from './GenCustomerBagSearch/gensearch.component';
 
@@ -157,6 +158,14 @@ export class GeneralManagementComponent {
             });
     }
 
+    showCreateAlert(): void {
+        if (this.customerData.CustomerBagID !== 0) {
+            this._collectionService.showModal('alert');
+        } else {
+            alert('Debe de seleccionar un cliente');
+        }
+    }
+
     loadAssignment(): void {
         this.blockUI.start('Cargando...');
         this.resetVariables();
@@ -215,6 +224,8 @@ export class GeneralManagementComponent {
         this.customerData.BagID = customerBag.BagID;
         this._collectionService.getData('api/customerbag/getcustomerbagbyid', request)
             .subscribe(data => {
+                this.customerData.DocNumber = data.objCustomerBag.DocNumber;
+                this.customerData.Name = data.objCustomerBag.Name;
                 this.customerBagData = data.objCustomerBag;
                 if (this.customerBagData.Phones != null) {
                     this.customerBagPhoneData = this.customerBagData.Phones;
@@ -238,14 +249,27 @@ export class GeneralManagementComponent {
         let totalCapital = 0;
         let totalCampaign1 = 0;
         let totalCampaign2 = 0;
+        let totalCapitalDol = 0;
+        let totalCampaign1Dol = 0;
+        let totalCampaign2Dol = 0;
         for (const item of customerBagAccountData) {
-            totalCapital = totalCapital + item.TotalDebt;
-            totalCampaign1 = totalCampaign1 + item.Amount1;
-            totalCampaign2 = totalCampaign2 + item.Amount2;
+            if (item.Money === 1) {
+                totalCapital = totalCapital + item.TotalDebt;
+                totalCampaign1 = totalCampaign1 + item.Amount1;
+                totalCampaign2 = totalCampaign2 + item.Amount2;
+            }
+            if (item.Money === 2) {
+                totalCapitalDol = totalCapital + item.TotalDebt;
+                totalCampaign1Dol = totalCampaign1 + item.Amount1;
+                totalCampaign2Dol = totalCampaign2 + item.Amount2;
+            }
         }
         this.accountTotal.totalCapital = totalCapital;
         this.accountTotal.totalCampaign1 = totalCampaign1;
         this.accountTotal.totalCampaign2 = totalCampaign2;
+        this.accountTotal.totalCapitalDol = totalCapitalDol;
+        this.accountTotal.totalCampaign1Dol = totalCampaign1Dol;
+        this.accountTotal.totalCampaign2Dol = totalCampaign2Dol;
     }
 
     handleSelectPhone(selectPhone: any): void {

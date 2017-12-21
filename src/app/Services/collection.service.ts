@@ -17,6 +17,9 @@ export class CollectionService {
     private selectCustomerBag = new Subject<any>();
     selectEmiited$ = this.selectCustomerBag.asObservable();
 
+    private showModalDialog = new Subject<any>();
+    showModalEmitted = this.showModalDialog.asObservable();
+
     constructor(private http: Http,
                 private authenticationService: AuthenticationService) { }
 
@@ -26,6 +29,10 @@ export class CollectionService {
 
     selectData(select: any) {
         this.selectCustomerBag.next(select);
+    }
+
+    showModal(modalName: string) {
+        this.showModalDialog.next(modalName);
     }
 
     getAgentID(): number {
