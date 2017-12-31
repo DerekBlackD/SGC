@@ -1,9 +1,9 @@
 import { Component, OnInit, NgModule, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute,Params } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { CollectionService } from '../../../../../Services/collection.service';
-import { ActivatedRoute } from '@angular/router/src/router_state';
+//import { ActivatedRoute } from '@angular/router/src/router_state';
 
 @Component({
     selector: 'Management-component',
@@ -49,6 +49,7 @@ export class ManagementComoponent implements OnInit{
                 
             }
         });
+        
     }
 
     FLoad():void{
