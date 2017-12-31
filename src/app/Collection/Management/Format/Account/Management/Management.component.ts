@@ -1,9 +1,14 @@
 import { Component, OnInit, NgModule, Input } from '@angular/core';
+<<<<<<< HEAD
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/rx';
+=======
+import { Router,ActivatedRoute,Params } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
+>>>>>>> e688adfbebf42f5bb222bf8ee9478a05509ee4f3
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { CollectionService } from '../../../../../Services/collection.service';
-import { ActivatedRoute } from '@angular/router/src/router_state';
+//import { ActivatedRoute } from '@angular/router/src/router_state';
 
 @Component({
     selector: 'Management-component',
@@ -38,14 +43,17 @@ export class ManagementComoponent implements OnInit{
     ngOnInit(){
         this.FLoad();
 
-        // this._Route.params.subscribe(response => {
-        //     this.gintIDFormatAccount = response['id'];
-        //     if (this.gintIDFormatAccount != 0) {
-        //         this.gstrIndicaGen = 'M';
-        //     } else {
-        //         this.gstrIndicaGen = 'I';
-        //     }
-        // });
+        this._Route.params.subscribe(response=>{
+            this.gintIDFormatAccount = response['id'];
+            if(this.gintIDFormatAccount != 0){
+                this.gstrIndicaGen = 'M';
+
+            }else{
+                this.gstrIndicaGen = 'I';
+                
+            }
+        });
+        
     }
 
     FLoad():void{
