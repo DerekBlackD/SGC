@@ -1,6 +1,11 @@
 import { Component, OnInit, NgModule, Input } from '@angular/core';
+<<<<<<< HEAD
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/rx';
+=======
 import { Router,ActivatedRoute,Params } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
+>>>>>>> e688adfbebf42f5bb222bf8ee9478a05509ee4f3
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { CollectionService } from '../../../../../Services/collection.service';
 //import { ActivatedRoute } from '@angular/router/src/router_state';
@@ -31,10 +36,9 @@ export class ManagementComoponent implements OnInit{
     gblnColumnSum: boolean = false;
     gblnValidate: boolean = false;
 
-    constructor (
-        private _CollectionService : CollectionService,
-        private _Route: ActivatedRoute
-    ){}
+    constructor (private _CollectionService: CollectionService
+               // private _Route: ActivatedRoute
+            ) {}
 
     ngOnInit(){
         this.FLoad();
