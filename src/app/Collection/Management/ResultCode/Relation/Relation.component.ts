@@ -18,6 +18,7 @@ export class RelationComponent implements OnInit{
     glstBag: any[]=[];
     glstBag1: any[]=[];
     Relation: any={};
+    glstRelationType: any[]=[];
 
     blnFrmManagement: boolean=false;
     blnValidation: boolean=false;
@@ -40,7 +41,9 @@ export class RelationComponent implements OnInit{
         this.DataUser = this._CollectionService.getUserData();
         this.FGetCustomer('AllDataByGroup',0);
         this.FGetBag('AllDataByGroup',0,0);
-        console.log(this.register);
+        this.glstRelationType = this._CollectionService.getGeneralCode(23);
+
+        this.Relation.ddlIDType = '';
     }
 
     FNew():void{
@@ -51,6 +54,7 @@ export class RelationComponent implements OnInit{
         this.strResponse = '';
         this.gintIDClass = this.register.ObjIDClass;
         this.gintIDResult = this.register.ResultID;
+        this.Relation.ddlIDType = '';
     }
 
     FSave(isValid:boolean):void{
@@ -62,6 +66,7 @@ export class RelationComponent implements OnInit{
             data.intResultCodeRelID=0;
             data.ObjIDClass=this.gintIDClass;
             data.ResultID=this.gintIDResult;
+            data.intResultCodeTypeID = this.Relation.ddlIDType;
             data.strResultCodeRelCode = this.Relation.txtCode;
             data.strResultCodeRelName = this.Relation.txtDescription;
             data.intCustomerID = this.Relation.ddlIDCustomer;

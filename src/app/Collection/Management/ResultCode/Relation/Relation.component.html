@@ -28,6 +28,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Tipo</th>
                     <th>Código</th>
                     <th>Descripción</th>
                     <th>Cliente</th>
@@ -38,6 +39,7 @@
             <tbody>
                 <tr *ngFor="let relation of lstResultCodeRelation">
                     <td>{{relation.intResultCodeRelID}}</td>
+                    <td>{{relation.strResultCodeTypeName}}</td>
                     <td>{{relation.strResultCodeRelCode}}</td>
                     <td>{{relation.Description}}</td>
                     <td>{{relation.strCustomerName}}</td>
@@ -50,6 +52,16 @@
     </div>
 
     <div class="panel-body mngt-scrolls" *ngIf="blnFrmManagement">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-2 control-label">Tipo</label>
+            <div class="col-sm-4" [ngClass]="{'has-error has-feedback' : blnValidation }">
+                <select class="form-control" name="ddlIDType" [(ngModel)]="Relation.ddlIDType" required>
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let item of glstRelationType" value="{{item.ID}}">{{item.Value}}</option>
+                </select>
+            </div>
+        </div>
+
         <div class="form-group form-group-sm">
             <label class="col-sm-2 control-label">Código</label>
             <div class="col-sm-4" [ngClass]="{'has-error has-feedback' : blnValidation }">
