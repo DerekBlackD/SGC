@@ -1,0 +1,61 @@
+<form class="form-horizontal" name="frmFormat" #frmFormat="ngForm" role="form" novalidate>
+    <div class="row">
+        <div class="col-sm-12">
+            <h5><p class="text-center">Reporte Gestiones - Formato</p></h5>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">Cliente</label>
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }">
+                <select [(ngModel)]="Format.customerid" class="form-control" name="customerid" #customerid="ngModel" (change)="FonBagID($event)" required >
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let opc1 of lstCustomer" value="{{opc1.ID}}">{{opc1.CustomerName}}</option>
+                </select>
+            </div>
+            <label class="col-sm-1 control-label">Cartera</label>
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }">
+                <select [(ngModel)]="Format.bagid" class="form-control" name="bagid" #bagid="ngModel" required >
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let opc2 of lstBagFilter" value="{{opc2.BagID}}">{{opc2.BagName}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">Fch.Inicio</label>
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }">
+                <input type="date" name="txtDtBegin" [(ngModel)]="Format.txtDtBegin" class="form-control" required >
+            </div>
+            <label class="col-sm-1 control-label">Fch.Fin</label>
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }">
+                <input type="date" name="txtDtEnd" [(ngModel)]="Format.txtDtEnd" class="form-control" required >
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <div class="col-sm-offset-1 col-sm-10">
+                <button type="submit" id="Export" class="btn btn-primary" (click)="FReport(frmFormat.valid)" >Generar Reporte</button>
+            </div>            
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <div class="col-sm-offset-1 col-sm-10">
+                <input type="text" name="txtResult" [(ngModel)]="Format.txtResult" class="form-control" readonly >
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-10">
+            <Files-component [gstrOption]="gstrOption" ></Files-component>
+        </div>
+    </div>
+</form>

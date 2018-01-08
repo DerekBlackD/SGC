@@ -4,21 +4,21 @@
     </div>
     <form name="frmReportManagement" class="form-horizontal" #frmReportManagement="ngForm" method="post" role="form" ngNativeValidate>
         <div class="form-group">
-            <label class="col-sm-2 control-label">Cliente</label>
+            <label class="col-sm-1 control-label">Cliente</label>
             <div class="col-sm-2">
                 <select [(ngModel)]="Management.clienteid" class="form-control" #clienteid="ngModel" name="clienteid" (change)="onBagID($event)" >
                     <option value="0">Todo</option>
                     <option *ngFor="let opc1 of Customer" value="{{opc1.ID}}">{{opc1.CustomerName}}</option>
                 </select>
             </div>
-            <label class="col-sm-2 control-label">Cartera</label>
+            <label class="col-sm-1 control-label">Cartera</label>
             <div class="col-sm-2">
                 <select [(ngModel)]="Management.carteraid" class="form-control" #carteraid="ngModel" name="carteraid" >
                     <option value="0">Todo</option>
                     <option *ngFor="let opc2 of Bag" value="{{opc2.BagID}}">{{opc2.BagName}}</option>
                 </select>
             </div>
-            <label class="col-sm-2 control-label">Tipo</label>
+            <label class="col-sm-1 control-label">Tipo</label>
             <div class="col-sm-2">
                 <select [(ngModel)]="Management.classid" class="form-control" #classid="ngModel" name="classid" required >
                     <option value="">Seleccionar</option>
@@ -27,11 +27,11 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">Inicio</label>
+            <label class="col-sm-1 control-label">Inicio</label>
             <div class="col-sm-2">
                 <input type="date" [(ngModel)]="Management.datebegin" #datebegin="ngModel" class="form-control" name="datebegin" #datebegin="ngModel" min="2000-01-01"  required >
             </div>
-            <label class="col-sm-2 control-label">Fin</label>
+            <label class="col-sm-1 control-label">Fin</label>
             <div class="col-sm-2">
                 <input type="date" [(ngModel)]="Management.dateend" #dateend="ngModel" class="form-control" name="dateend" #dateend="ngModel"  min="2000-01-01" required >
             </div>
