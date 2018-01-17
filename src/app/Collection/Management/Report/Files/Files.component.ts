@@ -19,18 +19,41 @@ export class FilesComponent{
 
     glstFiles :any[]=[];
 
+    gFiles: any={};
+
+    strResponseMsg: string;
+
     constructor(
         private _CollectionService : CollectionService
     ){
         
     }
 
-    FDownload(strDirection:Response):void{
-        
+    FSearch():void{
+        const srtFile =  this.gFiles.strSearch.trim();
+        this.glstFiles = this.glstFiles.filter(x => x.ManagementDirectory == srtFile);
+        this.gFiles.strSearch = "";
+    }
 
+    FDeleteFiles():void{
+        this.blockUI.start();
+
+        const data:any={};
+        data.strDirection = this.gstrOption;
+
+        this._CollectionService.getData('api/Management/PostDirectoryDelete', data).subscribe(response => {
+            this.blockUI.stop();
+            alert(response.strResponseMsg);
+            this.FGetFiles();
+        }, err => {
+            console.log('Error del sistema' + err);
+            this.blockUI.stop();
+        });
     }
 
     FGetFiles(){
+        this.blockUI.start();
+
         const data:any={};
         data.strDirection = this.gstrOption;
 

@@ -10,12 +10,18 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Contactos</h3>
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-folder-open"></span> Archivos</h3>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a class="btn-without-ref" (click)="FGetFiles()"><span class="glyphicon glyphicon-folder-open"></span> Archivos</a></li>
+                        <li>
+                            <input type="text" class="form-control" name="strSearch" [(ngModel)]="gFiles.strSearch" (keyup.enter)="FSearch()" placeholder="Buscar" >
+                        </li>
+                        <li><a class="btn-without-ref" (click)="FGetFiles()"><span class="glyphicon glyphicon-refresh"></span> Consultar</a></li>
+                        <li>
+                            <a class="btn-without-ref" (click)="FDeleteFiles()"><span class="glyphicon glyphicon-trash"></span> Borrar</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -27,16 +33,14 @@
                 <thead>
                     <tr>
                         <th>Archivo</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of glstFiles">
                         <td><a href="{{item.ManagementDownload}}" download="{{item.ManagementDirectory}}">{{item.ManagementDirectory}}</a></td>
-                        <td><a class="btn-without-ref" (click)="FDownload(item.ManagementDownload)"><span class="glyphicon glyphicon-download-alt"></span></a></td>
                     </tr>
                 </tbody>
             </table>
-            <label style="color:red;">{{lblContactlstResponse}}</label>
+            <label style="color:red;">{{strResponseMsg}}</label>
         </div>
 </form>
