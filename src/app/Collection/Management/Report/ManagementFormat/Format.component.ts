@@ -19,6 +19,7 @@ export class FormatComponent implements OnInit {
     gblnValidate :boolean=false;
 
     gstrOption :string="";
+    gstrDownload :string="";
 
     @BlockUI() blockUI: NgBlockUI;
 
@@ -43,6 +44,7 @@ export class FormatComponent implements OnInit {
         this.Format.txtDtEnd = this._Util.getDateForInput();
 
         this.gstrOption = "strDirectoryCreateReportFormat";
+        this.gstrDownload = "strDirectoryDownloadFormat";
     }
 
     FReport(blnValidate:boolean):void{

@@ -16,6 +16,7 @@ export class FilesComponent{
 
     @BlockUI() blockUI: NgBlockUI;
     @Input() gstrOption : string;
+    @Input() gstrDownload : string;
 
     glstFiles :any[]=[];
 
@@ -56,6 +57,7 @@ export class FilesComponent{
 
         const data:any={};
         data.strDirection = this.gstrOption;
+        data.strDownload = this.gstrDownload;
 
         this._CollectionService.getData('api/Management/GetDirectory', data).subscribe(response => {
             this.blockUI.stop();

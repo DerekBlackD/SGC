@@ -1,0 +1,57 @@
+<form class="form-horizontal" name="frmView" #frmView="ngForm" role="form" novalidate>
+    <div class="row">
+        <div class="col-sm-12">
+            <h5><p class="text-center">Consulta Cuenta</p></h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">ID</label>
+            <div class="col-sm-2">
+                <input type="text" name="txtID" [(ngModel)]="view.txtID" class="form-control" readonly > 
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">Descripción</label>
+            <div class="col-sm-9">
+                <input type="text" name="txtDescription" [(ngModel)]="view.txtDescription" class="form-control" readonly >
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <div class="col-sm-offset-1 col-sm-9">
+                <button type="submit" id="btnExit" class="btn btn-primary" (click)="FExit()" >Salir</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-offset-1 col-md-9">
+            <div class="mngt-scrolls table-responsive">
+                <table id="tAccount" class="table-mngt table table-hover table-body-size">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let item of glstAccountFormat">{{item.ColumnDescription}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item1 of glstAccount">
+                            <td *ngFor="let item2 of glstAccountFormat; let row = index" [ngStyle]="FColorCelda(item2.ColumnColorName)" >{{item1[item2.ColumnComment]}}</td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr>
+                            <th *ngFor="let item of glstTotalSol">{{item}}</th>
+                        </tr>
+                        <tr>
+                            <th *ngFor="let item of glstTotalDol">{{item}}</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

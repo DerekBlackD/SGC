@@ -32,6 +32,8 @@ import { RelationComponent } from './Management/ResultCode/Relation/Relation.com
 import { ManagementComoponent } from './Management/Format/Account/Management/Management.component';
 import { FormatComponent } from './Management/Report/ManagementFormat/Format.component';
 import { FilesComponent } from './Management/Report/Files/Files.component';
+import { AccountDeleteComoponent } from './Management/Format/Account/Delete/AccountDelete.component';
+import { AccountView } from './Management/Format/Account/View/AccountView.component';
 
 // Services
 import { CollectionService } from '../Services/collection.service';
@@ -74,7 +76,9 @@ import { CollectionRoutingModule } from './collection-routing.module';
     RelationComponent,
     ManagementComoponent,
     FormatComponent,
-    FilesComponent
+    FilesComponent,
+    AccountDeleteComoponent,
+    AccountView
   ],
   entryComponents: [
     GenCustomerBagSearch

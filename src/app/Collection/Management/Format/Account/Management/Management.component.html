@@ -10,14 +10,14 @@
         <div class="form-group form-group-sm">
             <label class="col-sm-1 control-label">Cliente</label>
             <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }">
-                <select [(ngModel)]="Account.clienteid" class="form-control" #clienteid="ngModel" name="clienteid" (change)="onBagID($event)" required >
+                <select [(ngModel)]="Account.clienteid" class="form-control" name="clienteid" (change)="onBagID($event)" required [disabled]="!gblnEdit" >
                     <option value="0">Seleccionar</option>
                     <option *ngFor="let opc1 of Customer" value="{{opc1.ID}}">{{opc1.CustomerName}}</option>
                 </select>
             </div>
             <label class="col-sm-1 control-label">Cartera</label>
             <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }">
-                <select [(ngModel)]="Account.carteraid" class="form-control" #carteraid="ngModel" name="carteraid" required >
+                <select [(ngModel)]="Account.carteraid" class="form-control" name="carteraid" required [disabled]="!gblnEdit" >
                     <option value="0">Seleccionar</option>
                     <option *ngFor="let opc2 of Bag" value="{{opc2.BagID}}">{{opc2.BagName}}</option>
                 </select>
@@ -48,11 +48,12 @@
                     <tbody>
                         <tr *ngFor="let item of lstAccount">
                             <td>
-                                <a class="btn-without-ref" (click)="FSelectField(item.ColumnName,item.ColumnType,item.ColumnLength)"><span class="glyphicon glyphicon-plus"></span></a>
+                                <a class="btn-without-ref" (click)="FSelectField(item.ColumnName,item.ColumnType,item.ColumnLength,item.ColumnComment)"><span class="glyphicon glyphicon-plus"></span></a>
                             </td>
                             <td>{{item.ColumnName}}</td>
                             <td>{{item.ColumnType}}</td>
                             <td>{{item.ColumnLength}}</td>
+                            <td>{{item.ColumnComment}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -86,9 +87,28 @@
             </div>
 
             <div class="form-group form-group-sm">
+                <label class="col-sm-1 control-label">Código</label>
+                <div class="col-sm-4">
+                    <select name="ddlColumnCode" [(ngModel)]="AccountDet.ddlColumnCode" class="form-control" >
+                        <option value="0">Seleccionar</option>
+                        <option *ngFor="let item of glstColumnCode" value="{{item.ID}}">{{item.Value}}</option>
+                    </select>
+                </div>
+                <label class="col-sm-1 control-label">Color</label>
+                <div class="col-sm-4">
+                    <select name="ddlColumnColor" [(ngModel)]="AccountDet.ddlColumnColor" class="form-control" >
+                        <option value="0">Seleccionar</option>
+                        <option *ngFor="let item of glstColumnColor" value="{{item.ID}}">{{item.Value}}</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-group form-group-sm">
                 <div class="col-sm-6">
                     <button type="button" class="btn btn-primary" (click)="FAdd()" >Agregar</button>
                     <button type="button" class="btn btn-primary" (click)="FSave(frmManagement.valid)" >Guardar</button>
+                    <button type="button" class="btn btn-primary" (click)="FExit()" >Salir</button>
                 </div>
             </div>
             
@@ -127,6 +147,8 @@
                         <td>{{item.ColumnType}}</td>
                         <td>{{item.ColumnLength}}</td>
                         <td>{{item.ColumnDescription}}</td>
+                        <td style="display:none;">{{item.ID}}</td>
+                        <td style="display:none;">{{item.ColumnID}}</td>
                         <td>
                             <a class="btn-without-ref" (click)="FUp(item.ColumnPosition)"><span class="glyphicon glyphicon-arrow-up"></span></a>
                         </td>
@@ -137,7 +159,7 @@
                             <a class="btn-without-ref" (click)="FEdit(item.ColumnPosition)"><span class="glyphicon glyphicon-pencil"></span></a>
                         </td>
                         <td>
-                            <a class="btn-without-ref" (click)="FDelete(item.ColumnPosition)"><span class="glyphicon glyphicon-trash"></span></a>
+                            <a class="btn-without-ref" (click)="FDelete(item.ColumnPosition,item.ID,item.ColumnID)"><span class="glyphicon glyphicon-trash"></span></a>
                         </td>
                     </tr>
                 </tbody>

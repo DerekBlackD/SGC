@@ -20,6 +20,7 @@ export class ManagementGeneralComponent implements OnInit{
     @BlockUI() blockUI: NgBlockUI;
 
     gstrOption :string="";
+    gstrDownload :string="";
 
     gblnValidate :boolean=false;
 
@@ -37,6 +38,7 @@ export class ManagementGeneralComponent implements OnInit{
         this.Management.datebegin = this._util.getDateForInput();
         this.Management.dateend = this._util.getDateForInput();
         this.gstrOption = "strDirectoryCreateReport";
+        this.gstrDownload = "strDirectoryDownloadGeneral";
 
         this.GetCustomer('AllDataByGroup', 0);
         this.GetBag('AllDataCustomer', 0, 0);
