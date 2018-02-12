@@ -1,0 +1,43 @@
+<p-dialog header="Consulta de Notificaciones" [(visible)]="blnShow" modal="modal" width="1000" [responsive]="true">
+    <div style="min-height: 400px">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-1 control-label">Fecha</label>
+                <div class="col-sm-3">
+                    <p-calendar [(ngModel)]="value" name="fecha" dateFormat="dd/mm/yy" [locale]="es" [showIcon]="true"></p-calendar>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-info btn-sm" type="button"><span class="glyphicon glyphicon-list"></span> Consultar</button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tipo</th>
+                    <th>Cliente</th>
+                    <th>Hora</th>
+                    <th>Estado</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let noti of lstNotifications">
+                    <td>{{noti.NotificationID}}</td>
+                    <td>{{noti.NotificationTypeDesc}}</td>
+                    <td>{{noti.CustomerBag}}</td>
+                    <td>{{noti.NotificationDate | date: 'dd/MM/yyyy HH:mm'}}</td>
+                    <td>{{noti.SituationDesc}}</td>
+                    <td><button type="button" class="btn btn-info btn-sm" (click)="GoToCustomerBag(noti.CustomerBagID, noti.CustomerID, noti.BagID)"><span class="glyphicon glyphicon-earphone"></span> Gestionar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    
+    <p-footer>
+        <button type="button" pButton icon="fa-check" (click)="blnShow=false" label="Guardar"></button>
+        <button type="button" pButton icon="fa-close" (click)="blnShow=false" label="Cancelar"></button>
+    </p-footer>
+</p-dialog>

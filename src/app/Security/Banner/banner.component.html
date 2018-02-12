@@ -26,10 +26,13 @@
             <li><a href="#">Cambiar contraseña</a></li>
             <li><a class="btn-without-ref" (click)="LogOut()">Cerrar Sesión</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">Lugares de Atención</a></li>
+            <li><a class="btn-without-ref" (click)="showNotifications()">Notificaciones</a></li>
           </ul>
         </li>
+        <li><a class="btn-without-ref" (click)="showNotifications()"><span class="glyphicon glyphicon-bell"></span></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+<app-notification-component></app-notification-component>

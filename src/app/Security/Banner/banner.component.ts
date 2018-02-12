@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from '../Shared.service';
 import { AuthenticationService } from '../../Services/authentication.service';
+import { CollectionService } from '../../Services/collection.service';
 
 @Component({
     selector: 'banner-component',
@@ -14,7 +15,8 @@ export class BannerComponent{
 
     constructor(private _sharedService: SharedService,
                 private _authService: AuthenticationService,
-                private _router: Router) {
+                private _router: Router,
+                private _collectionService: CollectionService) {
         this._sharedService.changeEmitted$.subscribe(
         response => {
             if (response) {
@@ -26,5 +28,9 @@ export class BannerComponent{
     LogOut(): void {
         this._authService.logout();
         this._router.navigateByUrl('/');
+    }
+
+    showNotifications(): void {
+        this._collectionService.showModal('listNotif');
     }
 }

@@ -14,6 +14,7 @@ import { BannerComponent } from './Security/Banner/banner.component';
 import { MenuComponent } from './Security/Menu/menu.component';
 import { LoginComponent } from './Security/Login/login.component';
 import { SelectProfileComponent } from './Security/Profile/SelectProfile.component';
+import { NotificationComponent } from './Security/Notification/notification.component';
 import { AppRoutingModule } from './app-routing.module';
 
 // Services
@@ -35,7 +36,8 @@ import { UtilitesService } from './Services/utilities.service';
     BannerComponent,
     MenuComponent,
     LoginComponent,
-    SelectProfileComponent
+    SelectProfileComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
