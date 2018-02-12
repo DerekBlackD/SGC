@@ -9,6 +9,8 @@ import { Observable } from 'rxjs/Rx';
 })
 export class ResultCodeManagementComponent implements OnInit {
     codes : any[] = [];
+    
+    gBusqueda :any={};
 
     constructor (
         private _CollectionService : CollectionService,
@@ -16,12 +18,18 @@ export class ResultCodeManagementComponent implements OnInit {
     ){}
 
     ngOnInit() {
-        this.loadResult();
+        this.loadResult('');
     }
 
-    loadResult():void{        
+    FSearch():void{
+        const strFact = this.gBusqueda.gstrFact.trim();
+        this.loadResult(strFact);
+    }
+
+    loadResult(strFact:string):void{        
         let data : any={};
         data.Option = 'AllData';
+        data.strFact = strFact;
 
         this._CollectionService.getData('api/Result/getResult',data)
             .subscribe(result =>{

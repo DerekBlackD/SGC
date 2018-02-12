@@ -1,0 +1,32 @@
+<form class="form-horizontal" name="frmDelete" #frmDelete="ngForm" role="form" novalidate>
+    <div class="row">
+        <div class="col-sm-12">
+            <h5><p class="text-center">Eliminar Registro</p></h5>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">ID</label>
+            <div class="col-sm-2">
+                <input type="text" name="txtID" [(ngModel)]="delete.txtID" class="form-control" readonly > 
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">Descripción</label>
+            <div class="col-sm-9">
+                <input type="text" name="txtDescription" [(ngModel)]="delete.txtDescription" class="form-control" readonly >
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <div class="col-sm-offset-1 col-sm-9">
+                <button type="submit" id="btnDelete" class="btn btn-primary" (click)="FDelete()" >Eliminar</button>
+                <button type="submit" id="btnExit" class="btn btn-primary" (click)="FExit()" >Salir</button>
+            </div>
+        </div>
+    </div>
+</form>

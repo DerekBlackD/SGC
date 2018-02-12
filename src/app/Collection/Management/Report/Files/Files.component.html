@@ -1,0 +1,46 @@
+<form class="form-horizontal" name="frmDirectory" #frmDirectory="ngForm" role="form" novalidate>
+
+    <div class="panel panel-info">
+        <div class="panel-heading nav navbar-inverse">
+            <div>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-folder-open"></span> Archivos</h3>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <input type="text" class="form-control" name="strSearch" [(ngModel)]="gFiles.strSearch" (keyup.enter)="FSearch()" placeholder="Buscar" >
+                        </li>
+                        <li><a class="btn-without-ref" (click)="FGetFiles()"><span class="glyphicon glyphicon-refresh"></span> Consultar</a></li>
+                        <li>
+                            <a class="btn-without-ref" (click)="FDeleteFiles()"><span class="glyphicon glyphicon-trash"></span> Borrar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mngt-scrolls table-responsive">
+            <table class="table-mngt table table-hover table-body-size">
+                <thead>
+                    <tr>
+                        <th>Archivo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of glstFiles">
+                        <td><a href="{{item.ManagementDownload}}" download="{{item.ManagementDirectory}}">{{item.ManagementDirectory}}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <label style="color:red;">{{strResponseMsg}}</label>
+        </div>
+</form>

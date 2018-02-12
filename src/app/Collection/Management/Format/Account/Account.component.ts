@@ -57,10 +57,10 @@ export class AccountComponent implements OnInit{
     }
 
     FDelete(intID:number):void{
-
+        this._Router.navigate(['/AccountDelete', intID]);
     }
 
     FView(intID:number):void{
-
+        this._Router.navigate(['/AccountView', intID]);
     }
 }

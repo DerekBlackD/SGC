@@ -62,10 +62,7 @@ export class ResultCodeNewComponent implements OnInit {
         data.intResultID = resultid;
 
         this._collectionService.getData('api/Result/GetResultCodeRegister', data)
-             .subscribe(result =>{
-
-                console.log(result);
-                 
+             .subscribe(result =>{                 
                 this.register = result.objResult;
                 this.lstResultCodeContact = result.lstBEResultCodeContact;
                 this.lstResultCodeRelation = result.lstBEResultCodeRelation;

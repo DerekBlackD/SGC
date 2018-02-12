@@ -3,7 +3,6 @@ import { Router,ActivatedRoute,Params } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { CollectionService } from '../../../../../Services/collection.service';
-//import { ActivatedRoute } from '@angular/router/src/router_state';
 
 @Component({
     selector: 'Management-component',
@@ -20,19 +19,25 @@ export class ManagementComoponent implements OnInit{
     lstAccount: any[]=[];
     lstAccountSelect: any[]=[];
     gDataUser: any={};
+    glstColumnColor :any[]=[];
+    glstColumnCode :any[]=[];
 
     intCod: number;
     gintPosition: number;
     gintIDFormatAccount: number;
+    gintIDColumn :number;
 
     gstrIndica: string = '';
     gstrIndicaGen: string = '';
+    gstrComment: string = '';
 
     gblnColumnSum: boolean = false;
     gblnValidate: boolean = false;
+    gblnEdit: boolean = true;
 
     constructor (private _CollectionService: CollectionService,
-               private _Route: ActivatedRoute
+               private _Route: ActivatedRoute,
+               private _RouterExit : Router
             ) {}
 
     ngOnInit(){
@@ -41,10 +46,13 @@ export class ManagementComoponent implements OnInit{
         this._Route.params.subscribe(response=>{
             this.gintIDFormatAccount = response['id'];
             if(this.gintIDFormatAccount != 0){
-                this.gstrIndicaGen = 'M';
+                this.gstrIndicaGen = 'U';
+                this.FAccountRegister(this.gintIDFormatAccount);
+                this.gblnEdit = false;
 
             }else{
                 this.gstrIndicaGen = 'I';
+                this.gblnEdit = true;
                 
             }
         });
@@ -58,13 +66,30 @@ export class ManagementComoponent implements OnInit{
         this.FGetCustomer("AllDataByGroup",0);
         this.FGetBag("AllDataCustomer",0,0);
         this.FAccount('AllDataAccount',0);
+        this.glstColumnColor = this._CollectionService.getGeneralCode(24);
         this.gDataUser = this._CollectionService.getUserData();
+        this.FGeneralGroup();
+
+        this.AccountDet.ddlColumnCode = "0";
+        this.AccountDet.ddlColumnColor = "0";
     }
 
-    FSelectField(_description:string,_type:string,_length:string):void{
+    FGeneralGroup():void{
+
+        const request:any={};
+
+        this._CollectionService.getData('api/sgc/common/GetGeneralGroupData',request)
+        .subscribe(Response=>{
+            this.glstColumnCode = Response.lstGeneralCode;
+            console.log('Respuesta del sistema: cod '+ Response.strResponseCode +' msg '+Response.strResponseMsg);
+        })
+    }
+
+    FSelectField(_description:string,_type:string,_length:string,_comment:string):void{
         this.AccountDet.txtColumnName = _description;
         this.AccountDet.txtColumnType = _type;
         this.AccountDet.txtColumnLenght = _length;
+        this.gstrComment = _comment;
         if(_type == 'decimal' || _type == 'int'){
             this.gblnColumnSum = false;
         }else{
@@ -87,14 +112,21 @@ export class ManagementComoponent implements OnInit{
                     }
                 }
 
+                this.gintIDColumn = 0;
+
                 if(blnValidar==true){
                     const data: any={};
+                    data.ID = this.gintIDFormatAccount;
+                    data.ColumnID = this.gintIDColumn;
                     data.ColumnName = this.AccountDet.txtColumnName;
                     data.ColumnDescription = this.AccountDet.txtColumnDescription;
                     data.ColumnType = this.AccountDet.txtColumnType;
                     data.ColumnLength = this.AccountDet.txtColumnLenght;
                     data.ColumnPosition = this.lstAccountSelect.length;
                     data.ColumnSum = this.AccountDet.chkColumnSum;
+                    data.ColumnCode = this.AccountDet.ddlColumnCode;
+                    data.ColumnColorID = this.AccountDet.ddlColumnColor;
+                    data.ColumnComment = this.gstrComment;
                     data.User = this.gDataUser.UserName;
                     data.State = 1;
                     this.lstAccountSelect.push(data);
@@ -104,12 +136,17 @@ export class ManagementComoponent implements OnInit{
             }   
         }else{
             let AccountAux: any={};
+            AccountAux.ID = this.gintIDFormatAccount;
+            AccountAux.ColumnID = this.gintIDColumn;
             AccountAux.ColumnName = this.AccountDet.txtColumnName;
             AccountAux.ColumnType = this.AccountDet.txtColumnType;
             AccountAux.ColumnLength = this.AccountDet.txtColumnLenght;
             AccountAux.ColumnDescription = this.AccountDet.txtColumnDescription;
             AccountAux.ColumnPosition = this.gintPosition;
             AccountAux.ColumnSum = this.AccountDet.chkColumnSum;
+            AccountAux.ColumnCode = this.AccountDet.ddlColumnCode;
+            AccountAux.ColumnColorID = this.AccountDet.ddlColumnColor;
+            AccountAux.ColumnComment = this.gstrComment;
             this.lstAccountSelect[this.gintPosition] = AccountAux;
         }
 
@@ -117,8 +154,11 @@ export class ManagementComoponent implements OnInit{
         this.AccountDet.txtColumnType = '';
         this.AccountDet.txtColumnLenght = '';
         this.AccountDet.txtColumnDescription = '';
+        this.AccountDet.ddlColumnCode = '0';
+        this.AccountDet.ddlColumnColor = '0';
         this.AccountDet.chkColumnSum = false;
         this.gblnColumnSum = false;
+        this.gstrComment = '';
     }
 
     FUp(_intPosition:number):void{
@@ -150,6 +190,8 @@ export class ManagementComoponent implements OnInit{
         this.gintPosition = _intPosition;
 
         let AccountAux = this.lstAccountSelect[this.gintPosition];
+        this.AccountDet.ID = AccountAux.ID;
+        this.AccountDet.ColumnID = AccountAux.ColumnID;
         this.AccountDet.txtColumnName = AccountAux.ColumnName;
         this.AccountDet.txtColumnType = AccountAux.ColumnType;
         this.AccountDet.txtColumnLenght = AccountAux.ColumnLength;
@@ -162,21 +204,41 @@ export class ManagementComoponent implements OnInit{
         }
     }
 
-    FDelete(_intPosition:number):void{
+    FDelete(_intPosition:number,_intID:number,_intColumnID:number):void{
         this.lstAccountSelect.splice(_intPosition,1);
         for(let row = 0; row<this.lstAccountSelect.length;row++){
             this.lstAccountSelect[row].ColumnPosition = row;
         }
-        console.log(this.lstAccountSelect);
+
+        if(_intID!=undefined){
+            const request:any={};
+            const data :any={};
+    
+            data.Option = 'ED';
+            data.ID = _intID;
+            data.ColumnID = _intColumnID;
+            data.User = this.gDataUser.UserName;
+    
+            request.objBEAccountFormat = data;
+            
+            this._CollectionService.getData('api/AccountFormat/PostAccountFormat', request)
+            .subscribe(response =>{
+                console.log('code:' + response.strResponseCode + ' msg:' + response.strResponseMsg);
+            }) 
+        }
     }
 
     FSave(blnValidate:boolean):void{
         this.gblnValidate = true;
         if(blnValidate){
             const data: any = {};
+            data.Option = this.gstrIndicaGen;
             data.CustomerID = this.Account.clienteid;
             data.BagID = this.Account.carteraid;
             data.Observation = this.Account.txtObservation;
+            data.FormatID = this.gintIDFormatAccount;
+
+            console.log(data);
 
             const request: any={};
             request.objBEAccountFormat = data;
@@ -205,6 +267,29 @@ export class ManagementComoponent implements OnInit{
             console.log('Respuesta del sistema: cod '+ Response.strResponseCode +' msg '+Response.strResponseMsg);
         })
 
+    }
+
+    FAccountRegister(_id:number):void{
+        const request:any={};
+        request.FormatID = _id;
+
+        this._CollectionService.getData('api/AccountFormat/GetAccountFormartRegister',request)
+        .subscribe(Response =>{
+            this.lstAccountSelect = Response.lstBEFormatAccount;
+            console.log(this.lstAccountSelect);
+            const intcustomerid = this.lstAccountSelect[0].CustomerID;
+            const intbagid = this.lstAccountSelect[0].BagID;
+
+            this.Account.clienteid = intcustomerid;
+            this.Account.txtObservation = this.lstAccountSelect[0].Observation;
+            this.Bag = this.Bag1.filter(x => x.CustomerID == intcustomerid);
+            this.Account.carteraid = intbagid;
+            console.log('Respuesta (Registro): cod '+ Response.strResponseCode +' msg '+Response.strResponseMsg);
+        })
+    }
+
+    FExit():void{
+        this._RouterExit.navigateByUrl("Collection/FormatAccount");
     }
 
     onBagID(event:Event):void{
