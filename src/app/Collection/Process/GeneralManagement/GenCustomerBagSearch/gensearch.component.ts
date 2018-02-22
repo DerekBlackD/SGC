@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { DialogModule } from 'primeng/primeng';
 import { CollectionService } from '../../../../Services/collection.service';
-import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
 
 export interface ConfirmModel {
     dataList: any[];
@@ -11,14 +11,19 @@ export interface ConfirmModel {
     templateUrl: 'gensearch.component.html',
     styleUrls: ['../general.component.css']
 })
-export class GenCustomerBagSearch extends DialogComponent<ConfirmModel, boolean> implements ConfirmModel {
+export class GenCustomerBagSearch {
+    blnShow = false;
     dataList: any[] = [];
     returnData: any = {};
 
-    constructor(dialogService: DialogService,
-                private _collectionService: CollectionService) {
-                    super(dialogService);
-                    console.log('abre modal');
+    constructor(private _collectionService: CollectionService) {
+        this._collectionService.showModalEmitted.subscribe(
+            response => {
+                if (response.modalName === 'searchResult') {
+                    this.blnShow = true;
+                    this.dataList = response.lstData;
+                }
+            });
     }
 
     setClickedRow = function(selectData: any){
@@ -34,7 +39,6 @@ export class GenCustomerBagSearch extends DialogComponent<ConfirmModel, boolean>
         }
 
         this._collectionService.selectData(this.returnData);
-        this.result = true;
-        this.close();
+        this.blnShow = false;
     }
 }

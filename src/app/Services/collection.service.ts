@@ -31,8 +31,11 @@ export class CollectionService {
         this.selectCustomerBag.next(select);
     }
 
-    showModal(modalName: string) {
-        this.showModalDialog.next(modalName);
+    // inputParameter.modalName [Requiered]
+    // inputParameter.lstData
+    // inpurParameter.oData
+    showModal(inputParameter: any) {
+        this.showModalDialog.next(inputParameter);
     }
 
     getAgentID(): number {
@@ -159,5 +162,18 @@ export class CollectionService {
         data.BusinessID = this.authenticationService.getPayLoad().BusinessID;
         this.http.post(api, JSON.stringify(data), options)
         .subscribe(data => console.log(data))
+    }
+
+    getCalendarLanguage(): any {
+        return {
+            firstDayOfWeek: 1,
+            dayNames: [ 'domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado' ],
+            dayNamesShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
+            dayNamesMin: [ 'D', 'L', 'M', 'X', 'J', 'V', 'S' ],
+            monthNames: [ 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre' ],
+            monthNamesShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
+            today: 'Hoy',
+            clear: 'Borrar'
+        }
     }
 }

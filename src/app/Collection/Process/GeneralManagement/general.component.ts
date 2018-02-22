@@ -5,6 +5,7 @@ import { DialogService } from 'ng2-bootstrap-modal';
 import { CalendarModule, DialogModule } from 'primeng/primeng';
 import { Observable } from 'rxjs/Rx';
 import { GenCustomerBagSearch } from './GenCustomerBagSearch/gensearch.component';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { ToastyModule, ToastyService, ToastyConfig, ToastOptions, ToastData } from 'ng2-toasty';
 
@@ -37,10 +38,18 @@ export class GeneralManagementComponent {
     mngtAgentID: number;
     agentData: any = {};
 
+    // Router Params
+    routerCustomerBagID: number;
+    routerCustomerID: number;
+    routerBagID: number;
+
     constructor(private _collectionService: CollectionService,
                 private dialogService: DialogService,
                 private toastyService: ToastyService,
-                private toastyConfig: ToastyConfig) {
+                private toastyConfig: ToastyConfig,
+                private route: ActivatedRoute,
+                private router: Router) {
+
         this.searchType = '1';
         this.mngtAgentID = this._collectionService.getAgentID();
         if (this.mngtAgentID !== 0) {
@@ -50,7 +59,6 @@ export class GeneralManagementComponent {
             } else {
                 this.showPhoneOrAddress = false;
             }
-            this.loadAssignment();
         } else {
             alert('No tiene asociado ningún código de gestor.');
         }
@@ -65,6 +73,28 @@ export class GeneralManagementComponent {
                     this.loadCustomerBagData(customerBag);
                 }
             });
+
+        this.route.params.subscribe(params => {
+            if (params['ID'] != null) {
+                this.routerCustomerBagID = params['ID'];
+            }
+            if (params['CustomerID'] != null) {
+                this.routerCustomerID = params['CustomerID'];
+            }
+            if (params['BagID'] != null) {
+                this.routerBagID = params['BagID'];
+            }
+
+            if (params['ID'] != null && params['CustomerID'] != null && params['BagID'] != null) {
+                const customerBag: any = {};
+                customerBag.CustomerBagID = this.routerCustomerBagID;
+                customerBag.CustomerID = this.routerCustomerID;
+                customerBag.BagID = this.routerBagID;
+                this.loadCustomerBagData(customerBag);
+            } else {
+                this.loadAssignment();
+            }
+        });
     }
 
     addToast() {
@@ -138,24 +168,16 @@ export class GeneralManagementComponent {
                         this.loadCustomerBagData(customerBag);
                       } else {
                         // show popup and send list
-                        this.showModal(data.lstCustomerBag);
+                        const inputParameter: any = {};
+                        inputParameter.modalName = 'searchResult';
+                        inputParameter.lstData = data.lstCustomerBag;
+                        this._collectionService.showModal(inputParameter);
                       }
                   } else {
                       alert('No se encontraron registros.');
                   }
               }
             })
-    }
-
-    showModal(list: any[]) {
-        const disposable = this.dialogService.addDialog(GenCustomerBagSearch, {
-            dataList: list})
-            .subscribe((isConfirmed) => {
-                // We get dialog result
-                if (isConfirmed) {
-                    console.log('objeto seleccionado');
-                }
-            });
     }
 
     showCreateAlert(): void {

@@ -21,6 +21,7 @@ import { AccountView } from './Management/Format/Account/View/AccountView.compon
 const collectionRoutes: Routes = [
   { path: 'Cobranza/Home', component: HomeComponent },
   { path: 'Cobranza/GestionGeneral', component: GeneralManagementComponent },
+  { path: 'Cobranza/GestionGeneral/:ID/:CustomerID/:BagID', component: GeneralManagementComponent },
   { path: 'Cobranza/ResultadoGestion', component: ResultCodeManagementComponent },
   { path: 'NuevoRS/:id', component: ResultCodeNewComponent},
   { path: 'DeleteRS/:id', component: ResultCodeDelCoponent},
