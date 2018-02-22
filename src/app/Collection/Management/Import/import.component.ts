@@ -20,6 +20,10 @@ export class ImportComponent implements OnInit{
     Bag: any[] = [];
     Bag1: any [] = [];
     Cod: number;
+
+    gobjUser:any={};
+
+    gstrMensaje:string="";
     
     constructor(private http: Http,
         private _CollectionService : CollectionService ) {  
@@ -33,6 +37,7 @@ export class ImportComponent implements OnInit{
         this.import.mes = (new Date().getMonth() + 1);
         this.GetCustomer("AllDataByGroup",0);
         this.GetBag("AllDataCustomer",0,0);
+        this.gobjUser = this._CollectionService.getUserData();
     }
 
 
@@ -61,14 +66,28 @@ export class ImportComponent implements OnInit{
         data.State = this.import.state;
         data.StatePay = this.import.statePagos;
         data.ExchangeRate = this.import.TipCambio;
-        data.User = "scuya";
+        data.StateAssignment = this.import.stateAssignment;
+        data.User = this.gobjUser.UserName;
 
         console.log(data);
 
         this._CollectionService.postProcess('api/Import/Temporal',data);
         this.blockUI.stop();
 
-        console.log('Espere el correo'); 
+        this.gstrMensaje = "Espere Correo";
+        this.FClean();
+    }
+
+    FClean():void{
+        this.import.anio=(new Date().getFullYear());
+        this.import.mes=(new Date().getMonth() + 1);
+        this.import.clienteid="";
+        this.import.carteraid="";
+        this.import.TipCambio=0;
+        this.import.fileimport="";
+        this.import.state=false;
+        this.import.statePagos=false;
+        this.import.stateAssignment=false;
     }
 
     GetCustomer(_Option:string,_CustomerID:number):void{
@@ -98,6 +117,7 @@ export class ImportComponent implements OnInit{
     }
 
     onBagID(event:Event):void{
+        this.gstrMensaje="";
         this.import.carteraid="";
         this.Cod = Number((event.target as HTMLSelectElement).value);
 

@@ -9,16 +9,16 @@
     <div class="row">
         <div class="form-group form-group-sm">
             <label class="col-sm-1 control-label">Cliente</label>
-            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }">
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
                 <select [(ngModel)]="Account.clienteid" class="form-control" name="clienteid" (change)="onBagID($event)" required [disabled]="!gblnEdit" >
-                    <option value="0">Seleccionar</option>
+                    <option value="">Seleccionar</option>
                     <option *ngFor="let opc1 of Customer" value="{{opc1.ID}}">{{opc1.CustomerName}}</option>
                 </select>
             </div>
             <label class="col-sm-1 control-label">Cartera</label>
-            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }">
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
                 <select [(ngModel)]="Account.carteraid" class="form-control" name="carteraid" required [disabled]="!gblnEdit" >
-                    <option value="0">Seleccionar</option>
+                    <option value="">Seleccionar</option>
                     <option *ngFor="let opc2 of Bag" value="{{opc2.BagID}}">{{opc2.BagName}}</option>
                 </select>
             </div>
@@ -26,7 +26,7 @@
 
         <div class="form-group form-group-sm">
             <label class="col-sm-1 control-label">Descripción</label>
-            <div class="col-sm-6">
+            <div class="col-sm-6" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
                 <input type="text" name="txtObservation" class="form-control" #txtObservation="ngModel" [(ngModel)]="Account.txtObservation" maxlength="50" >
             </div>
         </div>

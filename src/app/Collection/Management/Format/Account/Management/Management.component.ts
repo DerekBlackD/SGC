@@ -22,7 +22,6 @@ export class ManagementComoponent implements OnInit{
     glstColumnColor :any[]=[];
     glstColumnCode :any[]=[];
 
-    intCod: number;
     gintPosition: number;
     gintIDFormatAccount: number;
     gintIDColumn :number;
@@ -60,8 +59,8 @@ export class ManagementComoponent implements OnInit{
     }
 
     FLoad():void{
-        this.Account.clienteid="0";
-        this.Account.carteraid="0";
+        this.Account.clienteid="";
+        this.Account.carteraid="";
 
         this.FGetCustomer("AllDataByGroup",0);
         this.FGetBag("AllDataCustomer",0,0);
@@ -137,7 +136,7 @@ export class ManagementComoponent implements OnInit{
         }else{
             let AccountAux: any={};
             AccountAux.ID = this.gintIDFormatAccount;
-            AccountAux.ColumnID = this.gintIDColumn;
+            AccountAux.ColumnID = this.AccountDet.ColumnID;
             AccountAux.ColumnName = this.AccountDet.txtColumnName;
             AccountAux.ColumnType = this.AccountDet.txtColumnType;
             AccountAux.ColumnLength = this.AccountDet.txtColumnLenght;
@@ -190,6 +189,9 @@ export class ManagementComoponent implements OnInit{
         this.gintPosition = _intPosition;
 
         let AccountAux = this.lstAccountSelect[this.gintPosition];
+
+        console.log(AccountAux);
+
         this.AccountDet.ID = AccountAux.ID;
         this.AccountDet.ColumnID = AccountAux.ColumnID;
         this.AccountDet.txtColumnName = AccountAux.ColumnName;
@@ -202,6 +204,8 @@ export class ManagementComoponent implements OnInit{
         }else{
             this.gblnColumnSum = true;
         }
+        this.AccountDet.ddlColumnCode = AccountAux.ColumnCode;
+        this.AccountDet.ddlColumnColor = AccountAux.ColumnColorID;
     }
 
     FDelete(_intPosition:number,_intID:number,_intColumnID:number):void{
@@ -253,6 +257,7 @@ export class ManagementComoponent implements OnInit{
                 .subscribe(response =>{    
                     this.gblnValidate = false;
                     console.log('code:' + response.strResponseCode + ' msg:' + response.strResponseMsg);
+                    this._RouterExit.navigateByUrl("Collection/FormatAccount");
                 })                
             }            
         }
@@ -293,10 +298,11 @@ export class ManagementComoponent implements OnInit{
     }
 
     onBagID(event:Event):void{
+        let strCustomerID:string="";
         this.gblnValidate = false;
-        this.Account.carteraid="0";
-        this.intCod = Number((event.target as HTMLSelectElement).value);
-        this.Bag = this.Bag1.filter(x => x.CustomerID == this.intCod);
+        this.Account.carteraid="";
+        strCustomerID = (event.target as HTMLSelectElement).value;
+        this.Bag = this.Bag1.filter(x => x.CustomerID == strCustomerID);
     }
 
     FGetCustomer(_Option:string,_CustomerID:number):void{        

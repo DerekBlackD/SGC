@@ -67,6 +67,11 @@
                     <label><input type="checkbox" [(ngModel)]="import.statePagos" #statePagos="ngModel" name="statePagos" >Limpiar Pagos</label>
                 </div>
             </div>
+            <div class="col-sm-2">
+                <div class="checkbox">
+                    <label><input type="checkbox" name="stateAssignment" [(ngModel)]="import.stateAssignment">Limpiar Asignación</label>
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-2">
@@ -78,6 +83,12 @@
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
                 <button type="submit" id="btnimport" class="btn btn-primary">Importar</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-10">
+                <label>{{gstrMensaje}}</label>
             </div>
         </div>
         
