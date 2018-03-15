@@ -1,0 +1,10 @@
+<form class="form-horizontal" name="frmimport" #frmimport="ngForm" role="form" novalidate >
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-1 control-label">Archivo</label>
+            <div class="col-sm-5">
+                <input type="file" name="File" [(ngModel)]="gImport.File" class="form-control" (change)="FChangeFile($event)" accept=".xls, .xlsx" >
+            </div>
+        </div>    
+    </div>
+</form>

@@ -1,0 +1,62 @@
+<form class="form-horizontal" name="frmCustomerSearch" #frmCustomerSearch="ngForm" role="form" novalidate>
+    <div class="row">
+        <div class="col-sm-12">
+            <h5><p class="text-center">Mantenimiento Cliente</p></h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-8">
+            <div class="col-md-11 input-group input-group-sm">
+                <select name="TypeSeach" [(ngModel)]="gSearch.TypeSeach" (change)="FChangeTypeSearch()" class="form-control mngt-search-select" >
+                    <option value="0">Seleccionar</option>
+                    <option value="1">ID</option>
+                    <option value="2">Nombre</option>
+                </select> 
+                <input type="text" name="txtFact" (keyup.enter)="FSearch(txtFact.value)" class="form-control mngt-search-input" aria-label="..." #txtFact placeholder="Buscar agente" [(ngModel)]="gSearch.txtFact" />                
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" (click)="FNew()" >Nuevo</button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-10">
+            <div class="mngt-scrolls table-responsive">
+                <table class="table-mngt table table-hover table-body-size">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Tipo Doc</th>
+                            <th>Documento</th>
+                            <th>Mail</th>
+                            <th>Situación</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let item of glstCustomer'>
+                            <td>{{item.ID}}</td>
+                            <td>{{item.CustomerName}}</td>
+                            <td>{{item.CustDescTypePerson}}</td>
+                            <td>{{item.CustDescTypeDoc}}</td>
+                            <td>{{item.CustDocNumber}}</td>
+                            <td>{{item.CustMail}}</td>
+                            <td>{{item.CustSituationName}}</td>
+                            <td>
+                                <a class="btn-without-ref" (click)="FEdit(item.ID)"><span class="glyphicon glyphicon-pencil"></span></a>
+                            </td>
+                            <td>
+                                <a class="btn-without-ref" (click)="FDelete(item.ID)"><span class="glyphicon glyphicon-trash"></span></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

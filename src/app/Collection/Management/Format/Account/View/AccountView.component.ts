@@ -62,7 +62,6 @@ export class AccountView{
             this.view.txtDescription = this.glstAccountFormat[0].Observation;
             this.glstTotalSol = Response.arrTotalSol;
             this.glstTotalDol = Response.arrTotalDol;
-            console.log(Response);
             console.log('Respuesta (Registro Formato)= cod: '+ Response.strResponseCode +' msg: '+Response.strResponseMsg);
             this.blockUI.stop();            
         })

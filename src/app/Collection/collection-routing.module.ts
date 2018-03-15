@@ -17,6 +17,17 @@ import { ManagementComoponent } from './Management/Format/Account/Management/Man
 import { FormatComponent} from './Management/Report/ManagementFormat/Format.component';
 import { AccountDeleteComoponent } from './Management/Format/Account/Delete/AccountDelete.component';
 import { AccountView } from './Management/Format/Account/View/AccountView.component';
+import { SearchComponent } from './Management/Agent/search.component';
+import { AgentManagementComponent } from './Management/Agent/Management/management.component';
+import { AgentDeleteComponent } from './Management/Agent/Delete/delete.component';
+import { CustomerSearch } from './Management/Customer/CustomerSearch.component';
+import { CustomerManagementComponent } from './Management/Customer/Management/CustomerManagement.component';
+import { CustomerDeleteComponent } from './Management/Customer/Delete/CustomerDelete.component';
+import { BagSearchComponent } from './Management/Bag/BagSearch.component';
+import { BagManagementComponent } from './Management/Bag/Management/BagManagement.component';
+import { BagDeleteComponent } from './Management/Bag/Delete/BagDelete.component';
+import { FilterSearchComponent } from './Management/Filter/FilterSearch.component';
+import { FilterManagementComponent } from './Management/Filter/Management/FilterManagement.component';
 
 const collectionRoutes: Routes = [
   { path: 'Cobranza/Home', component: HomeComponent },
@@ -35,7 +46,18 @@ const collectionRoutes: Routes = [
   { path: 'ManagementAccountFormat/:id', component: ManagementComoponent },
   { path: 'Collection/Format', component:FormatComponent },
   { path: 'AccountDelete/:id', component:AccountDeleteComoponent },
-  { path: 'AccountView/:id', component: AccountView }
+  { path: 'AccountView/:id', component: AccountView },
+  { path: 'AgentSearch', component: SearchComponent },
+  { path: 'AgentManagementComponent/:id', component: AgentManagementComponent },
+  { path: 'AgentDeleteComponent/:id', component: AgentDeleteComponent },
+  { path: 'CustomerSearch', component: CustomerSearch },
+  { path: 'CustomerManagementComponent/:id', component: CustomerManagementComponent },
+  { path: 'CustomerDeleteComponent/:id', component: CustomerDeleteComponent },
+  { path: 'BagSearchComponent', component: BagSearchComponent },
+  { path: 'BagManagementComponent/:id', component: BagManagementComponent },
+  { path: 'BagDeleteComponent', component: BagDeleteComponent },
+  { path: 'FilterSearchComponent', component: FilterSearchComponent },
+  { path: 'FilterManagementComponent/:id', component: FilterManagementComponent }
 
 ];
 @NgModule({

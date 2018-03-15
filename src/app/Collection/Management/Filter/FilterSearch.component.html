@@ -1,0 +1,65 @@
+<form class="form-horizontal" name="frmsearch" #frmsearch="ngForm" role="form" novalidate>
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-11">
+            <h5>Mantenimiento Filtro</h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-8">
+            <div class="col-md-11 input-group input-group-sm">                    
+                <input type="text" class="form-control mngt-search-select" value="Búsqueda" readonly >
+                <input type="text" name="txtFact" (keyup.enter)="FSearch(txtFact.value)" class="form-control mngt-search-input" aria-label="..." #txtFact placeholder="Buscar agente" [(ngModel)]="gSearch.txtFact" />                
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" (click)="FNew()" >Nuevo</button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-10">
+            <div class="mngt-scrolls table-responsive">
+                <table class="table-mngt table table-hover table-body-size">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Cliente</th>
+                            <th>Cartera</th>
+                            <th>Fch.Inicio</th>
+                            <th>Fch.Fin</th>
+                            <th>Situación</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let item of glstFilter'>
+                            <td>{{item.FilterID}}</td>
+                            <td>{{item.FilterDescription}}</td>
+                            <td>{{item.CustomerName}}</td>
+                            <td>{{item.BagName}}</td>
+                            <td>{{item.FilterDateBegin}}</td>
+                            <td>{{item.FilterDateEnd}}</td>
+                            <td style="display:none;">{{item.FilterSituation}}</td>
+                            <td>{{item.FilterSituationName}}</td>
+                            <td>
+                                <a class="btn-without-ref" (click)="FEdit(item.FilterID)"><span class="glyphicon glyphicon-pencil"></span></a>
+                            </td>
+                            <td>
+                                <a class="btn-without-ref" (click)="FDelete(item.FilterID)"><span class="glyphicon glyphicon-trash"></span></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-6">
+            <span class="label label-danger">{{gstrMsg}}</span>
+        </div>
+    </div>
+</form>

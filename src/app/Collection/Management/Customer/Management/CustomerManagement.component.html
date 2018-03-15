@@ -1,0 +1,86 @@
+<form class="form-horizontal" name="frmManagement" #frmManagement="ngForm" role="form" novalidate>
+    <div class="row">
+        <div class="col-sm-12">
+            <h5><p class="text-center">Mantenimiento</p></h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1">ID</label>
+            <div class="col-sm-2">
+                <input type="text" name="ID" [(ngModel)]="gManagement.ID" class="form-control" readonly >
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1">Nombre o Razon Social</label>
+            <div class="col-sm-6" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
+                <input type="text" name="Name" [(ngModel)]="gManagement.Name" class="form-control" maxlength="50" required >
+            </div>
+            <label class="col-sm-1">Tipo</label>
+            <div class="col-sm-2">
+                <select name="Type" [(ngModel)]="gManagement.Type" class="form-control">
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let item of glstType" value="{{item.ID}}">{{item.Value}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1">Tipo de Documento</label>
+            <div class="col-sm-2">
+                <select name="TypeDoc" [(ngModel)]="gManagement.TypeDoc" class="form-control">
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let item of glstTypeDoc" value="{{item.ID}}">{{item.Value}}</option>
+                </select>
+            </div>
+            <label class="col-sm-1">Nro.Documento</label>
+            <div class="col-sm-3">
+                <input type="text" name="DocNumber" [(ngModel)]="gManagement.DocNumber" maxlength="15" class="form-control">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1">Mail</label>
+            <div class="col-sm-4">
+                <input type="email" name="Mail" [(ngModel)]="gManagement.Mail" class="form-control">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1">Situación</label>
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
+                <select name="Situation" [(ngModel)]="gManagement.Situation" class="form-control" required>
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let item of glstSituation" value="{{item.ID}}">{{item.Value}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <div class="col-sm-offset-1 col-sm-10">
+                <button type="button" class="btn btn-primary" (click)="FSave(frmManagement.valid)">Guardar</button>
+                <button type="button" class="btn btn-primary" (click)="FExit()">Salir</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-11">
+            <BagSearch-component *ngIf="gblnVisible" [gintCustomerFather]="gintCustomerFather" (FManagement)="FHideSearch($event)" (FDeleteFather)="FHideSearchDelete($event)" ></BagSearch-component>
+            <BagManagement-component *ngIf="gblnVisibleManagement" [gintCustomerFather]="gintCustomerFather" [gintBagFather]="gintBagFather" [gstrIndicaBag]="gstrIndicaBag" (FSearch)="FHideManagement($event)" ></BagManagement-component>
+            <BagDelete-component *ngIf="gblnVisibleDelete" [gintBagFather]="gintBagFather" [gstrBagNameFather]="gstrBagNameFather" [gintCustomerFather]="gintCustomerFather" (FSearchDelete)="FHideDeleteSearch($event)" ></BagDelete-component>
+        </div>
+    </div>
+</form>
