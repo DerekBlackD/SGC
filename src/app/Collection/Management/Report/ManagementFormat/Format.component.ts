@@ -58,6 +58,7 @@ export class FormatComponent implements OnInit {
             data.BagID = this.Format.bagid;
             data.BegDate = this.Format.txtDtBegin;
             data.EndDate = this.Format.txtDtEnd;
+            data.strDirection = this.gstrOption;
 
             this._CollectionService.getData('api/Management/GetManagementReportFormat', data).subscribe(res => {
                 this.gblnValidate = false;
