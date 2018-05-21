@@ -1,0 +1,25 @@
+<form class="from-horizontal" name="frmDelete" #frmDelete="ngForm" role="form" novalidate>
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-11">
+            <h4>Eliminar Registro</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1">ID</label>
+            <div class="col-sm-2">
+                <input type="text" name="ID" [(ngModel)]="gDelete.ID" class="form-control" readonly>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <div class="col-sm-offset-1 col-sm-11">
+                <button type="button" class="btn btn-primary" (click)="FDelete()">Eliminar</button>
+                <button type="button" class="btn btn-primary" (click)="FSalir()">Salir</button>
+            </div>
+        </div>
+    </div>
+</form>

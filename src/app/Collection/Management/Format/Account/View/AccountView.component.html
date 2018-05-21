@@ -18,12 +18,55 @@
                 <input type="text" name="txtDescription" [(ngModel)]="view.txtDescription" class="form-control" readonly >
             </div>
         </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">Cliente</label>
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate}">
+                <select name="ddlCustomerID" [(ngModel)]="view.ddlCustomerID" class="form-control" (change)="FFilterBagID($event)" required >
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let item of glstCustomer" value="{{item.ID}}">{{item.CustomerName}}</option>
+                </select>
+            </div>
+            <label class="col-sm-offset-1 col-sm-1 control-label">Cartera</label>
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate}">
+                <select name="ddlBagID" [(ngModel)]="view.ddlBagID" class="form-control" (change)="FFilterCustomerBag(frmView.valid)" required >
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let item of glstBagFilter" value="{{item.BagID}}">{{item.BagName}}</option>
+                </select>
+            </div>
+        </div>
     </div>
 
     <div class="row">
         <div class="form-group form-group-sm">
             <div class="col-sm-offset-1 col-sm-9">
                 <button type="submit" id="btnExit" class="btn btn-primary" (click)="FExit()" >Salir</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-offset-1 col-md-9">
+            <div class="mngt-scrolls table-responsive">
+                <table id="TCustomerBag" class="table-mngt table table-hover table-body-size">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Documento</th>
+                            <th>Nombre</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of glstCustomerBag">
+                            <td>{{item.CustomerBagID}}</td>
+                            <td>{{item.DocNumber}}</td>
+                            <td>{{item.Name}}</td>
+                            <td>
+                                <a class="btn-without-ref" (click)="FSelect(item.CustomerBagID)"><span class="glyphicon glyphicon-eye-open"></span></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

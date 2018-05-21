@@ -1,0 +1,25 @@
+<form class="form-horizontal" name="formDelete" #formDelete="ngForm" role="form" novalidate >
+    <div class="row">
+        <div class="col-sm-12">
+            <h5><p class="text-center">Eliminar</p></h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">ID</label>
+            <div class="col-sm-1">
+                <input type="text" name="AgentID" [(ngModel)]="gDelete.AgentID" class="form-control" readonly >
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <div class="col-sm-offset-1 col-sm-12">
+                <button type="button" (click)="FDelete()" class="btn btn-primary" >Eliminar</button>
+                <button type="button" (click)="FExit()" class="btn btn-primary" >Salir</button>
+            </div>
+        </div>
+    </div>
+</form>

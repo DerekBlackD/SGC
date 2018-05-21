@@ -1,0 +1,46 @@
+<form class="form-horizontal" name="frmManagement" #frmManagement="ngForm" role="form" novalidate>
+    <div class="row">
+        <div class="col-sm-12">
+            <h5>Mantenimiento Cartera</h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-1">ID</label>
+            <div class="col-sm-2">
+                <input type="text" name="IDBag" [(ngModel)]="gBag.IDBag" class="form-control" readonly >
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-1">Nombre</label>
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
+                <input type="text" name="Name" [(ngModel)]="gBag.Name" class="form-control" required>
+            </div>
+            <label class="col-sm-1">Tipo</label>
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
+                <select name="Type" [(ngModel)]="gBag.Type" class="form-control" required >
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let item of glstType" value="{{item.ID}}">{{item.Value}}</option>
+                </select>
+            </div>
+            <label class="col-sm-1">Situación</label>
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
+                <select name="Situation" [(ngModel)]="gBag.Situation" class="form-control" required >
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let item of glstSituation" value="{{item.ID}}">{{item.Value}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" class="btn btn-primary" (click)="FSave(frmManagement.valid)">Guardar</button>
+            <button type="button" class="btn btn-primary" (click)="FExit()">Salir</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,94 @@
+<form class="form-horizontal" name="formManagement" #formManagement="ngForm" role="form" novalidate >
+    <div class="row">
+        <div class="col-sm-12">
+            <h5><p class="text-center">Mantenimiento</p></h5>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">ID</label>
+            <div class="col-sm-2">
+                <input type="text" name="ID" [(ngModel)]="gManagement.ID" class="form-control" readonly >
+            </div>
+            <label class="col-sm-1 control-label">Tipo Agente</label>
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
+                <select name="Type" [(ngModel)]="gManagement.Type" class="form-control" required >
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let item of glstTypeAgent" value="{{item.ID}}">{{item.Value}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">Nro.Documento</label>
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
+                <input type="text" name="DocNumber" [(ngModel)]="gManagement.DocNumber" class="form-control" required >
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">Nombre</label>
+            <div class="col-sm-7" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
+                <input type="text" name="Name" [(ngModel)]="gManagement.Name" class="form-control" maxlength="50" required >
+            </div>
+        </div>
+    </div>    
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">Nombre Corto</label>
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
+                <input type="text" name="ShortName" [(ngModel)]="gManagement.ShortName" class="form-control" required maxlength="20" >
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">Dirección</label>
+            <div class="col-sm-5">
+                <input type="text" name="Adress" [(ngModel)]="gManagement.Adress" class="form-control" maxlength="100" >
+            </div>
+            <label class="col-sm-1 control-label">Teléfono</label>
+            <div class="col-sm-2">
+                <input type="tel" name="Phone" [(ngModel)]="gManagement.Phone" class="form-control">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">Usuario</label>
+            <div class="col-sm-4">
+                <select name="User" [(ngModel)]="gManagement.User" class="form-control" disabled >
+                    <option value="0">Seleccionar</option>
+                    <option value="{{gintUserID}}">{{gstrUserName}}</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <a class="btn-without-ref" (click)="FSearchUser()"><span class="glyphicon glyphicon-pencil"></span></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <div class="col-sm-offset-1 col-sm-10">
+                <button type="button" class="btn btn-primary" (click)="FSave(formManagement.valid)" >Guardar</button>
+                <button type="button" class="btn btn-primary" (click)="FExit()" >Salir</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-10">
+            <UserSearch-component [gintIDUser]="gintIDUser" (fOcultaBusqueda)="FHide($event)" (FSelectUser)="FSelectUser($event)" *ngIf="gblnVisible" ></UserSearch-component>
+        </div>
+    </div>
+</form>

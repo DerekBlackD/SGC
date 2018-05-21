@@ -17,7 +17,6 @@ export class AuthenticationService {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
         this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
-
         this.businessID = this.getPayLoad().BusinessID;
 
         this.getConfigFile().subscribe(res => {

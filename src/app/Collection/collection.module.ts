@@ -34,7 +34,20 @@ import { FormatComponent } from './Management/Report/ManagementFormat/Format.com
 import { FilesComponent } from './Management/Report/Files/Files.component';
 import { AccountDeleteComoponent } from './Management/Format/Account/Delete/AccountDelete.component';
 import { AccountView } from './Management/Format/Account/View/AccountView.component';
-
+import { SearchComponent } from './Management/Agent/search.component';
+import { AgentManagementComponent } from './Management/Agent/Management/management.component';
+import { UserSearchComponent } from './Seguridad/User/UserSearch.component';
+import { AgentDeleteComponent } from './Management/Agent/Delete/delete.component';
+import { CustomerSearch } from './Management/Customer/CustomerSearch.component';
+import { CustomerManagementComponent } from './Management/Customer/Management/CustomerManagement.component';
+import { CustomerDeleteComponent } from './Management/Customer/Delete/CustomerDelete.component';
+import { BagSearchComponent } from './Management/Bag/BagSearch.component';
+import { BagManagementComponent } from './Management/Bag/Management/BagManagement.component';
+import { BagDeleteComponent } from './Management/Bag/Delete/BagDelete.component';
+import { FilterSearchComponent } from './Management/Filter/FilterSearch.component';
+import { FilterManagementComponent } from './Management/Filter/Management/FilterManagement.component';
+import { FilterImportComponent } from './Management/Filter/FilterImport/FilterImport.component';
+import { FilterDeleteComponent } from './Management/Filter/Delete/FilterDelete.component';
 // Services
 import { CollectionService } from '../Services/collection.service';
 
@@ -78,7 +91,14 @@ import { CollectionRoutingModule } from './collection-routing.module';
     FormatComponent,
     FilesComponent,
     AccountDeleteComoponent,
-    AccountView
+    AccountView,
+    SearchComponent,
+    AgentManagementComponent,
+    UserSearchComponent,
+    AgentDeleteComponent,
+    CustomerSearch,CustomerManagementComponent,CustomerDeleteComponent,
+    BagSearchComponent,BagManagementComponent,BagDeleteComponent
+    ,FilterSearchComponent,FilterManagementComponent,FilterImportComponent,FilterDeleteComponent
   ],
   entryComponents: [
     GenCustomerBagSearch
