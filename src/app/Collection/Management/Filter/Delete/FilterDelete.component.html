@@ -1,0 +1,34 @@
+<form class="form-horizontal" name="frmManagement" #frmDelete="ngForm" role="form" novalidate>
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-11">
+            <h4>¿Desea inactivar el filtro?</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">ID</label>
+            <div class="col-sm-2">
+                <input type="text" name="ID" [(ngModel)]="gManagement.ID" class="form-control" readonly >
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">Descripción</label>
+            <div class="col-sm-6">
+                <input type="text" name="Description" [(ngModel)]="gManagement.Description" class="form-control" readonly >
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <div class="col-sm-offset-1 col-sm-11">
+                <button type="button" (click)="FDelete()" class="btn btn-primary">Eliminar</button>
+                <button type="button" (click)="FExit()" class="btn btn-primary">Salir</button>
+            </div>
+        </div>
+    </div>
+</form>

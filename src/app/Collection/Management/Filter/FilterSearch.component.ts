@@ -63,6 +63,6 @@ export class FilterSearchComponent{
     }
 
     FDelete(intID:number):void{
-        this._Router.navigate(['/FilterManagementComponent', intID]);
+        this._Router.navigate(['/FilterDeleteComponent', intID]);
     }
 }

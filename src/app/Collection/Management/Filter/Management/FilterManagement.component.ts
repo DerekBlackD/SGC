@@ -33,6 +33,8 @@ export class FilterManagementComponent{
     gblnVisibleAut:boolean=false;
     gblnCorrect:boolean=false;
     gblnError:boolean=false;
+    gblnProgresive:boolean=false;
+    gblnBlocking:boolean=false;
 
     @BlockUI() blockUI: NgBlockUI;
 
@@ -57,7 +59,7 @@ export class FilterManagementComponent{
 
                 this.gstrOption='U';
                 this.gstrURLManagement='api/sgc/CustomerBagFilter/PostFilterManagementUpdate/post';
-                //this.FRegister(this.gintID);         
+                this.FRegister(this.gintID);         
 
             }else{
                 this.gstrOption='I';
@@ -77,6 +79,7 @@ export class FilterManagementComponent{
         this.gManagement.DtBegin='';
         this.gManagement.DtEnd='';
         this.gManagement.Situation='1';
+        this.gblnBlocking=false;
     }
 
     FGetImport(event):void{
@@ -104,6 +107,7 @@ export class FilterManagementComponent{
 
             oCustomerBagFilter.FilterID=(this.gstrOption=='I')?0:this.gManagement.ID;
             oCustomerBagFilter.FilterDescription=this.gManagement.Description;
+            oCustomerBagFilter.FilterProgressive=this.gManagement.Progresive;
             oCustomerBagFilter.FilterType=this.gManagement.Type;
             oCustomerBagFilter.CustomerID=this.gManagement.Customer;
             oCustomerBagFilter.BagID=this.gManagement.Bag;
@@ -114,19 +118,18 @@ export class FilterManagementComponent{
             oCustomerBagFilter.FilterStatus=1;
             oCustomerBagFilter.strFileName=this.gstrImport;
 
-            console.log(oCustomerBagFilter);
-
             Request.oCustomerBagFilter=oCustomerBagFilter;
 
             this._Conexion.getData(this.gstrURLManagement,Request)
             .subscribe(Response =>{                
                 console.log('Respuesta = cod: '+ Response.strResponseCode +' msg: '+Response.strResponseMsg);
-                //this.FRegister(Response.intResponseID);
+                
                 if(Response.strResponseCode=='0'){
                     this.gstrCorrect=Response.strResponseMsg;
                     this.gblnCorrect=true;
                     this.gblnError=false;
-                    this.FClean();
+                    this.FRegister(Response.intResponseID);
+
                 }else if(Response.strResponseCode=='-1'){
                     this.gstrError=Response.strResponseMsg;
                     this.gblnError=true;
@@ -185,5 +188,50 @@ export class FilterManagementComponent{
         let strIDCustomer="";
         strIDCustomer = (event.target as HTMLSelectElement).value.toString();
         this.glstBagFilter = this.glstBag.filter(x => x.CustomerID == strIDCustomer);
+    }
+
+    FChangeProgresive():void{
+        this.gblnProgresive = this.gManagement.Progresive;
+        if(this.gManagement.Progresive==true){
+            this.gManagement.Type = '1';
+            this.gblnVisibleImport=true;
+            this.gblnVisibleAut=false;
+        }else{
+            this.gManagement.Type = '';
+            this.gblnVisibleImport=false;
+            this.gblnVisibleAut=true;
+        }
+        
+    }
+
+    FRegister(_ID:number):void{
+        this.blockUI.start('Cargando...');
+
+        const Request:any={};
+        Request.ID=_ID;
+
+        this._Conexion.getData('api/sgc/CustomerBagFilter/GetFilterRegisterQuery/get',Request)
+        .subscribe(Response =>{
+            this.gManagement.ID = Response.oCustomerBagFilter.FilterID;
+            this.gManagement.Description = Response.oCustomerBagFilter.FilterDescription;
+            this.gManagement.Progresive = Response.oCustomerBagFilter.FilterProgressive;
+            this.gManagement.Type = Response.oCustomerBagFilter.FilterType;
+            this.gManagement.Customer = Response.oCustomerBagFilter.CustomerID;
+
+            this.glstBagFilter = this.glstBag.filter(x => x.CustomerID == Response.oCustomerBagFilter.CustomerID);
+
+            this.gManagement.Bag = Response.oCustomerBagFilter.BagID;
+            this.gManagement.DtBegin = Response.oCustomerBagFilter.FilterDateBegin;
+            this.gManagement.DtEnd = Response.oCustomerBagFilter.FilterDateEnd;
+            this.gManagement.Situation = Response.oCustomerBagFilter.FilterSituation;
+            this.gblnBlocking=true;
+            this.gblnProgresive=true;
+            
+            console.log('Respuesta -- cod: '+ Response.strResponseCode +' msg: '+Response.strResponseMsg);
+            this.blockUI.stop();
+        },err=>{
+            console.log('Error de aplicativo');
+            this.blockUI.stop();
+        });
     }
 }

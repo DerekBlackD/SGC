@@ -20,9 +20,18 @@
             <div class="col-sm-5" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
                 <input type="text" name="Description" [(ngModel)]="gManagement.Description" class="form-control" maxlength="50" required >
             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">Progresivo</label>
+            <div class="col-sm-2">
+                <input type="checkbox" name="Progresive" [(ngModel)]="gManagement.Progresive" (change)="FChangeProgresive()" disabled={{gblnBlocking}} >
+            </div>
             <label class="col-sm-1 control-label">Tipo</label>
             <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
-                <select name="Type" [(ngModel)]="gManagement.Type" class="form-control" (change)="FChangeType()" required>
+                <select name="Type" [(ngModel)]="gManagement.Type" class="form-control" (change)="FChangeType()" disabled={{gblnProgresive}} required>
                     <option value="">Seleccionar</option>
                     <option *ngFor="let item of glstType" value="{{item.ID}}">{{item.Value}}</option>
                 </select>
@@ -34,14 +43,14 @@
         <div class="form-group form-group-sm">
             <label class="col-sm-offset-1 col-sm-1 control-label">Cliente</label>
             <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
-                <select name="Customer" [(ngModel)]="gManagement.Customer" class="form-control" (change)="FChangeCustomer($event)" required>
+                <select name="Customer" [(ngModel)]="gManagement.Customer" class="form-control" (change)="FChangeCustomer($event)" disabled={{gblnBlocking}} required>
                     <option value="">Seleccionar</option>
                     <option *ngFor="let item of glstCustomer" value="{{item.ID}}">{{item.CustomerName}}</option>
                 </select>
             </div>
             <label class="col-sm-1 control-label ">Cartera</label>
             <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
-                <select name="Bag" [(ngModel)]="gManagement.Bag" class="form-control" required>
+                <select name="Bag" [(ngModel)]="gManagement.Bag" class="form-control" disabled={{gblnBlocking}} required>
                     <option value="">Seleccionar</option>
                     <option *ngFor="let item of glstBagFilter" value="{{item.BagID}}">{{item.BagName}}</option>
                 </select>
