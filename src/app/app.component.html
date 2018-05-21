@@ -1,9 +1,9 @@
 <block-ui>
   <header>
-    <banner-component  [BannerControls]="notMenu"></banner-component>
+    <app-banner-component  [BannerControls]="notMenu"></app-banner-component>
   </header>
   <div class="row">
-    <menu-component *ngIf="notMenu" [options]="options"></menu-component>
+    <app-menu-component *ngIf="notMenu" [options]="options"></app-menu-component>
   </div>
   <div class="container-fluid principal-body">
       <router-outlet></router-outlet>

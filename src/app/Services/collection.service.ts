@@ -33,7 +33,7 @@ export class CollectionService {
 
     // inputParameter.modalName [Requiered]
     // inputParameter.lstData
-    // inpurParameter.oData
+    // inputParameter.oData
     showModal(inputParameter: any) {
         this.showModalDialog.next(inputParameter);
     }
@@ -117,7 +117,12 @@ export class CollectionService {
 
     }
 
-    postManagementData(url: string, data: any): Observable<any>{
+    getConfigFile(): Observable<any> {
+        return this.http.get('./assets/configApp.json')
+                        .map((res: Response) => res.json())
+    }
+
+    postManagementData(url: string, data: any): Observable<any> {
         const headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token, 'Content-Type': 'application/json'});
         const options = new RequestOptions({ headers: headers });
         const api = `${this.authenticationService.urlBase}${url}`
@@ -170,7 +175,8 @@ export class CollectionService {
             dayNames: [ 'domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado' ],
             dayNamesShort: [ 'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb' ],
             dayNamesMin: [ 'D', 'L', 'M', 'X', 'J', 'V', 'S' ],
-            monthNames: [ 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre' ],
+            monthNames: [ 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre',
+             'octubre', 'noviembre', 'diciembre' ],
             monthNamesShort: [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ],
             today: 'Hoy',
             clear: 'Borrar'

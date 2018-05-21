@@ -62,6 +62,7 @@ export class GenCustomerBagPhone {
     showAddress(): void {
         this.selectObjPhone.phoneID = 0;
         this.selectObjPhone.phoneNumber = '';
+        this._collectionService.restartData(2);
         this.selectPhone.emit(this.selectObjPhone);
         this.changeManagement.emit(false);
     }

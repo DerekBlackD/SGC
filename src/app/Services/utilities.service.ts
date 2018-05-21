@@ -36,4 +36,15 @@ export class UtilitesService {
         const date = `${day}/${month}/${year}`;
         return date;
     }
+
+    getConvertDateToString(dtDate: Date): string {
+        const today = dtDate;
+        const m = today.getMonth() + 1;
+        const month = (m < 10) ? '0' + m : m;
+        const year = today.getFullYear();
+        const d = today.getDate();
+        const day = (d < 10) ? '0' + d : d;
+        const date = `${day}/${month}/${year}`;
+        return date;
+    }
 }

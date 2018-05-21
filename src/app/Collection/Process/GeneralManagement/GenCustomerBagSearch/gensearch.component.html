@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let data of dataList" (click)="setClickedRow(data)" [class.active]="data.CustomerBagID == returnData.CustomerBagID">
+                <tr *ngFor="let data of dataList" (click)="setClickedRow(data)" [class.active]="data.CustomerBagID == returnData.CustomerBagID && data.CustomerID == returnData.CustomerID && data.BagID == returnData.BagID">
                     <td>{{data.CustomerBagID}}</td>
                     <td>{{data.Name}}</td>
                     <td>{{data.Phone}}</td>

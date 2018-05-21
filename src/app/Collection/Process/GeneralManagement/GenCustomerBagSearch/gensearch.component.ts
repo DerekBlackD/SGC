@@ -26,7 +26,7 @@ export class GenCustomerBagSearch {
             });
     }
 
-    setClickedRow = function(selectData: any){
+    setClickedRow = function(selectData: any) {
         this.returnData.CustomerBagID = selectData.CustomerBagID;
         this.returnData.CustomerID = selectData.CustomerID;
         this.returnData.BagID = selectData.BagID;

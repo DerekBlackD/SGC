@@ -16,7 +16,12 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
                 <ul class="nav navbar-nav navbar-right">
                     <li *ngIf="showInputDate"><a><span>{{todayDate}}</span></a></li>
-                    <li *ngIf="!showInputDate"><a><input type="date" class="form-control mngt-input-date" name="CampMngtDate" [(ngModel)]="CampMngtDate" /></a></li>
+                    <li *ngIf="!showInputDate">
+                        <div class="mngt-camp-gest">
+                            <!-- <input type="date" class="form-control mngt-input-date" name="CampMngtDate" [(ngModel)]="CampMngtDate" /> -->
+                            <p-calendar [(ngModel)]="dtToday" readonlyInput="true" name="fecha" dateFormat="dd/mm/yy" [locale]="es" [showIcon]="true"></p-calendar>
+                        </div>
+                    </li>
                     <li><a class="btn-without-ref" (click)="saveManagement(formMngt.valid)"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</a></li>
                 </ul>
             </div>
@@ -27,15 +32,14 @@
                 <label class="col-sm-2 control-label">Tipo Gest</label>
                 <div class="col-sm-4" [ngClass]="{'has-error has-feedback' : submitted && MngtType.invalid}">
                     <select class="form-control" name="MngtType" #MngtType="ngModel" [(ngModel)]="oManagement.MngtType" required>
-                        <option value="">Seleccionar</option>
                         <option *ngFor="let type of lstMngtType" value="{{type.ID}}">{{type.Value}}</option>
                     </select>
                 </div>
-                <label class="col-sm-2 control-label">Resultado</label>
-                <div class="col-sm-4" [ngClass]="{'has-error has-feedback' : submitted && ResultID.invalid}">
-                    <select class="form-control" name="ResultID" #ResultID="ngModel" [(ngModel)]="oManagement.ResultID" (ngModelChange)="changeResult($event)" required>
+                <label class="col-sm-2 control-label">Lugar</label>
+                <div class="col-sm-4" [ngClass]="{'has-error has-feedback' : submitted && LocationContact.invalid}">
+                    <select class="form-control" name="LocationContact" #LocationContact="ngModel" [(ngModel)]="oManagement.LocationContact" (ngModelChange)="changeLocation($event)" required>
                         <option value="">Seleccionar</option>
-                        <option *ngFor="let res of oResultCodes" value="{{res.ResultID}}">{{res.Description}}</option>
+                        <option *ngFor="let loc of lstLocation" value="{{loc.ID}}">{{loc.Value}}</option>
                     </select>
                 </div>
             </div>
@@ -47,12 +51,11 @@
                         <option *ngFor="let cont of lstContact" value="{{cont.ID}}">{{cont.Value}}</option>
                     </select>
                 </div>
-                
-                <label class="col-sm-2 control-label">Lugar</label>
-                <div class="col-sm-4" [ngClass]="{'has-error has-feedback' : submitted && LocationContact.invalid}">
-                    <select class="form-control" name="LocationContact" #LocationContact="ngModel" [(ngModel)]="oManagement.LocationContact" required>
+                <label class="col-sm-2 control-label">Resultado</label>
+                <div class="col-sm-4" [ngClass]="{'has-error has-feedback' : submitted && ResultID.invalid}">
+                    <select class="form-control" name="ResultID" #ResultID="ngModel" [(ngModel)]="oManagement.ResultID" (ngModelChange)="changeResult($event)" required>
                         <option value="">Seleccionar</option>
-                        <option *ngFor="let loc of lstLocation" value="{{loc.ID}}">{{loc.Value}}</option>
+                        <option *ngFor="let res of oResultCodes" value="{{res.ResultID}}">{{res.Description}}</option>
                     </select>
                 </div>
             </div>

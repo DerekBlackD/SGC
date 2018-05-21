@@ -2,9 +2,10 @@ import { Component, Input  } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SecurityService } from '../../Services/security.service';
 import { SharedService } from '../Shared.service';
+import { CollectionService } from '../../Services/collection.service';
 
 @Component({
-    selector: 'menu-component',
+    selector: 'app-menu-component',
     templateUrl: 'menu.component.html',
     styleUrls: ['menu.component.css'],
     animations: [trigger(
@@ -16,27 +17,35 @@ import { SharedService } from '../Shared.service';
             'collapsed <=> expanded', [animate(0, style({})), animate(300)])
       ])]
 })
-export class MenuComponent{
+export class MenuComponent {
     stateExpression: string;
     flag: boolean;
-    @Input() options : any[] = [];
+    menuLogo: string;
+    @Input() options: any[] = [];
 
     constructor(private _securityService: SecurityService,
-                private _sharedService: SharedService) { 
+                private _sharedService: SharedService,
+                private _collectionService: CollectionService) {
         this.collapse();
         this.flag = true;
+
+        this._collectionService.getConfigFile().subscribe(res => {
+            this.menuLogo = res[0].RutaLogoMenu;
+        });
     }
-    expand():void { 
-        this.stateExpression = 'expanded'; 
+    expand(): void {
+        this.stateExpression = 'expanded';
     }
-    collapse():void { 
-        this.stateExpression = 'collapsed'; 
+
+    collapse(): void {
+        this.stateExpression = 'collapsed';
     }
-    ShowHideMenu():void{
-        if(this.flag){
+
+    ShowHideMenu(): void {
+        if (this.flag) {
             this.expand();
             this.flag = !this.flag;
-        }else{
+        } else {
             this.collapse();
             this.flag = !this.flag;
         }

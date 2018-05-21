@@ -94,3 +94,8 @@ is the default in type.less */
 .mngt-search-input {
     width: 60% !important;
 }
+
+.mngt-camp-gest {
+    padding-right: 30px;
+    padding-top: 2px;
+}

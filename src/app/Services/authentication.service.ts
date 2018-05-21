@@ -11,16 +11,23 @@ export class AuthenticationService {
     public businessID: string;
     headers: Headers = new Headers;
     public data: string;
+
     constructor(private http: Http) {
         // set token if saved in local storage
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
         this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        //this.urlBase = 'http://54.233.102.195/SGC-BE/';
-        //this.urlBase = 'http://209.45.54.65/SGC-BE/';
-        //this.urlBase = 'http://54.233.102.195/RECUPERO-BE/';
-        this.urlBase = 'http://localhost:9580/';
+
         this.businessID = this.getPayLoad().BusinessID;
+
+        this.getConfigFile().subscribe(res => {
+            this.urlBase = res[0].UrlBase;
+        });
+
+        // this.urlBase = 'http://54.233.102.195/SGC-BE/';
+        // this.urlBase = 'http://209.45.54.65/SGC-BE/';
+        // this.urlBase = 'http://54.233.102.195/RECUPERO-BE/';
+        // this.urlBase = 'http://localhost:9580/';
     }
 
     login(username: string, password: string): Observable<string> {
@@ -92,8 +99,7 @@ export class AuthenticationService {
         var cb_btou = function (cccc) {
             switch (cccc.length) {
                 case 4:
-                    var cp = ((0x07 & cccc.charCodeAt(0)) << 18)
-                        | ((0x3f & cccc.charCodeAt(1)) << 12)
+                    var cp = ((0x07 & cccc.charCodeAt(0)) << 18) | ((0x3f & cccc.charCodeAt(1)) << 12)
                         | ((0x3f & cccc.charCodeAt(2)) << 6)
                         | (0x3f & cccc.charCodeAt(3));
                     var offset = cp - 0x10000;
@@ -122,5 +128,10 @@ export class AuthenticationService {
             return m0 === '-' ? '+' : '/';
         })
             .replace(/[^A-Za-z0-9\+\/]/g, ''));
+    }
+
+    getConfigFile(): Observable<any> {
+        return this.http.get('./assets/configApp.json')
+                        .map((res: Response) => res.json())
     }
 }

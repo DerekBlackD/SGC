@@ -10,17 +10,22 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
     templateUrl: 'login.component.html',
     styleUrls: ['login.component.css']
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
     @BlockUI() blockUI: NgBlockUI;
     model: any = {};
     submitted = false;
     errorService = false;
     messageLoginError: string;
+    loginLogo: string;
 
     constructor(private router: Router,
                 private _sharedService: SharedService,
                 private _authenticationService: AuthenticationService,
-                private _collectionService: CollectionService) {}
+                private _collectionService: CollectionService) {
+        this._collectionService.getConfigFile().subscribe(res => {
+            this.loginLogo = res[0].RutaLogoLogin;
+        });
+    }
 
     ngOnInit() {
         // reset login status

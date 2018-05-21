@@ -3,6 +3,7 @@ import { CollectionService } from '../../../../Services/collection.service';
 import { UtilitesService } from '../../../../Services/utilities.service';
 import { Observable } from 'rxjs/Rx';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { CalendarModule } from 'primeng/primeng';
 
 @Component({
     selector: 'gen-management',
@@ -18,10 +19,11 @@ export class GenManagement {
      @BlockUI() blockUI: NgBlockUI;
      // Data Variables
      selectResult: any = {}; // Result code selected
+     selectLocation: any = {}; // Location code selected
      oManagement: any = {}; // Model of managements
-     CampMngtDate: string; // Model of Camp managemente date
      CustBagManagementsData: any[] = []; // List of managements of customer bag
      oResultCodes: any[] = []; // List of management result codes
+     lstAllResultCodes: any[] = []; // List of all result code of app
      lstMngtType: any; // Drop down management type
      lstContact: any; // Drop down conctact customer
      lstLocation: any; // Drop down location customer
@@ -33,37 +35,77 @@ export class GenManagement {
      todayDate: string; // Today date in string format
      submitted = false; // Flag for submit form validation
      showInputDate = true; // Flag for show or hide input date
+     dtToday: Date = new Date();
      // Global Data
      mngtAgentID: number;
      userData: any = {};
      agentData: any = {};
+     PhoneOrCamp: boolean;
+
+     // Config Variables
+     filterContactPlace: string;
+     es: any;
 
      constructor(private _collectionService: CollectionService,
                 private _util: UtilitesService) {
         this.mngtAgentID = this._collectionService.getAgentID();
         this.userData = this._collectionService.getUserData();
         this.agentData = this._collectionService.getAgentData();
-
-        if (this.agentData.Type === 1) {
-            this.showInputDate = true;
-        }
-
-        if (this.agentData.Type === 2) {
-            this.showInputDate = false;
-        }
-
-        this.CampMngtDate = this._util.getDateForInput();
+        this.es = this._collectionService.getCalendarLanguage();
 
         this.resetVariables();
         this.loadResult();
         this.loadData();
 
+        this._collectionService.getConfigFile().subscribe(res => {
+            this.filterContactPlace = res[0].FiltroLugarContacto;
+        });
+
+        if (this.agentData.Type === 1 || this.agentData.Type === 3) {
+            this.managementPhone();
+        }
+
+        if (this.agentData.Type === 2 || this.agentData.Type === 4) {
+            this.managementAddress();
+        }
+
         this._collectionService.changeEmitted$.subscribe(
         response => {
+            this.resetVariables();
             if (response) {
-                this.resetVariables();
+                if (response === 2) {
+                    this.managementAddress();
+                }
+
+                if (response === 1) {
+                    this.managementPhone();
+                }
             }
         });
+
+
+     }
+
+     managementPhone(): void {
+        this.showInputDate = true;
+        this.lstMngtType = this._collectionService.getGeneralCode(28);
+        this.lstLocation = this._collectionService.getGeneralCode(26);
+        this.oManagement.MngtType = this.lstMngtType[0].ID;
+        this.oResultCodes = this.lstAllResultCodes.filter(x => x.Class === 'CALL');
+        this.PhoneOrCamp = true;
+     }
+
+     managementAddress(): void {
+        this.lstMngtType = this._collectionService.getGeneralCode(29);
+        if (this.agentData.Type !== 1) {
+            this.showInputDate = false;
+        } else {
+            this.showInputDate = true;
+        }
+        this.lstLocation = this._collectionService.getGeneralCode(27);
+        this.oManagement.MngtType = this.lstMngtType[0].ID;
+        this.oResultCodes = this.lstAllResultCodes.filter(x => x.Class === 'CAMPO');
+        this.PhoneOrCamp = false;
      }
 
      resetVariables(): void {
@@ -75,15 +117,6 @@ export class GenManagement {
         this.oManagement.DateCompString = this._util.getDateForInput();
         this.oManagement.Currency = '';
         this.oManagement.Amount = '0.00';
-
-        if (this.agentData.Type === 1) {
-            this.oManagement.MngtType = 1;
-        }
-
-        if (this.agentData.Type === 2) {
-            this.oManagement.MngtType = 4;
-        }
-
         this.showPayComp = false;
         this.oManagement.ApplyPayComp = 0;
         this.startDate = this._util.getDateTime();
@@ -101,22 +134,18 @@ export class GenManagement {
 
         this._collectionService.getData('api/Result/getResult', data)
             .subscribe(response => {
-                let result = response.lstResult;
-                if (this.agentData.Type === 1) {
-                    result = result.filter(x => x.Class === 'CALL')
+                this.lstAllResultCodes = response.lstResult;
+                if (this.agentData.Type === 1 || this.agentData.Type === 3) {
+                    this.oResultCodes = this.lstAllResultCodes.filter(x => x.Class === 'CALL');
                 }
 
-                if (this.agentData.Type === 2) {
-                    result = result.filter(x => x.Class === 'CAMPO')
+                if (this.agentData.Type === 2 || this.agentData.Type === 4) {
+                    this.oResultCodes = this.lstAllResultCodes.filter(x => x.Class === 'CAMPO');
                 }
-                this.oResultCodes = result;
         })
     }
 
     loadData(): void {
-        this.lstMngtType = this._collectionService.getGeneralCode(5);
-        this.lstContact = this._collectionService.getGeneralCode(4);
-        this.lstLocation = this._collectionService.getGeneralCode(13);
         this.lstTypeComp = this._collectionService.getGeneralCode(11);
         this.lstCurrency = this._collectionService.getGeneralCode(12);
     }
@@ -142,6 +171,11 @@ export class GenManagement {
         }
     }
 
+    changeLocation(locationIDSel: any): void {
+        this.selectLocation = this.lstLocation.find(x => x.ID == locationIDSel);
+        this.lstContact = this._collectionService.getGeneralCode(this.selectLocation.SubRelation);
+    }
+
 
     saveManagement(isValid: boolean): void {
         this.submitted = true;
@@ -152,10 +186,9 @@ export class GenManagement {
                 return;
             }
 
-            if (this.agentData.Type === 1) {
-
-                if (this.selectAddress.AddressID) {
-                    alert('Usted no puede realizar gestiones de campo.');
+            if (this.PhoneOrCamp) {
+                if (this.agentData.Type === 2 || this.agentData.Type === 4) {
+                    alert('Usted no puede realizar gestiones telefónicas.');
                     return;
                 }
 
@@ -166,16 +199,9 @@ export class GenManagement {
 
                 classMngt = '1';
                 this.oManagement.MngtDateString = this._util.getDateTime();
-            }
-
-            if (this.agentData.Type === 2) {
-                if (this.CampMngtDate === '') {
-                    alert('Seleccionar una fecha de gestión');
-                    return;
-                }
-
-                if (this.selectPhone.phoneID) {
-                    alert('Usted no puede realizar gestiones telefónicas.');
+            } else {
+                if (this.agentData.Type === 1) {
+                    alert('Usted no puede realizar gestiones de campo.');
                     return;
                 }
 
@@ -185,7 +211,7 @@ export class GenManagement {
                 }
 
                 classMngt = '2';
-                this.oManagement.MngtDateString = this.CampMngtDate;
+                this.oManagement.MngtDateString = this._util.getConvertDateToString(this.dtToday);
             }
 
             this.blockUI.start('Cargando...');
@@ -193,7 +219,6 @@ export class GenManagement {
             this.oManagement.CustomerID = this.customerData.CustomerID;
             this.oManagement.AgentID = this._collectionService.getAgentID();
             this.oManagement.BagID = this.customerData.BagID;
-            // this.oManagement.MngtDateString = this._util.getDateTime();
             this.oManagement.MngtClass = classMngt;
             this.oManagement.AgentTypist = 0;
             this.oManagement.AddressID = this.selectAddress.AddressID;
@@ -215,11 +240,4 @@ export class GenManagement {
                 })
         }
     }
-
-    // validateManagement(): void {
-    //     if (this.selectPhone == null || this.selectPhone.phoneID == null){
-    //         alert('Seleccionar un teléfono');
-    //         return;
-    //     }
-    // }
 }

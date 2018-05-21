@@ -3,6 +3,7 @@ import { SharedService } from './Security/Shared.service';
 import { SecurityService } from './Services/security.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './Services/authentication.service';
+import { CollectionService } from './Services/collection.service';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent {
   constructor(private _sharedService: SharedService,
               private _securityService: SecurityService,
               private _authenticationService: AuthenticationService,
+              private _collectionService: CollectionService,
               private _router: Router) {
     // if (localStorage.getItem('currentUser')) {
     //   this.notMenu = true;
@@ -34,13 +36,6 @@ export class AppComponent {
       }
     });
   }
-
-  // loadMenu(): void {
-  //   this._securityService.getAllData('api/Menu')
-  //   .subscribe(menu => {
-  //       this.options = menu;
-  //   })
-  // }
 
   loadMenu(): void {
         // this._securityService.getAllData('api/Menu?BusinessID='+this.authenticationService.getPayLoad().BusinessID+'&UserID=2')

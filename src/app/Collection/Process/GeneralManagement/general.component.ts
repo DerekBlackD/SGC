@@ -54,7 +54,7 @@ export class GeneralManagementComponent {
         this.mngtAgentID = this._collectionService.getAgentID();
         if (this.mngtAgentID !== 0) {
             this.agentData = this._collectionService.getAgentData();
-            if (this.agentData.Type === 1) {
+            if (this.agentData.Type === 1 || this.agentData.Type === 3) {
                 this.showPhoneOrAddress = true;
             } else {
                 this.showPhoneOrAddress = false;
@@ -199,7 +199,6 @@ export class GeneralManagementComponent {
 
         this._collectionService.getData('api/GetAssign', data)
             .subscribe(assign => {
-            console.log(assign);
             this.lstAssign = assign.lstAssignmentByAgent;
             if (this.lstAssign.length > 0) {
                 this.customerData.CustomerBagID = this.lstAssign[0].CustomerBagID;
@@ -237,7 +236,7 @@ export class GeneralManagementComponent {
         this.blockUI.start('Cargando...');
         this.resetVariables();
         const request: any = {};
-        this._collectionService.restartData(true);
+        this._collectionService.restartData(3);
         request.CustomerBagID = customerBag.CustomerBagID;
         request.CustomerID = customerBag.CustomerID;
         request.BagID = customerBag.BagID;

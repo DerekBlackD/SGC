@@ -1,0 +1,13 @@
+[
+    {
+        "IDApp": "ET.SGC.CRM.Collection",
+        "IDCliente": "1",
+        "NombreEmpresa": "HPC SERVICIOS & COBRANZAS INTEGRALES",
+        "RutaLogo": "..\\..\\..\\assets\\LOGO3-300x300.png",
+        "RutaLogoMenu": "..\\..\\..\\assets\\LOGO3-300x300.png",
+        "RutaLogoLogin": "..\\..\\..\\assets\\LOGO3-300x300.png",
+        "UrlBase": "http://localhost:9580/",
+        "FiltroLugarContacto" : "1"
+    }
+]
+
