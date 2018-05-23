@@ -48,6 +48,8 @@ import { FilterSearchComponent } from './Management/Filter/FilterSearch.componen
 import { FilterManagementComponent } from './Management/Filter/Management/FilterManagement.component';
 import { FilterImportComponent } from './Management/Filter/FilterImport/FilterImport.component';
 import { FilterDeleteComponent } from './Management/Filter/Delete/FilterDelete.component';
+import { ProgressiveManagementComponent } from './Process/ProgressiveManagement/progressive.component';
+import { GenProgressiveMngtComponent } from './Process/ProgressiveManagement/GenProgressive/genprogressivemngt.component';
 // Services
 import { CollectionService } from '../Services/collection.service';
 
@@ -96,9 +98,18 @@ import { CollectionRoutingModule } from './collection-routing.module';
     AgentManagementComponent,
     UserSearchComponent,
     AgentDeleteComponent,
-    CustomerSearch,CustomerManagementComponent,CustomerDeleteComponent,
-    BagSearchComponent,BagManagementComponent,BagDeleteComponent
-    ,FilterSearchComponent,FilterManagementComponent,FilterImportComponent,FilterDeleteComponent
+    CustomerSearch,
+    CustomerManagementComponent,
+    CustomerDeleteComponent,
+    BagSearchComponent,
+    BagManagementComponent,
+    BagDeleteComponent,
+    FilterSearchComponent,
+    FilterManagementComponent,
+    FilterImportComponent,
+    FilterDeleteComponent,
+    ProgressiveManagementComponent,
+    GenProgressiveMngtComponent
   ],
   entryComponents: [
     GenCustomerBagSearch
