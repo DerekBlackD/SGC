@@ -128,11 +128,12 @@ export class GenProgressiveMngtComponent {
     loadManagements(): void {
         const request: any = {};
         request.CustomerBagID = this.customerData.CustomerBagID
-        this._collectionService.getData('api/customerbag/getcustbagmanagements', this.oManagement)
-            .subscribe(result => {
-                this.CustBagManagementsData = result.lstCustomerBagManagements;
-                this.loadmanagements.emit(this.CustBagManagementsData);
-            })
+        this.loadmanagements.emit(this.CustBagManagementsData);
+        // this._collectionService.getData('api/customerbag/getcustbagmanagements', this.oManagement)
+        //     .subscribe(result => {
+        //         this.CustBagManagementsData = result.lstCustomerBagManagements;
+        //         this.loadmanagements.emit(this.CustBagManagementsData);
+        //     })
     }
 
     changeResult(val: number): void {
@@ -184,21 +185,23 @@ export class GenProgressiveMngtComponent {
             this.oManagement.MngtClass = classMngt;
             this.oManagement.AgentTypist = 0;
             this.oManagement.AddressID = 0;
-            this.oManagement.PhoneID = this.selectPhone.phoneNumber;
-            this.oManagement.MngtReason = this.selectPhone.phoneNumber;
+            this.oManagement.PhoneID = this.selectPhone.phoneID;
+            this.oManagement.MngtReason = '';
             this.oManagement.MngtNormalize = '';
             this.oManagement.Priority = this.selectResult.Priority;
             this.oManagement.SubPriority = this.selectResult.SubPriority;
             this.oManagement.StartDateString = this.startDate;
             this.oManagement.EndDateString = this._util.getDateTime();
             this.oManagement.User = this.userData.UserName;
+            this.oManagement.FilterID = this.customerData.FilterID;
+            this.oManagement.FilterLine = this.customerData.FilterLine;
 
             this._collectionService.getData('api/customerbag/postcustbagmanagement', this.oManagement)
                 .subscribe(result => {
+                    this.blockUI.stop();
                     this.loadManagements();
                     this.resetVariables();
                     this.todayDate = this._util.getDate();
-                    this.blockUI.stop();
                 })
         }
     }

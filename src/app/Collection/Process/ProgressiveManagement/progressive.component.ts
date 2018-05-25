@@ -100,7 +100,7 @@ export class ProgressiveManagementComponent {
     }
 
     loadCustomerBagData(customerBag: any): void {
-        this.blockUI.start('Cargando...');
+        
         this.resetVariables();
         const request: any = {};
         this._collectionService.restartData(3);
@@ -110,6 +110,8 @@ export class ProgressiveManagementComponent {
         this.customerData.CustomerBagID = customerBag.CustomerBagID;
         this.customerData.CustomerID = customerBag.CustomerID;
         this.customerData.BagID = customerBag.BagID;
+        this.customerData.FilterID = this.oProgressive.FilterID;
+        this.customerData.FilterLine = this.lstCustBagProgressive[this.intIndex].FilterLine;
         this._collectionService.getData('api/customerbag/getcustomerbagbyid', request)
             .subscribe(data => {
                 this.customerData.DocNumber = data.objCustomerBag.DocNumber;
@@ -129,6 +131,11 @@ export class ProgressiveManagementComponent {
                     this.customerBagAccountData = this.customerBagData.Accounts;
                     this.AddAmounts(this.customerBagAccountData);
                 }
+
+                this.selectPhone.phoneID = this.lstCustBagProgressive[this.intIndex].PhoneID;
+                this.selectPhone.phoneNumber = this.lstCustBagProgressive[this.intIndex].Phone;
+
+                window.location.href = 'sip:' + this.lstCustBagProgressive[this.intIndex].Phone;
                 this.blockUI.stop();
             })
     }
@@ -150,17 +157,13 @@ export class ProgressiveManagementComponent {
     }
 
     ProgressiveContinues(): void {
+        this.blockUI.start('Cargando...');
         const customerBag: any = {};
         customerBag.CustomerBagID = this.lstCustBagProgressive[this.intIndex].CustomerBagID;
         customerBag.CustomerID = this.oProgressive.CustomerID;
         customerBag.BagID = this.oProgressive.BagID;
 
         this.loadCustomerBagData(customerBag);
-
-        this.selectPhone.phoneID = this.lstCustBagProgressive[this.intIndex].Phone;
-        this.selectPhone.phoneNumber = this.lstCustBagProgressive[this.intIndex].Phone;
-
-        window.location.href = 'sip:' + this.lstCustBagProgressive[this.intIndex].Phone;
     }
 
     SearchDetailProgressive(): void {
@@ -176,6 +179,7 @@ export class ProgressiveManagementComponent {
 
         this._collectionService.getData('api/sgc/CustomerBagFilter/GetFilterManagementDetailQuery/get', data)
             .subscribe(response => {
+                console.log(response);
                 this.lstCustBagProgressive = response.lstBECustomerBagFilterDetail;
                 this.intCountList = this.lstCustBagProgressive.length;
                 this.blockUI.stop();
@@ -199,8 +203,8 @@ export class ProgressiveManagementComponent {
     }
 
     handleLoadManagement(loadManagement: any[]): void {
-        this.customerBagManagementsData = loadManagement;
-        this.customerBagManagementsDataBack = loadManagement;
+        // this.customerBagManagementsData = loadManagement;
+        // this.customerBagManagementsDataBack = loadManagement;
         this.intIndex = this.intIndex + 1;
         this.ProgressiveContinues();
     }

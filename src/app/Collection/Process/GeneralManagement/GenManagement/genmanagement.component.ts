@@ -230,6 +230,8 @@ export class GenManagement {
             this.oManagement.StartDateString = this.startDate;
             this.oManagement.EndDateString = this._util.getDateTime();
             this.oManagement.User = this.userData.UserName;
+            this.oManagement.FilterID = 0;
+            this.oManagement.FilterLine = 0;
 
             this._collectionService.getData('api/customerbag/postcustbagmanagement', this.oManagement)
                 .subscribe(result => {
