@@ -1,0 +1,57 @@
+<form class="form-horizontal" name="frmReport" #frmManagement="ngForm" role="form" novalidate>
+    <div class="row">
+        <div class="col-sm-12">
+            <h5><p class="text-center">{{gstrTitulo}}</p></h5>
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-10">
+            <div class="mngt-scrolls table-responsive">
+                <table class="table-mngt table table-hover table-body-size">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Campo</th>
+                            <th>Formato</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let item of glstReportDetail'>
+                            <td>{{item.Line}}</td>
+                            <td>{{item.Field}}</td>
+                            <td>{{item.Format}}</td>
+                            <td>
+                                <div class="form-group form-group-sm">
+                                    <div class="col-sm-4">
+                                        <input type="{{item.Type}}" class="form-control" #field (keyup)="FField(item.Line,field.value,item.TypeID)" (change)="FField(item.Line,field.value,item.TypeID)">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <div class="col-sm-offset-1 col-sm-10">
+                <button type="button" class="btn btn-primary" (click)="FGenerate()">Generar</button>
+                <button type="button" class="btn btn-primary" (click)="FExit()">Salir</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-10">
+            <Files-component [gstrOption]="gstrOption" [gstrDownload]="gstrDownload" ></Files-component>
+        </div>
+    </div>
+
+   
+
+</form>

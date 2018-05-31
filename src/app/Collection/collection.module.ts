@@ -48,6 +48,8 @@ import { FilterSearchComponent } from './Management/Filter/FilterSearch.componen
 import { FilterManagementComponent } from './Management/Filter/Management/FilterManagement.component';
 import { FilterImportComponent } from './Management/Filter/FilterImport/FilterImport.component';
 import { FilterDeleteComponent } from './Management/Filter/Delete/FilterDelete.component';
+import { QueryDynamicComponent } from './Report/QueryDynamic/QueryDynamic.component';
+import { ReportDynamicComponent } from './Report/QueryDynamic/ReportDynamic/ReportDynamic.component';
 // Services
 import { CollectionService } from '../Services/collection.service';
 
@@ -99,6 +101,7 @@ import { CollectionRoutingModule } from './collection-routing.module';
     CustomerSearch,CustomerManagementComponent,CustomerDeleteComponent,
     BagSearchComponent,BagManagementComponent,BagDeleteComponent
     ,FilterSearchComponent,FilterManagementComponent,FilterImportComponent,FilterDeleteComponent
+    ,QueryDynamicComponent,ReportDynamicComponent
   ],
   entryComponents: [
     GenCustomerBagSearch
