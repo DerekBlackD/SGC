@@ -29,8 +29,12 @@ import { BagDeleteComponent } from './Management/Bag/Delete/BagDelete.component'
 import { FilterSearchComponent } from './Management/Filter/FilterSearch.component';
 import { FilterManagementComponent } from './Management/Filter/Management/FilterManagement.component';
 import { FilterDeleteComponent } from './Management/Filter/Delete/FilterDelete.component';
+<<<<<<< HEAD
 import { QueryDynamicComponent } from './Report/QueryDynamic/QueryDynamic.component';
 import { ReportDynamicComponent } from './Report/QueryDynamic/ReportDynamic/ReportDynamic.component';
+=======
+import { ProgressiveManagementComponent } from './Process/ProgressiveManagement/progressive.component';
+>>>>>>> 7abad582d764a57c56e1c235d0824c3a36d7fdfd
 
 const collectionRoutes: Routes = [
   { path: 'Cobranza/Home', component: HomeComponent },
@@ -44,11 +48,11 @@ const collectionRoutes: Routes = [
   { path: 'Seguridad/MantenimientoPerfil', component: MantenimientoPerfilComponent },
   { path: 'Seguridad/ConsultaUsuario/:id', component: ConsultaUsuarioComponent },
   { path: 'Seguridad/ConsultaPerfil/:id', component: ConsultaPerfilComponent },
-  { path: 'Collection/ManagementGeneral', component:ManagementGeneralComponent },
-  { path: 'Collection/FormatAccount', component:AccountComponent },
+  { path: 'Collection/ManagementGeneral', component: ManagementGeneralComponent },
+  { path: 'Collection/FormatAccount', component: AccountComponent },
   { path: 'ManagementAccountFormat/:id', component: ManagementComoponent },
-  { path: 'Collection/Format', component:FormatComponent },
-  { path: 'AccountDelete/:id', component:AccountDeleteComoponent },
+  { path: 'Collection/Format', component: FormatComponent },
+  { path: 'AccountDelete/:id', component: AccountDeleteComoponent },
   { path: 'AccountView/:id', component: AccountView },
   { path: 'AgentSearch', component: SearchComponent },
   { path: 'AgentManagementComponent/:id', component: AgentManagementComponent },
@@ -63,7 +67,8 @@ const collectionRoutes: Routes = [
   { path: 'FilterManagementComponent/:id', component: FilterManagementComponent },
   { path: 'FilterDeleteComponent/:id', component: FilterDeleteComponent },
   { path: 'QueryDynamicComponent', component: QueryDynamicComponent } ,
-  { path: 'ReportDynamicComponent/:id/:des', component:ReportDynamicComponent }
+  { path: 'ReportDynamicComponent/:id/:des', component:ReportDynamicComponent } ,
+  { path: 'Cobranza/GestionProgresiva', component: ProgressiveManagementComponent }
 
 ];
 @NgModule({

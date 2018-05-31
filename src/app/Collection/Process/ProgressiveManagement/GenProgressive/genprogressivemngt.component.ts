@@ -6,14 +6,13 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { CalendarModule } from 'primeng/primeng';
 
 @Component({
-    selector: 'gen-management',
-    templateUrl: 'genmanagement.component.html',
-    styleUrls: ['../general.component.css']
+    selector: 'app-gen-progressivemngt',
+    templateUrl: 'genprogressivemngt.component.html',
+    styleUrls: ['../../GeneralManagement/general.component.css']
 })
-export class GenManagement {
+export class GenProgressiveMngtComponent {
      // Input Output Variables
      @Input() selectPhone: any = {};
-     @Input() selectAddress: any = {};
      @Input() customerData: any = {};
      @Output() loadmanagements = new EventEmitter;
      @BlockUI() blockUI: NgBlockUI;
@@ -34,8 +33,6 @@ export class GenManagement {
      showPayComp = false; // Flag for show compromise type
      todayDate: string; // Today date in string format
      submitted = false; // Flag for submit form validation
-     showInputDate = true; // Flag for show or hide input date
-     dtToday: Date = new Date();
      // Global Data
      mngtAgentID: number;
      userData: any = {};
@@ -44,14 +41,12 @@ export class GenManagement {
 
      // Config Variables
      filterContactPlace: string;
-     es: any;
 
      constructor(private _collectionService: CollectionService,
                 private _util: UtilitesService) {
         this.mngtAgentID = this._collectionService.getAgentID();
         this.userData = this._collectionService.getUserData();
         this.agentData = this._collectionService.getAgentData();
-        this.es = this._collectionService.getCalendarLanguage();
 
         this.resetVariables();
         this.loadResult();
@@ -61,51 +56,39 @@ export class GenManagement {
             this.filterContactPlace = res[0].FiltroLugarContacto;
         });
 
-        if (this.agentData.Type === 1 || this.agentData.Type === 3) {
-            this.managementPhone();
-        }
+        this.managementPhone();
 
-        if (this.agentData.Type === 2 || this.agentData.Type === 4) {
-            this.managementAddress();
-        }
+        // if (this.agentData.Type === 1 || this.agentData.Type === 3) {
+        //     this.managementPhone();
+        // }
 
-        this._collectionService.changeEmitted$.subscribe(
-        response => {
-            this.resetVariables();
-            if (response) {
-                if (response === 2) {
-                    this.managementAddress();
-                }
+        // if (this.agentData.Type === 2 || this.agentData.Type === 4) {
+        //     this.managementAddress();
+        // }
 
-                if (response === 1) {
-                    this.managementPhone();
-                }
-            }
-        });
+        // this._collectionService.changeEmitted$.subscribe(
+        // response => {
+        //     this.resetVariables();
+        //     if (response) {
+        //         if (response === 2) {
+        //             this.managementAddress();
+        //         }
+
+        //         if (response === 1) {
+        //             this.managementPhone();
+        //         }
+        //     }
+        // });
 
 
      }
 
      managementPhone(): void {
-        this.showInputDate = true;
         this.lstMngtType = this._collectionService.getGeneralCode(28);
         this.lstLocation = this._collectionService.getGeneralCode(26);
         this.oManagement.MngtType = this.lstMngtType[0].ID;
         this.oResultCodes = this.lstAllResultCodes.filter(x => x.Class === 'CALL');
         this.PhoneOrCamp = true;
-     }
-
-     managementAddress(): void {
-        this.lstMngtType = this._collectionService.getGeneralCode(29);
-        if (this.agentData.Type !== 1) {
-            this.showInputDate = false;
-        } else {
-            this.showInputDate = true;
-        }
-        this.lstLocation = this._collectionService.getGeneralCode(27);
-        this.oManagement.MngtType = this.lstMngtType[0].ID;
-        this.oResultCodes = this.lstAllResultCodes.filter(x => x.Class === 'CAMPO');
-        this.PhoneOrCamp = false;
      }
 
      resetVariables(): void {
@@ -123,8 +106,6 @@ export class GenManagement {
         this.todayDate = this._util.getDate();
         this.selectPhone.phoneID = 0;
         this.selectPhone.phoneNumber = '';
-        this.selectAddress.AddressID = 0;
-        this.selectAddress.Address = '';
         this.submitted = false;
      }
 
@@ -135,13 +116,7 @@ export class GenManagement {
         this._collectionService.getData('api/Result/getResult', data)
             .subscribe(response => {
                 this.lstAllResultCodes = response.lstResult;
-                if (this.agentData.Type === 1 || this.agentData.Type === 3) {
-                    this.oResultCodes = this.lstAllResultCodes.filter(x => x.Class === 'CALL');
-                }
-
-                if (this.agentData.Type === 2 || this.agentData.Type === 4) {
-                    this.oResultCodes = this.lstAllResultCodes.filter(x => x.Class === 'CAMPO');
-                }
+                this.oResultCodes = this.lstAllResultCodes.filter(x => x.Class === 'CALL');
         })
     }
 
@@ -153,11 +128,12 @@ export class GenManagement {
     loadManagements(): void {
         const request: any = {};
         request.CustomerBagID = this.customerData.CustomerBagID
-        this._collectionService.getData('api/customerbag/getcustbagmanagements', this.oManagement)
-            .subscribe(result => {
-                this.CustBagManagementsData = result.lstCustomerBagManagements;
-                this.loadmanagements.emit(this.CustBagManagementsData);
-            })
+        this.loadmanagements.emit(this.CustBagManagementsData);
+        // this._collectionService.getData('api/customerbag/getcustbagmanagements', this.oManagement)
+        //     .subscribe(result => {
+        //         this.CustBagManagementsData = result.lstCustomerBagManagements;
+        //         this.loadmanagements.emit(this.CustBagManagementsData);
+        //     })
     }
 
     changeResult(val: number): void {
@@ -199,19 +175,6 @@ export class GenManagement {
 
                 classMngt = '1';
                 this.oManagement.MngtDateString = this._util.getDateTime();
-            } else {
-                if (this.agentData.Type === 1) {
-                    alert('Usted no puede realizar gestiones de campo.');
-                    return;
-                }
-
-                if (this.selectAddress == null || this.selectAddress.AddressID === 0) {
-                    alert('Seleccionar una dirección.');
-                    return;
-                }
-
-                classMngt = '2';
-                this.oManagement.MngtDateString = this._util.getConvertDateToString(this.dtToday);
             }
 
             this.blockUI.start('Cargando...');
@@ -221,7 +184,7 @@ export class GenManagement {
             this.oManagement.BagID = this.customerData.BagID;
             this.oManagement.MngtClass = classMngt;
             this.oManagement.AgentTypist = 0;
-            this.oManagement.AddressID = this.selectAddress.AddressID;
+            this.oManagement.AddressID = 0;
             this.oManagement.PhoneID = this.selectPhone.phoneID;
             this.oManagement.MngtReason = '';
             this.oManagement.MngtNormalize = '';
@@ -230,15 +193,15 @@ export class GenManagement {
             this.oManagement.StartDateString = this.startDate;
             this.oManagement.EndDateString = this._util.getDateTime();
             this.oManagement.User = this.userData.UserName;
-            this.oManagement.FilterID = 0;
-            this.oManagement.FilterLine = 0;
+            this.oManagement.FilterID = this.customerData.FilterID;
+            this.oManagement.FilterLine = this.customerData.FilterLine;
 
             this._collectionService.getData('api/customerbag/postcustbagmanagement', this.oManagement)
                 .subscribe(result => {
+                    this.blockUI.stop();
                     this.loadManagements();
                     this.resetVariables();
                     this.todayDate = this._util.getDate();
-                    this.blockUI.stop();
                 })
         }
     }

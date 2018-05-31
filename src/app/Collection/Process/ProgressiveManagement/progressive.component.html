@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-2">
+        <h5><p class="text-center">Gestión Progresiva</p></h5>
+    </div>
+    <div class="col-md-4">
+        <select class="form-control" name="OptionProg" [(ngModel)]="progressiveModel.OptionProg">
+            <option value="">Seleccionar</option>
+            <option *ngFor="let pro of lstProgressive" value="{{pro.FilterID}}">{{pro.FilterDescription}}</option>
+        </select>
+    </div>
+    <div class="col-md-1">
+        <button type="button" class="btn btn-info" (click)="SearchDetailProgressive()">Buscar</button>
+    </div>
+    <div class="col-md-1">
+        <button type="button" class="btn btn-info" (click)="StartProgressive()">Iniciar</button>
+    </div>
+    <div class="col-md-4">
+        <label for="ID" class="control-label">Llamadas realizadas ( {{intIndex}} / {{intCountList}} )</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <gen-customerbag [customerBagData]="customerBagData"></gen-customerbag>
+    </div>
+    <div class="col-md-6">
+        <gen-customerbag-phone *ngIf="showPhoneOrAddress" [customerBagPhoneData]="customerBagPhoneData" [customerBagAddressData]="customerBagAddressData" [customerData]="customerData" (selectPhone)="handleSelectPhone($event)" (changeManagement)="handleChangeManagement($event)"></gen-customerbag-phone>
+        <gen-customerbag-address *ngIf="!showPhoneOrAddress" [customerBagAddressData]="customerBagAddressData" [customerData]="customerData" (selectAddress)="handleSelectAddress($event)" (changeManagement)="handleChangeManagement($event)"></gen-customerbag-address>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <gen-customerbag-account [CustBagAccountData]="customerBagAccountData" [accountTotal]="accountTotal"></gen-customerbag-account>
+        <gen-management-list [selectPhone]="selectPhone" [CustBagManagementsData]="customerBagManagementsData" [lstBackupManagementsData]="customerBagManagementsDataBack"></gen-management-list>
+    </div>
+    <div class="mngt-row-left col-md-4">
+        <app-gen-progressivemngt [selectPhone]="selectPhone" [customerData]="customerData" (loadmanagements)="handleLoadManagement($event)"></app-gen-progressivemngt>
+    </div>
+</div>

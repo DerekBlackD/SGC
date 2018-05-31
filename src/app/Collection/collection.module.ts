@@ -50,6 +50,8 @@ import { FilterImportComponent } from './Management/Filter/FilterImport/FilterIm
 import { FilterDeleteComponent } from './Management/Filter/Delete/FilterDelete.component';
 import { QueryDynamicComponent } from './Report/QueryDynamic/QueryDynamic.component';
 import { ReportDynamicComponent } from './Report/QueryDynamic/ReportDynamic/ReportDynamic.component';
+import { ProgressiveManagementComponent } from './Process/ProgressiveManagement/progressive.component';
+import { GenProgressiveMngtComponent } from './Process/ProgressiveManagement/GenProgressive/genprogressivemngt.component';
 // Services
 import { CollectionService } from '../Services/collection.service';
 
@@ -102,6 +104,18 @@ import { CollectionRoutingModule } from './collection-routing.module';
     BagSearchComponent,BagManagementComponent,BagDeleteComponent
     ,FilterSearchComponent,FilterManagementComponent,FilterImportComponent,FilterDeleteComponent
     ,QueryDynamicComponent,ReportDynamicComponent
+    ,CustomerSearch,
+    CustomerManagementComponent,
+    CustomerDeleteComponent,
+    BagSearchComponent,
+    BagManagementComponent,
+    BagDeleteComponent,
+    FilterSearchComponent,
+    FilterManagementComponent,
+    FilterImportComponent,
+    FilterDeleteComponent,
+    ProgressiveManagementComponent,
+    GenProgressiveMngtComponent
   ],
   entryComponents: [
     GenCustomerBagSearch
