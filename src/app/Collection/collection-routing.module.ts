@@ -29,12 +29,9 @@ import { BagDeleteComponent } from './Management/Bag/Delete/BagDelete.component'
 import { FilterSearchComponent } from './Management/Filter/FilterSearch.component';
 import { FilterManagementComponent } from './Management/Filter/Management/FilterManagement.component';
 import { FilterDeleteComponent } from './Management/Filter/Delete/FilterDelete.component';
-<<<<<<< HEAD
 import { QueryDynamicComponent } from './Report/QueryDynamic/QueryDynamic.component';
 import { ReportDynamicComponent } from './Report/QueryDynamic/ReportDynamic/ReportDynamic.component';
-=======
 import { ProgressiveManagementComponent } from './Process/ProgressiveManagement/progressive.component';
->>>>>>> 7abad582d764a57c56e1c235d0824c3a36d7fdfd
 
 const collectionRoutes: Routes = [
   { path: 'Cobranza/Home', component: HomeComponent },

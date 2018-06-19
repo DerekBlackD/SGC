@@ -80,8 +80,6 @@ export class ReportDynamicComponent{
     }
 
     FField(intID:number,strField:string,intType:number):void{
-        console.log(strField);
-        console.log(intType);
         this.glstReportDetail.filter(x => x.Line == intID)[0].Value=strField;
     }
 

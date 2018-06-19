@@ -122,7 +122,7 @@ export class FilterManagementComponent{
 
             this._Conexion.getData(this.gstrURLManagement,Request)
             .subscribe(Response =>{                
-                console.log('Respuesta = cod: '+ Response.strResponseCode +' msg: '+Response.strResponseMsg);
+                console.log('Respuesta = cod: '+ Response.strResponseCode +' msg: '+Response.strResponseMsg + ' id: ' + Response.intResponseID);
                 
                 if(Response.strResponseCode=='0'){
                     this.gstrCorrect=Response.strResponseMsg;
