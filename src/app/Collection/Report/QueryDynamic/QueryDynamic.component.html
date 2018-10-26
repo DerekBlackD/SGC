@@ -1,0 +1,34 @@
+<form class="form-horizontal" name="frmQueryDynamic" #frmFormat="ngForm" role="form" novalidate>
+    <div class="row">
+        <div class="col-sm-12">
+            <h5><p class="text-center">Reporte Dinámico</p></h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-10">
+            <div class="mngt-scrolls table-responsive">
+                <table class="table-mngt table table-hover table-body-size">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Descripción</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let item of glstReportQueryDynamic'>
+                            <td>{{item.ID}}</td>
+                            <td>{{item.Description}}</td>
+                            <td>{{item.Status}}</td>
+                            <td>
+                                <a class="btn-without-ref" (click)="FView(item.ID,item.Description)" ><span class="glyphicon glyphicon-file"></span></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

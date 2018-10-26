@@ -29,6 +29,8 @@ import { BagDeleteComponent } from './Management/Bag/Delete/BagDelete.component'
 import { FilterSearchComponent } from './Management/Filter/FilterSearch.component';
 import { FilterManagementComponent } from './Management/Filter/Management/FilterManagement.component';
 import { FilterDeleteComponent } from './Management/Filter/Delete/FilterDelete.component';
+import { QueryDynamicComponent } from './Report/QueryDynamic/QueryDynamic.component';
+import { ReportDynamicComponent } from './Report/QueryDynamic/ReportDynamic/ReportDynamic.component';
 import { ProgressiveManagementComponent } from './Process/ProgressiveManagement/progressive.component';
 
 const collectionRoutes: Routes = [
@@ -61,6 +63,8 @@ const collectionRoutes: Routes = [
   { path: 'FilterSearchComponent', component: FilterSearchComponent },
   { path: 'FilterManagementComponent/:id', component: FilterManagementComponent },
   { path: 'FilterDeleteComponent/:id', component: FilterDeleteComponent },
+  { path: 'QueryDynamicComponent', component: QueryDynamicComponent } ,
+  { path: 'ReportDynamicComponent/:id/:des', component:ReportDynamicComponent } ,
   { path: 'Cobranza/GestionProgresiva', component: ProgressiveManagementComponent }
 
 ];

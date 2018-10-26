@@ -48,6 +48,8 @@ import { FilterSearchComponent } from './Management/Filter/FilterSearch.componen
 import { FilterManagementComponent } from './Management/Filter/Management/FilterManagement.component';
 import { FilterImportComponent } from './Management/Filter/FilterImport/FilterImport.component';
 import { FilterDeleteComponent } from './Management/Filter/Delete/FilterDelete.component';
+import { QueryDynamicComponent } from './Report/QueryDynamic/QueryDynamic.component';
+import { ReportDynamicComponent } from './Report/QueryDynamic/ReportDynamic/ReportDynamic.component';
 import { ProgressiveManagementComponent } from './Process/ProgressiveManagement/progressive.component';
 import { GenProgressiveMngtComponent } from './Process/ProgressiveManagement/GenProgressive/genprogressivemngt.component';
 // Services
@@ -98,7 +100,11 @@ import { CollectionRoutingModule } from './collection-routing.module';
     AgentManagementComponent,
     UserSearchComponent,
     AgentDeleteComponent,
-    CustomerSearch,
+    CustomerSearch,CustomerManagementComponent,CustomerDeleteComponent,
+    BagSearchComponent,BagManagementComponent,BagDeleteComponent
+    ,FilterSearchComponent,FilterManagementComponent,FilterImportComponent,FilterDeleteComponent
+    ,QueryDynamicComponent,ReportDynamicComponent
+    ,CustomerSearch,
     CustomerManagementComponent,
     CustomerDeleteComponent,
     BagSearchComponent,
