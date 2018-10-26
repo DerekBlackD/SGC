@@ -179,7 +179,6 @@ export class ProgressiveManagementComponent {
 
         this._collectionService.getData('api/sgc/CustomerBagFilter/GetFilterManagementDetailQuery/get', data)
             .subscribe(response => {
-                console.log(response);
                 this.lstCustBagProgressive = response.lstBECustomerBagFilterDetail;
                 this.intCountList = this.lstCustBagProgressive.length;
                 this.blockUI.stop();

@@ -162,7 +162,7 @@ export class GenManagement {
 
     changeResult(val: number): void {
         this.selectResult = this.oResultCodes.find(x => x.ResultID == val);
-        if (val == 1 || val == 21) {
+        if (val == 1 || val == 21 || val == 39 || val == 40) {
             this.showPayComp = true;
             this.oManagement.ApplyPayComp = 1;
         } else {
