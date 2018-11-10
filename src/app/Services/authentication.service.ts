@@ -24,9 +24,9 @@ export class AuthenticationService {
         });
 
         // this.urlBase = 'http://54.233.102.195/SGC-BE/';
-        this.urlBase = 'http://209.45.54.65/SGC-BE/';
+        //this.urlBase = 'http://209.45.54.65/SGC-BE/';
         // this.urlBase = 'http://54.233.102.195/RECUPERO-BE/';
-        // this.urlBase = 'http://localhost:9580/';
+        this.urlBase = 'http://localhost:9580/';
     }
 
     login(username: string, password: string): Observable<string> {

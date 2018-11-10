@@ -32,6 +32,7 @@ import { FilterDeleteComponent } from './Management/Filter/Delete/FilterDelete.c
 import { QueryDynamicComponent } from './Report/QueryDynamic/QueryDynamic.component';
 import { ReportDynamicComponent } from './Report/QueryDynamic/ReportDynamic/ReportDynamic.component';
 import { ProgressiveManagementComponent } from './Process/ProgressiveManagement/progressive.component';
+import { Import1Component } from './Management/Import/Import1.component';
 
 const collectionRoutes: Routes = [
   { path: 'Cobranza/Home', component: HomeComponent },
@@ -40,7 +41,7 @@ const collectionRoutes: Routes = [
   { path: 'Cobranza/ResultadoGestion', component: ResultCodeManagementComponent },
   { path: 'NuevoRS/:id', component: ResultCodeNewComponent},
   { path: 'DeleteRS/:id', component: ResultCodeDelCoponent},
-  { path: 'Collection/GeneralImportation', component: ImportComponent},
+  { path: 'Collection/GeneralImportation', component: Import1Component},
   { path: 'Seguridad/MantenimientoUsuario', component: MantenimientoUsuarioComponent },
   { path: 'Seguridad/MantenimientoPerfil', component: MantenimientoPerfilComponent },
   { path: 'Seguridad/ConsultaUsuario/:id', component: ConsultaUsuarioComponent },

@@ -1,0 +1,113 @@
+<form class="container" (ngSubmit)="FN_ClickImport()" ngNativeValidate>
+    <h4><b>Importación</b></h4>
+
+    <div class="row small">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-1"><b>Año</b></label>
+            <div class="col-sm-2">
+                <input type="number" [(ngModel)]="Import.ipYear" name="ipYear" class="form-control" min="1900" max="3000" required />
+            </div>
+            <label class="col-sm-1"><b>Mes</b></label>
+            <div class="col-sm-2">
+                <select name="cboMonth" [(ngModel)]="Import.cboMonth" class="form-control" required>
+                    <option value="1">Enero</option>
+                    <option value="2">Febrero</option>
+                    <option value="3">Marzo</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Mayo</option>
+                    <option value="6">Junio</option>
+                    <option value="7">Julio</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                </select>
+            </div>
+            <label class="col-sm-1"><b>Cliente</b></label>
+            <div class="col-sm-2">
+                <select [(ngModel)]="Import.cboCustomer" name="cboCustomer" (change)="FN_ChangeCustomer($event)" class="form-control" required>
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let item of lstCustomer" value="{{item.ID}}">{{item.CustomerName}}</option>
+                </select>
+            </div>
+            <label class="col-sm-1"><b>Cartera</b></label>
+            <div class="col-sm-2">
+                <select [(ngModel)]="Import.cboBag" name="cboBag" class="form-control" required>
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let item of lstBagFilter" value="{{item.BagID}}">{{item.BagName}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row small">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-1"><b>Archivo</b></label>
+            <div class="col-sm-5">
+                <input type="file" [(ngModel)]="Import.ipFile" name="ipFile" (change)="FN_ChangeFile($event)" class="form-control" required />
+            </div>
+        </div>
+    </div>
+
+    <div class="row small">
+        <div class="form-group form-group-sm">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success">Importar</button>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row small">
+        <div class="form-group form-group-sm">
+            <div class="col-sm-12">
+
+                <div class="panel panel-info">
+                    <div class="panel-heading nav navbar-inverse">
+                        <div>
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <h3 class="panel-title">Listado de Formatos</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="mngt-scrolls table-responsive">
+                    <table class="table-mngt table table-hover table-body-size">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Descripción</th>
+                                <th>Hoja Excel</th>
+                                <th>Insertar</th>
+                                <th>Modificar</th>
+                                <th>Inactivar</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of lstImportFormat">
+                                <td>{{item.IDHead}}</td>
+                                <td>{{item.Description}}</td>
+                                <td>{{item.SheetName}}</td>
+                                <td><input type="checkbox" [checked]="item.Insert" disabled></td>
+                                <td><input type="checkbox" [checked]="item.Update" disabled></td>
+                                <td><input type="checkbox" [checked]="item.Delete" disabled></td>
+                                <td><input type="checkbox" [checked]="item.blnStatus" [value]="item.IDHead" (change)="FN_ChangeStatus($event)" ></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
