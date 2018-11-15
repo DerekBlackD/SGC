@@ -27,6 +27,9 @@
                 <button type="button" class="btn btn-primary" (click)="showCreateAlert()"><span class="glyphicon glyphicon-comment"></span> Alerta</button>
             </div>
             <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-primary" (click)="showListPay()"><span class="glyphicon glyphicon-piggy-bank" title="Pagos"></span></button>
+            </div>
+            <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-primary" (click)="addToast()"><span class="glyphicon glyphicon-stats"></span> Resumen</button>
             </div>
             <div class="btn-group btn-group-sm" role="group">
@@ -74,4 +77,5 @@
 </div>
 <ng2-toasty></ng2-toasty>
 <gen-alert [customerData]="customerData"></gen-alert>
+<gen-pay [customerData]="customerData" [customerBagPay]="customerBagPay"></gen-pay>
 <gen-customerbag-search></gen-customerbag-search>

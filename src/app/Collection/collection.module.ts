@@ -13,6 +13,7 @@ import { ResultCodeNewComponent } from './Management/ResultCode/new/newresultcod
 import { ResultCodeDelCoponent } from './Management/ResultCode/delete/delresultcode.component';
 import { ImportComponent } from './Management/Import/import.component';
 import { GenAlert } from './Process/GeneralManagement/GenAlert/genalert.component';
+import { GenPay } from './Process/GeneralManagement/GenCustomerBagPay/genpay.component';
 import { GenCustomerBag } from './Process/GeneralManagement/GenCustomerBag/gencustbag.component';
 import { EditGenCustomerBag } from './Process/GeneralManagement/GenCustomerBag/editcustbag.component';
 import { GenCustomerBagAddress } from './Process/GeneralManagement/GenCustomerBagAddress/genaddress.component';
@@ -117,7 +118,8 @@ import { CollectionRoutingModule } from './collection-routing.module';
     FilterDeleteComponent,
     ProgressiveManagementComponent,
     GenProgressiveMngtComponent,
-    Import1Component
+    Import1Component,
+    GenPay
   ],
   entryComponents: [
     GenCustomerBagSearch

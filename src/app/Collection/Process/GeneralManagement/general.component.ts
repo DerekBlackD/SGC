@@ -22,6 +22,7 @@ export class GeneralManagementComponent {
     customerBagManagementsData: any[] = [];
     customerBagManagementsDataBack: any[] = [];
     customerBagAccountData: any[] = [];
+    customerBagPay: any[]=[];
     lstAssign: any[] = []; // Array of customer bags
     selectPhone: any = {}; // Phone selected
     selectAddress: any = {}; // Address selected
@@ -128,6 +129,7 @@ export class GeneralManagementComponent {
         this.customerBagManagementsData = [];
         this.customerBagManagementsDataBack = [];
         this.customerBagAccountData = [];
+        this.customerBagPay = [];
         this.selectPhone.phoneID = 0;
         this.selectPhone.phoneNumber = '';
         this.selectAddress.AddressID = 0;
@@ -262,6 +264,9 @@ export class GeneralManagementComponent {
                     this.customerBagAccountData = this.customerBagData.Accounts;
                     this.AddAmounts(this.customerBagAccountData);
                 }
+                if(this.customerBagData.Pays!= null){
+                    this.customerBagPay = this.customerBagData.Pays;
+                }
                 this.blockUI.stop();
             })
     }
@@ -341,5 +346,13 @@ export class GeneralManagementComponent {
         const CustBag: any = this.lstAssign[this.indexAssign];
         this.loadCustomerBagData(CustBag);
         this.valIndex();
+    }
+
+    showListPay(){
+        if (this.customerData.CustomerBagID !== 0) {
+            this._collectionService.showModalPay(true);
+        } else {
+            alert('Debe de seleccionar un cliente');
+        }
     }
 }

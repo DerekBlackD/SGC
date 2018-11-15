@@ -1,0 +1,28 @@
+<p-dialog header="Listado de Pagos" [(visible)]="blnShow" modal="modal" width="600" [responsive]="true">
+    <form class="form-horizontal">
+        <div class="col-sm-12" style="min-height: 400px">
+
+            <div class="table-responsive">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Cartera</th>
+                            <th>Moneda</th>
+                            <th>Fecha</th>
+                            <th>Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of customerBagPay">
+                            <td>{{item.BagName}}</td>
+                            <td>{{item.MoneyName}}</td>
+                            <td>{{item.CustBagPayDate}}</td>
+                            <td>{{item.CustBagPayAmount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </form>
+</p-dialog>
