@@ -245,6 +245,7 @@ export class GeneralManagementComponent {
         this.customerData.CustomerBagID = customerBag.CustomerBagID;
         this.customerData.CustomerID = customerBag.CustomerID;
         this.customerData.BagID = customerBag.BagID;
+        console.log(request);
         this._collectionService.getData('api/customerbag/getcustomerbagbyid', request)
             .subscribe(data => {
                 this.customerData.DocNumber = data.objCustomerBag.DocNumber;
@@ -350,7 +351,11 @@ export class GeneralManagementComponent {
 
     showListPay(){
         if (this.customerData.CustomerBagID !== 0) {
-            this._collectionService.showModalPay(true);
+            if(this.customerBagPay!==null){
+                this._collectionService.showModalPay(true);
+            }else{
+                alert('Cliente no ha realizado pagos');
+            }            
         } else {
             alert('Debe de seleccionar un cliente');
         }
