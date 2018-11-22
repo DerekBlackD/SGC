@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SharedService } from '../Shared.service';
 import { AuthenticationService } from '../../Services/authentication.service';
 import { CollectionService } from '../../Services/collection.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'app-banner-component',
@@ -14,6 +15,10 @@ export class BannerComponent {
     userData: any = {};
     businessName: string;
     businessLogoIco: string;
+    agentData: any={};
+
+    lstAlertNow:any[]=[];
+    @Input() blnVisibleAlert = true;
 
     constructor(private _sharedService: SharedService,
                 private _authService: AuthenticationService,
@@ -27,6 +32,12 @@ export class BannerComponent {
         response => {
             if (response) {
                 this.userData = JSON.parse(sessionStorage.getItem('userData'));
+                this.agentData = JSON.parse(sessionStorage.getItem('agentData'));
+                this.LoadAllAlert(this.agentData.AgentID);
+
+                Observable.interval(1000).subscribe(res=>{
+                    this.showAlert();
+                });
             }
         });
     }
@@ -38,5 +49,46 @@ export class BannerComponent {
 
     showNotifications(): void {
         this._collectionService.showModal('listNotif');
+    }
+
+    showAlert(){
+        let oRequest:any={};
+        let dtDay = new Date().getDate();
+        let dtMon = new Date().getMonth() + 1;
+        let dtYear = new Date().getFullYear();
+        let tmHour = new Date().getHours();
+        let timMin = new Date().getMinutes();
+        let tmSec = new Date().getSeconds();
+        let strDate = this.FN_CompleteZero(dtDay) + '/' + this.FN_CompleteZero(dtMon) + '/' + this.FN_CompleteZero(dtYear);
+        let strTime = this.FN_CompleteZero(tmHour) + ':' + this.FN_CompleteZero(timMin) + ':' + this.FN_CompleteZero(tmSec);
+        let lstAlert = JSON.parse(sessionStorage.getItem('AlertList'));
+        this.lstAlertNow = lstAlert.filter(x => x.AlertDate == strDate && x.AlertTime == strTime && x.AlertStatusID == 1);
+        
+        if(this.lstAlertNow.length > 0) {
+            oRequest.blnVisible=true;
+            oRequest.lstAlert=this.lstAlertNow;
+            this._collectionService.showModalAlert(oRequest);
+        }
+    }
+
+    LoadAllAlert(intAgentID:number){
+        let oRequest:any={};
+        
+        oRequest.AgentID=intAgentID;
+
+        this._collectionService.getData('api/sgc/customerbag/AllAlert/get', oRequest).subscribe(response=>{
+            if(response.ResponseCode==='0'){
+                 sessionStorage.setItem('AlertList', JSON.stringify(response.lstEntity));
+            }else{
+                console.log(response.ResponseMsg);
+            }
+        });
+
+    }
+
+    FN_CompleteZero(value):string{
+        let strValue = value.toString();
+        strValue = (strValue.length < 2)? ('0' + strValue):strValue;
+        return strValue;
     }
 }

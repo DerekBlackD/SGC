@@ -16,6 +16,7 @@ import { LoginComponent } from './Security/Login/login.component';
 import { SelectProfileComponent } from './Security/Profile/SelectProfile.component';
 import { NotificationComponent } from './Security/Notification/notification.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AlertComponent } from './Security/Notification/alert.component';
 
 // Services
 import { AuthGuard } from './Guards/auth.guard';
@@ -37,7 +38,8 @@ import { UtilitesService } from './Services/utilities.service';
     MenuComponent,
     LoginComponent,
     SelectProfileComponent,
-    NotificationComponent
+    NotificationComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

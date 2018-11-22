@@ -23,9 +23,19 @@ export class NotificationComponent {
             response => {
                 if (response === 'listNotif') {
                     this.blnShow = true;
-                    this.getNotifications();
+                    this.lstNotifications = JSON.parse(sessionStorage.getItem('AlertList'));
                 }
             });
+    }
+
+    FN_SelectDate(){
+        let lstAlert = JSON.parse(sessionStorage.getItem('AlertList'));
+        if(this.value!=undefined){
+            let strDate = this.value.toLocaleDateString();
+            this.lstNotifications = lstAlert.filter(x => x.AlertDate == strDate);
+        }else{
+            this.lstNotifications = lstAlert;
+        }
     }
 
     getNotifications(): void {
@@ -40,8 +50,12 @@ export class NotificationComponent {
             })
     }
 
-    GoToCustomerBag(CustomerBagID: number, CustomerID: number, BagID: number): void {
-        this.router.navigate(['Cobranza/GestionGeneral', CustomerBagID, CustomerID, BagID]);
-        this.blnShow = false;
+    GoToCustomerBag(CustomerBagID: number, AlertID:number, Document:string, StatusID:number): void {
+        if(StatusID==1){
+            this.router.navigate(['Cobranza/GestionGeneral', CustomerBagID, AlertID, Document]);
+            this.blnShow = false;
+        }else{
+            alert('Alerta ya fue atendida');
+        }
     }
 }

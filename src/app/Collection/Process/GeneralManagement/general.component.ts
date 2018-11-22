@@ -23,6 +23,7 @@ export class GeneralManagementComponent {
     customerBagManagementsDataBack: any[] = [];
     customerBagAccountData: any[] = [];
     customerBagPay: any[]=[];
+    customerBagAlert:any[]=[]; //Alertar de gestor
     lstAssign: any[] = []; // Array of customer bags
     selectPhone: any = {}; // Phone selected
     selectAddress: any = {}; // Address selected
@@ -43,6 +44,9 @@ export class GeneralManagementComponent {
     routerCustomerBagID: number;
     routerCustomerID: number;
     routerBagID: number;
+
+    // Alert
+    gAlertID:number=0;
 
     constructor(private _collectionService: CollectionService,
                 private dialogService: DialogService,
@@ -86,12 +90,22 @@ export class GeneralManagementComponent {
                 this.routerBagID = params['BagID'];
             }
 
-            if (params['ID'] != null && params['CustomerID'] != null && params['BagID'] != null) {
+            //ID Alert
+            if(params['AlertID'] != null){
+                this.gAlertID = params['AlertID'];
+                console.log(this.gAlertID);
+            }
+
+            if (params['ID'] != null && params['AlertID'] == null && params['Document'] == null) {
                 const customerBag: any = {};
                 customerBag.CustomerBagID = this.routerCustomerBagID;
                 customerBag.CustomerID = this.routerCustomerID;
                 customerBag.BagID = this.routerBagID;
                 this.loadCustomerBagData(customerBag);
+
+            } else if(params['ID'] != null && params['AlertID'] != null && params['Document'] != null) {
+                this.searchCustomerBag(params['Document'], 'api/sgc/customerbag/getsearchbydocument/get');
+
             } else {
                 this.loadAssignment();
             }
@@ -351,7 +365,7 @@ export class GeneralManagementComponent {
 
     showListPay(){
         if (this.customerData.CustomerBagID !== 0) {
-            if(this.customerBagPay!==null){
+            if(this.customerBagPay.length!==0){
                 this._collectionService.showModalPay(true);
             }else{
                 alert('Cliente no ha realizado pagos');

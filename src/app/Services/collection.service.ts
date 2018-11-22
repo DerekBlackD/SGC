@@ -21,7 +21,10 @@ export class CollectionService {
     showModalEmitted = this.showModalDialog.asObservable();
 
     private showPayList = new Subject<any>();
-    showPayListEmitted = this.showPayList.asObservable(); 
+    showPayListEmitted = this.showPayList.asObservable();
+
+    private showAlert = new Subject<any>();
+    showAlertEmitted= this.showAlert.asObservable();
 
     constructor(private http: Http,
                 private authenticationService: AuthenticationService) { }
@@ -43,6 +46,10 @@ export class CollectionService {
 
     showModalPay(inputParameter:any){
         this.showPayList.next(inputParameter)
+    }
+
+    showModalAlert(inputParameter:any){
+        this.showAlert.next(inputParameter);
     }
 
     getAgentID(): number {

@@ -53,7 +53,7 @@
         <gen-management-list [selectPhone]="selectPhone" [CustBagManagementsData]="customerBagManagementsData" [lstBackupManagementsData]="customerBagManagementsDataBack"></gen-management-list>
     </div>
     <div class="mngt-row-left col-md-4">
-        <gen-management [selectAddress]="selectAddress" [selectPhone]="selectPhone" [customerData]="customerData" (loadmanagements)="handleLoadManagement($event)"></gen-management>
+        <gen-management [gAlertID]="gAlertID" [selectAddress]="selectAddress" [selectPhone]="selectPhone" [customerData]="customerData" (loadmanagements)="handleLoadManagement($event)"></gen-management>
     </div>
 </div>
 

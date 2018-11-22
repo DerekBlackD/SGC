@@ -4,14 +4,6 @@
             <label class="col-sm-3 control-label">Cliente</label>
             <label class="col-sm-9 control-label">{{customerData.DocNumber}} - {{customerData.Name}}</label>
         </div>
-        <div class="form-group form-group-sm">
-            <label class="col-sm-3 control-label">Tipo de alerta</label>
-            <div class="col-sm-4">
-                <select class="form-control" name="NotificationType" [(ngModel)]="oAlert.NotificationType" >
-                    <option *ngFor="let not of lstNotificationType" value="{{not.ID}}">{{not.Value}}</option>
-                </select>
-            </div>
-        </div>
         <div class="form-group">
             <label class="col-sm-3 control-label">Fecha y hora</label>
             <label class="col-sm-3 control-label">{{value | date: 'dd/MM/yyyy HH:mm'}}</label>

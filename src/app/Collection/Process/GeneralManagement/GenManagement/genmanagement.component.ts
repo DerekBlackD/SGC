@@ -15,6 +15,7 @@ export class GenManagement {
      @Input() selectPhone: any = {};
      @Input() selectAddress: any = {};
      @Input() customerData: any = {};
+     @Input() gAlertID:number;
      @Output() loadmanagements = new EventEmitter;
      @BlockUI() blockUI: NgBlockUI;
      // Data Variables
@@ -235,11 +236,37 @@ export class GenManagement {
 
             this._collectionService.getData('api/customerbag/postcustbagmanagement', this.oManagement)
                 .subscribe(result => {
+                    this.FN_UpdateAlert(this.gAlertID,result.intNewManagementID);
                     this.loadManagements();
                     this.resetVariables();
                     this.todayDate = this._util.getDate();
                     this.blockUI.stop();
                 })
+        }
+    }
+
+    FN_UpdateAlert(intID:number,intManagementID:number){
+        if(intID!=0){
+            let oRequest:any={};
+            let oEntity:any={};
+            oEntity.ID = intID;
+            oEntity.ManagementID = intManagementID;
+            oEntity.AlertStatusID= 2;
+            oEntity.User = this.userData.UserName;
+            oRequest.oEntity = oEntity;
+            this._collectionService.getData('api/sgc/customerbag/UpdateAlert/post', oRequest)
+            .subscribe(response => {
+                if(response.ResponseCode=='0'){
+                    let lstAlert = JSON.parse(sessionStorage.getItem('AlertList'));
+                    console.log(lstAlert);
+                    console.log(response.ResponseID);
+                    lstAlert = lstAlert.filter(x => x.ID != response.ResponseID);
+                    lstAlert.push(response.oEntity);
+                    sessionStorage.setItem('AlertList', JSON.stringify(lstAlert));
+                }else{
+                    alert(response.ResponseMsg);
+                }
+            })
         }
     }
 }

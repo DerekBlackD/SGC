@@ -1,0 +1,26 @@
+<p-dialog header="Notificaciones Pendientes" [(visible)]="blnVisibleAlert" modal="modal" width="1000" [responsive]="true">
+    <div style="min-height: 400px">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nro.Documento</th>
+                    <th>Nombre o Razón Social</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Tipo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of lstAlert">
+                    <td>{{item.CustomerBagDocNum}}</td>
+                    <td>{{item.CustomerBagName}}</td>
+                    <td>{{item.AlertDate}}</td>
+                    <td>{{item.AlertTime}}</td>
+                    <td>{{item.TypeName}}</td>
+                    <td><button type="button" class="btn btn-info btn-sm" (click)="GoToCustomerBag(item.CustomerBagID,item.ID,item.CustomerBagDocNum)"><span class="glyphicon glyphicon-earphone"></span> Gestionar</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</p-dialog>
