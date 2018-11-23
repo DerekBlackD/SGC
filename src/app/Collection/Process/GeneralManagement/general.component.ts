@@ -93,18 +93,14 @@ export class GeneralManagementComponent {
             //ID Alert
             if(params['AlertID'] != null){
                 this.gAlertID = params['AlertID'];
-                console.log(this.gAlertID);
             }
 
-            if (params['ID'] != null && params['AlertID'] == null && params['Document'] == null) {
+            if (params['ID'] != null && params['CustomerID'] != null && params['BagID'] != null) {
                 const customerBag: any = {};
                 customerBag.CustomerBagID = this.routerCustomerBagID;
                 customerBag.CustomerID = this.routerCustomerID;
                 customerBag.BagID = this.routerBagID;
                 this.loadCustomerBagData(customerBag);
-
-            } else if(params['ID'] != null && params['AlertID'] != null && params['Document'] != null) {
-                this.searchCustomerBag(params['Document'], 'api/sgc/customerbag/getsearchbydocument/get');
 
             } else {
                 this.loadAssignment();

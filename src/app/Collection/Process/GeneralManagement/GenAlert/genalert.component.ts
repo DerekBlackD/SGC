@@ -48,10 +48,12 @@ export class GenAlert{
         let tmHour =this.value.getHours();
         let timMin = this.value.getMinutes();
         let strTime = this.FN_CompleteZero(tmHour) + ':' + this.FN_CompleteZero(timMin);
-
+        
         oEntity.AgentID = this._collectionService.getAgentID();
         oEntity.CustomerBagID = this.customerData.CustomerBagID;
         oEntity.TypeID = 1;
+        oEntity.CustomerID = this.customerData.CustomerID;
+        oEntity.BagID = this.customerData.BagID;
         oEntity.Alert = this.value;
         oEntity.AlertDate = this.value.toLocaleDateString();
         oEntity.AlertTime = strTime;

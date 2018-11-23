@@ -62,13 +62,20 @@ export class BannerComponent {
         let strDate = this.FN_CompleteZero(dtDay) + '/' + this.FN_CompleteZero(dtMon) + '/' + this.FN_CompleteZero(dtYear);
         let strTime = this.FN_CompleteZero(tmHour) + ':' + this.FN_CompleteZero(timMin) + ':' + this.FN_CompleteZero(tmSec);
         let lstAlert = JSON.parse(sessionStorage.getItem('AlertList'));
-        this.lstAlertNow = lstAlert.filter(x => x.AlertDate == strDate && x.AlertTime == strTime && x.AlertStatusID == 1);
+
+        if(lstAlert!=undefined){
+            if(lstAlert.length>0){
+                this.lstAlertNow = lstAlert.filter(x => x.AlertDate == strDate && x.AlertTime == strTime && x.AlertStatusID == 1);
         
-        if(this.lstAlertNow.length > 0) {
-            oRequest.blnVisible=true;
-            oRequest.lstAlert=this.lstAlertNow;
-            this._collectionService.showModalAlert(oRequest);
+                if(this.lstAlertNow.length > 0) {
+                    oRequest.blnVisible=true;
+                    oRequest.lstAlert=this.lstAlertNow;
+                    this._collectionService.showModalAlert(oRequest);
+                }
+            }
         }
+
+        
     }
 
     LoadAllAlert(intAgentID:number){

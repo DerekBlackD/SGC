@@ -16,6 +16,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Tipo</th>
+                    <th>Cartera</th>
                     <th>Cliente</th>
                     <th>Fecha</th>
                     <th>Hora</th>
@@ -27,11 +28,12 @@
                 <tr *ngFor="let noti of lstNotifications">
                     <td>{{noti.ID}}</td>
                     <td>{{noti.TypeName}}</td>
+                    <td>{{noti.BagName}}</td>
                     <td>{{noti.CustomerBagName}}</td>
                     <td>{{noti.AlertDate}}</td>
                     <td>{{noti.AlertTime}}</td>
                     <td>{{noti.AlertStatusName}}</td>
-                    <td><button type="button" class="btn btn-info btn-sm" (click)="GoToCustomerBag(noti.CustomerBagID,noti.ID,noti.CustomerBagDocNum,noti.AlertStatusID)"><span class="glyphicon glyphicon-earphone"></span> Gestionar</button></td>
+                    <td><button type="button" class="btn btn-info btn-sm" (click)="GoToCustomerBag(noti.CustomerBagID,noti.ID,noti.CustomerID,noti.BagID,noti.AlertStatusID)"><span class="glyphicon glyphicon-earphone"></span> Gestionar</button></td>
                 </tr>
             </tbody>
         </table>

@@ -50,9 +50,9 @@ export class NotificationComponent {
             })
     }
 
-    GoToCustomerBag(CustomerBagID: number, AlertID:number, Document:string, StatusID:number): void {
+    GoToCustomerBag(CustomerBagID: number, AlertID:number, CustomerID:number,BagID:number, StatusID:number): void {
         if(StatusID==1){
-            this.router.navigate(['Cobranza/GestionGeneral', CustomerBagID, AlertID, Document]);
+            this.router.navigate(['Cobranza/GestionGeneral', CustomerBagID, CustomerID, BagID, AlertID]);
             this.blnShow = false;
         }else{
             alert('Alerta ya fue atendida');

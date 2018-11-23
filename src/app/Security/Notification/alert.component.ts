@@ -17,15 +17,14 @@ export class AlertComponent {
     ){
         this._collectionService.showAlertEmitted.subscribe(
             response => {
-                console.log(response);
                 this.blnVisibleAlert = response.blnVisible;
                 this.lstAlert= response.lstAlert;
             }
         );
     }
 
-    GoToCustomerBag(CustomerBagID: number, AlertID:number, Document:string): void {
-        this.router.navigate(['Cobranza/GestionGeneral', CustomerBagID, AlertID, Document]);
+    GoToCustomerBag(CustomerBagID: number, AlertID:number, CustomerID:number, BagID:number): void {
+        this.router.navigate(['Cobranza/GestionGeneral', CustomerBagID, CustomerID, BagID, AlertID]);
         this.blnVisibleAlert = false;
     }
 }

@@ -3,6 +3,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th>Cartera</th>
                     <th>Nro.Documento</th>
                     <th>Nombre o Razón Social</th>
                     <th>Fecha</th>
@@ -13,12 +14,13 @@
             </thead>
             <tbody>
                 <tr *ngFor="let item of lstAlert">
+                    <td>{{item.BagName}}</td>
                     <td>{{item.CustomerBagDocNum}}</td>
                     <td>{{item.CustomerBagName}}</td>
                     <td>{{item.AlertDate}}</td>
                     <td>{{item.AlertTime}}</td>
                     <td>{{item.TypeName}}</td>
-                    <td><button type="button" class="btn btn-info btn-sm" (click)="GoToCustomerBag(item.CustomerBagID,item.ID,item.CustomerBagDocNum)"><span class="glyphicon glyphicon-earphone"></span> Gestionar</button></td>
+                    <td><button type="button" class="btn btn-info btn-sm" (click)="GoToCustomerBag(item.CustomerBagID,item.ID,item.CustomerID,item.BagID)"><span class="glyphicon glyphicon-earphone"></span> Gestionar</button></td>
                 </tr>
             </tbody>
         </table>
