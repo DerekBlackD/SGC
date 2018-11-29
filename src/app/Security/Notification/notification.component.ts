@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class NotificationComponent {
     blnShow = false;
+    chkAll = false;
     es: any;
     value: Date;
     lstNotifications: any[] = [];
@@ -23,19 +24,38 @@ export class NotificationComponent {
             response => {
                 if (response === 'listNotif') {
                     this.blnShow = true;
-                    this.lstNotifications = JSON.parse(sessionStorage.getItem('AlertList'));
+                    const lstActive = JSON.parse(sessionStorage.getItem('AlertList')).filter(x => x.AlertStatusID == 1);
+                    this.lstNotifications = lstActive;
+                    this.value=null;
+                    this.chkAll=false;
                 }
             });
     }
 
     FN_SelectDate(){
-        let lstAlert = JSON.parse(sessionStorage.getItem('AlertList'));
+        let lstAlert:any[]=[];
+
+        if(this.chkAll){
+            lstAlert = JSON.parse(sessionStorage.getItem('AlertList'));    
+        }else{
+            lstAlert = JSON.parse(sessionStorage.getItem('AlertList')).filter(x => x.AlertStatusID == 1)
+        }
+        
         if(this.value!=undefined){
-            let strDate = this.value.toLocaleDateString();
+            let dtDay = this.value.getDate();
+            let dtMon = this.value.getMonth() + 1;
+            let dtYear = this.value.getFullYear();
+            let strDate = this.FN_CompleteZero(dtDay) + '/' + this.FN_CompleteZero(dtMon) + '/' + this.FN_CompleteZero(dtYear);
             this.lstNotifications = lstAlert.filter(x => x.AlertDate == strDate);
         }else{
             this.lstNotifications = lstAlert;
         }
+    }
+
+    FN_CompleteZero(value):string{
+        let strValue = value.toString();
+        strValue = (strValue.length < 2)? ('0' + strValue):strValue;
+        return strValue;
     }
 
     getNotifications(): void {

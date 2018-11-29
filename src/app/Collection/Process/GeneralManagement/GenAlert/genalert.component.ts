@@ -47,6 +47,10 @@ export class GenAlert{
 
         let tmHour =this.value.getHours();
         let timMin = this.value.getMinutes();
+        let dtDay = this.value.getDate();
+        let dtMon = this.value.getMonth() + 1;
+        let dtYear = this.value.getFullYear();
+        let strDate = this.FN_CompleteZero(dtDay) + '/' + this.FN_CompleteZero(dtMon) + '/' + this.FN_CompleteZero(dtYear);
         let strTime = this.FN_CompleteZero(tmHour) + ':' + this.FN_CompleteZero(timMin);
         
         oEntity.AgentID = this._collectionService.getAgentID();
@@ -55,7 +59,7 @@ export class GenAlert{
         oEntity.CustomerID = this.customerData.CustomerID;
         oEntity.BagID = this.customerData.BagID;
         oEntity.Alert = this.value;
-        oEntity.AlertDate = this.value.toLocaleDateString();
+        oEntity.AlertDate = strDate;
         oEntity.AlertTime = strTime;
         oEntity.User = this.userData.UserName;
 

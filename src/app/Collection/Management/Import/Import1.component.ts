@@ -54,6 +54,23 @@ export class Import1Component implements OnInit{
         })
     }
 
+    FN_ChangeDelete(event){
+        this.blockUI.start("Cargando...");
+        const oRequest:any={};
+        const input=event.srcElement;
+        const ipValue=input.value;
+        const ipChecked=input.checked;
+        const oEntity = this.lstImportFormat.filter(x=>x.IDHead==ipValue)[0];
+        console.log(oEntity);
+        oEntity.Delete = ipChecked;
+        oRequest.oEntity = oEntity;
+
+        this._CollectionService.getData('api/ImportFormat/Update',oRequest)
+        .subscribe(res =>{ 
+            this.blockUI.stop();
+        })
+    }
+
     FN_AllImportFormat(){
         this.blockUI.start("Cargando...");
         const oEntity:any={};

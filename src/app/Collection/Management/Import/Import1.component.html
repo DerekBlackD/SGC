@@ -100,7 +100,7 @@
                                 <td>{{item.SheetName}}</td>
                                 <td><input type="checkbox" [checked]="item.Insert" disabled></td>
                                 <td><input type="checkbox" [checked]="item.Update" disabled></td>
-                                <td><input type="checkbox" [checked]="item.Delete" disabled></td>
+                                <td><input type="checkbox" [checked]="item.Delete" [value]="item.IDHead" (change)="FN_ChangeDelete($event)" ></td>
                                 <td><input type="checkbox" [checked]="item.blnStatus" [value]="item.IDHead" (change)="FN_ChangeStatus($event)" ></td>
                             </tr>
                         </tbody>
