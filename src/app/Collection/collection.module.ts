@@ -54,6 +54,7 @@ import { ReportDynamicComponent } from './Report/QueryDynamic/ReportDynamic/Repo
 import { ProgressiveManagementComponent } from './Process/ProgressiveManagement/progressive.component';
 import { GenProgressiveMngtComponent } from './Process/ProgressiveManagement/GenProgressive/genprogressivemngt.component';
 import { Import1Component } from './Management/Import/Import1.component';
+import { AuditComponent } from './Report/Audit/All.component';
 // Services
 import { CollectionService } from '../Services/collection.service';
 
@@ -119,7 +120,8 @@ import { CollectionRoutingModule } from './collection-routing.module';
     ProgressiveManagementComponent,
     GenProgressiveMngtComponent,
     Import1Component,
-    GenPay
+    GenPay,
+    AuditComponent
   ],
   entryComponents: [
     GenCustomerBagSearch

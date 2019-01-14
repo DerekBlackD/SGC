@@ -33,6 +33,7 @@ import { QueryDynamicComponent } from './Report/QueryDynamic/QueryDynamic.compon
 import { ReportDynamicComponent } from './Report/QueryDynamic/ReportDynamic/ReportDynamic.component';
 import { ProgressiveManagementComponent } from './Process/ProgressiveManagement/progressive.component';
 import { Import1Component } from './Management/Import/Import1.component';
+import { AuditComponent } from './Report/Audit/All.component';
 
 const collectionRoutes: Routes = [
   { path: 'Cobranza/Home', component: HomeComponent },
@@ -67,7 +68,8 @@ const collectionRoutes: Routes = [
   { path: 'FilterDeleteComponent/:id', component: FilterDeleteComponent },
   { path: 'QueryDynamicComponent', component: QueryDynamicComponent } ,
   { path: 'ReportDynamicComponent/:id/:des', component:ReportDynamicComponent } ,
-  { path: 'Cobranza/GestionProgresiva', component: ProgressiveManagementComponent }
+  { path: 'Cobranza/GestionProgresiva', component: ProgressiveManagementComponent },
+  { path: 'Report/Audit', component: AuditComponent }
 
 ];
 @NgModule({
