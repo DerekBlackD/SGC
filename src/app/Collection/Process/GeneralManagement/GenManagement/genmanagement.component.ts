@@ -163,13 +163,22 @@ export class GenManagement {
 
     changeResult(val: number): void {
         this.selectResult = this.oResultCodes.find(x => x.ResultID == val);
-        if (val == 1 || val == 21 || val == 39 || val == 40) {
+        //Generar pago por resultado
+        if(this.selectResult.blnPayment){
             this.showPayComp = true;
             this.oManagement.ApplyPayComp = 1;
-        } else {
+        }else{
             this.showPayComp = false;
             this.oManagement.ApplyPayComp = 0;
         }
+        //Generar alerta por resultado
+        if(this.selectResult.Alert){
+            if (this.customerData.CustomerBagID !== 0) {
+                this._collectionService.showModal('alert');
+            } else {
+                alert('Debe de seleccionar un cliente');
+            }
+        }        
     }
 
     changeLocation(locationIDSel: any): void {
@@ -234,8 +243,13 @@ export class GenManagement {
             this.oManagement.FilterID = 0;
             this.oManagement.FilterLine = 0;
 
-            this._collectionService.getData('api/customerbag/postcustbagmanagement', this.oManagement)
+            const oRequest:any={};
+            oRequest.CustomerBagManagement = this.oManagement;
+            oRequest.oResult = this.selectResult;
+
+            this._collectionService.getData('api/customerbag/PostManagementAsync/post', oRequest)
                 .subscribe(result => {
+                    console.log(result);
                     this.FN_UpdateAlert(this.gAlertID,result.intNewManagementID);
                     this.loadManagements();
                     this.resetVariables();

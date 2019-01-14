@@ -16,6 +16,8 @@ export class AccountDeleteComoponent{
     
     gintIDFormatAccount: number;
 
+    gstrDescription:string;
+
     constructor(
         private _CollectionService: CollectionService,
         private _Route: ActivatedRoute,
@@ -23,9 +25,13 @@ export class AccountDeleteComoponent{
     ){
         this._Route.params.subscribe(response=>{
             this.gintIDFormatAccount = response['id'];
+            this.gstrDescription = response['Description'];
             if(this.gintIDFormatAccount != 0){
                 this.delete.txtID = this.gintIDFormatAccount;
-                this.FAccountRegister(this.gintIDFormatAccount);
+                this.delete.txtDescription = this.gstrDescription;
+            }else{
+                alert('No se pudo eliminar registro.');
+                this._RouterExit.navigateByUrl("Collection/FormatAccount");
             }
         });
         this.FLoad();
@@ -33,17 +39,6 @@ export class AccountDeleteComoponent{
 
     FLoad():void{
         this.gUser = this._CollectionService.getUserData();
-    }
-
-    FAccountRegister(_id:number):void{
-        const request:any={};
-        request.FormatID = _id;
-
-        this._CollectionService.getData('api/AccountFormat/GetAccountFormartRegister',request)
-        .subscribe(Response =>{            
-            this.delete.txtDescription = Response.lstBEFormatAccount[0].Observation;
-            console.log('Respuesta (Registro): cod '+ Response.strResponseCode +' msg '+Response.strResponseMsg);
-        })
     }
 
     FDelete():void{

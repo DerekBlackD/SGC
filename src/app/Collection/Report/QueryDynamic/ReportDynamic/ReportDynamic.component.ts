@@ -15,6 +15,7 @@ export class ReportDynamicComponent{
     glstReportDetail:any[]=[];
 
     gEntidad:any={};
+    oUser:any={};
 
     gintID:number=0;
 
@@ -29,7 +30,7 @@ export class ReportDynamicComponent{
         private _Router : Router,
         private _Route : ActivatedRoute
     ){
-
+        this.oUser = _Conexion.getUserData();
     }
 
     ngOnInit():void{
@@ -50,12 +51,11 @@ export class ReportDynamicComponent{
 
         const Request:any={};
         Request.ID=this.gintID;
-        Request.lstBEReportQueryDetail=this.glstReportDetail;        
+        Request.lstBEReportQueryDetail=this.glstReportDetail;
+        Request.User=this.oUser.UserName;     
 
         this._Conexion.getData('api/sgc/ReportQuery/GetGenerateReport/post',Request)
         .subscribe(Response =>{
-            
-            console.log('Respuesta = cod: '+ Response.strResponseCode +' msg: '+Response.strResponseMsg);
             this.blockUI.stop();            
         },err=>{
             console.log('Error de aplicativo');
@@ -71,8 +71,6 @@ export class ReportDynamicComponent{
         this._Conexion.getData('api/sgc/ReportQuery/GetReportQueryDetail/get',Request)
         .subscribe(Response =>{
             this.glstReportDetail=Response.lstBEReportQueryDetail;
-            
-            console.log('Respuesta = cod: '+ Response.strResponseCode +' msg: '+Response.strResponseMsg);
             this.blockUI.stop();            
         },err=>{
             console.log('Error de aplicativo');

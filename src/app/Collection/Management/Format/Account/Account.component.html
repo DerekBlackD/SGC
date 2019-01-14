@@ -1,54 +1,56 @@
-<div class="row">
-    <div class="col-sm-12">
-        <h5><p class="text-center">{{gstrTitulo}}</p></h5>
-    </div>
-</div>
-<div class="row">    
-    <div class="col-sm-4">
-        <div class="col-md-12 input-group input-group-sm">
-            <input type="text" class="form-control mngt-search-select" value="Búsqueda" readonly >
-            <input type="text" name="txtDato" (keyup.enter)="FBusqueda()" class="form-control mngt-search-input" aria-label="..." placeholder="Buscar formato" [(ngModel)]="gBusqueda.txtDato" />
+<form class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h5><p class="text-center">{{gstrTitulo}}</p></h5>
         </div>
     </div>
-    <div class="col-md-6">
-        <button type="button" class="btn btn-primary" (click)="FNew()" >Nuevo</button>
-    </div>
-</div>
-<br>
-
-<div class="row">
-   <div class="col-sm-10">
-        <div class="mngt-scrolls table-responsive">
-            <table class="table-mngt table table-hover table-body-size">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Descripción</th>
-                        <th>Cliente</th>
-                        <th>Cartera</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor='let item of glstAccountFormat'>
-                        <td>{{item.ID}}</td>
-                        <td>{{item.Observation}}</td>
-                        <td>{{item.CustomerName}}</td>
-                        <td>{{item.BagName}}</td>
-                        <td>
-                            <a class="btn-without-ref" (click)="FView(item.ID)"><span class="glyphicon glyphicon-eye-open"></span></a>
-                        </td>
-                        <td>
-                            <a class="btn-without-ref" (click)="FEdit(item.ID)"><span class="glyphicon glyphicon-pencil"></span></a>
-                        </td>
-                        <td>
-                            <a class="btn-without-ref" (click)="FDelete(item.ID)"><span class="glyphicon glyphicon-trash"></span></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="row">    
+        <div class="col-sm-4">
+            <div class="col-md-12 input-group input-group-sm">
+                <input type="text" class="form-control mngt-search-select" value="Búsqueda" readonly >
+                <input type="text" name="txtDato" (keyup.enter)="FBusqueda()" class="form-control mngt-search-input" aria-label="..." placeholder="Buscar formato" [(ngModel)]="gBusqueda.txtDato" />
+            </div>
         </div>
-   </div>
-</div>
+        <div class="col-md-6">
+            <button type="button" class="btn btn-primary" (click)="FNew()" >Nuevo</button>
+        </div>
+    </div>
+    <br>
+    
+    <div class="row">
+       <div class="col-sm-10">
+            <div class="mngt-scrolls table-responsive">
+                <table class="table-mngt table table-hover table-body-size">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Descripción</th>
+                            <th>Cliente</th>
+                            <th>Cartera</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let item of glstAccountFormat'>
+                            <td>{{item.ID}}</td>
+                            <td>{{item.Observation}}</td>
+                            <td>{{item.CustomerName}}</td>
+                            <td>{{item.BagName}}</td>
+                            <td>
+                                <a class="btn-without-ref" (click)="FView(item.ID,item.Observation,item.CustomerID,item.BagID)"><span class="glyphicon glyphicon-eye-open"></span></a>
+                            </td>
+                            <td>
+                                <a class="btn-without-ref" (click)="FEdit(item.ID,item.CustomerID,item.BagID)"><span class="glyphicon glyphicon-pencil"></span></a>
+                            </td>
+                            <td>
+                                <a class="btn-without-ref" (click)="FDelete(item.ID,item.Observation)"><span class="glyphicon glyphicon-trash"></span></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+       </div>
+    </div>
+</form>

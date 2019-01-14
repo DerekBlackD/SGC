@@ -1,4 +1,4 @@
-<form class="form-horizontal" name="frmManagement" #frmManagement="ngForm" role="form" novalidate>
+<form class="container" name="frmManagement" #frmManagement="ngForm" role="form" novalidate>
     <div class="row">
         <div class="col-sm-12">
             <h5><p class="text-center">Mantenimiento</p></h5>
@@ -41,6 +41,7 @@
                         <tr>
                             <th></th>
                             <th>Descripción</th>
+                            <th>Campo</th>
                             <th>Tipo</th>
                             <th>Tamaño</th>
                         </tr>
@@ -50,65 +51,72 @@
                             <td>
                                 <a class="btn-without-ref" (click)="FSelectField(item.ColumnName,item.ColumnType,item.ColumnLength,item.ColumnComment)"><span class="glyphicon glyphicon-plus"></span></a>
                             </td>
+                            <td>{{item.ColumnDescription}}</td>
                             <td>{{item.ColumnName}}</td>
                             <td>{{item.ColumnType}}</td>
                             <td>{{item.ColumnLength}}</td>
-                            <td>{{item.ColumnComment}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="form-group form-group-sm">
-                <label class="col-sm-1 control-label">Campo</label>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" name="txtColumnName" #txtColumnName="ngModel" [(ngModel)]="AccountDet.txtColumnName" readonly >
-                </div>
-                <label class="col-sm-1 control-label">Tipo</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" name="txtColumnType" #txtColumnType="ngModel" [(ngModel)]="AccountDet.txtColumnType" readonly >
-                </div>
-                <label class="col-sm-1 control-label">Tamaño</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" name="txtColumnLenght" #txtColumnLenght="ngModel" [(ngModel)]="AccountDet.txtColumnLenght" readonly  >
-                </div>
-            </div>
-
-            <div class="form-group form-group-sm">
-                <label class="col-sm-1 control-label">Descripción</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" name="txtColumnDescription" #txtColumnDescription="ngModel" [(ngModel)]="AccountDet.txtColumnDescription" maxlength="50" >
-                </div>
-                <label class="col-sm-1 control-label">Sumatoria</label>
-                <div class="col-sm-1">
-                    <input type="checkbox" class="form-control" name="chkColumnSum" #chkColumnSum="ngModel" [(ngModel)]="AccountDet.chkColumnSum" [disabled]="gblnColumnSum" >
+            <div class="row small">
+                <div class="form-group form-group-sm">
+                    <label class="col-sm-1 control-label">Campo</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" name="txtColumnName" #txtColumnName="ngModel" [(ngModel)]="AccountDet.txtColumnName" readonly >
+                    </div>
+                    <label class="col-sm-1 control-label">Tipo</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" name="txtColumnType" #txtColumnType="ngModel" [(ngModel)]="AccountDet.txtColumnType" readonly >
+                    </div>
+                    <label class="col-sm-1 control-label">Tamaño</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" name="txtColumnLenght" #txtColumnLenght="ngModel" [(ngModel)]="AccountDet.txtColumnLenght" readonly  >
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group form-group-sm">
-                <label class="col-sm-1 control-label">Código</label>
-                <div class="col-sm-4">
-                    <select name="ddlColumnCode" [(ngModel)]="AccountDet.ddlColumnCode" class="form-control" >
-                        <option value="0">Seleccionar</option>
-                        <option *ngFor="let item of glstColumnCode" value="{{item.ID}}">{{item.Value}}</option>
-                    </select>
-                </div>
-                <label class="col-sm-1 control-label">Color</label>
-                <div class="col-sm-4">
-                    <select name="ddlColumnColor" [(ngModel)]="AccountDet.ddlColumnColor" class="form-control" >
-                        <option value="0">Seleccionar</option>
-                        <option *ngFor="let item of glstColumnColor" value="{{item.ID}}">{{item.Value}}</option>
-                    </select>
+            <div class="row small">
+                <div class="form-group form-group-sm">
+                    <label class="col-sm-1 control-label">Descripción</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" name="txtColumnDescription" #txtColumnDescription="ngModel" [(ngModel)]="AccountDet.txtColumnDescription" maxlength="50" >
+                    </div>
+                    <label class="col-sm-1 control-label">Sumatoria</label>
+                    <div class="col-sm-1">
+                        <input type="checkbox" class="form-control" name="chkColumnSum" #chkColumnSum="ngModel" [(ngModel)]="AccountDet.chkColumnSum" [disabled]="gblnColumnSum" >
+                    </div>
                 </div>
             </div>
 
+            <div class="row small">
+                <div class="form-group form-group-sm">
+                    <label class="col-sm-1 control-label">Código</label>
+                    <div class="col-sm-4">
+                        <select name="ddlColumnCode" [(ngModel)]="AccountDet.ddlColumnCode" class="form-control" >
+                            <option value="0">Seleccionar</option>
+                            <option *ngFor="let item of glstColumnCode" value="{{item.ID}}">{{item.Value}}</option>
+                        </select>
+                    </div>
+                    <label class="col-sm-1 control-label">Color</label>
+                    <div class="col-sm-4">
+                        <select name="ddlColumnColor" [(ngModel)]="AccountDet.ddlColumnColor" class="form-control" >
+                            <option value="0">Seleccionar</option>
+                            <option *ngFor="let item of glstColumnColor" value="{{item.ID}}">{{item.Value}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-            <div class="form-group form-group-sm">
-                <div class="col-sm-6">
-                    <button type="button" class="btn btn-primary" (click)="FAdd()" >Agregar</button>
-                    <button type="button" class="btn btn-primary" (click)="FSave(frmManagement.valid)" >Guardar</button>
-                    <button type="button" class="btn btn-primary" (click)="FExit()" >Salir</button>
+            <div class="row small">
+                <div class="form-group form-group-sm">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-primary btn-sm" (click)="FAdd()" >Agregar</button>
+                        <button type="button" class="btn btn-primary btn-sm" (click)="FSave(frmManagement.valid)" >Guardar</button>
+                        <button type="button" class="btn btn-primary btn-sm" (click)="FExit()" >Salir</button>
+                    </div>
                 </div>
             </div>
             

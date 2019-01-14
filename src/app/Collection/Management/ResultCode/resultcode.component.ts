@@ -5,7 +5,8 @@ import { Observable } from 'rxjs/Rx';
 
 @Component({
     selector: 'resultcode-component',
-    templateUrl: 'resultcode.component.html'
+    templateUrl: 'resultcode.component.html',
+    styleUrls: ['resultcode.component.css'],
 })
 export class ResultCodeManagementComponent implements OnInit {
     codes : any[] = [];

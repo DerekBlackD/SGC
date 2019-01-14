@@ -18,6 +18,7 @@ export class ManagementGeneralComponent implements OnInit{
     intCod: number;
     lstTipGestion: any[] = [];
     @BlockUI() blockUI: NgBlockUI;
+    oUser:any={};
 
     gstrOption :string="";
     gstrDownload :string="";
@@ -29,6 +30,7 @@ export class ManagementGeneralComponent implements OnInit{
 
     ngOnInit() {
         this.FLoad();
+        this.oUser = this._CollectionService.getUserData();
     }
 
     FLoad(): void {
@@ -67,6 +69,7 @@ export class ManagementGeneralComponent implements OnInit{
             data.BegDate = this.Management.datebegin.toString('yyyy-mm-dd');
             data.EndDate = this.Management.dateend.toString('yyyy-mm-dd');
             data.strDirection = this.gstrOption;
+            data.User = this.oUser.UserName;
 
             this._CollectionService.getData('api/Management/GetReportManagement', data).subscribe(res => {
                 this.FCleanFields(res.toString());

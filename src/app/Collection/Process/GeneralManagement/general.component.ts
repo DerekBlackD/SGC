@@ -25,6 +25,12 @@ export class GeneralManagementComponent {
     customerBagPay: any[]=[];
     customerBagAlert:any[]=[]; //Alertar de gestor
     lstAssign: any[] = []; // Array of customer bags
+
+    lstAccountHead: any[]=[];
+    lstAccountBody: any[]=[];
+    lstAccountFoot: any[]=[];
+    lstAccountFormat: any[]=[];
+
     selectPhone: any = {}; // Phone selected
     selectAddress: any = {}; // Address selected
     customerData: any = {};
@@ -255,7 +261,7 @@ export class GeneralManagementComponent {
         this.customerData.CustomerBagID = customerBag.CustomerBagID;
         this.customerData.CustomerID = customerBag.CustomerID;
         this.customerData.BagID = customerBag.BagID;
-        console.log(request);
+        
         this._collectionService.getData('api/customerbag/getcustomerbagbyid', request)
             .subscribe(data => {
                 this.customerData.DocNumber = data.objCustomerBag.DocNumber;
@@ -271,13 +277,19 @@ export class GeneralManagementComponent {
                     this.customerBagManagementsData = this.customerBagData.Managements;
                     this.customerBagManagementsDataBack = this.customerBagManagementsData;
                 }
-                if (this.customerBagData.Accounts != null) {
-                    this.customerBagAccountData = this.customerBagData.Accounts;
-                    this.AddAmounts(this.customerBagAccountData);
-                }
+                //if (this.customerBagData.Accounts != null) {
+                  //  this.customerBagAccountData = this.customerBagData.Accounts;
+                    //this.AddAmounts(this.customerBagAccountData);
+                //}
                 if(this.customerBagData.Pays!= null){
                     this.customerBagPay = this.customerBagData.Pays;
                 }
+
+                this.lstAccountFormat = this.customerBagData.LstAccountFormat;
+                this.lstAccountHead = this.customerBagData.LstHead;
+                this.lstAccountBody = this.customerBagData.LstBody;
+                this.lstAccountFoot = this.customerBagData.LstFoot;
+
                 this.blockUI.stop();
             })
     }

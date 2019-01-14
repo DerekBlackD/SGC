@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
 
 @Component({
     selector: 'gen-customerbag-account',
@@ -7,12 +6,28 @@ import { DecimalPipe } from '@angular/common';
     styleUrls: ['../general.component.css']
 })
 export class GenCustomerBagAccount{
-    @Input() CustBagAccountData: any[] = [];
-    @Input() accountTotal: any = {};
+    @Input() lstAccountFormat: any[] = [];
+    @Input() lstAccountHead: any[] = [];
+    @Input() lstAccountBody: any[] = [];
+    @Input() lstAccountFoot: any[] = [];
 
     constructor() {
-        this.accountTotal.totalCapital = 0;
-        this.accountTotal.totalCampaign1 = 0;
-        this.accountTotal.totalCampaign2 = 0;
+        
+
+        
+    }
+
+    FColorCelda(intRow:number){
+        let strstyle;
+        let _strColor:string='';
+
+        _strColor = this.lstAccountFormat[intRow].ColumnColorName;
+        
+        strstyle = {
+            'background-color': _strColor,
+            'color': 'Black'
+        };
+
+        return strstyle;
     }
 }

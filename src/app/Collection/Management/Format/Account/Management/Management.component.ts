@@ -25,6 +25,8 @@ export class ManagementComoponent implements OnInit{
     gintPosition: number;
     gintIDFormatAccount: number;
     gintIDColumn :number;
+    gintCustomerID:number;;
+    gintBagID:number;
 
     gstrIndica: string = '';
     gstrIndicaGen: string = '';
@@ -44,6 +46,8 @@ export class ManagementComoponent implements OnInit{
 
         this._Route.params.subscribe(response=>{
             this.gintIDFormatAccount = response['id'];
+            this.gintCustomerID = response['CustomerID'];
+            this.gintBagID = response['BagID'];
             if(this.gintIDFormatAccount != 0){
                 this.gstrIndicaGen = 'U';
                 this.FAccountRegister(this.gintIDFormatAccount);
@@ -102,8 +106,9 @@ export class ManagementComoponent implements OnInit{
             let blnValidar: boolean=true;
             if (this.AccountDet.txtColumnDescription == "" || this.AccountDet.txtColumnDescription == undefined) {
                 alert('Ingrese descripción');
+                return;
                 
-            }else{
+            } else{
                 for(let row=0;row<this.lstAccountSelect.length;row++){
                     if(this.lstAccountSelect[row].ColumnName == this.AccountDet.txtColumnName){
                         blnValidar = false;
@@ -133,7 +138,7 @@ export class ManagementComoponent implements OnInit{
                     alert('Detalle ya agregado');
                 }         
             }   
-        }else{
+        } else{
             let AccountAux: any={};
             AccountAux.ID = this.gintIDFormatAccount;
             AccountAux.ColumnID = this.AccountDet.ColumnID;
@@ -242,9 +247,9 @@ export class ManagementComoponent implements OnInit{
             data.Observation = this.Account.txtObservation;
             data.FormatID = this.gintIDFormatAccount;
 
-            console.log(data);
-
             const request: any={};
+            request.CustomerID = this.Account.clienteid;
+            request.BagID = this.Account.carteraid;
             request.objBEAccountFormat = data;
             request.lstBEAccountFormat = this.lstAccountSelect;
 
@@ -256,8 +261,11 @@ export class ManagementComoponent implements OnInit{
                 this._CollectionService.getData('api/AccountFormat/PostAccountFormatGeneral', request)
                 .subscribe(response =>{    
                     this.gblnValidate = false;
-                    console.log('code:' + response.strResponseCode + ' msg:' + response.strResponseMsg);
-                    this._RouterExit.navigateByUrl("Collection/FormatAccount");
+                    if(response.strResponseCode=='-1'){
+                        alert(response.strResponseMsg);
+                    }else{
+                        this._RouterExit.navigateByUrl("Collection/FormatAccount");
+                    }
                 })                
             }            
         }
@@ -269,7 +277,6 @@ export class ManagementComoponent implements OnInit{
         this._CollectionService.getData('api/AccountFormat/GetAccountFormatListBD',request)
         .subscribe(Response=>{
             this.lstAccount = Response.lstBEFormatAccount;
-            console.log('Respuesta del sistema: cod '+ Response.strResponseCode +' msg '+Response.strResponseMsg);
         })
 
     }
@@ -277,6 +284,8 @@ export class ManagementComoponent implements OnInit{
     FAccountRegister(_id:number):void{
         const request:any={};
         request.FormatID = _id;
+        request.CustomerID = this.gintCustomerID;
+        request.BagID = this.gintBagID;
 
         this._CollectionService.getData('api/AccountFormat/GetAccountFormartRegister',request)
         .subscribe(Response =>{
@@ -289,7 +298,6 @@ export class ManagementComoponent implements OnInit{
             this.Account.txtObservation = this.lstAccountSelect[0].Observation;
             this.Bag = this.Bag1.filter(x => x.CustomerID == intcustomerid);
             this.Account.carteraid = intbagid;
-            console.log('Respuesta (Registro): cod '+ Response.strResponseCode +' msg '+Response.strResponseMsg);
         })
     }
 

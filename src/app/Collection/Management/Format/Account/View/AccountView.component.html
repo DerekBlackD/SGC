@@ -18,22 +18,6 @@
                 <input type="text" name="txtDescription" [(ngModel)]="view.txtDescription" class="form-control" readonly >
             </div>
         </div>
-        <div class="form-group form-group-sm">
-            <label class="col-sm-offset-1 col-sm-1 control-label">Cliente</label>
-            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate}">
-                <select name="ddlCustomerID" [(ngModel)]="view.ddlCustomerID" class="form-control" (change)="FFilterBagID($event)" required >
-                    <option value="">Seleccionar</option>
-                    <option *ngFor="let item of glstCustomer" value="{{item.ID}}">{{item.CustomerName}}</option>
-                </select>
-            </div>
-            <label class="col-sm-offset-1 col-sm-1 control-label">Cartera</label>
-            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : gblnValidate}">
-                <select name="ddlBagID" [(ngModel)]="view.ddlBagID" class="form-control" (change)="FFilterCustomerBag(frmView.valid)" required >
-                    <option value="">Seleccionar</option>
-                    <option *ngFor="let item of glstBagFilter" value="{{item.BagID}}">{{item.BagName}}</option>
-                </select>
-            </div>
-        </div>
     </div>
 
     <div class="row">
@@ -77,22 +61,19 @@
                 <table id="tAccount" class="table-mngt table table-hover table-body-size">
                     <thead>
                         <tr>
-                            <th *ngFor="let item of glstAccountFormat">{{item.ColumnDescription}}</th>
+                            <th *ngFor="let item of glstHead">{{item}}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item1 of glstAccount">
-                            <td *ngFor="let item2 of glstAccountFormat; let row = index" [ngStyle]="FColorCelda(item2.ColumnColorName)" >{{item1[item2.ColumnComment]}}</td>
+                        <tr *ngFor="let item of glstBody">
+                            <td *ngFor="let col of item; let row = index" [ngStyle]="FColorCelda(row)">{{col}}</td>
                         </tr>
                     </tbody>
-                    <thead>
-                        <tr>
-                            <th *ngFor="let item of glstTotalSol">{{item}}</th>
+                    <tfoot>
+                        <tr *ngFor="let item of glstFoot">
+                            <td *ngFor="let col of item">{{col}}</td>
                         </tr>
-                        <tr>
-                            <th *ngFor="let item of glstTotalDol">{{item}}</th>
-                        </tr>
-                    </thead>
+                    </tfoot>
                 </table>
             </div>
         </div>

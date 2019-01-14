@@ -14,16 +14,18 @@ export class AccountView{
     view: any={};
     glstAccount: any[]=[];
     glstAccountFormat: any[]=[];
-    glstTotalSol: any[]=[];
-    glstTotalDol: any[]=[];
-    glstCustomer:any[]=[];
-    glstBag:any[]=[];
-    glstBagFilter:any[]=[];
     glstCustomerBag:any[]=[];
+    glstHead:any[]=[];
+    glstBody:any[]=[];
+    glstFoot:any[]=[];
 
     gintIDFormatAccount: number;
+    gintCustomerID:number;
+    gintBagID:number;
 
     gblnValidate:boolean=false;
+
+    gstrDescription:string='';
 
     @BlockUI() blockUI: NgBlockUI;
 
@@ -32,48 +34,39 @@ export class AccountView{
         private _Route: ActivatedRoute,
         private _RouterExit : Router
     ){
-        this.FLoad();
         this._Route.params.subscribe(response=>{
             this.gintIDFormatAccount = response['id'];
+            this.gstrDescription = response['Description'];
+            this.gintCustomerID = response['CustomerID'];
+            this.gintBagID = response['BagID'];
+
             if(this.gintIDFormatAccount != 0){
                 this.view.txtID = this.gintIDFormatAccount;
+                this.view.txtDescription = this.gstrDescription;
+                this.FGetCustomerBag(this.gintCustomerID,this.gintBagID);
             }
         });
-    }
-
-    FLoad():void{
-        this.view.ddlCustomerID="";
-        this.view.ddlBagID="";
-        this.FGetCustomer('AllDataByGroup',0);
-        this.FGetBag('AllDataCustomer',0,0);
     }
 
     FAccountRegister(_id:number,intCustomerBagID:number):void{
         const request:any={};
         request.FormatID = _id;
-        request.CustomerID = this.view.ddlCustomerID;
-        request.BagID = this.view.ddlBagID;
+        request.CustomerID = this.gintCustomerID;
+        request.BagID = this.gintBagID;
         request.CustomerBagID = intCustomerBagID;
 
         this._CollectionService.getData('api/AccountFormat/GetAccountFormatView',request)
         .subscribe(Response =>{
-            this.glstAccount = Response.lstBECustomerBagAccount;
-            this.glstAccountFormat = Response.lstBEFormatAccount;
-            this.view.txtDescription = this.glstAccountFormat[0].Observation;
-            this.glstTotalSol = Response.arrTotalSol;
-            this.glstTotalDol = Response.arrTotalDol;
-            console.log('Respuesta (Registro Formato)= cod: '+ Response.strResponseCode +' msg: '+Response.strResponseMsg);
+            if(Response.strResponseCode=='0'){
+                this.glstAccountFormat = Response.lstBEFormatAccount;
+                this.glstHead = Response.lstHead;
+                this.glstBody = Response.lstBody;
+                this.glstFoot = Response.lstFoot;
+            }else{
+                alert(Response.strResponseMsg);
+            }
             this.blockUI.stop();            
         })
-    }
-
-    FFilterCustomerBag(blnValidate:boolean):void{
-        this.gblnValidate = true;
-        if(blnValidate){
-            this.blockUI.start('Cargando...');
-            this.FGetCustomerBag();
-            this.gblnValidate = false;
-        }        
     }
 
     FSelect(intCustomerBagID:number):void{
@@ -85,8 +78,11 @@ export class AccountView{
         this._RouterExit.navigateByUrl("Collection/FormatAccount");
     }
 
-    FColorCelda(_strColor:string){
+    FColorCelda(intRow:number){
         let strstyle;
+        let _strColor:string='';
+
+        _strColor = this.glstAccountFormat[intRow].ColumnColorName;
         
         strstyle = {
             'background-color': _strColor,
@@ -96,48 +92,18 @@ export class AccountView{
         return strstyle;
     }
 
-    FGetCustomerBag():void{
+    FGetCustomerBag(intCustomerID:number,intBag:number):void{
+        this.blockUI.start();
         let request:any={};
         request.Option = 'AllGroup';
-        request.CustomerID = this.view.ddlCustomerID;
-        request.BagID = this.view.ddlBagID;
+        request.CustomerID = intCustomerID;
+        request.BagID = intBag;
 
         this._CollectionService.getData('api/sgc/customerbag/GetCustomerBagAccountGroup',request)
             .subscribe(response =>{
                 this.glstCustomerBag = response.lstCustomerBag;
                 console.log("Respuesta= cod:" + response.strResponseCode + " msg:" + response.strResponseMsg);
                 this.blockUI.stop();
-        })
-    }
-
-    FFilterBagID(event:Event):void{
-        let strCod:string="";
-        this.gblnValidate = false;
-        this.view.ddlBagID="";
-        strCod = (event.target as HTMLSelectElement).value.toString();
-        this.glstBagFilter = this.glstBag.filter(x => x.CustomerID.toString() == strCod);
-    }
-
-    FGetCustomer(_Option:string,_CustomerID:number):void{        
-        let request: any= {};
-        request.Option = _Option;
-        request.CustomerID = _CustomerID;
-
-        this._CollectionService.getData('api/sgc/customer/getcustomerbygroup/get',request)
-            .subscribe(result =>{
-                this.glstCustomer = result.lstBECustomer;
-        })
-    }
-
-    FGetBag(_Option:string,_CustomerID:number,_BagID:number):void{
-        let request:any={};
-        request.Option = _Option;
-        request.CustomerID = _CustomerID;
-        request.BagID = _BagID;
-
-        this._CollectionService.getData('api/sgc/bag/getbagbygroup/get',request)
-            .subscribe(result =>{
-                this.glstBag = result.lstBEBag;
         })
     }
 }

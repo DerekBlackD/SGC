@@ -1,40 +1,50 @@
-
-
 <div class="container">
-    <h1>Códigos de Resultado {{title}}</h1>
-    <br>
+    
+    <div class="row">
+        <h4>Códigos de Resultado {{title}}</h4>
+    </div>
 
-    <form class="form-inline">
+    <div class="row-small">
         <div class="form-group">
-            <button type="button" class="btn btn-primary" (click)="NewResult()" >Nuevo</button>
-            <input type="text" name="gstrFact" [(ngModel)]="gBusqueda.gstrFact" class="form-control" (keyup.enter)="FSearch()" placeholder="Buscar">
+            <div class="col-sm-6">
+                <input type="text" name="gstrFact" [(ngModel)]="gBusqueda.gstrFact" class="form-control" (keyup.enter)="FSearch()" placeholder="Buscar">
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-primary btn-sm" (click)="NewResult()" >Nuevo</button>
+            </div>
         </div>
+    </div>
 
-        <br>
+    <div class="row">
+        <div class="col-sm-10">
+            <div class="mngt-scrolls table-responsive">
 
-        <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Clase</th>
-                <th>Código</th>
-                <th>Descripción</th>
-                <th>Prioridad</th>
-                <th>SubPrioridad</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let code of codes">
-                <td>{{code.Class}}</td>
-                <td>{{code.ResultCode}}</td>
-                <td>{{code.Description}}</td>
-                <td>{{code.Priority}}</td>
-                <td>{{code.SubPriority}}</td>
-                <td><a class="btn-without-ref" (click)="EditResultCode(code.ResultID)"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                <td><a class="btn-without-ref" (click)="DelResultCode(code.ResultID)"><span class="glyphicon glyphicon-trash"></span></a></td>
-            </tr>
-        </tbody>
-    </table>
-    </form>
+                <table class="table-mngt table table-hover table-body-size">
+                    <thead>
+                        <tr>
+                            <th>Clase</th>
+                            <th>Código</th>
+                            <th>Descripción</th>
+                            <th>Prioridad</th>
+                            <th>SubPrioridad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let code of codes">
+                            <td>{{code.Class}}</td>
+                            <td>{{code.ResultCode}}</td>
+                            <td>{{code.Description}}</td>
+                            <td>{{code.Priority}}</td>
+                            <td>{{code.SubPriority}}</td>
+                            <td><a class="btn-without-ref" (click)="EditResultCode(code.ResultID)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                            <td><a class="btn-without-ref" (click)="DelResultCode(code.ResultID)"><span class="glyphicon glyphicon-trash"></span></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
 </div>
 
 

@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { CollectionService } from '../../../../Services/collection.service';
-import { Route } from '@angular/router/src/config';
 
 @Component({
     selector: 'Account-component',
@@ -38,7 +37,7 @@ export class AccountComponent implements OnInit{
     }   
     
     FNew():void{
-        this._Router.navigate(['/ManagementAccountFormat', 0]);
+        this._Router.navigate(['/ManagementAccountFormat', 0, 0, 0]);
     }
 
     FGetAccountFormatListGeneral(strDato:string):void{
@@ -48,19 +47,18 @@ export class AccountComponent implements OnInit{
         this._CollectionService.getData('api/AccountFormat/GetAccountFormatListGeneral',data)
         .subscribe(response=>{
             this.glstAccountFormat = response.lstBEFormatAccount;
-            console.log('Respuesta: code='+ response.strResponseCode + 'msg=' + response.strResponseMsg);
         })
     }
 
-    FEdit(intID:number):void{
-        this._Router.navigate(['/ManagementAccountFormat', intID]);
+    FEdit(intID:number,intCustomerID:number,intBagID:number):void{
+        this._Router.navigate(['/ManagementAccountFormat', intID, intCustomerID, intBagID]);
     }
 
-    FDelete(intID:number):void{
-        this._Router.navigate(['/AccountDelete', intID]);
+    FDelete(intID:number,strDescription:string):void{
+        this._Router.navigate(['/AccountDelete', intID, strDescription]);
     }
 
-    FView(intID:number):void{
-        this._Router.navigate(['/AccountView', intID]);
+    FView(intID:number,strDes:string,intCustomerID:number,intBagID:number):void{
+        this._Router.navigate(['AccountView', intID, strDes, intCustomerID, intBagID]);
     }
 }
