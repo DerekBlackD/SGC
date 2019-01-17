@@ -49,7 +49,9 @@ export class ManagementDeleteComponent {
                 oManagement.User = this.oUser.UserName;
                 this._Conex.getData('api/sgc/CustomerBag/DeleteManagement/post',oManagement)
                 .subscribe(Response =>{
-                    alert(Response);        
+                    alert(Response);
+                    this.oManagement={};
+                    this.oInput.ManagementID='';
                     this.blockUI.stop();
                 });
             }
