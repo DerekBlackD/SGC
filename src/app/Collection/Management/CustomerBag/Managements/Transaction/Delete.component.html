@@ -1,0 +1,65 @@
+<form class="container" (ngSubmit)="FN_Register()" ngNativeValidate>
+    <div class="row small">
+        <div class="form-group form-group-sm">
+            <div class="col-sm-12">
+                <h4>Eliminar gestión</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="row small">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-1 control-label">ID</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="ManagementID" [(ngModel)]="oInput.ManagementID" required >
+            </div>
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-primary btn-sm" >Buscar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row small">
+        <div class="form-group form-group-sm">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Cartera</th>
+                                <th>Nro.Documento</th>
+                                <th>Nombre</th>
+                                <th>Fecha</th>
+                                <th>Clase</th>
+                                <th>Contacto</th>
+                                <th>Resultado</th>
+                                <th>Teléfono</th>
+                                <th>Dirección</th>
+                                <th>Gestión</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th><a class="btn-without-ref" (click)="FN_DeleteManagement(oManagement)"><span class="glyphicon glyphicon-trash"></span></a></th>
+                                <th>{{oManagement.BagName}}</th>
+                                <th>{{oManagement.CustBagDocNumber}}</th>
+                                <th>{{oManagement.CustBagName}}</th>
+                                <th>{{oManagement.Date}}</th>
+                                <th>{{oManagement.MngtClassDesc}}</th>
+                                <th>{{oManagement.ContactDesc}}</th>
+                                <th>{{oManagement.ResultDesc}}</th>
+                                <th>{{oManagement.PhoneDesc}}</th>
+                                <th>{{oManagement.AddressDesc}}</th>
+                                <th>{{oManagement.Observation}}</th>
+                                <th>{{oManagement.StatusName}}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

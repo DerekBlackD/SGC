@@ -26,6 +26,12 @@ export class ProgressiveManagementComponent {
     customerData: any = {};
     accountTotal: any = {}; // Summary of account
     progressiveModel: any = {}; // Model
+
+    lstAccountHead: any[]=[];
+    lstAccountBody: any[]=[];
+    lstAccountFoot: any[]=[];
+    lstAccountFormat: any[]=[];
+
     // form variables
     showPhoneOrAddress = true; // Show phones or addresses
     btnprevState: boolean; // Style class of previus assignment button
@@ -127,10 +133,15 @@ export class ProgressiveManagementComponent {
                     this.customerBagManagementsData = this.customerBagData.Managements;
                     this.customerBagManagementsDataBack = this.customerBagManagementsData;
                 }
-                if (this.customerBagData.Accounts != null) {
-                    this.customerBagAccountData = this.customerBagData.Accounts;
-                    this.AddAmounts(this.customerBagAccountData);
-                }
+                //if (this.customerBagData.Accounts != null) {
+                  //  this.customerBagAccountData = this.customerBagData.Accounts;
+                    //this.AddAmounts(this.customerBagAccountData);
+                //}
+
+                this.lstAccountFormat = this.customerBagData.LstAccountFormat;
+                this.lstAccountHead = this.customerBagData.LstHead;
+                this.lstAccountBody = this.customerBagData.LstBody;
+                this.lstAccountFoot = this.customerBagData.LstFoot;
 
                 this.selectPhone.phoneID = this.lstCustBagProgressive[this.intIndex].PhoneID;
                 this.selectPhone.phoneNumber = this.lstCustBagProgressive[this.intIndex].Phone;

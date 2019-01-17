@@ -34,6 +34,7 @@ import { ReportDynamicComponent } from './Report/QueryDynamic/ReportDynamic/Repo
 import { ProgressiveManagementComponent } from './Process/ProgressiveManagement/progressive.component';
 import { Import1Component } from './Management/Import/Import1.component';
 import { AuditComponent } from './Report/Audit/All.component';
+import { ManagementDeleteComponent } from './Management/CustomerBag/Managements/Transaction/Delete.component';
 
 const collectionRoutes: Routes = [
   { path: 'Cobranza/Home', component: HomeComponent },
@@ -69,7 +70,8 @@ const collectionRoutes: Routes = [
   { path: 'QueryDynamicComponent', component: QueryDynamicComponent } ,
   { path: 'ReportDynamicComponent/:id/:des', component:ReportDynamicComponent } ,
   { path: 'Cobranza/GestionProgresiva', component: ProgressiveManagementComponent },
-  { path: 'Report/Audit', component: AuditComponent }
+  { path: 'Report/Audit', component: AuditComponent },
+  { path: 'CustomerBag/Management/Delete', component: ManagementDeleteComponent }
 
 ];
 @NgModule({
