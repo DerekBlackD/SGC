@@ -210,42 +210,51 @@ export class GeneralManagementComponent {
         this.blockUI.start('Cargando...');
         this.resetVariables();
         const data: any = {};
+        const dtNow:Date = new Date();
 
         data.AgentID = this.mngtAgentID;
-        data.Year = '2017';
-        data.Month = '11';
+        data.Year = dtNow.getFullYear();
+        data.Month = dtNow.getMonth() + 1;
 
-        this._collectionService.getData('api/GetAssign', data)
-            .subscribe(assign => {
-            this.lstAssign = assign.lstAssignmentByAgent;
-            if (this.lstAssign.length > 0) {
-                this.customerData.CustomerBagID = this.lstAssign[0].CustomerBagID;
-                this.customerData.CustomerID = this.lstAssign[0].CustomerID;
-                this.customerData.BagID = this.lstAssign[0].BagID;
-                if (assign.objCustomerBag != null) {
-                    this.customerBagData = assign.objCustomerBag;
-                    if (this.customerBagData.Phones != null) {
-                        this.customerBagPhoneData = this.customerBagData.Phones;
+        this._collectionService.getData('api/GetAssign', data).subscribe(assign => {
+            if(assign.strResponseCode=='0'){
+                this.lstAssign = assign.lstAssignmentByAgent;
+                if (this.lstAssign.length > 0) {
+                    this.customerData.CustomerBagID = this.lstAssign[0].CustomerBagID;
+                    this.customerData.CustomerID = this.lstAssign[0].CustomerID;
+                    this.customerData.BagID = this.lstAssign[0].BagID;
+                    if (assign.objCustomerBag != null) {
+                        this.customerBagData = assign.objCustomerBag;
+                        if (this.customerBagData.Phones != null) {
+                            this.customerBagPhoneData = this.customerBagData.Phones;
+                        }
+                        if (this.customerBagData.Addresses != null) {
+                            this.customerBagAddressData = this.customerBagData.Addresses;
+                        }
+                        if (this.customerBagData.Managements != null) {
+                            this.customerBagManagementsData = this.customerBagData.Managements;
+                            this.customerBagManagementsDataBack = this.customerBagManagementsData;
+                        }
+                        if(this.customerBagData.Pays!= null){
+                            this.customerBagPay = this.customerBagData.Pays;
+                        }
+        
+                        this.lstAccountFormat = this.customerBagData.LstAccountFormat;
+                        this.lstAccountHead = this.customerBagData.LstHead;
+                        this.lstAccountBody = this.customerBagData.LstBody;
+                        this.lstAccountFoot = this.customerBagData.LstFoot;
                     }
-                    if (this.customerBagData.Addresses != null) {
-                        this.customerBagAddressData = this.customerBagData.Addresses;
-                    }
-                    if (this.customerBagData.Managements != null) {
-                        this.customerBagManagementsData = this.customerBagData.Managements;
-                        this.customerBagManagementsDataBack = this.customerBagManagementsData;
-                    }
-                    if (this.customerBagData.Accounts != null) {
-                        this.customerBagAccountData = this.customerBagData.Accounts;
-                        this.AddAmounts(this.customerBagAccountData);
-                    }
+    
+                    this.valIndex();
+                } else {
+                    this.btnnextState = true;
+                    this.btnprevState = true;
+                    this.btnFilter = true;
                 }
-
-                this.valIndex();
-            } else {
-                this.btnnextState = true;
-                this.btnprevState = true;
-                this.btnFilter = true;
-            }
+            }else{
+                //alert(assign.strResponseMsg);
+                this.FN_ShowFilter();
+            }           
             this.blockUI.stop();
         })
     }
@@ -358,10 +367,12 @@ export class GeneralManagementComponent {
     }
 
     nextCustomer(): void {
-        this.indexAssign = this.indexAssign + 1;
-        const CustBag: any = this.lstAssign[this.indexAssign];
-        this.loadCustomerBagData(CustBag);
-        this.valIndex();
+        if(this.lstAssign.length>0){
+            this.indexAssign = this.indexAssign + 1;
+            const CustBag: any = this.lstAssign[this.indexAssign];
+            this.loadCustomerBagData(CustBag);
+            this.valIndex();
+        }
     }
 
     prevCustomer(): void {
@@ -381,5 +392,23 @@ export class GeneralManagementComponent {
         } else {
             alert('Debe de seleccionar un cliente');
         }
+    }
+
+    FN_ShowFilter(){
+        let oRequest:any={};
+        const dtNow:Date = new Date();
+
+        oRequest.AgentID = this.mngtAgentID;
+        oRequest.Year = dtNow.getFullYear();
+        oRequest.Month = dtNow.getMonth() + 1;
+        this._collectionService.showModalFilter(oRequest);
+    }
+
+    FN_ViewFilter(){
+        this.FN_ShowFilter();
+    }
+
+    FN_GetFilter(){
+        this.loadAssignment();
     }
 }

@@ -61,7 +61,6 @@ export class Import1Component implements OnInit{
         const ipValue=input.value;
         const ipChecked=input.checked;
         const oEntity = this.lstImportFormat.filter(x=>x.IDHead==ipValue)[0];
-        console.log(oEntity);
         oEntity.Delete = ipChecked;
         oRequest.oEntity = oEntity;
 

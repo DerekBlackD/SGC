@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CalendarModule, DialogModule } from 'primeng/primeng';
 import { CollectionService } from '../../../../Services/collection.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 

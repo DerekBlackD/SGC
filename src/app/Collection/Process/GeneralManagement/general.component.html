@@ -18,7 +18,7 @@
                 <button type="button" class="btn btn-primary" [disabled]="btnprevState" (click)="prevCustomer()"><span class="glyphicon glyphicon-chevron-left"></span></button>
             </div>
             <div class="btn-group btn-group-sm" role="group">
-                <button type="button" class="btn btn-primary" [disabled]="btnFilter"><span class="glyphicon glyphicon-cog"></span> Filtros</button>
+                <button type="button" class="btn btn-primary" [disabled]="btnFilter" (click)="FN_ViewFilter()"><span class="glyphicon glyphicon-cog"></span> Filtros</button>
             </div>
             <div class="btn-group btn-group-sm" role="group">
                 <button type="button" class="btn btn-primary" [disabled]="btnnextState" (click)="nextCustomer()"><span class="glyphicon glyphicon-chevron-right"></span></button>
@@ -79,3 +79,4 @@
 <gen-alert [customerData]="customerData"></gen-alert>
 <gen-pay [customerData]="customerData" [customerBagPay]="customerBagPay"></gen-pay>
 <gen-customerbag-search></gen-customerbag-search>
+<gen-filter (FN_SetFilter)="FN_GetFilter()" ></gen-filter>

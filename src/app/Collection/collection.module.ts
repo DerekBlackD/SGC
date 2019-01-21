@@ -56,6 +56,7 @@ import { GenProgressiveMngtComponent } from './Process/ProgressiveManagement/Gen
 import { Import1Component } from './Management/Import/Import1.component';
 import { AuditComponent } from './Report/Audit/All.component';
 import { ManagementDeleteComponent } from './Management/CustomerBag/Managements/Transaction/Delete.component';
+import { GenFilter } from './Process/GeneralManagement/GenFilter/genfilter.component';
 // Services
 import { CollectionService } from '../Services/collection.service';
 
@@ -123,7 +124,8 @@ import { CollectionRoutingModule } from './collection-routing.module';
     Import1Component,
     GenPay,
     AuditComponent,
-    ManagementDeleteComponent
+    ManagementDeleteComponent,
+    GenFilter
   ],
   entryComponents: [
     GenCustomerBagSearch

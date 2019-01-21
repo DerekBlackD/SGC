@@ -26,6 +26,9 @@ export class CollectionService {
     private showAlert = new Subject<any>();
     showAlertEmitted= this.showAlert.asObservable();
 
+    private showFilter = new Subject<any>();
+    showFilterEmitted = this.showFilter.asObservable();
+
     constructor(private http: Http,
                 private authenticationService: AuthenticationService) { }
 
@@ -50,6 +53,10 @@ export class CollectionService {
 
     showModalAlert(inputParameter:any){
         this.showAlert.next(inputParameter);
+    }
+
+    showModalFilter(inputParameter:any){
+        this.showFilter.next(inputParameter);
     }
 
     getAgentID(): number {
