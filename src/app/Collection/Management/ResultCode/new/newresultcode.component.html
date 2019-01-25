@@ -1,5 +1,4 @@
-
-<div class="container">
+<form class="container" name="frmGeneralCode" #frmGeneralCode="ngForm" role="form" novalidate>
     <div class="row small">
         <h4>Mantenimiento Resultado</h4>
     </div>
@@ -7,16 +6,16 @@
     <div class="row small">
         <div class="form-group form-group-sm">
             <label class="col-sm-1 control-label">Tip.Gestión</label>
-            <div class="col-sm-2">
-                <select class="form-control" [(ngModel)]="result.tipogestion" #tipogestion="ngModel">
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : blnValidate }">
+                <select [(ngModel)]="result.tipogestion" class="form-control" name="tipogestion" required [disabled]="Modify" >
                     <option value="">Seleccionar</option>
                     <option *ngFor="let opc of lstTipGestion" value="{{opc.ID}}">{{opc.Value}}</option>
                 </select>
             </div>
             
             <label class="col-sm-1 control-label">Ubicabilidad</label>
-            <div class="col-sm-2">
-                <select class="form-control" [(ngModel)]="result.idubica" >
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : blnValidate }">
+                <select class="form-control" [(ngModel)]="result.idubica" name="idubica" required >
                     <option value="">Seleccionar</option>
                     <option *ngFor="let opc1 of lstUbica" value="{{opc1.ID}}">{{opc1.Value}}</option>
                 </select>
@@ -27,13 +26,13 @@
     <div class="row small">
         <div class="form-group form-group-sm">
             <label class="col-sm-1 control-label">Código</label>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" [(ngModel)]="result.resultcode" #username="ngModel" >
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : blnValidate }" >
+                <input [(ngModel)]="result.resultcode" type="text" class="form-control" name="resultcode" required [disabled]="Modify" >
             </div>
 
             <label class="col-sm-1 control-label">Descripción</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="result.descripcion" #username="ngModel" >
+            <div class="col-sm-6" [ngClass]="{'has-error has-feedback' : blnValidate }" >
+                <input type="text" class="form-control" [(ngModel)]="result.descripcion" name="descripcion" required >
             </div>
         </div>
     </div>
@@ -41,13 +40,13 @@
     <div class="row small">
         <div class="form-group form-group-sm">
             <label class="col-sm-1 control-label">Prioridad</label>
-            <div class="col-sm-1">
-                <input type="number" class="form-control" placeholder="0" [(ngModel)]="result.prioridad" #username="ngModel" >
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : blnValidate }" >
+                <input type="number" class="form-control" placeholder="0" [(ngModel)]="result.prioridad" name="prioridad" required >
             </div>
 
             <label class="col-sm-1 control-label">Sub.Prio.</label>
-            <div class="col-sm-1">
-                <input type="number" class="form-control" placeholder="0" [(ngModel)]="result.subprioridad" #username="ngModel" >
+            <div class="col-sm-2" [ngClass]="{'has-error has-feedback' : blnValidate }" >
+                <input type="number" class="form-control" placeholder="0" [(ngModel)]="result.subprioridad" name="subprioridad" required >
             </div>
         </div>
     </div>
@@ -56,30 +55,30 @@
         <div class="form-group form-group-sm">
             <div class="col-sm-offset-1 col-sm-2">
                 <div class="checkbox">
-                    <label><input type="checkbox" [(ngModel)]="result.comision" #username="ngModel" >Comisión</label>
+                    <label><input type="checkbox" [(ngModel)]="result.comision" name="comision" >Comisión</label>
                 </div>
             </div>
 
             <div class="col-sm-2">
                 <div class="checkbox">
-                    <label><input type="checkbox" [(ngModel)]="result.situacion" #username="ngModel" >Situación</label>                
+                    <label><input type="checkbox" [(ngModel)]="result.situacion" name="situacion" >Situación</label>                
                 </div>
             </div>
 
             <label class="col-sm-1 control-label">Cantidad</label>
             <div class="col-sm-1">
-                <input type="number" class="form-control" placeholder="0" [(ngModel)]="result.SituationQuantity" #SituationQuantity="ngModel" >
+                <input type="number" class="form-control" placeholder="0" [(ngModel)]="result.SituationQuantity" name="SituationQuantity" >
             </div>
 
             <div class="col-sm-2">
                 <div class="checkbox">
-                    <label><input type="checkbox" [(ngModel)]="result.alerta" #username="ngModel" >Alerta</label>                
+                    <label><input type="checkbox" [(ngModel)]="result.alerta" name="alerta" >Alerta</label>                
                 </div>
             </div>
 
             <div class="col-sm-2">
                 <div class="checkbox">
-                    <label><input type="checkbox" [(ngModel)]="result.Payment" #Payment="ngModel" >Compromiso de Pago</label>                
+                    <label><input type="checkbox" [(ngModel)]="result.Payment" name="Payment" >Compromiso de Pago</label>                
                 </div>
             </div>
         </div>
@@ -88,7 +87,7 @@
     <div class="row small">
         <div class="form-group form-group-sm">
             <div class="col-sm-offset-1 col-sm-10">
-                <button type="button" class="btn btn-primary btn-sm" (click)="SaveResult()" >Guardar</button>
+                <button type="button" class="btn btn-primary btn-sm" (click)="SaveResult(frmGeneralCode.valid)" >Guardar</button>
                 <button type="button" class="btn btn-primary btn-sm" (click)="SalirNew()" >Salir</button>
             </div>
         </div>
@@ -104,4 +103,4 @@
             <Relation-component *ngIf="StateContact" [register]="register" [lstResultCodeRelation]="lstResultCodeRelation" ></Relation-component>
         </div>
     </div>
-</div>
+</form>

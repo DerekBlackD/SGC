@@ -11,6 +11,8 @@ import { Observable } from 'rxjs/Rx';
 export class ResultCodeDelCoponent implements OnInit{
     resultid:number;
 
+    oUserData:any={};
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,
@@ -20,6 +22,7 @@ export class ResultCodeDelCoponent implements OnInit{
     }
 
     ngOnInit(){
+        this.oUserData = this._CollectionService.getUserData();
         this.route.params.subscribe(params => {
             this.resultid = params['id'].toString();
 
@@ -28,9 +31,9 @@ export class ResultCodeDelCoponent implements OnInit{
 
     Delete():void{
         let data: any = {};
+        let oRequest:any = {};
 
         data.Option = 'E';
-        data.BusinessID = 1;
         data.ResultID = this.resultid;
         data.ObjIDClass = 0;
         data.Class = "";
@@ -45,12 +48,16 @@ export class ResultCodeDelCoponent implements OnInit{
         data.Situation = false;
         data.Alert = false;
         data.State = 0;
-        data.User = "scuya";
+        data.User = this.oUserData.UserName;
 
-        this._CollectionService.postManagementData('api/Result/PostResultCode', data)
-            .subscribe(res =>{
+        oRequest.objResult = data;
+
+        this._CollectionService.getData('api/Result/PostResultCode', oRequest).subscribe(res =>{
+            if (res.strResponseCode=='0'){
                 this.router.navigateByUrl("Cobranza/ResultadoGestion");
-                console.log('ID: ' + res[0] + ' MSG: ' + res[1]);
+            }else{
+                alert(res.strResponseMsg);
+            }
         })
 
     }

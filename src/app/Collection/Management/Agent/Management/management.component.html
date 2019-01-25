@@ -1,10 +1,25 @@
 <form class="form-horizontal" name="formManagement" #formManagement="ngForm" role="form" novalidate >
     <div class="row">
         <div class="col-sm-12">
-            <h5><p class="text-center">Mantenimiento</p></h5>
+            <h4><p class="text-center">Mantenimiento</p></h4>
         </div>
     </div>
     <br>
+
+    <div class="row">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-offset-1 col-sm-1 control-label">Usuario</label>
+            <div class="col-sm-4" [ngClass]="{'has-error has-feedback' : gblnValidate }" >
+                <select name="User" [(ngModel)]="gManagement.User" class="form-control" disabled required >
+                    <option value="0">Seleccionar</option>
+                    <option value="{{gintUserID}}">{{gstrUserName}}</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <a class="btn-without-ref" (click)="FSearchUser()"><span class="glyphicon glyphicon-pencil"></span></a>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="form-group form-group-sm">
@@ -58,21 +73,6 @@
             <label class="col-sm-1 control-label">Teléfono</label>
             <div class="col-sm-2">
                 <input type="tel" name="Phone" [(ngModel)]="gManagement.Phone" class="form-control">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="form-group form-group-sm">
-            <label class="col-sm-offset-1 col-sm-1 control-label">Usuario</label>
-            <div class="col-sm-4">
-                <select name="User" [(ngModel)]="gManagement.User" class="form-control" disabled >
-                    <option value="0">Seleccionar</option>
-                    <option value="{{gintUserID}}">{{gstrUserName}}</option>
-                </select>
-            </div>
-            <div class="col-sm-2">
-                <a class="btn-without-ref" (click)="FSearchUser()"><span class="glyphicon glyphicon-pencil"></span></a>
             </div>
         </div>
     </div>

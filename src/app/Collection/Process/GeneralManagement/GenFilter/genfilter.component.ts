@@ -60,6 +60,7 @@ export class GenFilter{
                     this.LstAssignment.push(oSG);
                 }else{
                     alert(Response.strResponseMsg);
+                    this.blnShow=false;
                 }
                 this.blockUI.stop();
             });
@@ -108,7 +109,7 @@ export class GenFilter{
                     oContact = {};
                     oContact.Code = oAssignment.Code;
                     oContact.ID = item.ContactID;
-                    oContact.Description = this.LstCode.filter(x=>x.ID==item.ContactID)[0].Value;
+                    oContact.Description = (item.ContactID!=0) ? this.LstCode.filter(x=>x.ID==item.ContactID)[0].Value : '';
                     oContact.Filter = 0;
                     if(this.LstContact.filter(x=>x.ID==item.ContactID).length == 0){
                         oContact.Quantity = 1;
@@ -152,7 +153,7 @@ export class GenFilter{
                 oResult.Code = item1.StatusID;
                 oResult.ID = item1.ContactID;
                 oResult.ResultID = item1.ResultID;
-                oResult.Description = this.LstCodeResult.filter(x=>x.ResultID==item1.ResultID)[0].Description;
+                oResult.Description = (item1.ResultID!=0) ? this.LstCodeResult.filter(x=>x.ResultID==item1.ResultID)[0].Description : '';
                 oResult.Filter = 0;
                 if(this.LstResult.filter(x=>x.Code==item1.StatusID && x.ID==item1.ContactID && x.ResultID==item1.ResultID).length==0){
                     oResult.Quantity=1;

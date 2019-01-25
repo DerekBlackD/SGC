@@ -57,7 +57,7 @@ const collectionRoutes: Routes = [
   { path: 'AccountView/:id/:Description/:CustomerID/:BagID', component: AccountView },
   { path: 'AgentSearch', component: SearchComponent },
   { path: 'AgentManagementComponent/:id', component: AgentManagementComponent },
-  { path: 'AgentDeleteComponent/:id', component: AgentDeleteComponent },
+  { path: 'AgentDeleteComponent/:id/:des', component: AgentDeleteComponent },
   { path: 'CustomerSearch', component: CustomerSearch },
   { path: 'CustomerManagementComponent/:id', component: CustomerManagementComponent },
   { path: 'CustomerDeleteComponent/:id', component: CustomerDeleteComponent },

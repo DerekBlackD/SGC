@@ -28,12 +28,13 @@ export class AgentDeleteComponent{
 
         this._Route.params.subscribe(response=>{
             this.gintID = response['id'];
+            this.gDelete.AgentName = response['des'];
+            
             if(this.gintID != 0){
                 this.gDelete.AgentID=this.gintID;
 
             }else{
                 console.log('Error de consulta');
-                
             }
         });
 
@@ -49,10 +50,12 @@ export class AgentDeleteComponent{
 
         request.oAgent = oAgent;
 
-        this._CollectionService.getData('api/sgc/agent/PostManagementAgentDelete/post', request)
-        .subscribe(response =>{    
-            console.log('code:' + response.strResponseCode + ' msg:' + response.strResponseMsg);
-            this._RouterExit.navigateByUrl("AgentSearch");
+        this._CollectionService.getData('api/sgc/agent/PostManagementAgentDelete/post', request).subscribe(response =>{
+            if (response.strResponseCode == '0'){
+                this._RouterExit.navigateByUrl("AgentSearch");
+            }else{
+                alert(response.strResponseMsg);
+            }
             this.blockUI.stop();
         });
     }

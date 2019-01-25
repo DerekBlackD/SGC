@@ -37,7 +37,6 @@ export class SearchComponent {
         this._CollectionService.getData('api/sgc/agent/getallagentsdata/get',request)
         .subscribe(Response =>{
             this.glstAgent = Response.ListAgents;
-            console.log('Respuesta (Consulta Agente)= cod: '+ Response.strResponseCode +' msg: '+Response.strResponseMsg);
             this.blockUI.stop();            
         });
     }
@@ -50,7 +49,7 @@ export class SearchComponent {
         this._Router.navigate(['/AgentManagementComponent', ID]);
     }
 
-    FDelete(ID:number):void{
-        this._Router.navigate(['/AgentDeleteComponent', ID]);
+    FDelete(ID:number,Description:string):void{
+        this._Router.navigate(['/AgentDeleteComponent', ID, Description]);
     }
 }

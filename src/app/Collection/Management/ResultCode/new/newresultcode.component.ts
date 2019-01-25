@@ -1,7 +1,6 @@
 import { Component, OnInit  } from '@angular/core';
 import { CollectionService } from '../../../../Services/collection.service';
 import { Router,ActivatedRoute,Params } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
 
 @Component({
     selector: 'resultcode-new-component',
@@ -15,12 +14,16 @@ export class ResultCodeNewComponent implements OnInit {
 
     indica: string;
     resultID: number;
-    register: any = {};
 
+    StateContact = false;
+    Modify:boolean = true;
+    blnValidate:boolean = false;
+
+    register: any = {};
     dataResult:any={};
     userData:any={};
     management:any={};
-    StateContact = false;
+
     lstResultCodeContact:any[]=[];
     lstResultCodeRelation:any[]=[];
 
@@ -41,11 +44,13 @@ export class ResultCodeNewComponent implements OnInit {
                 this.result.tipogestion = '';
                 this.result.idubica = '';
                 this.StateContact=false;
+                this.Modify = false;
 
             }else{
                 this.indica='M';
                 this.getResultCode(this.resultID);                
                 this.StateContact = true;
+                this.Modify = true;
             }
         });
     }
@@ -83,32 +88,39 @@ export class ResultCodeNewComponent implements OnInit {
     }
 
 
-     SaveResult(): void{
+    SaveResult(blnValid:boolean): void{
+        this.blnValidate = true;
+        if (blnValid){
+            let data: any = {};
+            data.Option = this.indica;
+            data.ResultID = this.resultID;
+            data.ObjIDClass = this.result.tipogestion;
+            data.ResultCode = this.result.resultcode;
+            data.Description = this.result.descripcion;
+            data.Priority = this.result.prioridad;
+            data.SubPriority = this.result.subprioridad;
+            data.ObjIDUbicability = this.result.idubica;
+            data.Commission = this.result.comision;
+            data.Situation = this.result.situacion;
+            data.intSituationQuantity = this.result.SituationQuantity;
+            data.Alert = this.result.alerta;
+            data.blnPayment = this.result.Payment;
+            data.State = 1;
+            data.User = this.userData.UserName;
 
-         let data: any = {};
-         data.Option = this.indica;
-         data.ResultID = this.resultID;
-         data.ObjIDClass = this.result.tipogestion;
-         data.ResultCode = this.result.resultcode;
-         data.Description = this.result.descripcion;
-         data.Priority = this.result.prioridad;
-         data.SubPriority = this.result.subprioridad;
-         data.ObjIDUbicability = this.result.idubica;
-         data.Commission = this.result.comision;
-         data.Situation = this.result.situacion;
-         data.intSituationQuantity = this.result.SituationQuantity;
-         data.Alert = this.result.alerta;
-         data.blnPayment = this.result.Payment;
-         data.State = 1;
-         data.User = this.userData.UserName;
+            this.management.objResult = data;
 
-         this.management.objResult = data;
-
-        this._collectionService.getData('api/Result/PostResultCode', this.management)
-            .subscribe(res =>{
-                this.router.navigateByUrl("Cobranza/ResultadoGestion");
-                console.log(res);
-        })
+            this._collectionService.getData('api/Result/PostResultCode', this.management).subscribe(res =>{
+                if(res.strResponseCode != '0'){
+                    alert(res.strResponseMsg);
+                }else{
+                    this.indica='M';
+                    this.getResultCode(res.intResponseID);                
+                    this.StateContact = true;
+                }
+                this.blnValidate = false;
+            });
+        }
     }
 
     SalirNew():void{

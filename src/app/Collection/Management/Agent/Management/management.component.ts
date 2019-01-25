@@ -51,7 +51,6 @@ export class AgentManagementComponent{
                 this.gstrOption = 'I';
                 this.gstrURLManagement='api/sgc/agent/PostManagementAgentInsert/post';
                 this.FClean();
-                
             }
         });
     }
@@ -85,8 +84,7 @@ export class AgentManagementComponent{
 
             request.oAgent = oAgent;
 
-            this._CollectionService.getData(this.gstrURLManagement, request)
-            .subscribe(response =>{    
+            this._CollectionService.getData(this.gstrURLManagement, request).subscribe(response =>{    
                 this.gblnValidate = false;
                 console.log('code:' + response.strResponseCode + ' msg:' + response.strResponseMsg);
                 this._RouterExit.navigateByUrl("AgentSearch");
@@ -110,10 +108,8 @@ export class AgentManagementComponent{
             this.gManagement.Type=oAgent.Type;
             this.gintUserID=oAgent.AssignUserID;
             this.gstrUserName=oAgent.UserName;
-
             this.gManagement.User=this.gintUserID;
             
-            console.log('Respuesta (Consulta Agente)= cod: '+ Response.strResponseCode +' msg: '+Response.strResponseMsg);
             this.blockUI.stop();
 
         },error=>{
@@ -128,11 +124,14 @@ export class AgentManagementComponent{
     }
 
     FSearchUser():void{
-        this.gblnVisible=true;
-        this.gintIDUser=this.gManagement.User;
+        if (this.gstrOption=='I'){
+            this.gblnVisible=true;
+            this.gintIDUser=this.gManagement.User;
+        }
     }
 
     FHide(event):void{
+        
         this.gblnVisible=event.state;
     }
 
@@ -142,5 +141,18 @@ export class AgentManagementComponent{
         this.gblnVisible=event.Visible;
 
         this.gManagement.User=this.gintUserID;
+
+        let request:any={};
+        request.ID = event.ID;
+
+        this._CollectionService.getData('api/sgc/user/GetRegisterUser/get', request).subscribe(response =>{
+            if(response.strResponseCode=='0'){
+                this.gManagement.Name = response.lstUser[0].FullName;
+                this.gManagement.ShortName = response.lstUser[0].UserName;
+                
+            }else{
+                alert(response.strResponseMsg);
+            }
+        });
     }
 }

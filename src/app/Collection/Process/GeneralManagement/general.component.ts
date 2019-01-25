@@ -286,10 +286,6 @@ export class GeneralManagementComponent {
                     this.customerBagManagementsData = this.customerBagData.Managements;
                     this.customerBagManagementsDataBack = this.customerBagManagementsData;
                 }
-                //if (this.customerBagData.Accounts != null) {
-                  //  this.customerBagAccountData = this.customerBagData.Accounts;
-                    //this.AddAmounts(this.customerBagAccountData);
-                //}
                 if(this.customerBagData.Pays!= null){
                     this.customerBagPay = this.customerBagData.Pays;
                 }

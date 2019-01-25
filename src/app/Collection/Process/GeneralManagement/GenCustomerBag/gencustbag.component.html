@@ -2,8 +2,6 @@
     <ul class="nav nav-tabs">
         <li class="active"><a href="#personalData" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Datos Personales</a></li>
         <li><a href="#anotherData" data-toggle="tab"><span class="glyphicon glyphicon-th-list"></span> Otros Datos</a></li>
-        <li><a href="#paid" data-toggle="tab"><span class="glyphicon glyphicon-usd"></span> Pagos</a></li>
-        <li><a href="#schedule" data-toggle="tab"><span class="glyphicon glyphicon-calendar"></span> Cronograma</a></li>
     </ul>
     <div id="tabs-Customer" class="tab-content">
         <div class="tab-pane fade active in" id="personalData">
@@ -40,8 +38,8 @@
                         <td colspan="5"><span class="label label-info"> </span></td>
                     </tr>
                     <tr>
-                        <td>Referencia</td>
-                        <td colspan="7"><span class="label label-info"> </span></td>
+                        <td>Asignación</td>
+                        <td colspan="7"><span class="label label-info">{{customerBagData.Assignment}}</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -67,70 +65,8 @@
                         <td>Entidades</td>
                         <td><span class="label label-info"> </span></td>
                     </tr>
-                    <!-- <tr>
-                        <td class="col-sm-12">
-                            <div class="col-sm-2"><label class="control-label">Observación</label></div>
-                            <div class="col-sm-10">{{customerBagData.Observationv}}</div>
-                        </td>
-                    </tr> -->
                 </tbody>
             </table>
-        </div>
-        <div class="tab-pane fade" id="paid">
-            <div class="mngt-scrolls">
-                <table class="table-mngt table table-hover table-condensed table-body-size">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Cartera</th>
-                            <th>Fecha</th>
-                            <th>Cuenta</th>
-                            <th>Operación</th>
-                            <th>Monto</th>
-                            <th>Moneda</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="tab-pane fade" id="schedule">
-            <div class="mngt-scrolls">
-                <table class="table-mngt table table-hover table-condensed table-body-size">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Cartera</th>
-                            <th>Fecha</th>
-                            <th>Cuenta</th>
-                            <th>Operación</th>
-                            <th>Monto</th>
-                            <th>Moneda</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
 </div>

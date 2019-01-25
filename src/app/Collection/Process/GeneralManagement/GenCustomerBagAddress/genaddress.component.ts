@@ -158,7 +158,6 @@ export class GenCustomerBagAddress {
                 this.oAddress.Department = this.lstDepartment.find(x => x.Code === this.selectDepartment).Value;
                 this.oAddress.Province = this.lstProvince.find(x => x.Code === this.selectProvince).Value;
                 this.oAddress.District = this.lstDistrict.find(x => x.Code === this.oAddress.Ubigeo).Value;
-                this.oAddress.Priority = 99;
                 this.oAddress.Situation = 1;
                 urlRest = 'api/sgc/customerbag/postinsertcustomerbagaddress/post';
             } else {
@@ -172,14 +171,16 @@ export class GenCustomerBagAddress {
 
             this.oAddress.User = this.userData.UserName;
 
-            this._collectionService.getData(urlRest, this.oAddress)
-            .subscribe(res => {
-                this.formState = false;
-                this.submitted = false;
+            this._collectionService.getData(urlRest, this.oAddress).subscribe(res => {
+                if(res.strResponseCode=='0'){
+                    this.formState = false;
+                    this.submitted = false;
+                    this.loadAddress();
+                }else{
+                    alert(res.strResponseMsg);
+                }
                 this.blockUI.stop();
-                this.loadAddress();
             }, err => {
-                // this.messageServiceError = err;
                 console.log(err);
             });
         }

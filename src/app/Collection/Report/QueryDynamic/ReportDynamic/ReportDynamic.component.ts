@@ -56,6 +56,7 @@ export class ReportDynamicComponent{
 
         this._Conexion.getData('api/sgc/ReportQuery/GetGenerateReport/post',Request)
         .subscribe(Response =>{
+            console.log(Response);
             this.blockUI.stop();            
         },err=>{
             console.log('Error de aplicativo');

@@ -5,8 +5,6 @@ import { Component, Input } from '@angular/core';
     templateUrl: 'gencustbag.component.html',
     styleUrls: ['../general.component.css']
 })
-export class GenCustomerBag{
+export class GenCustomerBag {
     @Input() customerBagData : any = {};
-
-    
 }

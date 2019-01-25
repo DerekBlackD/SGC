@@ -255,9 +255,7 @@ export class ManagementComoponent implements OnInit{
 
             if(this.lstAccountSelect.length < 1){
                 alert('Ingrese campos al formato');
-            }else{               
-                console.log(request);
-    
+            }else{    
                 this._CollectionService.getData('api/AccountFormat/PostAccountFormatGeneral', request)
                 .subscribe(response =>{    
                     this.gblnValidate = false;

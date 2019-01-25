@@ -8,7 +8,6 @@
     <div class="row">
         <div class="col-sm-offset-1 col-sm-8">
             <div class="col-md-11 input-group input-group-sm">
-                <input type="text" class="form-control mngt-search-select" value="Búsqueda" readonly >
                 <input type="text" name="txtFact" (keyup.enter)="FSearch(txtFact.value)" class="form-control mngt-search-input" aria-label="..." #txtFact placeholder="Buscar agente" [(ngModel)]="gSearch.txtFact" />                
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-primary" (click)="FNew()" >Nuevo</button>
@@ -44,7 +43,7 @@
                                 <a class="btn-without-ref" (click)="FEdit(item.AgentID)"><span class="glyphicon glyphicon-pencil"></span></a>
                             </td>
                             <td>
-                                <a class="btn-without-ref" (click)="FDelete(item.AgentID)"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a class="btn-without-ref" (click)="FDelete(item.AgentID,item.FullName)"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
                     </tbody>

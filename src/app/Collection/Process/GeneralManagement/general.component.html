@@ -27,20 +27,14 @@
                 <button type="button" class="btn btn-primary" (click)="showCreateAlert()"><span class="glyphicon glyphicon-comment"></span> Alerta</button>
             </div>
             <div class="btn-group btn-group-sm" role="group">
-                <button type="button" class="btn btn-primary" (click)="showListPay()"><span class="glyphicon glyphicon-piggy-bank" title="Pagos"></span></button>
-            </div>
-            <div class="btn-group btn-group-sm" role="group">
-                <button type="button" class="btn btn-primary" (click)="addToast()"><span class="glyphicon glyphicon-stats"></span> Resumen</button>
-            </div>
-            <div class="btn-group btn-group-sm" role="group">
-                <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-phone-alt"></span> Progresivo</button>
+                <button type="button" class="btn btn-primary" (click)="showListPay()"><span class="glyphicon glyphicon-piggy-bank" title="Pagos"></span> Pagos</button>
             </div>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-md-6">
-        <gen-customerbag [customerBagData]="customerBagData"></gen-customerbag>
+        <gen-customerbag [customerBagData]="customerBagData" ></gen-customerbag>
     </div>
     <div class="col-md-6">
         <gen-customerbag-phone *ngIf="showPhoneOrAddress" [customerBagPhoneData]="customerBagPhoneData" [customerBagAddressData]="customerBagAddressData" [customerData]="customerData" (selectPhone)="handleSelectPhone($event)" (changeManagement)="handleChangeManagement($event)"></gen-customerbag-phone>

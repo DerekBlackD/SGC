@@ -41,7 +41,7 @@ is the default in type.less */
 .mngt-scrolls{
     overflow-x: auto;
     overflow-y:auto;
-    max-height:600px;
+    max-height:300px;
     margin-bottom: 5px;
 }
 

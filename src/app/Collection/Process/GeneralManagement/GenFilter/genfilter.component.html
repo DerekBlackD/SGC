@@ -1,17 +1,15 @@
-<p-dialog header="Filtrar Asignación" [(visible)]="blnShow" modal="modal" width="90%" [responsive]="true">
-    <div class="container">
-
-        <div class="row small">
-            <div class="form-group form-group-sm">
-                <div class="col-sm-6">
-                    <div class="checkbox">
-                        <label><input type="checkbox" name="Status" [(ngModel)]="OFiltro.Status" >Limpiar Filtro</label>
-                    </div>
+<p-dialog header="Filtrar Asignación" [(visible)]="blnShow" modal="modal" width="1000" [responsive]="true">
+    <form class="form-horizontal">
+        
+        <div class="form-group">
+            <div class="col-sm-6">
+                <div class="checkbox">
+                    <label><input type="checkbox" name="Status" [(ngModel)]="OFiltro.Status" >Limpiar Filtro</label>
                 </div>
             </div>
         </div>
 
-        <div class="row small">
+        <div class="form-group">
             <div class="col-sm-4">
                 <div class="table-responsive">
                     <table class="table table-condensed">
@@ -73,7 +71,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
     <p-footer>
         <button type="button" pButton icon="fa-check" (click)="FN_Save()" label="Guardar"></button>

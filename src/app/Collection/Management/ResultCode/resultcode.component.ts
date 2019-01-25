@@ -35,7 +35,6 @@ export class ResultCodeManagementComponent implements OnInit {
         this._CollectionService.getData('api/Result/getResult',data)
             .subscribe(result =>{
                 this.codes = result.lstResult;
-                console.log("code:" + result.strResponseCode + " msg:" + result.strResponseMsg);
         })
     }
 

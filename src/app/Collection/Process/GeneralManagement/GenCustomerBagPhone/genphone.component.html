@@ -30,26 +30,26 @@
                 <tr>
                     <th></th>
                     <th>Teléfono</th>
+                    <th>Anexo</th>
                     <th>Prio</th>
                     <th>Proveedor</th>
-                    <th>Anexo</th>
                     <th>Origen</th>
                     <th>Clase</th>
-                    <th>Observación</th>
-                    <th>ID</th>
+                    <th>Contacto</th>
+                    <th>Contactabilidad</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let phone of customerBagPhoneData" (click)="setClickedRow(phone.ID, phone.Phone)" [class.active]="phone.ID == selectObjPhone.phoneID">
                     <td><a class="btn-without-ref" (click)="editCustomerPhone(phone)"><span class="glyphicon glyphicon-pencil"></span></a></td>
                     <td>{{phone.Phone}}</td>
+                    <td>{{phone.Annexed}}</td>
                     <td>{{phone.Priority}}</td>
                     <td>{{phone.ProviderDesc}}</td>
-                    <td>{{phone.Annexed}}</td>
                     <td>{{phone.OriginDesc}}</td>
                     <td>{{phone.ClassDesc}}</td>
-                    <td>{{phone.Observation}}</td>
-                    <td>{{phone.ID}}</td>
+                    <td>{{phone.ContactName}}</td>
+                    <td>{{phone.ContactabilityName}}</td>
                 </tr>
             </tbody>
         </table>
