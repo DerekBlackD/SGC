@@ -27,6 +27,7 @@
             <thead class="table-fixed-header-th">
                 <tr>
                     <th style="width: 100px">Fecha</th>
+                    <th style="width: 50px">Hora</th>
                     <th style="width: 150px">Número</th>
                     <th style="width: 100px">Dir ID</th>
                     <th style="width: 100px">Agente</th>
@@ -48,6 +49,7 @@
             <tbody>
                 <tr *ngFor="let mngt of lstBackupManagementsData" (click)="setClickedRow(mngt.ManagementID, mngt.Observation)" [class.active]="mngt.ManagementID == selectRow">
                     <td style="width: 100px">{{mngt.MngtDateString}}</td>
+                    <td style="width: 50px">{{mngt.ManagementTime}}</td>
                     <td style="width: 150px">{{mngt.PhoneDesc}}</td>
                     <td style="width: 100px">{{mngt.AddressID}}</td>
                     <td style="width: 100px">{{mngt.AgentDesc}}</td>

@@ -1,0 +1,79 @@
+<p-dialog header="Mantenimiento Contacto" [(visible)]="blnShow" modal="modal" width="800" [responsive]="true">
+    <form class="form-horizontal" name="frmContact" #frmContact="ngForm" novalidate >
+        <div class="form-group form-group-sm">
+            <label class="col-sm-1 control-label">Origen</label>
+            <div class="col-sm-3" [ngClass]="{'has-error has-feedback' : blnValidate }">
+                <select class="form-control" name="ContactOrigin" [(ngModel)]="oContact.ContactOrigin" required >
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let item of lstOrigen" value="{{item.ID}}">{{item.Value}}</option>
+                </select>
+            </div>
+            <label class="col-sm-1 control-label">Tipo</label>
+            <div class="col-sm-3" [ngClass]="{'has-error has-feedback' : blnValidate }">
+                <select class="form-control" name="ContactType" [(ngModel)]="oContact.ContactType">
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let item of lstType" value="{{item.ID}}">{{item.Value}}</option>
+                </select>
+            </div>
+            <label class="col-sm-1 control-label">Tip.Doc.</label>
+            <div class="col-sm-3" [ngClass]="{'has-error has-feedback' : blnValidate }">
+                <select class="form-control" name="ContactDocType" [(ngModel)]="oContact.ContactDocType">
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let item of lstDocType" value="{{item.ID}}">{{item.Value}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-1 control-label">Nro.Doc.</label>
+            <div class="col-sm-3" [ngClass]="{'has-error has-feedback' : blnValidate }">
+                <input type="text" class="form-control" maxlength="15" name="ContactDocNumber" [(ngModel)]="oContact.ContactDocNumber" >
+            </div>
+            <label class="col-sm-1 control-label">Nombre</label>
+            <div class="col-sm-7" [ngClass]="{'has-error has-feedback' : blnValidate }">
+                <input type="text" class="form-control" maxlength="100" name="ContactName" [(ngModel)]="oContact.ContactName">
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-1 control-label">Sexo</label>
+            <div class="col-sm-3">
+                <select class="form-control" name="ContactSex" [(ngModel)]="oContact.ContactSex">
+                    <option value="">Seleccionar</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-1 control-label">Trabajo</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" maxlength="100" name="ContactWorkCenter" [(ngModel)]="oContact.ContactWorkCenter">
+            </div>
+            <label class="col-sm-1 control-label">Area</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" maxlength="100" name="ContactWorkArea" [(ngModel)]="oContact.ContactWorkArea">
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-1 control-label">Puesto</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" maxlength="100" name="ContactWorkPosition" [(ngModel)]="oContact.ContactWorkPosition">
+            </div>
+        </div>
+        <div class="form-group form-group-sm">
+            <label class="col-sm-1 control-label">Moneda</label>
+            <div class="col-sm-3">
+                <select class="form-control" name="ContactMoney" [(ngModel)]="oContact.ContactMoney">
+                    <option value="0">Seleccionar</option>
+                    <option *ngFor="let item of lstMoney" value="{{item.ID}}">{{item.Value}}</option>
+                </select>
+            </div>
+            <label class="col-sm-1 control-label">Sueldo</label>
+            <div class="col-sm-3">
+                <input type="number" class="form-control"name="ContactSalary" [(ngModel)]="oContact.ContactSalary" >
+            </div>
+        </div>
+    </form>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" (click)="saveContact(frmContact.valid)" label="Guardar"></button>
+    </p-footer>
+</p-dialog>

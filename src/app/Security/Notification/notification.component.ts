@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { DialogModule } from 'primeng/primeng';
 import { CollectionService } from '../../Services/collection.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -24,7 +23,10 @@ export class NotificationComponent {
             response => {
                 if (response === 'listNotif') {
                     this.blnShow = true;
-                    const lstActive = JSON.parse(sessionStorage.getItem('AlertList')).filter(x => x.AlertStatusID == 1);
+                    let lstActive = JSON.parse(sessionStorage.getItem('AlertList'));
+                    if(lstActive!=null){
+                        lstActive = lstActive.filter(x => x.AlertStatusID == 1);
+                    }
                     this.lstNotifications = lstActive;
                     this.value=null;
                     this.chkAll=false;
@@ -35,10 +37,12 @@ export class NotificationComponent {
     FN_SelectDate(){
         let lstAlert:any[]=[];
 
-        if(this.chkAll){
-            lstAlert = JSON.parse(sessionStorage.getItem('AlertList'));    
-        }else{
-            lstAlert = JSON.parse(sessionStorage.getItem('AlertList')).filter(x => x.AlertStatusID == 1)
+        lstAlert = JSON.parse(sessionStorage.getItem('AlertList'));
+
+        if(!this.chkAll){
+            if(lstAlert!=null){
+                lstAlert = lstAlert.filter(x => x.AlertStatusID == 1);
+            }
         }
         
         if(this.value!=undefined){

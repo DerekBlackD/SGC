@@ -2,6 +2,9 @@
     <ul class="nav nav-tabs">
         <li class="active"><a href="#personalData" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Datos Personales</a></li>
         <li><a href="#anotherData" data-toggle="tab"><span class="glyphicon glyphicon-th-list"></span> Otros Datos</a></li>
+        <li><a href="#Contacts" data-toggle="tab"><span class="glyphicon glyphicon-th-list"></span> Contactos</a></li>
+        <li><a href="#Mails" data-toggle="tab"><span class="glyphicon glyphicon-envelope"></span> Correos</a></li>
+        <li><a href="#Observation" data-toggle="tab"><span class="glyphicon glyphicon-tasks"></span> Observaciones</a></li>
     </ul>
     <div id="tabs-Customer" class="tab-content">
         <div class="tab-pane fade active in" id="personalData">
@@ -10,36 +13,38 @@
                     <tr>
                         <td>Codcli</td>
                         <td><span class="label label-info">{{customerBagData.DocNumber}}</span></td>
-                        <td>W</td>
-                        <td><span class="label label-info">{{customerBagData.CompanyName}}</span></td>
-                        <td colspan="2" >Sueldo</td>
-                        <td colspan="2"><span class="label label-info">{{customerBagData.Salary}}</span></td>
-                    </tr>
-                    <tr>
                         <td>Cliente</td>
                         <td colspan="3"><span class="label label-info">{{customerBagData.Name}}</span></td>
-                        <td>E/S</td>
-                        <td><span class="label label-info"> </span> <span class="label label-info"> </span></td>
-                        <td>@</td>
-                        <td><span class="label label-info"> </span></td>
+                    </tr>
+                    <tr>
+                        <td>W</td>
+                        <td colspan="3"><span class="label label-info"> {{customerBagData.CompanyName}}</span></td>
+                        <td>Sueldo</td>
+                        <td><span class="label label-info">{{customerBagData.Salary}}</span></td>
                     </tr>
                     <tr>
                         <td>Cargo</td>
-                        <td><span class="label label-info"> </span></td>
+                        <td colspan="3"><span class="label label-info"> {{customerBagData.WorkPosition}}</span></td>
                         <td>RUC</td>
-                        <td><span class="label label-info"> </span></td>
-                        <td colspan="2">Otros</td>
-                        <td colspan="2"><span class="label label-info"> </span></td>
+                        <td colspan="3"><span class="label label-info"> </span></td>
                     </tr>
                     <tr>
-                        <td>Doc C</td>
-                        <td><span class="label label-info"> </span></td>
                         <td>Conyuge</td>
-                        <td colspan="5"><span class="label label-info"> </span></td>
+                        <td colspan="3">
+                            <span class="label label-info"> {{customerBagData.WifeName}}</span>
+                        </td>
+                        <td>Correo</td>
+                        <td colspan="3"> 
+                            <span class="label label-info"> {{customerBagData.Email}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Otros</td>
+                        <td colspan="7"><span class="label label-info"> {{customerBagData.Observationv}}</span></td>
                     </tr>
                     <tr>
                         <td>Asignación</td>
-                        <td colspan="7"><span class="label label-info">{{customerBagData.Assignment}}</span></td>
+                        <td colspan="7"><span class="label label-info"> {{customerBagData.Assignment}}</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -67,6 +72,140 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="tab-pane fade" id="Contacts">
+            <div class="panel panel-info">
+                <div class="panel-heading nav navbar-inverse">
+                    <div>
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span> Contactos</h3>
+                        </div>
+            
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a class="btn-without-ref" (click)="newCustBagContact()"><span class="glyphicon glyphicon-plus"></span> Nuevo</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="mngt-scrolls table-responsive">
+                    <table class="table-fixed-header table-mngt table table-hover table-body-size">
+                        <thead class="table-fixed-header-th">
+                            <tr>
+                                <th style="width: 15px"></th>
+                                <th style="width: 15px"></th>
+                                <th style="width: 80px">Tipo</th>
+                                <th style="width: 100px">Documento</th>
+                                <th style="width: 200px">Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of customerBagData.Contacts">
+                                <td style="width: 15px"><a class="btn-without-ref" (click)="editCustBagContact(item)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td style="width: 15px"><a class="btn-without-ref" (click)="deletCustBagContact(item)"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                <td style="width: 80px">{{item.ContactTypeName}}</td>
+                                <td style="width: 100px">{{item.ContactDocNumber}}</td>
+                                <td style="width: 200px">{{item.ContactName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <gen-customerbagContact (FN_SetContacts)="FN_GetContact($event)" ></gen-customerbagContact>         
+        </div>
+        <div class="tab-pane fade" id="Mails">
+            <div class="panel panel-info">
+                <div class="panel-heading nav navbar-inverse">
+                    <div>
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-envelope"></span> Correos</h3>
+                        </div>
+            
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a class="btn-without-ref" (click)="newCustBagMail()"><span class="glyphicon glyphicon-plus"></span> Nuevo</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="mngt-scrolls table-responsive">
+                    <table class="table-fixed-header table-mngt table table-hover table-body-size">
+                        <thead class="table-fixed-header-th">
+                            <tr>
+                                <th style="width: 15px"></th>
+                                <th style="width: 15px"></th>
+                                <th style="width: 100px">Correo</th>
+                                <th style="width: 80px">Propietario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of customerBagData.Mails">
+                                <td style="width: 15px"><a class="btn-without-ref" (click)="editCustBagMail(item)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                <td style="width: 15px"><a class="btn-without-ref" (click)="deletCustBagMail(item)"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                <td style="width: 100px">{{item.Mail}}</td>
+                                <td style="width: 80px">{{item.OwnerName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <gen-customerbagMail (FN_SetMails)="FN_GetMails($event)"></gen-customerbagMail>
+        </div>
+        <div class="tab-pane fade" id="Observation">
+            <div class="panel panel-info">
+                <div class="panel-heading nav navbar-inverse">
+                    <div>
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-tasks"></span> Observaciones</h3>
+                        </div>
+            
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a class="btn-without-ref" (click)="newCustBagObs()"><span class="glyphicon glyphicon-plus"></span> Nuevo</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="mngt-scrolls table-responsive">
+                    <table class="table-fixed-header table-mngt table table-hover table-body-size">
+                        <thead class="table-fixed-header-th">
+                            <tr>
+                                <th style="width: 15px"></th>
+                                <th style="width: 50px">Gestor</th>
+                                <th style="width: 50px">Fecha</th>
+                                <th style="width: 200px">Detalle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of customerBagData.Observations">
+                                <td style="width: 15px"><a class="btn-without-ref" (click)="deletCustBagObs(item)"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                <td style="width: 50px">{{item.AgentName}}</td>
+                                <td style="width: 50px">{{item.DateReg}}</td>
+                                <td style="width: 200px">{{item.Observation}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <gen-customerbagObservation (FN_SetObservations)="FN_GetObservations($event)" ></gen-customerbagObservation>
         </div>
     </div>
 </div>

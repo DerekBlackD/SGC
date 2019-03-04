@@ -23,6 +23,7 @@
                         </div>
                     </li>
                     <li><a class="btn-without-ref" (click)="saveManagement(formMngt.valid)"><span class="glyphicon glyphicon-floppy-disk"></span> Guardar</a></li>
+                    <li><a class="btn-without-ref" (click)="FN_CleanManagement()"><span class="glyphicon glyphicon-remove"></span> Limpiar</a></li>
                 </ul>
             </div>
         </div>
@@ -35,9 +36,9 @@
                         <option *ngFor="let type of lstMngtType" value="{{type.ID}}">{{type.Value}}</option>
                     </select>
                 </div>
-                <label class="col-sm-2 control-label">Lugar</label>
-                <div class="col-sm-4" [ngClass]="{'has-error has-feedback' : submitted && LocationContact.invalid}">
-                    <select class="form-control" name="LocationContact" #LocationContact="ngModel" [(ngModel)]="oManagement.LocationContact" (ngModelChange)="changeLocation($event)" required>
+                <label class="col-sm-2 control-label">Condición</label>
+                <div class="col-sm-4">
+                    <select class="form-control" name="LocationContact" #LocationContact="ngModel" [(ngModel)]="oManagement.LocationContact" required>
                         <option value="">Seleccionar</option>
                         <option *ngFor="let loc of lstLocation" value="{{loc.ID}}">{{loc.Value}}</option>
                     </select>
@@ -46,7 +47,7 @@
             <div class="form-group form-group-sm">
                 <label class="col-sm-2 control-label">Contacto</label>
                 <div class="col-sm-4" [ngClass]="{'has-error has-feedback' : submitted && ContactID.invalid}">
-                    <select class="form-control" name="ContactID" #ContactID="ngModel" [(ngModel)]="oManagement.ContactID" required>
+                    <select class="form-control" name="ContactID" #ContactID="ngModel" [(ngModel)]="oManagement.ContactID" (ngModelChange)="changeContact($event)" required>
                         <option value="">Seleccionar</option>
                         <option *ngFor="let cont of lstContact" value="{{cont.ID}}">{{cont.Value}}</option>
                     </select>
@@ -55,7 +56,7 @@
                 <div class="col-sm-4" [ngClass]="{'has-error has-feedback' : submitted && ResultID.invalid}">
                     <select class="form-control" name="ResultID" #ResultID="ngModel" [(ngModel)]="oManagement.ResultID" (ngModelChange)="changeResult($event)" required>
                         <option value="">Seleccionar</option>
-                        <option *ngFor="let res of oResultCodes" value="{{res.ResultID}}">{{res.Description}}</option>
+                        <option *ngFor="let res of lstResultCodeContactFilter" value="{{res.ResultID}}">{{res.ResultCodeName}}</option>
                     </select>
                 </div>
             </div>
@@ -66,7 +67,8 @@
                     <span *ngIf="submitted && Observation.invalid" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                 </div>
             </div>
-            <div *ngIf="showPayComp" class="form-group form-group-sm">
+        <div *ngIf="showPayComp" class="form-group form-group-sm">
+            <div *ngIf="showNoPayComp">
                 <label class="col-sm-2 control-label" for="TypeComp">Tipo Comp</label>
                 <div class="col-sm-4">
                     <select class="form-control" id="TypeComp" name="TypeComp" [(ngModel)]="oManagement.TypeComp">
@@ -74,24 +76,25 @@
                         <option *ngFor="let typ of lstTypeComp" value="{{typ.ID}}">{{typ.Value}}</option>
                     </select>
                 </div>
-                <label class="col-sm-2 control-label">Fecha</label>
-                <div class="col-sm-4">
-                    <input type="date" class="form-control" name="DateComp" id="DateComp" [(ngModel)]="oManagement.DateCompString" />
-                </div>
             </div>
-            <div *ngIf="showPayComp" class="form-group form-group-sm">
-                <label class="col-sm-2 control-label" for="ddlCurrency">Moneda</label>
-                <div class="col-sm-4">
-                    <select class="form-control" id="ddlCurrency" name="Currency" [(ngModel)]="oManagement.Currency">
-                        <option value="">Seleccionar</option>
-                        <option *ngFor="let cur of lstCurrency" value="{{cur.ID}}">{{cur.Value}}</option>
-                    </select>
-                </div>
-                <label class="col-sm-2 control-label" for="Amount">Monto</label>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control text-right" name="Amount" id="Amount" [(ngModel)]="oManagement.Amount" />
-                </div>
+            <label class="col-sm-2 control-label">Fecha</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" name="DateComp" id="DateComp" [(ngModel)]="oManagement.DateCompString" />
             </div>
+        </div>
+        <div *ngIf="showPayComp" class="form-group form-group-sm">
+            <label class="col-sm-2 control-label" for="ddlCurrency">Moneda</label>
+            <div class="col-sm-4">
+                <select class="form-control" id="ddlCurrency" name="Currency" [(ngModel)]="oManagement.Currency">
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let cur of lstCurrency" value="{{cur.ID}}">{{cur.Value}}</option>
+                </select>
+            </div>
+            <label class="col-sm-2 control-label" for="Amount">Monto</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control text-right" name="Amount" id="Amount" [(ngModel)]="oManagement.Amount" />
+            </div>
+        </div>
     </div>
 </div>
 

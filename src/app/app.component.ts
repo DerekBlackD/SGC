@@ -38,13 +38,12 @@ export class AppComponent {
   }
 
   loadMenu(): void {
-        // this._securityService.getAllData('api/Menu?BusinessID='+this.authenticationService.getPayLoad().BusinessID+'&UserID=2')
-        this._securityService.getAllData('api/Menu?BusinessID=1&UserID=1')
-        .subscribe(menu => {
-            this.options = menu;
-            console.log(this.options);
-            // this._changeDetector.detectChanges();
-        })
-    }
+    let oUser:any = this._collectionService.getUserData();
+    this._collectionService.setAlert(this._collectionService.getAgentID());
+
+    this._securityService.getAllData('api/Menu?BusinessID='+ oUser.BusinessID +'&UserID=' + oUser.ID).subscribe(menu => {
+        this.options = menu;
+    })
+  }
 
 }

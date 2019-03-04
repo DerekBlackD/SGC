@@ -1,0 +1,58 @@
+<form class="form-horizontal" name="formPrevious" #formPrevious="ngForm" role="form" novalidate >
+    <div class="panel panel-info">
+        <div class="panel-heading nav navbar-inverse">
+            <div>
+                <div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Resultado Previo</h3>
+                    </div>
+    
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li *ngIf="!blnFrmManagement"><a class="btn-without-ref" (click)="FNewPrevious()"><span class="glyphicon glyphicon-plus"></span> Nuevo</a></li>
+                            <li *ngIf="blnFrmManagement"><a class="btn-without-ref" (click)="FSavePrevious(formPrevious.valid)"><span class="glyphicon glyphicon-floppy-saved"></span> Guardar</a></li>
+                            <li *ngIf="blnFrmManagement"><a class="btn-without-ref" (click)="FUndoPrevious()"><span class="glyphicon glyphicon-log-out"></span> Deshacer</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mngt-scrolls table-responsive" *ngIf="!blnFrmManagement">
+        <table class="table-mngt table table-hover table-body-size">
+            <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of lstResultCodePrevious">
+                    <td>{{item.strResultPrevious}}</td>
+                    <td><a class="btn-without-ref" (click)="FDeletePrevious(item)"><span class="glyphicon glyphicon-trash"></span></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <label style="color:red;">{{lblMsgPrevious}}</label>
+    </div>
+
+    <div class="panel-body mngt-scrolls" *ngIf="blnFrmManagement">
+        <div class="form-group form-group-sm">
+            <label class="col-sm-3 control-label">Resultado Previo</label>
+            <div class="col-sm-6" [ngClass]="{'has-error has-feedback' : blnValPrevious }">
+                <select class="form-control" name="ddlPreviousID" [(ngModel)]="oPrevious.ddlPreviousID" required >
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let item of lstResultPrevious" value="{{item.ResultID}}">{{item.Description}}</option>
+                </select>
+            </div>
+            <label class="col-sm-6 control-label" style="color:red;">{{lblMsgPreviousMngt}}</label>
+        </div>
+    </div>
+</form>

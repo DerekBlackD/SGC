@@ -28,7 +28,6 @@ export class GenFilter{
         private _Conex:CollectionService
     ){
         this._Conex.showFilterEmitted.subscribe(Request=>{
-            this.blockUI.start('Cargando...');
             this.blnShow=true;
 
             this.OUser = this._Conex.getUserData();
@@ -59,7 +58,6 @@ export class GenFilter{
                     oSG.Filter = Response.lstAssignmentByAgent.filter(x=>x.StatusID==0 || x.StatusID==1);
                     this.LstAssignment.push(oSG);
                 }else{
-                    alert(Response.strResponseMsg);
                     this.blnShow=false;
                 }
                 this.blockUI.stop();

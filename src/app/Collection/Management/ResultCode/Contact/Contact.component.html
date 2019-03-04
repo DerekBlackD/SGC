@@ -28,14 +28,12 @@
         <table class="table-mngt table table-hover table-body-size">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Descripción</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let contact of lstResultCodeContact">
-                    <td>{{contact.ContactID}}</td>
                     <td>{{contact.ContactName}}</td>
                     <td><a class="btn-without-ref" (click)="FDeleteContact(contact.ResultCodeContactID)"><span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>

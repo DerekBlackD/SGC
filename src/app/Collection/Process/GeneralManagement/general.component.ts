@@ -106,6 +106,11 @@ export class GeneralManagementComponent {
                 customerBag.CustomerBagID = this.routerCustomerBagID;
                 customerBag.CustomerID = this.routerCustomerID;
                 customerBag.BagID = this.routerBagID;
+
+                this.customerData.CustomerBagID = this.routerCustomerBagID;
+                this.customerData.CustomerID = this.routerCustomerID;
+                this.customerData.BagID = this.routerBagID;
+
                 this.loadCustomerBagData(customerBag);
 
             } else {
@@ -252,7 +257,6 @@ export class GeneralManagementComponent {
                     this.btnFilter = true;
                 }
             }else{
-                //alert(assign.strResponseMsg);
                 this.FN_ShowFilter();
             }           
             this.blockUI.stop();
@@ -393,6 +397,8 @@ export class GeneralManagementComponent {
     FN_ShowFilter(){
         let oRequest:any={};
         const dtNow:Date = new Date();
+
+        this.blockUI.start('Cargando...');
 
         oRequest.AgentID = this.mngtAgentID;
         oRequest.Year = dtNow.getFullYear();

@@ -26,6 +26,8 @@ export class ResultCodeNewComponent implements OnInit {
 
     lstResultCodeContact:any[]=[];
     lstResultCodeRelation:any[]=[];
+    lstResultCodePrevious:any[]=[];
+    lstCustContact:any[]=[];
 
     constructor (
         private router : Router,
@@ -43,6 +45,8 @@ export class ResultCodeNewComponent implements OnInit {
                 this.indica='I';
                 this.result.tipogestion = '';
                 this.result.idubica = '';
+                this.result.CustContactID = '0';
+                this.result.ContactPayment = false;
                 this.StateContact=false;
                 this.Modify = false;
 
@@ -58,6 +62,7 @@ export class ResultCodeNewComponent implements OnInit {
     loadData():void{
         this.lstTipGestion = this._collectionService.getGeneralCode(14);
         this.lstUbica = this._collectionService.getGeneralCode(6);
+        this.lstCustContact = this._collectionService.getGeneralCode(37);
         this.userData = this._collectionService.getUserData();
     }
 
@@ -66,11 +71,12 @@ export class ResultCodeNewComponent implements OnInit {
         data.Option = 'Register';
         data.intResultID = resultid;
 
-        this._collectionService.getData('api/Result/GetResultCodeRegister', data)
-             .subscribe(result =>{                 
+        this._collectionService.getData('api/Result/GetResultCodeRegister', data).subscribe(result =>{
+            if(result.strResponseCode=='0'){
                 this.register = result.objResult;
                 this.lstResultCodeContact = result.lstBEResultCodeContact;
                 this.lstResultCodeRelation = result.lstBEResultCodeRelation;
+                this.lstResultCodePrevious = result.lstResultCodePrevious;
                 
                 this.result.tipogestion = this.register.ObjIDClass;
                 this.result.resultcode = this.register.ResultCode;
@@ -83,7 +89,11 @@ export class ResultCodeNewComponent implements OnInit {
                 this.result.alerta = this.register.Alert;
                 this.result.SituationQuantity = this.register.intSituationQuantity;
                 this.result.Payment = this.register.blnPayment;
-                
+                this.result.CustContactID = this.register.CustomerContactID;
+                this.result.ContactPayment = this.register.ContactPayment;
+            }else{
+                alert(result.strResponseMsg);
+            }                
         })
     }
 
@@ -105,6 +115,8 @@ export class ResultCodeNewComponent implements OnInit {
             data.intSituationQuantity = this.result.SituationQuantity;
             data.Alert = this.result.alerta;
             data.blnPayment = this.result.Payment;
+            data.CustomerContactID = this.result.CustContactID;
+            data.ContactPayment = this.result.ContactPayment;
             data.State = 1;
             data.User = this.userData.UserName;
 

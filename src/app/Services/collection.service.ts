@@ -29,6 +29,15 @@ export class CollectionService {
     private showFilter = new Subject<any>();
     showFilterEmitted = this.showFilter.asObservable();
 
+    private showContact = new Subject<any>();
+    showContactEmitted = this.showContact.asObservable();
+
+    private showMail = new Subject<any>();
+    showMailEmitted = this.showMail.asObservable();
+
+    private showObservation = new Subject<any>();
+    showObservationEmitted = this.showObservation.asObservable();
+
     constructor(private http: Http,
                 private authenticationService: AuthenticationService) { }
 
@@ -59,9 +68,40 @@ export class CollectionService {
         this.showFilter.next(inputParameter);
     }
 
+    showModalContact(inputParameter:any){
+        this.showContact.next(inputParameter);
+    }
+
+    showModalMail(inputParameter:any){
+        this.showMail.next(inputParameter);
+    }
+
+    showModalObs(inputParameter:any){
+        this.showObservation.next(inputParameter);
+    }
+
     getAgentID(): number {
         const agentID: number = this.authenticationService.getPayLoad().AgentID;
         return agentID;
+    }
+
+    getListAlert():any[]{
+        let lstAlert:any[];
+        lstAlert = JSON.parse(sessionStorage.getItem('AlertList'));
+        return lstAlert;
+    }
+
+    setAlert(intAgentID:number){
+        let oRequest:any={};        
+        oRequest.AgentID=intAgentID;
+
+        this.getData('api/sgc/customerbag/AllAlert/get', oRequest).subscribe(response=>{
+            if(response.ResponseCode==='0'){
+                 sessionStorage.setItem('AlertList', JSON.stringify(response.lstEntity));
+            }else{
+                console.log(response.ResponseMsg);
+            }
+        });
     }
 
     getUserData(): any {

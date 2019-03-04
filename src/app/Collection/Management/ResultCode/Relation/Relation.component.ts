@@ -81,9 +81,7 @@ export class RelationComponent implements OnInit{
             .subscribe(response =>{
                 this.strResponse = response.strResponseMsg;                
                 this.blnValidation = false; 
-                this.FClean();             
-
-                console.log('code:' + response.strResponseCode + ' msg:' + response.strResponseMsg);
+                this.FClean();
             })
         }
     }
@@ -109,7 +107,6 @@ export class RelationComponent implements OnInit{
         this._CollectionService.getData('api/Result/PostResultCodeRelation', request)
         .subscribe(response =>{          
             this.FGetRelation();
-            console.log('code:' + response.strResponseCode + ' msg:' + response.strResponseMsg);
         })
     }
 
@@ -123,7 +120,6 @@ export class RelationComponent implements OnInit{
         subscribe(response =>{
             this.lblConsulta = response.strResponseMsg;
             this.lstResultCodeRelation = response.lstBEResultCodeRelation;
-            console.log('code:' + response.strResponseCode + ' msg:' + response.strResponseMsg);
         })
     }
 
@@ -152,7 +148,6 @@ export class RelationComponent implements OnInit{
 
         this._CollectionService.getData('api/sgc/bag/getbagbygroup/get',request)
             .subscribe(response =>{
-                console.log(response);
                 this.glstBag = response.lstBEBag;
         })
     }

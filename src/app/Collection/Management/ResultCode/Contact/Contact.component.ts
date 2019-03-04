@@ -63,13 +63,10 @@ export class ContactComponent implements OnInit{
 
             request.objBEResultCodeContact = data;
 
-            this._CollectionService.getData('api/Result/PostResultCodeContact', request)
-            .subscribe(res =>{
+            this._CollectionService.getData('api/Result/PostResultCodeContact', request).subscribe(res =>{
                 this.lblContactResponse = res.strResponseMsg;
                 this.contact.ddlContactID = '';  
                 this.blnValContactID = false;              
-
-                console.log('code:' + res.strResponseCode + ' msg:' + res.strResponseMsg);
             })
         }
     }
@@ -80,12 +77,8 @@ export class ContactComponent implements OnInit{
         data.intClassID = this.register.ObjIDClass;
         data.intResultID = this.register.ResultID;
 
-        this._CollectionService.getData('api/Result/GetResultCodeContact', data)
-        .subscribe(response =>{
-            console.log(response.lstBEResultCodeContact);
+        this._CollectionService.getData('api/Result/GetResultCodeContact', data).subscribe(response =>{
             this.lstResultCodeContact = response.lstBEResultCodeContact;
-
-            console.log('code:' + response.strResponseCode + ' msg:' + response.strResponseMsg);
         })
     }
 

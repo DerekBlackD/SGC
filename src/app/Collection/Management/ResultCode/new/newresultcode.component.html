@@ -20,6 +20,14 @@
                     <option *ngFor="let opc1 of lstUbica" value="{{opc1.ID}}">{{opc1.Value}}</option>
                 </select>
             </div>
+
+            <label class="col-sm-1 control-label">Contacto</label>
+            <div class="col-sm-2">
+                <select class="form-control" [(ngModel)]="result.CustContactID" name="CustContactID" required >
+                    <option value="0">Seleccionar</option>
+                    <option *ngFor="let item of lstCustContact" value="{{item.ID}}">{{item.Value}}</option>
+                </select>
+            </div>
         </div>
     </div>
 
@@ -86,6 +94,16 @@
 
     <div class="row small">
         <div class="form-group form-group-sm">
+            <div class="col-sm-offset-1 col-sm-2">
+                <div class="checkbox">
+                    <label><input type="checkbox" [(ngModel)]="result.ContactPayment" name="ContactPayment" >Contacto sin Compromiso</label>                
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row small">
+        <div class="form-group form-group-sm">
             <div class="col-sm-offset-1 col-sm-10">
                 <button type="button" class="btn btn-primary btn-sm" (click)="SaveResult(frmGeneralCode.valid)" >Guardar</button>
                 <button type="button" class="btn btn-primary btn-sm" (click)="SalirNew()" >Salir</button>
@@ -94,13 +112,23 @@
     </div>
     <br>
 
-    <div class="row">
-        <div class="col-md-5">
-            <Contact-component *ngIf="StateContact" [register]="register" [lstResultCodeContact]="lstResultCodeContact" ></Contact-component>
+    <div class="row small">
+        <div class="form-group form-group-sm">
+            <div class="col-md-6">
+                <Contact-component *ngIf="StateContact" [register]="register" [lstResultCodeContact]="lstResultCodeContact" ></Contact-component>
+            </div>
+    
+            <div class="col-md-6">
+                <Previous-component *ngIf="StateContact" [register]="register" [lstResultCodePrevious]="lstResultCodePrevious" ></Previous-component>
+            </div>
         </div>
+    </div>
 
-        <div class="col-md-6">
-            <Relation-component *ngIf="StateContact" [register]="register" [lstResultCodeRelation]="lstResultCodeRelation" ></Relation-component>
+    <div class="row small">
+        <div class="form-group form-group-sm">
+            <div class="col-md-12">
+                <Relation-component *ngIf="StateContact" [register]="register" [lstResultCodeRelation]="lstResultCodeRelation" ></Relation-component>
+            </div>
         </div>
     </div>
 </form>

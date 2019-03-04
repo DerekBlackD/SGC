@@ -65,15 +65,13 @@ export class GenAlert{
 
         oRequest.oEntity = oEntity;
 
-        this._collectionService.getData('api/sgc/customerbag/InsertAlert/post', oRequest)
-        .subscribe(result => {
-            this.lstAlert = JSON.parse(sessionStorage.getItem('AlertList'));
-            this.lstAlert.push(result.oEntity);
-            sessionStorage.setItem('AlertList', JSON.stringify(this.lstAlert));
-
+        this._collectionService.getData('api/sgc/customerbag/InsertAlert/post', oRequest).subscribe(result => {
+            if(result.ResponseCode=='0'){
+                this._collectionService.setAlert(this._collectionService.getAgentID());
+            }          
             this.blockUI.stop();
             this.blnShow = false;
-        })
+        },(error)=>{console.log(error)});
 
         /*
         this.oAlert.AgentID = this._collectionService.getAgentID();

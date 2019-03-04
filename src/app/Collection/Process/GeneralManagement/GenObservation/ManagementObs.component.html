@@ -1,0 +1,13 @@
+<p-dialog header="Mantenimiento Observación" [(visible)]="blnShow" modal="modal" width="800" [responsive]="true">
+    <form class="form-horizontal" name="frmObs" #frmObs="ngForm" novalidate >
+        <div class="form-group form-group-sm">
+            <label class="col-sm-1 control-label">Observación</label>
+            <div class="col-sm-10" [ngClass]="{'has-error has-feedback' : blnValidate }">
+                <textarea class="form-control" maxlength="500" cols="1" rows="4" name="Observation" [(ngModel)]="oObs.Observation" ></textarea>
+            </div>
+        </div>
+    </form>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" (click)="saveObs(frmObs.valid)" label="Guardar"></button>
+    </p-footer>
+</p-dialog>

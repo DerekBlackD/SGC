@@ -13,11 +13,12 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-4">
             <ul class="nav navbar-nav navbar-right">
-                <li></li>
+                <li><a class="btn-without-ref" (click)="GetAccountActive()"><span class="glyphicon glyphicon-ok"></span></a></li>
+                <li><a class="btn-without-ref" (click)="GetAccountNoActive()"><span class="glyphicon glyphicon-remove"></span></a></li>
             </ul>
         </div>
     </div>
-    <div class="mngt-scrolls table-responsive">
+    <div *ngIf="blnShowAccountAct" class="mngt-scrolls table-responsive">
         <table class="table table-condensed" >
             <thead class="table-fixed">
                 <tr>
@@ -34,6 +35,20 @@
                     <td *ngFor="let col of item">{{col}}</td>
                 </tr>
             </tfoot>
+        </table>
+    </div>
+    <div *ngIf="blnShowAccountNAct" class="mngt-scrolls table-responsive">
+        <table class="table table-condensed" >
+            <thead class="table-fixed">
+                <tr>
+                    <th *ngFor="let item of lstAccountHeadInac">{{item}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of lstAccountBodyInac">
+                    <td *ngFor="let col of item; let row = index" [ngStyle]="FColorCelda(row)">{{col}}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </div>

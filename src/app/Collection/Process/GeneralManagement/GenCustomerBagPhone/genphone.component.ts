@@ -157,4 +157,17 @@ export class GenCustomerBagPhone {
         this.custBagPhone = {};
         this.cleanData();
     }
+
+    FColorCelda(oPhone:any){
+        let oStyle:any;
+        let strBackgroundColor:string='';
+
+        strBackgroundColor = (oPhone.Situation==1)?'White':'Silver';
+
+        oStyle = {
+            'background-color': strBackgroundColor
+        };
+
+        return oStyle;
+    }
 }

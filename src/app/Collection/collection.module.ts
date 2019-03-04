@@ -30,6 +30,7 @@ import { ManagementGeneralComponent } from './Management/Report/Management/Manag
 import { AccountComponent } from './Management/Format/Account/Account.component';
 import { ContactComponent } from './Management/ResultCode/Contact/Contact.component';
 import { RelationComponent } from './Management/ResultCode/Relation/Relation.component';
+import { PreviousComponent } from './Management/ResultCode/Previous/Previous.component';
 import { ManagementComoponent } from './Management/Format/Account/Management/Management.component';
 import { FormatComponent } from './Management/Report/ManagementFormat/Format.component';
 import { FilesComponent } from './Management/Report/Files/Files.component';
@@ -57,6 +58,9 @@ import { Import1Component } from './Management/Import/Import1.component';
 import { AuditComponent } from './Report/Audit/All.component';
 import { ManagementDeleteComponent } from './Management/CustomerBag/Managements/Transaction/Delete.component';
 import { GenFilter } from './Process/GeneralManagement/GenFilter/genfilter.component';
+import { CustomerBagContact } from './Process/GeneralManagement/GenCustomerBagContact/NewContact.component';
+import { CustomerBagMail } from './Process/GeneralManagement/GenMail/ManagementMail.component';
+import { CustomerBagObservation } from './Process/GeneralManagement/GenObservation/ManagementObs.component';
 // Services
 import { CollectionService } from '../Services/collection.service';
 
@@ -125,7 +129,11 @@ import { CollectionRoutingModule } from './collection-routing.module';
     GenPay,
     AuditComponent,
     ManagementDeleteComponent,
-    GenFilter
+    GenFilter,
+    PreviousComponent,
+    CustomerBagContact,
+    CustomerBagMail,
+    CustomerBagObservation
   ],
   entryComponents: [
     GenCustomerBagSearch

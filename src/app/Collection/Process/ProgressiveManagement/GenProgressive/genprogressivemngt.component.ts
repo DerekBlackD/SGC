@@ -138,12 +138,23 @@ export class GenProgressiveMngtComponent {
 
     changeResult(val: number): void {
         this.selectResult = this.oResultCodes.find(x => x.ResultID == val);
-        if (val == 1 || val == 21) {
+
+        //Generar pago por resultado
+        if(this.selectResult.blnPayment){
             this.showPayComp = true;
             this.oManagement.ApplyPayComp = 1;
-        } else {
+        }else{
             this.showPayComp = false;
             this.oManagement.ApplyPayComp = 0;
+        }
+
+        //Generar alerta por resultado
+        if(this.selectResult.Alert){
+            if (this.customerData.CustomerBagID !== 0) {
+                this._collectionService.showModal('alert');
+            } else {
+                alert('Debe de seleccionar un cliente');
+            }
         }
     }
 
@@ -196,7 +207,11 @@ export class GenProgressiveMngtComponent {
             this.oManagement.FilterID = this.customerData.FilterID;
             this.oManagement.FilterLine = this.customerData.FilterLine;
 
-            this._collectionService.getData('api/customerbag/postcustbagmanagement', this.oManagement)
+            const oRequest:any={};
+            oRequest.CustomerBagManagement = this.oManagement;
+            oRequest.oResult = this.selectResult;
+
+            this._collectionService.getData('api/customerbag/PostManagementAsync/post', oRequest)
                 .subscribe(result => {
                     this.blockUI.stop();
                     this.loadManagements();

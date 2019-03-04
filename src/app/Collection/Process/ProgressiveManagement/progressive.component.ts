@@ -159,6 +159,8 @@ export class ProgressiveManagementComponent {
         this._collectionService.getData('api/sgc/CustomerBagFilter/GetFilterManagementQuery/get', data)
             .subscribe(response => {
                 this.lstProgressive = response.lstCustomerBagFilter;
+                this.lstCustBagProgressive = response.lstCustomerBagFilter;
+                console.log(this.lstCustBagProgressive);
         })
     }
 

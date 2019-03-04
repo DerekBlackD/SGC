@@ -34,22 +34,22 @@
                     <th>Prio</th>
                     <th>Proveedor</th>
                     <th>Origen</th>
-                    <th>Clase</th>
                     <th>Contacto</th>
                     <th>Contactabilidad</th>
+                    <th>OBS</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let phone of customerBagPhoneData" (click)="setClickedRow(phone.ID, phone.Phone)" [class.active]="phone.ID == selectObjPhone.phoneID">
+                <tr *ngFor="let phone of customerBagPhoneData; let row=index" (click)="setClickedRow(phone.ID, phone.Phone)" [class.active]="phone.ID == selectObjPhone.phoneID" [ngStyle]="FColorCelda(phone)" >
                     <td><a class="btn-without-ref" (click)="editCustomerPhone(phone)"><span class="glyphicon glyphicon-pencil"></span></a></td>
                     <td>{{phone.Phone}}</td>
                     <td>{{phone.Annexed}}</td>
-                    <td>{{phone.Priority}}</td>
+                    <td>{{row+1}}</td>
                     <td>{{phone.ProviderDesc}}</td>
                     <td>{{phone.OriginDesc}}</td>
-                    <td>{{phone.ClassDesc}}</td>
                     <td>{{phone.ContactName}}</td>
                     <td>{{phone.ContactabilityName}}</td>
+                    <td>{{phone.Observation}}</td>
                 </tr>
             </tbody>
         </table>

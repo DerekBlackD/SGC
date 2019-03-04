@@ -25,6 +25,8 @@ export class GenManagement {
      CustBagManagementsData: any[] = []; // List of managements of customer bag
      oResultCodes: any[] = []; // List of management result codes
      lstAllResultCodes: any[] = []; // List of all result code of app
+     lstResultCodeContact: any[]=[];
+     lstResultCodeContactFilter: any[]=[];
      lstMngtType: any; // Drop down management type
      lstContact: any; // Drop down conctact customer
      lstLocation: any; // Drop down location customer
@@ -33,6 +35,7 @@ export class GenManagement {
      startDate: string;
      // Control Handlers Variables
      showPayComp = false; // Flag for show compromise type
+     showNoPayComp = true; // Flag for show no compromise type
      todayDate: string; // Today date in string format
      submitted = false; // Flag for submit form validation
      showInputDate = true; // Flag for show or hide input date
@@ -53,10 +56,12 @@ export class GenManagement {
         this.userData = this._collectionService.getUserData();
         this.agentData = this._collectionService.getAgentData();
         this.es = this._collectionService.getCalendarLanguage();
+        this.lstContact = this._collectionService.getGeneralCode(4);
 
         this.resetVariables();
         this.loadResult();
         this.loadData();
+        this.FN_AllResultCodeContact();
 
         this._collectionService.getConfigFile().subscribe(res => {
             this.filterContactPlace = res[0].FiltroLugarContacto;
@@ -127,22 +132,23 @@ export class GenManagement {
         this.selectAddress.AddressID = 0;
         this.selectAddress.Address = '';
         this.submitted = false;
+        this.oManagement.LocationContact = 6;
+        this.showNoPayComp = true;
      }
 
-     loadResult(): void {
+    loadResult(): void {
         const data: any = {};
         data.Option = 'AllData';
 
-        this._collectionService.getData('api/Result/getResult', data)
-            .subscribe(response => {
-                this.lstAllResultCodes = response.lstResult;
-                if (this.agentData.Type === 1 || this.agentData.Type === 3) {
-                    this.oResultCodes = this.lstAllResultCodes.filter(x => x.Class === 'CALL');
-                }
+        this._collectionService.getData('api/Result/getResult', data).subscribe(response => {
+            this.lstAllResultCodes = response.lstResult;
+            if (this.agentData.Type === 1 || this.agentData.Type === 3) {
+                this.oResultCodes = this.lstAllResultCodes.filter(x => x.Class === 'CALL');
+            }
 
-                if (this.agentData.Type === 2 || this.agentData.Type === 4) {
-                    this.oResultCodes = this.lstAllResultCodes.filter(x => x.Class === 'CAMPO');
-                }
+            if (this.agentData.Type === 2 || this.agentData.Type === 4) {
+                this.oResultCodes = this.lstAllResultCodes.filter(x => x.Class === 'CAMPO');
+            }
         })
     }
 
@@ -166,9 +172,24 @@ export class GenManagement {
         //Generar pago por resultado
         if(this.selectResult.blnPayment){
             this.showPayComp = true;
+            this.oManagement.TypeComp = '';
             this.oManagement.ApplyPayComp = 1;
+            this.oManagement.Currency = 1;
+            this.oManagement.Amount = 0;
+            this.showNoPayComp = true;
         }else{
             this.showPayComp = false;
+            this.oManagement.ApplyPayComp = 0;
+        }
+        //Generar contacto sin compromiso de pago
+        if(this.selectResult.ContactPayment){
+            this.showPayComp = true;
+            this.showNoPayComp = false;
+            this.oManagement.TypeComp = '';
+            this.oManagement.ApplyPayComp = 1;
+            this.oManagement.Currency = 1;
+            this.oManagement.Amount = 0;
+        }else{
             this.oManagement.ApplyPayComp = 0;
         }
         //Generar alerta por resultado
@@ -181,11 +202,17 @@ export class GenManagement {
         }        
     }
 
-    changeLocation(locationIDSel: any): void {
+    /*changeLocation(locationIDSel: any): void {
         this.selectLocation = this.lstLocation.find(x => x.ID == locationIDSel);
         this.lstContact = this._collectionService.getGeneralCode(this.selectLocation.SubRelation);
+    }*/
+    changeContact(ContactID:any):void{
+        if(this.lstResultCodeContact!=null){
+            this.lstResultCodeContactFilter = this.lstResultCodeContact.filter(x=>x.ObjIDClass==this.agentData.Type && x.ResultCodeContactID==ContactID);
+        }else{
+            this.lstResultCodeContactFilter=null;
+        }
     }
-
 
     saveManagement(isValid: boolean): void {
         this.submitted = true;
@@ -247,15 +274,17 @@ export class GenManagement {
             oRequest.CustomerBagManagement = this.oManagement;
             oRequest.oResult = this.selectResult;
 
-            this._collectionService.getData('api/customerbag/PostManagementAsync/post', oRequest)
-                .subscribe(result => {
-                    console.log(result);
+            this._collectionService.getData('api/customerbag/PostManagementAsync/post', oRequest).subscribe(result => {
+                if(result.strResponseCode=='0'){
                     this.FN_UpdateAlert(this.gAlertID,result.intNewManagementID);
                     this.loadManagements();
                     this.resetVariables();
-                    this.todayDate = this._util.getDate();
-                    this.blockUI.stop();
-                })
+                }else{
+                    alert(result.strResponseMsg);
+                }
+                this.todayDate = this._util.getDate();
+                this.blockUI.stop();
+            });
         }
     }
 
@@ -268,19 +297,29 @@ export class GenManagement {
             oEntity.AlertStatusID= 2;
             oEntity.User = this.userData.UserName;
             oRequest.oEntity = oEntity;
-            this._collectionService.getData('api/sgc/customerbag/UpdateAlert/post', oRequest)
-            .subscribe(response => {
+            this._collectionService.getData('api/sgc/customerbag/UpdateAlert/post', oRequest).subscribe(response => {
                 if(response.ResponseCode=='0'){
-                    let lstAlert = JSON.parse(sessionStorage.getItem('AlertList'));
-                    console.log(lstAlert);
-                    console.log(response.ResponseID);
-                    lstAlert = lstAlert.filter(x => x.ID != response.ResponseID);
-                    lstAlert.push(response.oEntity);
-                    sessionStorage.setItem('AlertList', JSON.stringify(lstAlert));
+                    this._collectionService.setAlert(this._collectionService.getAgentID());
                 }else{
                     alert(response.ResponseMsg);
                 }
             })
         }
+    }
+
+    FN_AllResultCodeContact():void{
+        var oRequest={};
+
+        this._collectionService.getData('api/Result/GetAllResultCodeContact', oRequest).subscribe(response => {
+            if(response.strResponseCode=='0'){
+                this.lstResultCodeContact = response.lstBEResultCodeContact;
+            }else{
+                alert(response.strResponseMsg);
+            }
+        });
+    }
+
+    FN_CleanManagement():void{
+        this.resetVariables();
     }
 }

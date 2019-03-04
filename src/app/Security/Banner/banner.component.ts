@@ -33,7 +33,6 @@ export class BannerComponent {
             if (response) {
                 this.userData = JSON.parse(sessionStorage.getItem('userData'));
                 this.agentData = JSON.parse(sessionStorage.getItem('agentData'));
-                this.LoadAllAlert(this.agentData.AgentID);
 
                 Observable.interval(1000).subscribe(res=>{
                     this.showAlert();
@@ -61,7 +60,7 @@ export class BannerComponent {
         let tmSec = new Date().getSeconds();
         let strDate = this.FN_CompleteZero(dtDay) + '/' + this.FN_CompleteZero(dtMon) + '/' + this.FN_CompleteZero(dtYear);
         let strTime = this.FN_CompleteZero(tmHour) + ':' + this.FN_CompleteZero(timMin) + ':' + this.FN_CompleteZero(tmSec);
-        let lstAlert = JSON.parse(sessionStorage.getItem('AlertList'));
+        let lstAlert = this._collectionService.getListAlert();
 
         if(lstAlert!=undefined){
             if(lstAlert.length>0){
@@ -76,21 +75,6 @@ export class BannerComponent {
         }
 
         
-    }
-
-    LoadAllAlert(intAgentID:number){
-        let oRequest:any={};
-        
-        oRequest.AgentID=intAgentID;
-
-        this._collectionService.getData('api/sgc/customerbag/AllAlert/get', oRequest).subscribe(response=>{
-            if(response.ResponseCode==='0'){
-                 sessionStorage.setItem('AlertList', JSON.stringify(response.lstEntity));
-            }else{
-                console.log(response.ResponseMsg);
-            }
-        });
-
     }
 
     FN_CompleteZero(value):string{
