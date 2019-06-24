@@ -3,6 +3,7 @@ import { Http, Headers, RequestOptions, Response, RequestMethod } from '@angular
 import { AuthenticationService } from './authentication.service';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
+import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -39,7 +40,8 @@ export class CollectionService {
     showObservationEmitted = this.showObservation.asObservable();
 
     constructor(private http: Http,
-                private authenticationService: AuthenticationService) { }
+                private authenticationService: AuthenticationService,
+                private _router: Router) { }
 
     restartData(change: any) {
         this.restartComponent.next(change);
@@ -87,17 +89,17 @@ export class CollectionService {
 
     getListAlert():any[]{
         let lstAlert:any[];
-        lstAlert = JSON.parse(sessionStorage.getItem('AlertList'));
+        lstAlert = JSON.parse(localStorage.getItem('AlertList'));
         return lstAlert;
     }
 
     setAlert(intAgentID:number){
-        let oRequest:any={};        
+        let oRequest:any={};
         oRequest.AgentID=intAgentID;
 
         this.getData('api/sgc/customerbag/AllAlert/get', oRequest).subscribe(response=>{
             if(response.ResponseCode==='0'){
-                 sessionStorage.setItem('AlertList', JSON.stringify(response.lstEntity));
+                 localStorage.setItem('AlertList', JSON.stringify(response.lstEntity));
             }else{
                 console.log(response.ResponseMsg);
             }
@@ -105,13 +107,13 @@ export class CollectionService {
     }
 
     getUserData(): any {
-        this.userData = JSON.parse(sessionStorage.getItem('userData'));
+        this.userData = JSON.parse(localStorage.getItem('userData'));
         return this.userData;
     }
 
     getAgentData(): any {
-        if (sessionStorage.getItem('agentData')) {
-            this.agentData = JSON.parse(sessionStorage.getItem('agentData'));
+        if (localStorage.getItem('agentData')) {
+            this.agentData = JSON.parse(localStorage.getItem('agentData'));
         }
         return this.agentData;
     }
@@ -119,7 +121,7 @@ export class CollectionService {
     getGeneralCode(groupID: number): any[] {
         let generalCodeList: any[];
         let selectGeneralCodeList: any[];
-        generalCodeList = JSON.parse(sessionStorage.getItem('generalData'));
+        generalCodeList = JSON.parse(localStorage.getItem('generalData'));
         selectGeneralCodeList = generalCodeList.filter(x => x.GroupID === groupID);
         return selectGeneralCodeList;
     }
@@ -153,8 +155,9 @@ export class CollectionService {
         });
 
         const optionsRequest = new RequestOptions({  headers: headers });
-
-        const apiUrl = this.authenticationService.urlBase + url;
+        console.log(optionsRequest);
+        //const apiUrl = this.authenticationService.urlBase + url;
+        const apiUrl = 'http://localhost:9580/' + url;
 
         data.BusinessID = this.authenticationService.getPayLoad().BusinessID; // this.authenticationService.businessID;
 
@@ -172,6 +175,8 @@ export class CollectionService {
                 errMsg = error.message ? error.message : error.string();
             }
 
+            //console.log(errMsg);
+            //this._router.navigateByUrl('/');
             return Observable.throw(errMsg);
         })
         .share();

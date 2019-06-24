@@ -15,12 +15,19 @@ export class AuthenticationService {
     constructor(private http: Http) {
         // set token if saved in local storage
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.token = currentUser && currentUser.token;
+        //this.token = currentUser && currentUser.token;
+        if (currentUser == null) {
+            this.token = '';
+        } else {
+            this.token = currentUser.token;
+        }
+
         this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
         this.businessID = this.getPayLoad().BusinessID;
 
         this.getConfigFile().subscribe(res => {
             this.urlBase = res[0].UrlBase;
+            console.log(this.urlBase);
         });
 
         // this.urlBase = 'http://54.233.102.195/SGC-BE/';
@@ -41,7 +48,7 @@ export class AuthenticationService {
                     this.token = token;
 
                     // store username and jwt token in local storage to keep user logged in between page refreshes
-                    sessionStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
 
                     // return true to indicate successful login
                     return '0';
@@ -66,13 +73,13 @@ export class AuthenticationService {
     logout(): void {
         // clear token remove user from local storage to log user out
         this.token = null;
-        sessionStorage.removeItem('currentUser');
-        sessionStorage.removeItem('userData');
-        sessionStorage.removeItem('agentData');
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('userData');
+        localStorage.removeItem('agentData');
     }
 
     getPayLoad(): any {
-        const token = sessionStorage.getItem('currentUser')
+        const token = localStorage.getItem('currentUser')
 
         if (token) {
             if (token && token.split('.').length === 3) {

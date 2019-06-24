@@ -23,7 +23,7 @@ export class NotificationComponent {
             response => {
                 if (response === 'listNotif') {
                     this.blnShow = true;
-                    let lstActive = JSON.parse(sessionStorage.getItem('AlertList'));
+                    let lstActive = JSON.parse(localStorage.getItem('AlertList'));
                     if(lstActive!=null){
                         lstActive = lstActive.filter(x => x.AlertStatusID == 1);
                     }
@@ -37,7 +37,7 @@ export class NotificationComponent {
     FN_SelectDate(){
         let lstAlert:any[]=[];
 
-        lstAlert = JSON.parse(sessionStorage.getItem('AlertList'));
+        lstAlert = JSON.parse(localStorage.getItem('AlertList'));
 
         if(!this.chkAll){
             if(lstAlert!=null){

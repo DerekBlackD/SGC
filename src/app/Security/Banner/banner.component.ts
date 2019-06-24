@@ -31,8 +31,8 @@ export class BannerComponent {
         this._sharedService.changeEmitted$.subscribe(
         response => {
             if (response) {
-                this.userData = JSON.parse(sessionStorage.getItem('userData'));
-                this.agentData = JSON.parse(sessionStorage.getItem('agentData'));
+                this.userData = JSON.parse(localStorage.getItem('userData'));
+                this.agentData = JSON.parse(localStorage.getItem('agentData'));
 
                 Observable.interval(1000).subscribe(res=>{
                     this.showAlert();

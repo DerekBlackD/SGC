@@ -307,19 +307,19 @@ export class GenManagement {
         }
     }
 
-    FN_AllResultCodeContact():void{
+    FN_AllResultCodeContact(): void {
         var oRequest={};
 
         this._collectionService.getData('api/Result/GetAllResultCodeContact', oRequest).subscribe(response => {
-            if(response.strResponseCode=='0'){
+            if (response.strResponseCode == '0') {
                 this.lstResultCodeContact = response.lstBEResultCodeContact;
-            }else{
+            } else {
                 alert(response.strResponseMsg);
             }
         });
     }
 
-    FN_CleanManagement():void{
+    FN_CleanManagement(): void {
         this.resetVariables();
     }
 }

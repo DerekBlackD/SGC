@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
         request.ID = this._authenticationService.getPayLoad().ID;
         this._collectionService.getData('api/sgc/user/getuser/get', request)
         .subscribe(response => {
-            sessionStorage.setItem('userData', JSON.stringify(response.objUser));
+            localStorage.setItem('userData', JSON.stringify(response.objUser));
             this._sharedService.emitChange(true);
             this.router.navigateByUrl('/Cobranza/Home');
         });
@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
         this._collectionService.getData('api/sgc/agent/getagentdata/get', request)
         .subscribe(response => {
             if (response.ListAgents != null || response.ListAgents.length > 0) {
-                sessionStorage.setItem('agentData', JSON.stringify(response.ListAgents[0]))
+                localStorage.setItem('agentData', JSON.stringify(response.ListAgents[0]))
             }
         })
     }
@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
         const request: any = {};
         this._collectionService.getData('api/sgc/common/getallgeneralcodedata/get', request)
         .subscribe(response => {
-            sessionStorage.setItem('generalData', JSON.stringify(response.lstGeneralCode));
+            localStorage.setItem('generalData', JSON.stringify(response.lstGeneralCode));
         })
     }
 }

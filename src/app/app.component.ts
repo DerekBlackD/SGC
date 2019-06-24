@@ -25,8 +25,11 @@ export class AppComponent {
     //   this.loadMenu();
     // }
 
-    this._authenticationService.logout();
-    this._router.navigateByUrl('/');
+    //this._authenticationService.logout();
+    console.log(localStorage.getItem('currentUser'));
+    if (!localStorage.getItem('currentUser')) {
+      this._router.navigateByUrl('/');
+    }
 
     this._sharedService.changeEmitted$.subscribe(
     response => {

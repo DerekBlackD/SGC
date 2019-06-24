@@ -215,14 +215,14 @@ export class GeneralManagementComponent {
         this.blockUI.start('Cargando...');
         this.resetVariables();
         const data: any = {};
-        const dtNow:Date = new Date();
+        const dtNow: Date = new Date();
 
         data.AgentID = this.mngtAgentID;
         data.Year = dtNow.getFullYear();
         data.Month = dtNow.getMonth() + 1;
 
         this._collectionService.getData('api/GetAssign', data).subscribe(assign => {
-            if(assign.strResponseCode=='0'){
+            if (assign.strResponseCode == '0') {
                 this.lstAssign = assign.lstAssignmentByAgent;
                 if (this.lstAssign.length > 0) {
                     this.customerData.CustomerBagID = this.lstAssign[0].CustomerBagID;
@@ -240,27 +240,29 @@ export class GeneralManagementComponent {
                             this.customerBagManagementsData = this.customerBagData.Managements;
                             this.customerBagManagementsDataBack = this.customerBagManagementsData;
                         }
-                        if(this.customerBagData.Pays!= null){
+                        if (this.customerBagData.Pays != null) {
                             this.customerBagPay = this.customerBagData.Pays;
                         }
-        
+
                         this.lstAccountFormat = this.customerBagData.LstAccountFormat;
                         this.lstAccountHead = this.customerBagData.LstHead;
                         this.lstAccountBody = this.customerBagData.LstBody;
                         this.lstAccountFoot = this.customerBagData.LstFoot;
                     }
-    
+
                     this.valIndex();
                 } else {
                     this.btnnextState = true;
                     this.btnprevState = true;
                     this.btnFilter = true;
                 }
-            }else{
+            } else {
                 this.FN_ShowFilter();
-            }           
-            this.blockUI.stop();
+            }
+
         })
+
+        this.blockUI.stop();
     }
 
     loadCustomerBagData(customerBag: any): void {
@@ -274,7 +276,7 @@ export class GeneralManagementComponent {
         this.customerData.CustomerBagID = customerBag.CustomerBagID;
         this.customerData.CustomerID = customerBag.CustomerID;
         this.customerData.BagID = customerBag.BagID;
-        
+
         this._collectionService.getData('api/customerbag/getcustomerbagbyid', request)
             .subscribe(data => {
                 this.customerData.DocNumber = data.objCustomerBag.DocNumber;
@@ -299,8 +301,9 @@ export class GeneralManagementComponent {
                 this.lstAccountBody = this.customerBagData.LstBody;
                 this.lstAccountFoot = this.customerBagData.LstFoot;
 
-                this.blockUI.stop();
             })
+
+            this.blockUI.stop();
     }
 
     AddAmounts(customerBagAccountData: any[]): void {
@@ -382,19 +385,19 @@ export class GeneralManagementComponent {
         this.valIndex();
     }
 
-    showListPay(){
+    showListPay() {
         if (this.customerData.CustomerBagID !== 0) {
-            if(this.customerBagPay.length!==0){
+            if (this.customerBagPay.length !== 0) {
                 this._collectionService.showModalPay(true);
-            }else{
+            } else {
                 alert('Cliente no ha realizado pagos');
-            }            
+            }
         } else {
             alert('Debe de seleccionar un cliente');
         }
     }
 
-    FN_ShowFilter(){
+    FN_ShowFilter() {
         let oRequest:any={};
         const dtNow:Date = new Date();
 
