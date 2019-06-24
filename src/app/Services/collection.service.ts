@@ -157,7 +157,7 @@ export class CollectionService {
         const optionsRequest = new RequestOptions({  headers: headers });
         console.log(optionsRequest);
         //const apiUrl = this.authenticationService.urlBase + url;
-        const apiUrl = 'http://localhost:9580/' + url;
+        const apiUrl = 'http://209.45.54.65/SGC-BE/' + url;
 
         data.BusinessID = this.authenticationService.getPayLoad().BusinessID; // this.authenticationService.businessID;
 
